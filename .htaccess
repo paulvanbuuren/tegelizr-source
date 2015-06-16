@@ -1,0 +1,55 @@
+
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+RewriteRule  ^[_0-9a-zA-Z-]+/(.*\.png) $1 [L]
+RewriteRule  ^[_0-9a-zA-Z-]+/(.*\.css) $1 [L]
+RewriteRule  ^[_0-9a-zA-Z-]+/(.*\.php)$ $1 [L]
+RewriteRule  ^[_0-9a-zA-Z-]+/(.*\.eot)$ $1 [L]
+RewriteRule  ^[_0-9a-zA-Z-]+/(.*\.svg)$ $1 [L]
+RewriteRule  ^[_0-9a-zA-Z-]+/(.*\.ttf)$ $1 [L]
+RewriteRule  ^[_0-9a-zA-Z-]+/(.*\.woff)$ $1 [L]
+RewriteRule  ^[_0-9a-zA-Z-]+/(.*\.html)$ $1 [L]
+RewriteRule . index.php [L]
+
+
+<FilesMatch "\.(ttf|otf|woff)$">
+<IfModule mod_headers.c>
+Header set Access-Control-Allow-Origin "*"
+</IfModule>
+</FilesMatch>
+
+
+<IfModule mod_headers.c>
+# No ETags, No Pragma
+Header unset Last-Modified
+Header unset Pragma
+Header unset ETag
+# Make sure proxies deliver correct content
+Header append Vary User-Agent env=!dont-vary
+# Ensure proxies deliver compressed content correctly
+Header append Vary Accept-Encoding
+Header unset Last-Modified
+Header set Expires "Fri, 04 Nov 2021 21:59:49 GMT"
+</IfModule>
+
+## EXPIRES CACHING ##
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType image/jpg "access 1 year"
+ExpiresByType image/jpeg "access 1 year"
+ExpiresByType image/gif "access 1 year"
+ExpiresByType image/png "access 1 year"
+ExpiresByType text/css "access 1 month"
+ExpiresByType application/pdf "access 1 month"
+ExpiresByType text/x-javascript "access 1 month"
+ExpiresByType application/x-shockwave-flash "access 1 month"
+ExpiresByType image/x-icon "access 1 year"
+ExpiresDefault "access 2 days"
+</IfModule>
+## EXPIRES CACHING ##
