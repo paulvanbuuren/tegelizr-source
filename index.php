@@ -1,5 +1,17 @@
 <?php
 
+// ===================================================================================================================
+// 
+//	Tegelizr.nl
+//	author:						Paul van Buuren
+//	contact:					paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
+//	version:					1.1
+//	version description:		
+//	1.1 - File clean up
+//	1.0 - First checkin
+// 
+// ===================================================================================================================
+
 include("common.inc.php"); 
 	
 ?>

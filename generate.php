@@ -24,8 +24,8 @@ $filename_klein     = $hashname . "_thumb.png";
 // output path voor grote tegel
 $destimagepath      = $outpath.$filename;
 
+// en dat tekstbestand erbij
 $filetxt           	= $outpath.$hashname . ".txt";
-
 
 // output path voor kleine thumbnail tegel
 $destimagepath_klein= $outpath_thumbs.date("Y") . "-" . date("m") . "-" . date("d") . "-" . date("H") . "-" . date("i") . "-" . date("s") . "_" . $filename_klein;
