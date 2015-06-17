@@ -5,8 +5,9 @@
 //	Tegelizr.nl
 //	author:						Paul van Buuren
 //	contact:					paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
-//	version:					1.10
+//	version:					1.11
 //	version description:		
+//	1.11 - verwijzing naar Github toegevoegd in footer
 //	1.10 - kleine stijlaanpassing voor soc-med-knoppen en cijfers toegevoegd aan eerste karakters in input
 //	1.9 - @-teken toegevoegd aan toegestane tekens
 //	1.8 - CSS correctie op footer links
@@ -236,6 +237,7 @@ else {
     <li><a href="<?php echo TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_REDACTIE . '/';?>">redactie</a></li>
     <li><a href="<?php echo TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ALLES . '/';?>">alle tegeltjes</a></li>
     <li><a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li>
+    <li><a href="https://github.com/paulvanbuuren/tegelizr-source">broncode</a></li>
   </ul>
 	</div>
 </footer>
