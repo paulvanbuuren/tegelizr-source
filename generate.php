@@ -13,7 +13,7 @@ if (empty($_GET['txt_tegeltekst']))
 // ===================================================================================================================
 
 // opschonen
-$text				= preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'üëïöäéèêç]+/", "", trim($_GET['txt_tegeltekst']));
+$text				= substr(preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"üëïöäéèêç]+/", "", trim($_GET['txt_tegeltekst'])),0,TEGELIZR_TXT_LENGTH);
 
 // zorgen dat er per unieke tekst maar 1 uniek plaatje aangemaakt wordt
 $hashname           = seoUrl( $text );
@@ -58,10 +58,13 @@ if (!file_exists($outpath.$filename)) {
 	$aantal_zinnen	= count($zinnen);
 
 	// 	tellen van maximum aantal karakters per zin
-	$maximale_text_lengte = 0;
-	for($i = 0, $size = count($zinnen); $i < $size; ++$i) {
+	$maximale_text_lengte	= 0;
+	$maximale_text			= $text;
+
+	for($i = 0, $size = $aantal_zinnen; $i < $size; ++$i) {
 		if ( strlen($zinnen[$i]) > $maximale_text_lengte ) {
-			$maximale_text_lengte = strlen($zinnen[$i]);
+			$maximale_text_lengte	= strlen($zinnen[$i]);
+			$maximale_text			= $zinnen[$i];
 		}
 	}
 	
@@ -73,52 +76,30 @@ if (!file_exists($outpath.$filename)) {
 	$fontsize		= 100;
 	$angle			= 0;
 	$font			= $fontpath."tegeltje.otf";
+	$regelafstand	= 10;
 
 	// beetje tweaken en tunen met font-grootte
 	if ( $maximale_text_lengte > $standaard_karaktersperregel ) {
 		$fontsize		= round( ( $fontsize * ( $standaard_karaktersperregel / $maximale_text_lengte  ) ), 0);
 	}
+
+	if ( $aantal_zinnen > 2 )  {
 	
-	if ( count($zinnen) > 2 ) {
+		$coordinaten	= calculatetekstdimensie($fontsize,$font,$maximale_text,$image_width,$image_height);
+		$regelhoogte 	= $coordinaten['hoogte'];
+		$verschuiving	= ( $image_height / 2 ) - ( ( ( $regelhoogte + $regelafstand ) * ( $aantal_zinnen  ) ) / 2);
 	
-		$regelhoogte 	= ( 450 / count($zinnen) );
-		$offsety 		= 280;
-		
-		$vorige_y		= $offsety;
-		$regelafstand	= 20;
-		
-	
-		for($i = 0, $size = count($zinnen); $i < $size; ++$i) {
+		for($i = 0, $size = $aantal_zinnen; $i < $size; ++$i) {
 			
 			// per zin bepalen waar deze op de image geplaatst moet worden
 			$text = $zinnen[$i];
 		
-			// Get Bounding Box Size
-			$text_box		= imagettfbbox($fontsize,$angle,$font,$text);
+			$coordinaten			= calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
+			$coordinaten['hoogte']	= $regelhoogte; // $regelhoogte;
+			teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, TEGELIZR_BLUR, $i, $verschuiving);
+
+			$verschuiving			= ( $verschuiving  + $regelhoogte + $regelafstand );	
 		
-			// imagettfbbox() returns an array with 8 elements representing four points 
-			// making the bounding box of the text on success and FALSE on error.
-			//	0	lower left corner, X position
-			//	1	lower left corner, Y position
-			//	2	lower right corner, X position
-			//	3	lower right corner, Y position
-			//	4	upper right corner, X position
-			//	5	upper right corner, Y position
-			//	6	upper left corner, X position
-			//	7	upper left corner, Y position
-		
-			
-			// Get your Text Width and Height
-			$text_width		= $text_box[2]-$text_box[0];
-			$text_height	= ( $text_box[3] - $text_box[1] );
-	
-			// Calculate coordinates of the text
-			$x = ($image_width/2) - ($text_width/2);
-			$y = ( $vorige_y  + $regelafstand );
-			
-			imagettftextblur($img, $fontsize, 0, $x, $y, $textcolor, $font, $text, TEGELIZR_BLUR);
-		
-			$vorige_y = ( $text_box[7] * -1 ) + $y;	
 		}
 	
 	}
@@ -154,58 +135,53 @@ if (!file_exists($outpath.$filename)) {
 					$blur = 6;
 			        break;
 			    case 5:
-					$fontsize		= 130;
+					$fontsize		= 125;
+			        break;
+			    case 6:
+					$fontsize		= 105;
 			        break;
 			    default:
-					$fontsize		= 100;
+					$fontsize		= 90;
 			}
 			
 		}
 		
 	
-		if ( count($zinnen) == 2 ) {
+		if ( $aantal_zinnen == 2 ) {
+
+			$coordinaten	= calculatetekstdimensie($fontsize,$font,$maximale_text,$image_width,$image_height);
+			$regelhoogte 	= $coordinaten['hoogte'];
+			$verschuiving	= ( $image_height / 2 ) - ( ( ( $regelhoogte + $regelafstand ) * ( $aantal_zinnen  ) ) / 2);
+
 			$text = $zinnen[0];
 		
-			// Get Bounding Box Size
-			$text_box		= imagettfbbox($fontsize,$angle,$font,$text);
-			// Get your Text Width and Height
-			$text_width		= ( $text_box[2] - $text_box[0] );
-			$text_height	= 1 * ( ( $text_box[5] - $text_box[3] ) );
-			
-			$x = ($image_width/2) - ($text_width/2);
-			$y = ($image_height/2) - ( $regelafstand );
-			
-			imagettftextblur($img, $fontsize, 0, $x, $y, $textcolor, $font, $text, TEGELIZR_BLUR);
+			$coordinaten			= calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
+			$coordinaten['hoogte']	= $regelhoogte; // $regelhoogte;
+			teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, TEGELIZR_BLUR, $i, $verschuiving);
+
+			$verschuiving			= ( $verschuiving  + $regelhoogte + $regelafstand );	
 
 			$text = $zinnen[1];
 		
-			// Get Bounding Box Size
-			$text_box		= imagettfbbox($fontsize,$angle,$font,$text);
+			$coordinaten			= calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
+			$coordinaten['hoogte']	= $regelhoogte; // $regelhoogte;
+			teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, TEGELIZR_BLUR, $i, $verschuiving);
 
-			// Get your Text Width and Height
-			$text_width		= ( $text_box[2] - $text_box[0] );
-			$text_height	= 1 * ( ( $text_box[5] - $text_box[3] ) );
-			
-			$x = ($image_width/2) - ($text_width/2);
-			$y = ($image_height/2) - ($text_height) + ( $regelafstand * 2 );
-			
-			imagettftextblur($img, $fontsize, 0, $x, $y, $textcolor, $font, $text, TEGELIZR_BLUR);
 
 		}
 		else {
+			
+			$text = $zinnen[0];
+
+			$coordinaten	= calculatetekstdimensie($fontsize,$font,$maximale_text,$image_width,$image_height);
+			$regelhoogte 	= $coordinaten['hoogte'];
+			$verschuiving	= ( $image_height / 2 ) - ( ( ( $regelhoogte + $regelafstand ) * ( $aantal_zinnen  ) ) / 2);
+
 			// voor tegeltjes met 1 zin
+			$coordinaten			= calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
+			$coordinaten['hoogte']	= $regelhoogte; // $regelhoogte;
+			teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, TEGELIZR_BLUR, $i, $verschuiving);
 
-			// Get Bounding Box Size
-			$text_box		= imagettfbbox($fontsize,$angle,$font,$text);
-
-			// Get your Text Width and Height
-			$text_width		= ( $text_box[2] - $text_box[0] );
-			$text_height	= 1 * ( ( $text_box[5] - $text_box[3] ) );
-			
-			$x = ($image_width/2) - ($text_width/2);
-			$y = ($image_height/2) - ($text_height/2);
-			
-			imagettftextblur($img, $fontsize, 0, $x, $y, $textcolor, $font, $text, TEGELIZR_BLUR);
 		}
 		
 	}
@@ -228,12 +204,71 @@ if (!file_exists($outpath.$filename)) {
 	
 	// doorsturen naar pagina met het aangemaakte image
 	header('Location: ' . $desturl);	
-	
+
 }
 else {
 
 	// doorsturen naar pagina met het bestaande image
 	header('Location: ' . $desturl);	
+
+}
+
+
+
+function calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height) {
+	
+	$coordinaten  = array();
+
+	// Get Bounding Box Size
+	$text_box		= imagettfbbox($fontsize,0,$font,$text);
+
+	$coordinaten['hoogte']		= ( $text_box[1] - $text_box[5] );
+	$coordinaten['breedte']		= ( $text_box[2] - $text_box[0] );
+	$coordinaten['xbottomr']	= $coordinaten['breedte'];
+	$coordinaten['ybottomr']	= 0;
+	$coordinaten['xtopl']		= ($image_width / 2) - ($coordinaten['breedte']/2);
+	$coordinaten['ytopl']		= $coordinaten['hoogte'];
+
+
+	return $coordinaten;
+
+
+
+}
+
+// ===================================================================================================================
+// function to resize an image to a new width
+// ===================================================================================================================
+function teken_tekst($canvas, $fontsize, $coordinaten, $textcolor, $font, $text, $blur, $counter, $verschuiving_y) {
+
+	$angle = 0;
+
+	switch ($counter) {
+	    case 1:
+			$color = imagecolorallocate($canvas, 132, 135, 28);
+	        break;
+	    case 2:
+			$color = imagecolorallocate($canvas, 255, 105, 180);
+	        break;
+	    case 3:
+			$color = imagecolorallocate($canvas, 255, 0, 0);
+	        break;
+	    default:
+			$color = imagecolorallocate($canvas, 255, 0, 255);
+	        break;
+	}
+
+//	$ypos = ( ( -1 * ( $coordinaten['hoogte'] + $coordinaten['ybottomr'] ) ) + $verschuiving_y );
+	$ypos = ( $coordinaten['hoogte'] + $verschuiving_y );
+
+//	$eindy = ( $coordinaten['hoogte'] + $verschuiving_y );
+
+	// Een rechthoek om de omtrek te zien
+//	imagerectangle($canvas, $coordinaten['xtopl'], $verschuiving_y, $coordinaten['breedte'], $eindy, $color);
+
+//	imagettftextblur($canvas, $fontsize, $angle, $coordinaten['xtopl'], $ypos, $color, $font, $text, $blur);
+	imagettftextblur($canvas, $fontsize, $angle, $coordinaten['xtopl'], $ypos, $textcolor, $font, $text, $blur);
+//	imagettftextblur($canvas, $fontsize, $angle, $coordinaten['xtopl'], ( $coordinaten['ytopl'] + $verschuiving_y ), $textcolor, $font, $text, $blur);
 
 }
 
