@@ -5,8 +5,9 @@
 //	Tegelizr.nl
 //	author:						Paul van Buuren
 //	contact:					paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
-//	version:					1.1
+//	version:					1.2
 //	version description:		
+//	1.2 - URL gecorrigeerd voor deelknoppen op default pagina
 //	1.1 - File clean up
 //	1.0 - First checkin
 // 
@@ -110,7 +111,7 @@ else {
 
 <article>
   <h1><?php echo returnlogo(); ?><?php echo TEGELIZR_TITLE ?></h1>
-  <?php echo wbvb_d2e_socialbuttons($_SERVER['REQUEST_URI'], TEGELIZR_TITLE, TEGELIZR_SUMMARY) ?>
+  <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'], TEGELIZR_TITLE, TEGELIZR_SUMMARY) ?>
   <p class="lead"> <?php echo TEGELIZR_FORM ?> </p>
   <aside>(maar Paul, <a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">wat heb je toch met die tegeltjes</a>?)</aside>
   <form role="form" id="posterform" name="posterform" action="generate.php" method="get" enctype="multipart/form-data">
