@@ -7,6 +7,7 @@
 //	contact:					paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
 //	version:					1.7
 //	version description:		
+//	1.8 - CSS correctie op footer links
 //	1.7 - view counter toegevoegd
 //	1.6 - = teken toegevoegd aan toegestane tekens
 //	1.5 - redactiepagina toegevoegd; blokken in footer responsive
