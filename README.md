@@ -5,12 +5,19 @@ Correct me if I'm wrong. Copy me if I'm right.
 ## Tegelizr.nl
 author:	Paul van Buuren
 
+current version: 2.0
+
 ## contact:					
 * paul@wbvb.nl
 * wbvb.nl/contact
 * twitter.com/paulvanbuuren
 
 ## Versions
+* 2.0 - complete herziening van de uitlijning in generate.php, bugfixes
+* 1.11 - verwijzing naar Github toegevoegd in footer
+* 1.10 - kleine stijlaanpassing voor soc-med-knoppen en cijfers toegevoegd aan eerste karakters in input
+* 1.9 - @-teken toegevoegd aan toegestane tekens
+* 1.8 - CSS correctie op footer links
 * 1.7 - view counter toegevoegd
 * 1.6 - = teken toegevoegd aan toegestane tekens
 * 1.5 - redactiepagina toegevoegd; blokken in footer responsive

@@ -6,21 +6,7 @@
 //	author:						Paul van Buuren
 //	contact:					paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
 //	version:					2.0
-//	version description:		
-//	2.0 - complete herziening van de uitlijning in generate.php, bugfixes
-//	1.11 - verwijzing naar Github toegevoegd in footer
-//	1.10 - kleine stijlaanpassing voor soc-med-knoppen en cijfers toegevoegd aan eerste karakters in input
-//	1.9 - @-teken toegevoegd aan toegestane tekens
-//	1.8 - CSS correctie op footer links
-//	1.7 - view counter toegevoegd
-//	1.6 - =-teken toegevoegd aan toegestane tekens
-//	1.5 - redactiepagina toegevoegd; blokken in footer responsive
-//	1.4 - blokken in footer naast elkaar
-//	1.3 - mogelijk tonen van alle tegeltjes toegevoegd
-//	1.2 - URL gecorrigeerd voor deelknoppen op default pagina
-//	1.1 - File clean up
-//	1.0 - First checkin
-// 
+
 // ===================================================================================================================
 
 include("common.inc.php"); 
