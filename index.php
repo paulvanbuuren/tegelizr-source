@@ -5,8 +5,9 @@
 //	Tegelizr.nl
 //	author:						Paul van Buuren
 //	contact:					paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
-//	version:					1.6
+//	version:					1.7
 //	version description:		
+//	1.7 - view counter toegevoegd
 //	1.6 - = teken toegevoegd aan toegestane tekens
 //	1.5 - redactiepagina toegevoegd; blokken in footer responsive
 //	1.4 - blokken in footer naast elkaar
@@ -130,6 +131,17 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 	$json_data		= file_get_contents($outpath.$filetxt);
 	$archieftekst	= json_decode($json_data, true);
 
+	if ( isset( $archieftekst['views'] ) ) {
+		$archieftekst['views'] = ( $archieftekst['views'] + 1);
+	}
+	else {
+		$archieftekst['views'] = 1;
+	}
+	
+	$newJsonString = json_encode($archieftekst);
+	file_put_contents($outpath.$filetxt, $newJsonString);
+
+
 	$txt_tegeltekst	= preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\(\)\=\-\:\;\'üëïöäéèêç]+/", "", trim($archieftekst['txt_tegeltekst']));
 
 	$titel = TEGELIZR_TITLE . ' - ' . $txt_tegeltekst;
@@ -147,6 +159,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 <article class="resultaat">
   <h1><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><?php echo TEGELIZR_TITLE ?></a></h1>
   <a href="<?=htmlspecialchars($desturl)?>" target="_blank"><img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje" /></a>
+  <p class="view-counter">(<?php echo $archieftekst['views'] ?> keer bekeken)</p>
   <p>Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>
   <?php echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY) ?>
   <?php 
