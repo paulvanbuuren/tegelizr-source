@@ -3,6 +3,7 @@ Public source code for tegelizr.nl. Correct me if I'm wrong. Copy me if I'm righ
 
 Tegelizr.nl
 author:						Paul van Buuren
+
 contact:					paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
 
 1.7 - view counter toegevoegd
