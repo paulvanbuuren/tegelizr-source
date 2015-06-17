@@ -15,6 +15,8 @@ define('TEGELIZR_PROTOCOL', 'http://');
 define('TEGELIZR_SUMMARY',	'Maak hier je eigen tegeltje. Een geintje van Paul van Buuren, van WBVB Rotterdam.');
 define('TEGELIZR_THUMBS',	'thumbs');
 define('TEGELIZR_TEGELFOLDER',	'tegeltjes');
+define('TEGELIZR_ALLES',	'alle-tegeltjes');
+define('TEGELIZR_DEFAULT_IMAGE',	'http://wbvb.nl/images/kiezen-is-een-keuze.jpg');
 
 
 $path               = dirname(__FILE__)."/";
@@ -45,7 +47,7 @@ function showhumbs($aantal = '10', $hide = '') {
 		foreach($images as $image) {
 
 			
-			if ( $counter >= $aantal ) {
+			if ( ( $counter >= $aantal ) && ( $aantal > 0 ) ) {
 				break;
 			}
 
@@ -57,8 +59,11 @@ function showhumbs($aantal = '10', $hide = '') {
 //				break;
 			}
 			else {
+				
+				if ( $aantal > 0 ) {
+					$counter++;
+				}
 
-				$counter++;
 				
 				$fruit = '<a href="/'  . TEGELIZR_SELECTOR . '/' . $info[1] . '"><img src="/' . TEGELIZR_THUMBS . '/' . $filename . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . $info[1] . '" /></a>';
 				echo '<li>' . $fruit . "</li>";
