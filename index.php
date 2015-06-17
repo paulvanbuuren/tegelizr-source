@@ -5,8 +5,9 @@
 //	Tegelizr.nl
 //	author:						Paul van Buuren
 //	contact:					paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
-//	version:					1.3
+//	version:					1.4
 //	version description:		
+//	1.4 - blokken in footer naast elkaar
 //	1.3 - mogelijk tonen van alle tegeltjes toegevoegd
 //	1.2 - URL gecorrigeerd voor deelknoppen op default pagina
 //	1.1 - File clean up
