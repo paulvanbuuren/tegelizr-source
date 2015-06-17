@@ -5,8 +5,9 @@
 //	Tegelizr.nl
 //	author:						Paul van Buuren
 //	contact:					paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
-//	version:					1.9
+//	version:					1.10
 //	version description:		
+//	1.10 - kleine stijlaanpassing voor soc-med-knoppen en cijfers toegevoegd aan eerste karakters in input
 //	1.9 - @-teken toegevoegd aan toegestane tekens
 //	1.8 - CSS correctie op footer links
 //	1.7 - view counter toegevoegd
@@ -199,7 +200,7 @@ else {
     <div class="form-group tekstveld">
       <label for="txt_tegeltekst">Jouw tekst:</label>
 
-      <input type="text" aria-describedby="tekst-tip" pattern="^[a-zA-Z][a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'üëïöäéèêç]{1,<?php echo TEGELIZR_TXT_LENGTH ?>}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst1" required="required" value="<?php echo TEGELIZR_TXT_VALUE ?>" maxlength="<?php echo TEGELIZR_TXT_LENGTH ?>" size="<?php echo TEGELIZR_TXT_LENGTH ?>" autofocus />
+      <input type="text" aria-describedby="tekst-tip" pattern="^[a-zA-Z0-9][a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'üëïöäéèêç]{1,<?php echo TEGELIZR_TXT_LENGTH ?>}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst1" required="required" value="<?php echo TEGELIZR_TXT_VALUE ?>" maxlength="<?php echo TEGELIZR_TXT_LENGTH ?>" size="<?php echo TEGELIZR_TXT_LENGTH ?>" autofocus />
 
 
       <div role="tooltip" id="tekst-tip">Alleen letters, cijfers en leestekens. Maximale lengte <?php echo TEGELIZR_TXT_LENGTH ?> tekens</div>
