@@ -7,7 +7,9 @@ author:	Paul van Buuren
 
 contact:					
 paul@wbvb.nl
+
 wbvb.nl/contact
+
 twitter.com/paulvanbuuren
 
 1.7 - view counter toegevoegd
