@@ -5,8 +5,9 @@
 //	Tegelizr.nl
 //	author:						Paul van Buuren
 //	contact:					paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
-//	version:					1.4
+//	version:					1.5
 //	version description:		
+//	1.5 - redactiepagina toegevoegd; blokken in footer responsive
 //	1.4 - blokken in footer naast elkaar
 //	1.3 - mogelijk tonen van alle tegeltjes toegevoegd
 //	1.2 - URL gecorrigeerd voor deelknoppen op default pagina
@@ -52,10 +53,44 @@ if ( isset( $zinnen[2] ) ) {
 	$filetxt       	= $zinnen[2] . ".txt";
 }
 
+
+
+// ===================================================================================================================
+// er wordt gevraagd om de tekst over hoe ik alle tegeltjes stuk mag maken
+// ===================================================================================================================
+if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
+	
+	$titel 		= TEGELIZR_TITLE . ' - redactie';
+	$desturl	= TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_REDACTIE . '/';
+
+
+?>
+<meta property="og:title" content="<?php echo $titel; ?>" />
+<meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
+<meta property="og:url" content="<?php echo $desturl; ?>" />
+<meta property="article:tag" content="<?php echo TEGELIZR_ALLES; ?>" />
+<meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
+
+<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?>
+<?php echo htmlheader() ?>
+
+<article class="resultaat">
+  <h1><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?>Redactie</a></h1>
+  <p>Ik houd niet bij wie welk tegeltje gemaakt heeft. Als een tegeltje me niet bevalt, haal ik het weg. </p>
+  <p>Nu jij. <a href="/">Maak eens een leuk tegeltje</a>.</p>
+  <?php echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY) ?>
+  <?php 
+	echo showhumbs(12, '');
+	?>
+  <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
+</article>
+<?php
+
+}
 // ===================================================================================================================
 // er wordt gevraagd om alle tegeltjes
 // ===================================================================================================================
-if ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
+elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
 
 	$titel 		= TEGELIZR_TITLE . ' - alle tegeltjes';
 	$desturl	= TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ALLES . '/';
@@ -180,6 +215,8 @@ else {
 	<div id="footer-about">
   <h3>Over de site</h3>
   <ul>
+
+    <li><a href="<?php echo TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_REDACTIE . '/';?>">redactie</a></li>
     <li><a href="<?php echo TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ALLES . '/';?>">alle tegeltjes</a></li>
     <li><a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li>
   </ul>

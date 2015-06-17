@@ -16,6 +16,7 @@ define('TEGELIZR_SUMMARY',	'Maak hier je eigen tegeltje. Een geintje van Paul va
 define('TEGELIZR_THUMBS',	'thumbs');
 define('TEGELIZR_TEGELFOLDER',	'tegeltjes');
 define('TEGELIZR_ALLES',	'alle-tegeltjes');
+define('TEGELIZR_REDACTIE',	'redactie');
 define('TEGELIZR_DEFAULT_IMAGE',	'http://wbvb.nl/images/kiezen-is-een-keuze.jpg');
 
 
