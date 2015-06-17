@@ -5,8 +5,9 @@
 //	Tegelizr.nl
 //	author:						Paul van Buuren
 //	contact:					paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
-//	version:					1.5
+//	version:					1.6
 //	version description:		
+//	1.6 - = teken toegevoegd aan toegestane tekens
 //	1.5 - redactiepagina toegevoegd; blokken in footer responsive
 //	1.4 - blokken in footer naast elkaar
 //	1.3 - mogelijk tonen van alle tegeltjes toegevoegd
@@ -129,7 +130,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 	$json_data		= file_get_contents($outpath.$filetxt);
 	$archieftekst	= json_decode($json_data, true);
 
-	$txt_tegeltekst	= preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\(\)\-\:\;\'üëïöäéèêç]+/", "", trim($archieftekst['txt_tegeltekst']));
+	$txt_tegeltekst	= preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\(\)\=\-\:\;\'üëïöäéèêç]+/", "", trim($archieftekst['txt_tegeltekst']));
 
 	$titel = TEGELIZR_TITLE . ' - ' . $txt_tegeltekst;
 
@@ -183,7 +184,7 @@ else {
     <div class="form-group tekstveld">
       <label for="txt_tegeltekst">Jouw tekst:</label>
 
-      <input type="text" aria-describedby="tekst-tip" pattern="^[a-zA-Z][a-zA-Z0-9-_\.\, \?\!\(\)\-\:\;\'üëïöäéèêç]{1,<?php echo TEGELIZR_TXT_LENGTH ?>}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst1" required="required" value="<?php echo TEGELIZR_TXT_VALUE ?>" maxlength="<?php echo TEGELIZR_TXT_LENGTH ?>" size="<?php echo TEGELIZR_TXT_LENGTH ?>" autofocus />
+      <input type="text" aria-describedby="tekst-tip" pattern="^[a-zA-Z][a-zA-Z0-9-_\.\, \?\!\(\)\=\-\:\;\'üëïöäéèêç]{1,<?php echo TEGELIZR_TXT_LENGTH ?>}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst1" required="required" value="<?php echo TEGELIZR_TXT_VALUE ?>" maxlength="<?php echo TEGELIZR_TXT_LENGTH ?>" size="<?php echo TEGELIZR_TXT_LENGTH ?>" autofocus />
 
 
       <div role="tooltip" id="tekst-tip">Alleen letters, cijfers en leestekens. Maximale lengte <?php echo TEGELIZR_TXT_LENGTH ?> tekens</div>

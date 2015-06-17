@@ -13,7 +13,7 @@ if (empty($_GET['txt_tegeltekst']))
 // ===================================================================================================================
 
 // opschonen
-$text				= preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\(\)\-\:\;\'üëïöäéèêç]+/", "", trim($_GET['txt_tegeltekst']));
+$text				= preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\(\)\=\-\:\;\'üëïöäéèêç]+/", "", trim($_GET['txt_tegeltekst']));
 
 // zorgen dat er per unieke tekst maar 1 uniek plaatje aangemaakt wordt
 $hashname           = seoUrl( $text );
