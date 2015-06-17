@@ -1,10 +1,14 @@
 # teglizr-source
-Public source code for tegelizr.nl. Correct me if I'm wrong. Copy me if I'm right.
+Public source code for tegelizr.nl. 
+Correct me if I'm wrong. Copy me if I'm right.
 
-Tegelizr.nl
-author:						Paul van Buuren
+## Tegelizr.nl
+author:	Paul van Buuren
 
-contact:					paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
+contact:					
+paul@wbvb.nl
+wbvb.nl/contact
+twitter.com/paulvanbuuren
 
 1.7 - view counter toegevoegd
 1.6 - = teken toegevoegd aan toegestane tekens
