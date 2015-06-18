@@ -2,15 +2,15 @@
 
 // ===================================================================================================================
 // 
-//	Tegelizr.nl
-//	author:						Paul van Buuren
-//	contact:					paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
-//	version:					2.0
+//    Tegelizr.nl
+//    author:                        Paul van Buuren
+//    contact:                    paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
+//    version:                    2.0
 
 // ===================================================================================================================
 
 include("common.inc.php"); 
-	
+    
 ?>
 
 <!DOCTYPE html>
@@ -35,15 +35,15 @@ include("common.inc.php");
 // ===================================================================================================================
 // check of er gevraagd wordt om een tegeltje
 // de sleutel is TEGELIZR_SELECTOR 
-$url		= $_SERVER['REQUEST_URI'];
+$url        = $_SERVER['REQUEST_URI'];
 
-$zinnen		= explode('/', parse_url($url, PHP_URL_PATH));
-$filename	= '';
-$filetxt	= '';
+$zinnen        = explode('/', parse_url($url, PHP_URL_PATH));
+$filename    = '';
+$filetxt    = '';
 
 if ( isset( $zinnen[2] ) ) {
-	$filename       = $zinnen[2] . ".png";
-	$filetxt       	= $zinnen[2] . ".txt";
+    $filename       = $zinnen[2] . ".png";
+    $filetxt        = $zinnen[2] . ".txt";
 }
 
 
@@ -52,9 +52,9 @@ if ( isset( $zinnen[2] ) ) {
 // er wordt gevraagd om de tekst over hoe ik alle tegeltjes stuk mag maken
 // ===================================================================================================================
 if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
-	
-	$titel 		= TEGELIZR_TITLE . ' - redactie';
-	$desturl	= TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_REDACTIE . '/';
+    
+    $titel      = TEGELIZR_TITLE . ' - redactie';
+    $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_REDACTIE . '/';
 
 
 ?>
@@ -73,8 +73,8 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
   <p>Nu jij. <a href="/">Maak eens een leuk tegeltje</a>.</p>
   <?php echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY) ?>
   <?php 
-	echo showhumbs(12, '');
-	?>
+    echo showhumbs(12, '');
+    ?>
   <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
 </article>
 <?php
@@ -85,8 +85,8 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
 // ===================================================================================================================
 elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
 
-	$titel 		= TEGELIZR_TITLE . ' - alle tegeltjes';
-	$desturl	= TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ALLES . '/';
+    $titel      = TEGELIZR_TITLE . ' - alle tegeltjes';
+    $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ALLES . '/';
 
 
 ?>
@@ -104,8 +104,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
   <p>Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>
   <?php echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY) ?>
   <?php 
-	echo showhumbs(0, '');
-	?>
+    echo showhumbs(0, '');
+    ?>
   <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
 </article>
 <?php
@@ -116,26 +116,26 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
 // ===================================================================================================================
 elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filename ) ) && ( file_exists( $outpath.$filetxt ) ) ) {
 
-	$desturl		= TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2];
-	$imagesource	= TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . "/" . TEGELIZR_TEGELFOLDER . "/".$filename;
-	
-	$json_data		= file_get_contents($outpath.$filetxt);
-	$archieftekst	= json_decode($json_data, true);
+    $desturl        = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2];
+    $imagesource    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . "/" . TEGELIZR_TEGELFOLDER . "/".$filename;
+    
+    $json_data      = file_get_contents($outpath.$filetxt);
+    $archieftekst   = json_decode($json_data, true);
 
-	if ( isset( $archieftekst['views'] ) ) {
-		$archieftekst['views'] = ( $archieftekst['views'] + 1);
-	}
-	else {
-		$archieftekst['views'] = 1;
-	}
-	
-	$newJsonString = json_encode($archieftekst);
-	file_put_contents($outpath.$filetxt, $newJsonString);
+    if ( isset( $archieftekst['views'] ) ) {
+        $archieftekst['views'] = ( $archieftekst['views'] + 1);
+    }
+    else {
+        $archieftekst['views'] = 1;
+    }
+    
+    $newJsonString = json_encode($archieftekst);
+    file_put_contents($outpath.$filetxt, $newJsonString);
 
 
-	$txt_tegeltekst	= preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"üëïöäéèêç]+/", "", trim($archieftekst['txt_tegeltekst']));
+    $txt_tegeltekst    = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"üëïöäéèêç]+/", "", trim($archieftekst['txt_tegeltekst']));
 
-	$titel = $txt_tegeltekst . ' - ' . TEGELIZR_TITLE;
+    $titel = $txt_tegeltekst . ' - ' . TEGELIZR_TITLE;
 
 ?>
 <meta property="og:title" content="<?php echo $titel; ?>" />
@@ -154,12 +154,12 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
   <p>Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>
   <?php echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY) ?>
   <?php 
-	echo showhumbs(24, $zinnen[2]);
-	?>
+    echo showhumbs(24, $zinnen[2]);
+    ?>
   <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
 </article>
 <?php
-	
+    
 }
 else {
 // ===================================================================================================================
@@ -196,12 +196,12 @@ else {
     <button type="submit" class="btn btn-primary"><?php echo TEGELIZR_SUBMIT ?></button>
   </form>
   <?php 
-			echo showhumbs(24);
-		?>
+            echo showhumbs(24);
+        ?>
 </article>
 <?php 
 
-	
+    
 }
 // ===================================================================================================================
 
@@ -209,15 +209,15 @@ else {
 // schrijf footer en de Analytics teller
 ?>
 <footer>
-	<div id="footer-contact">
+    <div id="footer-contact">
   <h3>Contact</h3>
   <ul>
     <li><a href="mailto:paul@wbvb.nl">mail</a></li>
     <li><a href="https://twitter.com/paulvanbuuren">twitter</a></li>
     <li><a href="https://wbvb.nl/">wbvb.nl</a></li>
   </ul>
-	</div>
-	<div id="footer-about">
+    </div>
+    <div id="footer-about">
   <h3>Over de site</h3>
   <ul>
 
@@ -226,7 +226,7 @@ else {
     <li><a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li>
     <li><a href="https://github.com/paulvanbuuren/tegelizr-source">broncode</a></li>
   </ul>
-	</div>
+    </div>
 </footer>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

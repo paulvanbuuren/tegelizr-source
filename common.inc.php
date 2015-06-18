@@ -6,18 +6,18 @@
 
 define('PVB_DEBUG', false);
 
-define('TEGELIZR_TITLE',	'Online tegeltjes bakken');define('TEGELIZR_FORM',		'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');define('TEGELIZR_BACK',		'<span>nog een tegeltje</span>');define('TEGELIZR_SUBMIT',	'bak mijn tegeltje');define('TEGELIZR_TXT_LENGTH', 90);
-define('TEGELIZR_THUMB_WIDTH', 220);
-define('TEGELIZR_BLUR',		2);
-define('TEGELIZR_TXT_VALUE', '');
-define('TEGELIZR_SELECTOR', 'tegeltje');
-define('TEGELIZR_PROTOCOL', 'http://');
-define('TEGELIZR_SUMMARY',	'Maak hier je eigen tegeltje. Een geintje van Paul van Buuren, van WBVB Rotterdam.');
-define('TEGELIZR_THUMBS',	'thumbs');
-define('TEGELIZR_TEGELFOLDER',	'tegeltjes');
-define('TEGELIZR_ALLES',	'alle-tegeltjes');
-define('TEGELIZR_REDACTIE',	'redactie');
-define('TEGELIZR_DEFAULT_IMAGE',	'http://wbvb.nl/images/kiezen-is-een-keuze.jpg');
+define('TEGELIZR_TITLE',        'Online tegeltjes bakken');define('TEGELIZR_FORM',         'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');define('TEGELIZR_BACK',         '<span>nog een tegeltje</span>');define('TEGELIZR_SUBMIT',       'bak mijn tegeltje');define('TEGELIZR_TXT_LENGTH',   90);
+define('TEGELIZR_THUMB_WIDTH',  220);
+define('TEGELIZR_BLUR',         2);
+define('TEGELIZR_TXT_VALUE',    '');
+define('TEGELIZR_SELECTOR',     'tegeltje');
+define('TEGELIZR_PROTOCOL',     'http://');
+define('TEGELIZR_SUMMARY',      'Maak hier je eigen tegeltje. Een geintje van Paul van Buuren, van WBVB Rotterdam.');
+define('TEGELIZR_THUMBS',       'thumbs');
+define('TEGELIZR_TEGELFOLDER',  'tegeltjes');
+define('TEGELIZR_ALLES',        'alle-tegeltjes');
+define('TEGELIZR_REDACTIE',     'redactie');
+define('TEGELIZR_DEFAULT_IMAGE','http://wbvb.nl/images/kiezen-is-een-keuze.jpg');
 
 
 $path               = dirname(__FILE__)."/";
@@ -25,56 +25,56 @@ $path               = dirname(__FILE__)."/";
 $sourcefolder       = $path."img/";
 $fontpath           = $path."fonts/";
 $outpath            = $path. TEGELIZR_TEGELFOLDER . "/";
-$outpath_thumbs		= $path. TEGELIZR_THUMBS . "/";
-$baseimgpath 		= $sourcefolder."base.png";
+$outpath_thumbs     = $path. TEGELIZR_THUMBS . "/";
+$baseimgpath        = $sourcefolder."base.png";
 
 
 // ===================================================================================================================
 
 function showhumbs($aantal = '10', $hide = '') {
-	global $outpath_thumbs;
+    global $outpath_thumbs;
 
-	echo '<section id="andere"><h2>Wat anderen maakten:</h2>';
-	echo '<ul class="thumbs">';
+    echo '<section id="andere"><h2>Wat anderen maakten:</h2>';
+    echo '<ul class="thumbs">';
 
-	$counter = 0;
+    $counter = 0;
 
-	if (is_dir($outpath_thumbs)) {
+    if (is_dir($outpath_thumbs)) {
 
-		$images = glob($outpath_thumbs . "*.png");
-		
-		rsort($images);
-		
-		foreach($images as $image) {
+        $images = glob($outpath_thumbs . "*.png");
+        
+        rsort($images);
+        
+        foreach($images as $image) {
 
-			
-			if ( ( $counter >= $aantal ) && ( $aantal > 0 ) ) {
-				break;
-			}
+            
+            if ( ( $counter >= $aantal ) && ( $aantal > 0 ) ) {
+                break;
+            }
 
-			$stack		= explode('/', $image);
-			$filename	= array_pop($stack);
-			$info		= explode('_', $filename );
+            $stack       = explode('/', $image);
+            $filename    = array_pop($stack);
+            $info        = explode('_', $filename );
 
-			if ( $hide == $info[1] ) {
-//				break;
-			}
-			else {
-				
-				if ( $aantal > 0 ) {
-					$counter++;
-				}
+            if ( $hide == $info[1] ) {
+//                break;
+            }
+            else {
+                
+                if ( $aantal > 0 ) {
+                    $counter++;
+                }
 
-				
-				$fruit = '<a href="/'  . TEGELIZR_SELECTOR . '/' . $info[1] . '"><img src="/' . TEGELIZR_THUMBS . '/' . $filename . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . $info[1] . '" /></a>';
-				echo '<li>' . $fruit . "</li>";
-			}
+                
+                $fruit = '<a href="/'  . TEGELIZR_SELECTOR . '/' . $info[1] . '"><img src="/' . TEGELIZR_THUMBS . '/' . $filename . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . $info[1] . '" /></a>';
+                echo '<li>' . $fruit . "</li>";
+            }
 
-			
-		}	
-	}	
-	echo '</ul></section>';
-	
+            
+        }    
+    }    
+    echo '</ul></section>';
+    
 }
 
 // ===================================================================================================================
@@ -101,14 +101,14 @@ function wbvb_d2e_socialbuttons($thelink = 'thelink', $thetitle = 'thetitle', $s
 
 // ===================================================================================================================
 function htmlheader() {
-	return '<link href="//wbvb.nl/wp-content/themes/wbvb/style.css" rel="stylesheet" type="text/css"><link href="css/style.css" rel="stylesheet" type="text/css"></head><body>
+    return '<link href="//wbvb.nl/wp-content/themes/wbvb/style.css" rel="stylesheet" type="text/css"><link href="css/style.css" rel="stylesheet" type="text/css"></head><body>
 ';
   
 }
 
 // ===================================================================================================================
 function returnlogo() {
-	return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="90px" height="63px" viewBox="0 0 869 490" version="1.1">
+    return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="90px" height="63px" viewBox="0 0 869 490" version="1.1">
   <title>wbvb-logo</title>
   <defs/>
   <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">

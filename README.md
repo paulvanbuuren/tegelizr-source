@@ -3,16 +3,17 @@ Public source code for tegelizr.nl.
 Correct me if I'm wrong. Copy me if I'm right.
 
 ## Tegelizr.nl
-author:	Paul van Buuren
+author:    Paul van Buuren
 
-current version: 2.0.2
+current version: 2.0.3
 
-## contact:					
+## contact:                    
 * paul@wbvb.nl
 * wbvb.nl/contact
 * twitter.com/paulvanbuuren
 
 ## Versions
+* 2.0.3 - Spaties, geen tabs. By popular demand...
 * 2.0.2 - Sitetitel gewijzigd. En <title> voor een tegel
 * 2.0.1 - footer weer witte achtergrond gegeven
 * 2.0 - complete herziening van de uitlijning in generate.php, bugfixes
