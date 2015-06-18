@@ -6,7 +6,7 @@
 
 define('PVB_DEBUG', false);
 
-define('TEGELIZR_TITLE',	'Online tegeltjes maken');define('TEGELIZR_FORM',		'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');define('TEGELIZR_BACK',		'<span>nog een tegeltje</span>');define('TEGELIZR_SUBMIT',	'bak mijn tegeltje');define('TEGELIZR_TXT_LENGTH', 90);
+define('TEGELIZR_TITLE',	'Online tegeltjes bakken');define('TEGELIZR_FORM',		'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');define('TEGELIZR_BACK',		'<span>nog een tegeltje</span>');define('TEGELIZR_SUBMIT',	'bak mijn tegeltje');define('TEGELIZR_TXT_LENGTH', 90);
 define('TEGELIZR_THUMB_WIDTH', 220);
 define('TEGELIZR_BLUR',		2);
 define('TEGELIZR_TXT_VALUE', '');

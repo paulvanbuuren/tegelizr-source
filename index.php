@@ -135,7 +135,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 
 	$txt_tegeltekst	= preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"üëïöäéèêç]+/", "", trim($archieftekst['txt_tegeltekst']));
 
-	$titel = TEGELIZR_TITLE . ' - ' . $txt_tegeltekst;
+	$titel = $txt_tegeltekst . ' - ' . TEGELIZR_TITLE;
 
 ?>
 <meta property="og:title" content="<?php echo $titel; ?>" />
