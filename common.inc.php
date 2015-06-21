@@ -1,10 +1,10 @@
 <?php 
 
 // Report all PHP errors
-error_reporting(-1);
+//error_reporting(-1);
 
 // Same as error_reporting(E_ALL);
-ini_set('error_reporting', E_ALL);
+//ini_set('error_reporting', E_ALL);
 
 // ===================================================================================================================
 
@@ -78,7 +78,7 @@ function maakoverzichtspagina() {
         if ( file_exists( $index_html ) ) {
     
             $desturl        = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ALLES . '/';
-            $stringData     = spitoutheader() . '<meta property="og:title" content="' . filtertext($boom[$thumb_filename]['txt_tegeltekst']) . '" /><meta property="og:description" content="' . TEGELIZR_SUMMARY . '" /><meta property="og:url" content="' . $desturl . '" /><meta property="article:tag" content="' . TEGELIZR_ALLES . '" /><meta property="og:image" content="' . TEGELIZR_DEFAULT_IMAGE . '" /><title>' . TEGELIZR_TITLE . ' - alle tegeltjes</title>' .  htmlheader() . '<article class="resultaat"><h1><a href="/" title="Maak zelf ook een tegeltje">' . returnlogo() . 'Alle tegeltjes</a></h1><p>Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>' .  wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY) . '<section id="andere"><h2>Wat anderen maakten:</h2><ul class="thumbs">' . $list . '</ul></section><p id="home"> <a href="/">' .  TEGELIZR_BACK . '</a> </p></article>' . spitoutfooter();
+            $stringData     = spitoutheader() . '<meta property="og:title" content="' . filtertext($boom[$thumb_filename]['txt_tegeltekst']) . '" /><meta property="og:description" content="' . TEGELIZR_SUMMARY . '" /><meta property="og:url" content="' . $desturl . '" /><meta property="article:tag" content="' . TEGELIZR_ALLES . '" /><meta property="og:image" content="' . TEGELIZR_DEFAULT_IMAGE . '" /><title>' . TEGELIZR_TITLE . ' - alle tegeltjes</title>' .  htmlheader() . '<article class="resultaat"><h1><a href="/" title="Maak zelf ook een tegeltje">' . returnlogo() . 'Alle tegeltjes</a></h1><p>Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>' .  wbvb_d2e_socialbuttons($desturl, filtertext($boom[$thumb_filename]['txt_tegeltekst']), TEGELIZR_SUMMARY) . '<section id="andere"><h2>Wat anderen maakten:</h2><ul class="thumbs">' . $list . '</ul></section><p id="home"> <a href="/">' .  TEGELIZR_BACK . '</a> </p></article>' . spitoutfooter();
             $fh             = fopen($index_html, 'w') or die("can't open file: " . $index_html );
             fwrite($fh, $stringData);
             fclose($fh);
