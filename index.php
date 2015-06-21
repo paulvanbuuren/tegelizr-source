@@ -48,7 +48,7 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
   <p>Door de tekst op een tegeltje te zetten verandert er niet opeens iets aan het auteursrecht van de tekst. Het auteursrecht erop valt niet  aan mij toe, noch aan degene de tekst invoerde.</p>
   <p>Wie teksten invoert op deze site moet ermee leren leven dat ik de teksten misschien aanpas. Zo wordt 'Facebook' altijd 'het satanische Facebook' op de tegeltjes. Als je dat niet leuk vindt, jammer.</p>
   <p>Maar goed, nu jij. <a href="/">Maak eens een leuk tegeltje</a>.</p>
-  <?php echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY) ?>
+  <?php echo wbvb_d2e_socialbuttons($desturl, $titel, TEGELIZR_SUMMARY) ?>
   <?php 
     echo showthumbs(12, '');
     ?>
