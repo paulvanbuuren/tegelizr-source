@@ -13,19 +13,19 @@ if (empty($_GET['txt_tegeltekst']))
 // ===================================================================================================================
 
 // opschonen
-$text                = substr(preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"üëïöäéèêç]+/", "", trim($_GET['txt_tegeltekst'])),0,TEGELIZR_TXT_LENGTH);
+$text                = filtertext($_GET['txt_tegeltekst']);
 
 // zorgen dat er per unieke tekst maar 1 uniek plaatje aangemaakt wordt
 $hashname           = seoUrl( $text );
+//$hashname           = date("Y") . "-" . date("m") . "-" . date("d") . "-" . date("H") . "-" . date("i") . "-" . date("s") . "_" . seoUrl( $text );
 $filename           = $hashname . ".png";
-$filetxt            = $hashname . ".txt";
 $filename_klein     = $hashname . "_thumb.png";
 
 // output path voor grote tegel
 $destimagepath      = $outpath.$filename;
 
 // en dat tekstbestand erbij
-$filetxt            = $outpath.$hashname . ".txt";
+$desttextpath       = $outpath.$hashname . ".txt";
 
 // output path voor kleine thumbnail tegel
 $destimagepath_klein= $outpath_thumbs.date("Y") . "-" . date("m") . "-" . date("d") . "-" . date("H") . "-" . date("i") . "-" . date("s") . "_" . $filename_klein;
@@ -149,22 +149,22 @@ if (!file_exists($outpath.$filename)) {
     
         if ( $aantal_zinnen == 2 ) {
 
-            $coordinaten    = calculatetekstdimensie($fontsize,$font,$maximale_text,$image_width,$image_height);
-            $regelhoogte     = $coordinaten['hoogte'];
-            $verschuiving    = ( $image_height / 2 ) - ( ( ( $regelhoogte + $regelafstand ) * ( $aantal_zinnen  ) ) / 2);
+            $coordinaten            = calculatetekstdimensie($fontsize,$font,$maximale_text,$image_width,$image_height);
+            $regelhoogte            = $coordinaten['hoogte'];
+            $verschuiving           = ( $image_height / 2 ) - ( ( ( $regelhoogte + $regelafstand ) * ( $aantal_zinnen  ) ) / 2);
 
-            $text = $zinnen[0];
+            $text                   = $zinnen[0];
         
             $coordinaten            = calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
-            $coordinaten['hoogte']    = $regelhoogte; // $regelhoogte;
+            $coordinaten['hoogte']  = $regelhoogte; // $regelhoogte;
             teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, TEGELIZR_BLUR, $i, $verschuiving);
 
-            $verschuiving            = ( $verschuiving  + $regelhoogte + $regelafstand );    
+            $verschuiving           = ( $verschuiving  + $regelhoogte + $regelafstand );    
 
             $text = $zinnen[1];
         
             $coordinaten            = calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
-            $coordinaten['hoogte']    = $regelhoogte; // $regelhoogte;
+            $coordinaten['hoogte']  = $regelhoogte; // $regelhoogte;
             teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, TEGELIZR_BLUR, $i, $verschuiving);
 
 
@@ -173,34 +173,41 @@ if (!file_exists($outpath.$filename)) {
             
             $text = $zinnen[0];
 
-            $coordinaten    = calculatetekstdimensie($fontsize,$font,$maximale_text,$image_width,$image_height);
-            $regelhoogte     = $coordinaten['hoogte'];
-            $verschuiving    = ( $image_height / 2 ) - ( ( ( $regelhoogte + $regelafstand ) * ( $aantal_zinnen  ) ) / 2);
+            $coordinaten            = calculatetekstdimensie($fontsize,$font,$maximale_text,$image_width,$image_height);
+            $regelhoogte            = $coordinaten['hoogte'];
+            $verschuiving           = ( $image_height / 2 ) - ( ( ( $regelhoogte + $regelafstand ) * ( $aantal_zinnen  ) ) / 2);
 
             // voor tegeltjes met 1 zin
             $coordinaten            = calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
-            $coordinaten['hoogte']    = $regelhoogte; // $regelhoogte;
+            $coordinaten['hoogte']  = $regelhoogte; // $regelhoogte;
             teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, TEGELIZR_BLUR, $i, $verschuiving);
 
         }
         
     }
 
+    $boom                    = array();
+    $boom['txt_tegeltekst']  = $_GET['txt_tegeltekst'];
+    $boom['file']            = $filename;
+    $boom['file_date']       = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
+    $boom[TEGELIZR_VIEWS]    = 0;
+
 
     // tijd om op te ruimen
     // tekst bestand vullen. Deze hebben we nodig om de tekst te lezen. 
     // Sleutel hiervoor is de bestandsnaam
-    $fh         = fopen($filetxt, 'w') or die("can't open file: " . $filetxt);
-    $stringData    = json_encode($_GET);
+    $fh                     = fopen($desttextpath, 'w') or die("can't open file: " . $desttextpath);
+    $stringData             = json_encode($boom);
     fwrite($fh, $stringData);
     fclose($fh);
 
-    
     // save merged image
     imagepng($img, $destimagepath);
     imagedestroy($img);
 
     resize(TEGELIZR_THUMB_WIDTH,$destimagepath_klein,$destimagepath);
+    
+    maakoverzichtspagina();
     
     // doorsturen naar pagina met het aangemaakte image
     header('Location: ' . $desturl);    

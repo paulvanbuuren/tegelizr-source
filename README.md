@@ -5,7 +5,7 @@ Correct me if I'm wrong. Copy me if I'm right.
 ## Tegelizr.nl
 author:    Paul van Buuren
 
-current version: 2.0.3
+current version: 3.0
 
 ## contact:                    
 * paul@wbvb.nl
@@ -13,6 +13,7 @@ current version: 2.0.3
 * twitter.com/paulvanbuuren
 
 ## Versions
+* 3.0 - Aantal keer bekeken volledig herzien, aanmaken van pagina met alle tegeltjes
 * 2.0.3 - Spaties, geen tabs. By popular demand...
 * 2.0.2 - Sitetitel gewijzigd. En <title> voor een tegel
 * 2.0.1 - footer weer witte achtergrond gegeven
