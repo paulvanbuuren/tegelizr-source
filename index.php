@@ -60,7 +60,87 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
 // ===================================================================================================================
 // er wordt gevraagd om alle tegeltjes
 // ===================================================================================================================
-elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
+elseif ( ( $zinnen[1] == TEGELIZR_ZOEKEN ) ) {
+
+    global $zoektegeltje;
+    global $path;
+
+    $zoektegeltje = filtertext($_GET[TEGELIZR_ZOEKTERM]);
+
+    $titeltw      = 'Zoek tegeltjes met ' . $zoektegeltje;
+    $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ZOEKEN . '/?' . TEGELIZR_ZOEKTERM . '=' . $zoektegeltje;
+    
+    
+    $obj        = json_decode(file_get_contents($path . TEGELIZR_ALLES . "/index.txt"), true);
+    
+    $terms      = explode(" ", $zoektegeltje);
+    $results    = array_filter($obj, function ($x) use ($terms){
+        foreach($terms as $term){
+            if ( isset($x["txt_tegeltekst"]) && stripos("-" . filtertext(strtolower($x["txt_tegeltekst"])), strtolower($term)) ) {
+                return true;
+            }
+        }
+        return false;
+    });
+    
+    if ( count($results) ) {
+        if ( count($results) > 1 ) {
+            $titel   = count($results) . " tegeltjes gevonden";
+        }
+        else {
+            $titel   = count($results) . " tegeltje gevonden";
+        }
+    }
+    else {
+        $titel   = "Niets gevonden voor '" . $zoektegeltje . "'";
+    }
+    
+
+function sortByOrder($a, $b) {
+    return $a['file_name'] - $b['file_name'];
+}
+
+    
+
+?>
+<meta property="og:title" content="<?php echo $titeltw; ?>" />
+<meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
+<meta property="og:url" content="<?php echo $desturl; ?>" />
+<meta property="article:tag" content="<?php echo $tekststring; ?>" />
+<meta property="og:image" content="<?php echo $imagesource ?>" />
+<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
+<article class="resultaat">
+  <h1><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo() . $titel ; ?></a></h1>
+
+<?php
+    if ( $results ) {
+    
+        echo '<section id="andere"><h2>Je zocht op \'' . $zoektegeltje . "'</h2>";
+        echo '<ul class="thumbs">';
+        
+        foreach($results as $result) {
+
+            $hashname = seoUrl( $result['file_thumb'] );
+            $thumb =  $result['file_thumb'];
+            
+            echo '<li><a href="/'  . TEGELIZR_SELECTOR . '/' . $hashname . '" title="' . filtertext($result['txt_tegeltekst']) . ' - ' . $result[TEGELIZR_VIEWS] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $thumb . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . filtertext($result['txt_tegeltekst']) . '" /></a>'; 
+            echo '</li>';
+
+            
+        }    
+
+        echo '</ul></section>';
+
+    }
+    else {
+        echo '<p>Geen tegeltjes gevonden</p>';
+    }
+?>
+
+  <?php echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY) ?><?php echo showthumbs(12, $zinnen[2]);?>
+  <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
+</article>
+<?php
 
 
 
@@ -130,5 +210,12 @@ else {
 
 
 echo spitoutfooter();
+
+if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
+    
+    flush();    
+    maakoverzichtspagina();
+}
+
 
 ?>

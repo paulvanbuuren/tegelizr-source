@@ -28,6 +28,10 @@ define('TEGELIZR_TEGELFOLDER',  'tegeltjes');
 define('TEGELIZR_ALLES',        'alle-tegeltjes');
 define('TEGELIZR_REDACTIE',     'redactie');
 define('TEGELIZR_DEFAULT_IMAGE','http://wbvb.nl/images/kiezen-is-een-keuze.jpg');
+define('TEGELIZR_ZOEKEN',       'zoeken');
+define('TEGELIZR_ZOEKTERM',     'zoektegeltje');
+define('TEGELIZR_TRIGGER_KEY',  'pasop');
+define('TEGELIZR_TRIGGER_VALUE',    'heet');
 
 
 $path               = dirname(__FILE__)."/";
@@ -37,6 +41,8 @@ $fontpath           = $path."fonts/";
 $outpath            = $path. TEGELIZR_TEGELFOLDER . "/";
 $outpath_thumbs     = $path. TEGELIZR_THUMBS . "/";
 $baseimgpath        = $sourcefolder."base.png";
+$zoektegeltje       = '';
+
 
 // ===================================================================================================================
 function maakoverzichtspagina() {
@@ -45,6 +51,7 @@ function maakoverzichtspagina() {
     global $outpath;
     global $path;
     $list = '';
+    $tegelcounter = 0;
     
     $index_html     = $path . TEGELIZR_ALLES . "/index.html";
     $index_txt      = $path . TEGELIZR_ALLES . "/index.txt";
@@ -68,9 +75,16 @@ function maakoverzichtspagina() {
             
             // als de grote plaat ook bestaat
             if ( file_exists( $groot_image ) ) {
-                $boom[$thumb_filename]  = getviews($groot_txt, false);
 
-                $list .= '<li><a href="/'  . TEGELIZR_SELECTOR . '/' . $info[1] . '" title="' . filtertext($boom[$thumb_filename]['txt_tegeltekst']) . ' - ' . $boom[$thumb_filename][TEGELIZR_VIEWS] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $thumb_filename . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . filtertext($boom[$thumb_filename]['txt_tegeltekst']) . '" /></a></li>'; 
+                $boom[$thumb_filename]                      = getviews($groot_txt, false);
+                $boom[$thumb_filename]['file_thumb']        = $thumb_filename;
+                $boom[$thumb_filename]['file_name']         = $info[1];
+                
+                $tegelcounter++;
+                
+                $alt = isset( $boom[$thumb_filename]['txt_tegeltekst'] ) ? filtertext($boom[$thumb_filename]['txt_tegeltekst']) : '';
+
+                $list .= '<li><a href="/'  . TEGELIZR_SELECTOR . '/' . $info[1] . '" title="' . $alt . ' - ' . $boom[$thumb_filename][TEGELIZR_VIEWS] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $thumb_filename . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . $alt . '" /></a></li>'; 
 
             }
         }    
@@ -78,7 +92,7 @@ function maakoverzichtspagina() {
         if ( file_exists( $index_html ) ) {
     
             $desturl        = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ALLES . '/';
-            $stringData     = spitoutheader() . '<meta property="og:title" content="' . filtertext($boom[$thumb_filename]['txt_tegeltekst']) . '" /><meta property="og:description" content="' . TEGELIZR_SUMMARY . '" /><meta property="og:url" content="' . $desturl . '" /><meta property="article:tag" content="' . TEGELIZR_ALLES . '" /><meta property="og:image" content="' . TEGELIZR_DEFAULT_IMAGE . '" /><title>' . TEGELIZR_TITLE . ' - alle tegeltjes</title>' .  htmlheader() . '<article class="resultaat"><h1><a href="/" title="Maak zelf ook een tegeltje">' . returnlogo() . 'Alle tegeltjes</a></h1><p>Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>' .  wbvb_d2e_socialbuttons($desturl, filtertext($boom[$thumb_filename]['txt_tegeltekst']), TEGELIZR_SUMMARY) . '<section id="andere"><h2>Wat anderen maakten:</h2><ul class="thumbs">' . $list . '</ul></section><p id="home"> <a href="/">' .  TEGELIZR_BACK . '</a> </p></article>' . spitoutfooter();
+            $stringData     = spitoutheader() . '<meta property="og:title" content="' . filtertext($boom[$thumb_filename]['txt_tegeltekst']) . '" /><meta property="og:description" content="' . TEGELIZR_SUMMARY . '" /><meta property="og:url" content="' . $desturl . '" /><meta property="article:tag" content="' . TEGELIZR_ALLES . '" /><meta property="og:image" content="' . TEGELIZR_DEFAULT_IMAGE . '" /><title>' . TEGELIZR_TITLE . ' - alle ' . $tegelcounter . ' tegeltjes</title>' .  htmlheader() . '<article class="resultaat"><h1><a href="/" title="Maak zelf ook een tegeltje">' . returnlogo() . 'Alle ' . $tegelcounter . ' tegeltjes</a></h1><p>Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>' .  wbvb_d2e_socialbuttons($desturl, filtertext($boom[$thumb_filename]['txt_tegeltekst']), TEGELIZR_SUMMARY) . '<section id="andere"><h2>Wat anderen maakten:</h2><ul class="thumbs">' . $list . '</ul></section><p id="home"> <a href="/">' .  TEGELIZR_BACK . '</a> </p></article>' . spitoutfooter();
             $fh             = fopen($index_html, 'w') or die("can't open file: " . $index_html );
             fwrite($fh, $stringData);
             fclose($fh);
@@ -89,6 +103,7 @@ function maakoverzichtspagina() {
 
         $fh             = fopen($index_txt, 'w') or die("can't open file: " . $index_txt);
         $stringData     = json_encode($boom);
+
         fwrite($fh, $stringData);
         fclose($fh);
     }    
@@ -103,6 +118,7 @@ function filtertext($text = '') {
     $text                = substr($text,0,TEGELIZR_TXT_LENGTH);
     $text                = preg_replace("/Geert Wilders/i", "zaadslurf", trim($text));
     $text                = preg_replace("/Wilders/", "zaadslurf", trim($text));
+    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"üëïöäéèêç]+/", "", trim($text));
     $text                = preg_replace("/PVV/", "NSB", trim($text));
     $text                = preg_replace("/moslima/i", "Tante Truus", trim($text));
     $text                = preg_replace("/Tante Truus's/i", "Tante Truusjes", trim($text));
@@ -168,6 +184,24 @@ function showthumbs($aantal = '10', $hide = '') {
     echo '</ul></section>';
     
 }
+
+// ===================================================================================================================
+// function to strip out unwanted text characters
+// ===================================================================================================================
+function seoUrl($string) {
+    //Lower case everything
+    $string = strtolower($string);
+    //Make alphanumeric (removes all other characters)
+    $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+    //Clean up multiple dashes or whitespaces
+    $string = preg_replace("/[\s-]+/", " ", $string);
+    //Convert whitespaces and underscore to dash
+    $string = preg_replace("/[\s_]/", "-", $string);
+    return $string;
+}
+
+// ===================================================================================================================
+
 
 // ===================================================================================================================
 
@@ -247,10 +281,24 @@ function getviews($filename, $update = false) {
 // ===================================================================================================================
 
 function spitoutfooter() {
+    global $zoektegeltje;
+    
+    $form = '<form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/" role="search">
+    <meta itemprop="target" content="http://appropriatepast.org/?s={s}">
+    <label for="' . TEGELIZR_ZOEKTERM . '">Zoek een tegel</label>
+    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '" id="' . TEGELIZR_ZOEKTERM . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
+    <input type="submit" value="Search">
+</form>';
+
+
+
     
     return '
-<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div><div id="footer-about"><h3>Over de site</h3><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">redactie</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">alle tegeltjes</a></li><li><a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li><li><a href="https://github.com/paulvanbuuren/tegelizr-source">broncode</a></li></ul></div></footer><scri' . "pt>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-1780046-36', 'auto');ga('send', 'pageview');</scr" . 'ipt></body></html>';
+<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div><div id="footer-about"><h3>Over de site</h3><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">redactie</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">alle tegeltjes</a></li><li><a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li><li><a href="https://github.com/paulvanbuuren/tegelizr-source">broncode</a></li></ul></div><div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div></footer><scri' . "pt>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-1780046-36', 'auto');ga('send', 'pageview');</scr" . 'ipt></body></html>';
 
 }
+
+
+
 
 ?>

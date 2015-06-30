@@ -101,12 +101,24 @@ form {
     select,
     button {
         font-size: 1.2em;
-        border: 1px solid #afafaf;
+        border: 2px solid #afafaf;
         border-radius: 0;
     }
 
     select {
         margin: 0 .7em 0 0;
+    }
+
+    input[type="search"] {
+        font-size: 80%;
+        width: 70%;
+    }
+
+    input[type="search"], input[type="submit"] {
+        height: 40px !important;
+        &, &:focus {
+            border-width: 1px;
+        }
     }
 
     input[type="text"] {

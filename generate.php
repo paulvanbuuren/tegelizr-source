@@ -190,6 +190,7 @@ if (!file_exists($outpath.$filename)) {
     $boom['txt_tegeltekst']  = $_GET['txt_tegeltekst'];
     $boom['file']            = $filename;
     $boom['file_date']       = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
+    $boom['file_thumb']      = $destimagepath_klein;
     $boom[TEGELIZR_VIEWS]    = 0;
 
 
@@ -207,10 +208,8 @@ if (!file_exists($outpath.$filename)) {
 
     resize(TEGELIZR_THUMB_WIDTH,$destimagepath_klein,$destimagepath);
     
-    maakoverzichtspagina();
-    
     // doorsturen naar pagina met het aangemaakte image
-    header('Location: ' . $desturl);    
+    header('Location: ' . $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE);    
 
 }
 else {
@@ -327,23 +326,6 @@ function resize($newWidth, $targetFile, $originalFile) {
 
     
 }
-
-// ===================================================================================================================
-// function to strip out unwanted text characters
-// ===================================================================================================================
-function seoUrl($string) {
-    //Lower case everything
-    $string = strtolower($string);
-    //Make alphanumeric (removes all other characters)
-    $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
-    //Clean up multiple dashes or whitespaces
-    $string = preg_replace("/[\s-]+/", " ", $string);
-    //Convert whitespaces and underscore to dash
-    $string = preg_replace("/[\s_]/", "-", $string);
-    return $string;
-}
-
-// ===================================================================================================================
 
 ?>
 
