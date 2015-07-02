@@ -120,7 +120,7 @@ function sortByOrder($a, $b) {
         
         foreach($results as $result) {
 
-            $hashname = seoUrl( $result['file_thumb'] );
+            $hashname = seoUrl( $result['file_name'] );
             $thumb =  $result['file_thumb'];
             
             echo '<li><a href="/'  . TEGELIZR_SELECTOR . '/' . $hashname . '" title="' . filtertext($result['txt_tegeltekst']) . ' - ' . $result[TEGELIZR_VIEWS] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $thumb . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . filtertext($result['txt_tegeltekst']) . '" /></a>'; 
@@ -165,7 +165,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
 <article class="resultaat">
   <h1><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><?php echo TEGELIZR_TITLE ?></a></h1>
-  <a href="<?php echo htmlspecialchars($desturl)?>" target="_blank"><img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje" /></a>
+  <a href="<?php echo htmlspecialchars($desturl)?>"><img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje" /></a>
   <p class="view-counter">(<?php echo $views[TEGELIZR_VIEWS] ?> keer bekeken)</p>
   <p>Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>
   <?php echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY) ?><?php echo showthumbs(12, $zinnen[2]);?>

@@ -76,11 +76,11 @@ function maakoverzichtspagina() {
             // als de grote plaat ook bestaat
             if ( file_exists( $groot_image ) ) {
 
+                $tegelcounter++;
+
                 $boom[$thumb_filename]                      = getviews($groot_txt, false);
                 $boom[$thumb_filename]['file_thumb']        = $thumb_filename;
                 $boom[$thumb_filename]['file_name']         = $info[1];
-                
-                $tegelcounter++;
                 
                 $alt = isset( $boom[$thumb_filename]['txt_tegeltekst'] ) ? filtertext($boom[$thumb_filename]['txt_tegeltekst']) : '';
 
