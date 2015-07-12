@@ -20,6 +20,7 @@ $url            = $_SERVER['REQUEST_URI'];
 $zinnen         = explode('/', parse_url($url, PHP_URL_PATH));
 $filename       = '';
 $desttextpath   = '';
+$tekststring    = 'tegel tegeltje tegeltjeswijsheden';
 
 if ( isset( $zinnen[2] ) ) {
     $filename       = $zinnen[2] . ".png";
@@ -195,15 +196,27 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
             <li>Totaalscore: <span itemprop="ratingValue"><?php echo $total_points ?></span></li> 
             <li>Aantal stemmen: <span itemprop="ratingCount"><?php echo $nr_of_votes ?></span></li> 
             <li>Gemiddeld <span class="avaragerating"><?php echo $dec_avg ?></span> uit <span itemprop="bestRating"><?php echo TEGELIZR_AANTAL_STERREN ?></span></li>
-        <?php } 
-        // ===================================================            ?>
+
+            <?php 
+                }
+            if ( !$canvote ) { ?>
+                <li>Je kunt niet meer stemmen. Je hebt dit <?php echo ( $views[$userip] > 1 ) ? $views[$userip] . ' ' . TEGELIZR_RATING_UNITY : $views[$userip] . ' ' . TEGELIZR_RATING_UNITY_S; ?> gegeven</li>
+            <?php }  // ======================================== ?>
+
+
     </ul>
 
-
-
+    <?php
+    if ( $canvote ) {
+    ?>
     <form role="form" id="star_rating" name="star_rating" action="sterretjes.php" method="get" enctype="multipart/form-data">
         <fieldset class="rate_widget">
             <legend class="result"><?php echo $legend ?></legend>
+            
+    <?php
+    }
+    ?>
+    
             <div class="rating" id="<?php echo $fileid ?>">
             <?php
             $i = 0;
@@ -212,7 +225,23 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
             
                 $lekey = ( TEGELIZR_AANTAL_STERREN - $i); 
                 
-                echo '<input type="radio" name="' . TEGELIZR_RATING_VOTE . '" value="' . $lekey . '"  id="' . TEGELIZR_RATING_VOTE . '' . $lekey . '" class="star_' . $lekey . '"';
+                echo '<input type="radio" name="' . TEGELIZR_RATING_VOTE . '" value="' . $lekey . '"  id="' . TEGELIZR_RATING_VOTE . '' . $lekey . '" class="star_' . $lekey;
+
+                $cd = ' class="mag_klikbaar"';
+
+                if ( ( $dec_avg > 0 ) && ( $dec_avg > $lekey ) ) {
+                    if ( $disabled ) {
+                        $cd = ' class="waardering"';
+                    }
+                    else {
+                        $cd = ' class="waardering mag_klikbaar"';
+                    }
+                    echo ' waardering';
+                }  
+                else {
+                }
+                echo '"';
+
                 if ( $lekey == 1 ) {
                     echo ' required="required"';
                 }  
@@ -220,13 +249,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
                     echo ' checked="checked"';
                 }  
 
-                $cd = 'waardering';
-                if ( $disabled ) {
-                    $cd = '';
-                }  
-
-
-                echo $disabled . ' /><label for="' . TEGELIZR_RATING_VOTE . '' . $lekey . '" class="' . $cd . '" data-starvalue="' . $lekey . '">' . $lekey . '</label>';
+                echo  $disabled . ' /><label for="' . TEGELIZR_RATING_VOTE . '' . $lekey . '"'  . $cd . ' data-starvalue="' . $lekey . '">' . $lekey . '</label>';
                 $i++;
             endwhile;
 
@@ -237,19 +260,18 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
             <input type="hidden" id="widget_id" name="widget_id" value="<?php echo $fileid ?>" />
             <input type="hidden" id="redirect" name="redirect" value="<?php echo $fileid ?>" />
             <button type="submit" class="btn btn-primary"<?php echo $disabled ?>><?php echo TEGELIZR_SUBMIT_RATING ?></button>
-        <?php } else { // ======================================== ?>
-            <p>Je kunt niet meer stemmen. Je hebt dit <?php echo ( $views[$userip] > 1 ) ? $views[$userip] . ' ' . TEGELIZR_RATING_UNITY : $views[$userip] . ' ' . TEGELIZR_RATING_UNITY_S; ?> gegeven</p>
-        <?php }  // ======================================== ?>
+        <?php }  ?>
 
             <p class="total_votes"></p>
-        </fieldset>
+
+    <?php
+    if ( $canvote ) {
+    ?></fieldset>
     </form>
+    <?php
+    }
+    ?>
 
-
-<noscript>
-<h1>Javascript staat uit</h1>
-</noscript>    
-    
     
     <p>Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>
     <?php echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY) ?><?php echo showthumbs(12, $zinnen[2]);?>
@@ -287,7 +309,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
         });
     
 
-        $('.rate_widget label.waardering').addClass('is_klikbaar');
+        $('.rate_widget label.mag_klikbaar').addClass('is_klikbaar');
 
         $('.btn.btn-primary').toggle(false);
 
@@ -338,11 +360,9 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
         var ledinges    = $( ".result" ).data('fsr');
         var Dankjewel   = ledinges.<?php echo $userip . '_comment' ?>;
         
-//        $( ".result" ).html('<li>Set: <span itemprop="ratingValue">' + ledinges.<?php echo TGLZR_TOTAL_POINTS ?> + '</span></li><li>Aantal stemmen: <span itemprop="ratingCount">' + ledinges.<?php echo TGLZR_NR_VOTES ?> + '</span></li><li>Gemiddeld <span>' + ledinges.<?php echo dec_avg ?> + '</span> uit <span itemprop="bestRating"><?php echo TEGELIZR_AANTAL_STERREN ?></span></li>');
-
         $( ".result" ).html( Dankjewel );
 
-        $('.rate_widget label.waardering').removeClass('is_klikbaar');
+        $('.is_klikbaar').removeClass('is_klikbaar');
 
         var avg   = ledinges.<?php echo rounded_avg ?>;
         var votes = ledinges.<?php echo TGLZR_NR_VOTES ?>;
@@ -354,7 +374,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
             $('span.avaragerating').html(avg);
         }
         else {
-            $('ul[itemprop="aggregateRating"]').append('<li> <li>Totaalscore: <span itemprop="ratingValue">' + exact + '</span></li> <li>Aantal stemmen: <span itemprop="ratingCount">' + exact + '</span></li> <li>Gemiddeld <span class="avaragerating">' + exact + '</span> uit <span itemprop="bestRating">' + exact + '</span></li></li>');
+            $('ul[itemprop="aggregateRating"]').append('<li>Totaalscore: <span itemprop="ratingValue">' + exact + '</span></li> <li>Aantal stemmen: <span itemprop="ratingCount">' + exact + '</span></li> <li>Gemiddeld <span class="avaragerating">' + exact + '</span> uit <span itemprop="bestRating">' + exact + '</span></li></li><li>Je kunt niet meer stemmen.</li>');
         }
 
         $(widget).find('.star_' + avg).prevAll().andSelf().addClass('ratings_vote');
