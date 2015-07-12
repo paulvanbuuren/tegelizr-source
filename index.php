@@ -3,9 +3,9 @@
 // ===================================================================================================================
 // 
 //    Tegelizr.nl
-//    author:                        Paul van Buuren
+//    author:                     Paul van Buuren
 //    contact:                    paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
-//    version:                    2.0
+//    version:                    3.0
 
 // ===================================================================================================================
 
@@ -23,6 +23,7 @@ $desttextpath   = '';
 
 if ( isset( $zinnen[2] ) ) {
     $filename       = $zinnen[2] . ".png";
+    $fileid         = $zinnen[2];
     $desttextpath   = $zinnen[2] . ".txt";
 }
 
@@ -150,11 +151,28 @@ function sortByOrder($a, $b) {
 // ===================================================================================================================
 elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filename ) ) && ( file_exists( $outpath.$desttextpath ) ) ) {
 
+    global $userip;
+    
     $desturl        = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2];
     $imagesource    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_TEGELFOLDER . '/' . $filename;
     $views          = getviews($outpath.$desttextpath,true);
-    $txt_tegeltekst = filtertext($views['txt_tegeltekst']);
+    $txt_tegeltekst = isset($views['txt_tegeltekst']) ? filtertext($views['txt_tegeltekst']) : '';
+
+    $total_points   = isset($views[TGLZR_TOTAL_POINTS]) ? $views[TGLZR_TOTAL_POINTS] : 0;
+    $dec_avg        = isset($views[dec_avg]) ? $views[dec_avg] : 0;
+    $rounded_avg    = isset($views[rounded_avg]) ? $views[rounded_avg] : 0;
+    $nr_of_votes    = isset($views[TGLZR_NR_VOTES]) ? $views[TGLZR_NR_VOTES] : 0;
+
     $titel          = $txt_tegeltekst . ' - ' . TEGELIZR_TITLE;
+    $canvote        = true;
+    $disabled       = '';
+    $legend         = 'Hoeveel sterren is dit tegeltje waard?';
+        
+    if ( isset($views[$userip] ) ) {
+        $legend     = 'Gemiddelde waardering';
+        $canvote    = false;
+        $disabled   = ' disabled="disabled"';
+    }
 
 ?>
 <meta property="og:title" content="<?php echo $titel; ?>" />
@@ -163,14 +181,201 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo $imagesource ?>" />
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
-<article class="resultaat">
-  <h1><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><?php echo TEGELIZR_TITLE ?></a></h1>
-  <a href="<?php echo htmlspecialchars($desturl)?>"><img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje" /></a>
-  <p class="view-counter">(<?php echo $views[TEGELIZR_VIEWS] ?> keer bekeken)</p>
-  <p>Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>
-  <?php echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY) ?><?php echo showthumbs(12, $zinnen[2]);?>
-  <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
+<article class="resultaat" itemscope itemtype="http://schema.org/ImageObject">
+    <h1><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><?php echo TEGELIZR_TITLE ?></a></h1>
+    <a href="<?php echo htmlspecialchars($desturl)?>" title=""><img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje"  itemprop="contentUrl" /></a>
+    <h2 itemprop="name"><?php echo $txt_tegeltekst ?></h2>
+
+    <ul itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+        <li class="view-counter"><?php echo $views[TEGELIZR_VIEWS] ?> keer bekeken</li>
+        <?php 
+        // ===================================================            
+        if ( intval( $total_points > 0 ) ) { 
+        ?>
+            <li>Totaalscore: <span itemprop="ratingValue"><?php echo $total_points ?></span></li> 
+            <li>Aantal stemmen: <span itemprop="ratingCount"><?php echo $nr_of_votes ?></span></li> 
+            <li>Gemiddeld <span class="avaragerating"><?php echo $dec_avg ?></span> uit <span itemprop="bestRating"><?php echo TEGELIZR_AANTAL_STERREN ?></span></li>
+        <?php } 
+        // ===================================================            ?>
+    </ul>
+
+
+
+    <form role="form" id="star_rating" name="star_rating" action="sterretjes.php" method="get" enctype="multipart/form-data">
+        <fieldset class="rate_widget">
+            <legend class="result"><?php echo $legend ?></legend>
+            <div class="rating" id="<?php echo $fileid ?>">
+            <?php
+            $i = 0;
+
+            while ($i < TEGELIZR_AANTAL_STERREN):
+            
+                $lekey = ( TEGELIZR_AANTAL_STERREN - $i); 
+                
+                echo '<input type="radio" name="' . TEGELIZR_RATING_VOTE . '" value="' . $lekey . '"  id="' . TEGELIZR_RATING_VOTE . '' . $lekey . '" class="star_' . $lekey . '"';
+                if ( $lekey == 1 ) {
+                    echo ' required="required"';
+                }  
+                if ( $dec_avg == $lekey ) {
+                    echo ' checked="checked"';
+                }  
+
+                $cd = 'waardering';
+                if ( $disabled ) {
+                    $cd = '';
+                }  
+
+
+                echo $disabled . ' /><label for="' . TEGELIZR_RATING_VOTE . '' . $lekey . '" class="' . $cd . '" data-starvalue="' . $lekey . '">' . $lekey . '</label>';
+                $i++;
+            endwhile;
+
+            ?>
+        </div>
+
+        <?php if ( $canvote ) {  // ======================================== ?>
+            <input type="hidden" id="widget_id" name="widget_id" value="<?php echo $fileid ?>" />
+            <input type="hidden" id="redirect" name="redirect" value="<?php echo $fileid ?>" />
+            <button type="submit" class="btn btn-primary"<?php echo $disabled ?>><?php echo TEGELIZR_SUBMIT_RATING ?></button>
+        <?php } else { // ======================================== ?>
+            <p>Je kunt niet meer stemmen. Je hebt dit <?php echo ( $views[$userip] > 1 ) ? $views[$userip] . ' ' . TEGELIZR_RATING_UNITY : $views[$userip] . ' ' . TEGELIZR_RATING_UNITY_S; ?> gegeven</p>
+        <?php }  // ======================================== ?>
+
+            <p class="total_votes"></p>
+        </fieldset>
+    </form>
+
+
+<noscript>
+<h1>Javascript staat uit</h1>
+</noscript>    
+    
+    
+    <p>Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>
+    <?php echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY) ?><?php echo showthumbs(12, $zinnen[2]);?>
+    <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
 </article>
+
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+
+    // This is the first thing we add ------------------------------------------
+    $(document).ready(function() {
+        
+        $('.rate_widget').each(function(i) {
+            var widget = this;
+
+            var out_data = {
+                widget_id : $(widget).attr('id'),
+                fetch: 1
+            };
+
+            $.post(
+                'sterretjes.php',
+                out_data,
+                function(INFO) {
+                    $( ".result" ).data( 'fsr', INFO );
+                    console.log(' 1 Gezet! '  ) ;                    
+                    set_votes(widget);
+                },
+                'json'
+            );
+
+
+
+        });
+    
+
+        $('.rate_widget label.waardering').addClass('is_klikbaar');
+
+        $('.btn.btn-primary').toggle(false);
+
+        $('.is_klikbaar').hover(
+            // Handles the mouseover
+            function() {
+                $(this).prevAll().andSelf().addClass('ratings_over');
+                $(this).nextAll().removeClass('ratings_vote'); 
+            },
+            // Handles the mouseout
+            function() {
+                $(this).prevAll().andSelf().removeClass('ratings_over');
+                // can't use 'this' because it wont contain the updated data
+                set_votes($(this).parent());
+            }
+        );
+        
+        
+        // This actually records the vote
+        $( '.is_klikbaar' ).bind('click', function() {
+            var star    = this;
+            var widget  = $(this).parent();
+            
+            $( ".result" ).html( 'er is geklikt op ' + $(this).html() );
+
+            var clicked_data = {
+                <?php echo TEGELIZR_RATING_VOTE ?> : $(this).data('starvalue'),
+                widget_id : $(star).parent().attr('id')
+            };
+            $.post(
+                'sterretjes.php',
+                clicked_data,
+                function(INFO) {
+                    console.log('er is gescoord');                    
+                    $( ".result" ).data( 'fsr', INFO );
+                    set_votes(widget);
+                },
+                'json'
+            ); 
+
+
+        });
+    });
+
+
+    function set_votes(widget) {
+
+        var ledinges    = $( ".result" ).data('fsr');
+        var Dankjewel   = ledinges.<?php echo $userip . '_comment' ?>;
+        
+//        $( ".result" ).html('<li>Set: <span itemprop="ratingValue">' + ledinges.<?php echo TGLZR_TOTAL_POINTS ?> + '</span></li><li>Aantal stemmen: <span itemprop="ratingCount">' + ledinges.<?php echo TGLZR_NR_VOTES ?> + '</span></li><li>Gemiddeld <span>' + ledinges.<?php echo dec_avg ?> + '</span> uit <span itemprop="bestRating"><?php echo TEGELIZR_AANTAL_STERREN ?></span></li>');
+
+        $( ".result" ).html( Dankjewel );
+
+        $('.rate_widget label.waardering').removeClass('is_klikbaar');
+
+        var avg   = ledinges.<?php echo rounded_avg ?>;
+        var votes = ledinges.<?php echo TGLZR_NR_VOTES ?>;
+        var exact = ledinges.<?php echo dec_avg ?>;
+
+        if ( $('span[itemprop="ratingValue"]').length ) {
+            $('span[itemprop="ratingValue"]').html(exact);
+            $('span[itemprop="ratingCount"]').html(votes);
+            $('span.avaragerating').html(avg);
+        }
+        else {
+            $('ul[itemprop="aggregateRating"]').append('<li> <li>Totaalscore: <span itemprop="ratingValue">' + exact + '</span></li> <li>Aantal stemmen: <span itemprop="ratingCount">' + exact + '</span></li> <li>Gemiddeld <span class="avaragerating">' + exact + '</span> uit <span itemprop="bestRating">' + exact + '</span></li></li>');
+        }
+
+        $(widget).find('.star_' + avg).prevAll().andSelf().addClass('ratings_vote');
+        $(widget).find('.star_' + avg).nextAll().removeClass('ratings_vote'); 
+        if ( votes > 0 ) {
+//            $(widget).find('.total_votes').text( votes + ' votes recorded (' + exact + ' rating)' );
+        }
+        
+    }
+
+    // END FIRST THING
+    
+
+
+
+    
+    
+    
+    
+    </script>
+
 <?php
     
 }

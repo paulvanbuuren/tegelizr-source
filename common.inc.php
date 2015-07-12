@@ -11,28 +11,42 @@
 define('PVB_DEBUG', false);
 
 
-define('TEGELIZR_TITLE',        'Online tegeltjes bakken');
-define('TEGELIZR_FORM',         'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
-define('TEGELIZR_BACK',         '<span>nog een tegeltje</span>');
-define('TEGELIZR_SUBMIT',       'bak mijn tegeltje');
-define('TEGELIZR_TXT_LENGTH',   90);
-define('TEGELIZR_THUMB_WIDTH',  220);
-define('TEGELIZR_BLUR',         2);
-define('TEGELIZR_TXT_VALUE',    '');
-define('TEGELIZR_SELECTOR',     'tegeltje');
-define('TEGELIZR_PROTOCOL',     'http://');
-define('TEGELIZR_SUMMARY',      'Maak hier je eigen tegeltje. Een geintje van Paul van Buuren, van WBVB Rotterdam.');
-define('TEGELIZR_THUMBS',       'thumbs');
-define('TEGELIZR_VIEWS',        'views');
-define('TEGELIZR_TEGELFOLDER',  'tegeltjes');
-define('TEGELIZR_ALLES',        'alle-tegeltjes');
-define('TEGELIZR_REDACTIE',     'redactie');
-define('TEGELIZR_DEFAULT_IMAGE','http://wbvb.nl/images/kiezen-is-een-keuze.jpg');
-define('TEGELIZR_ZOEKEN',       'zoeken');
-define('TEGELIZR_ZOEKTERM',     'zoektegeltje');
-define('TEGELIZR_TRIGGER_KEY',  'pasop');
+define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
+define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
+define('TEGELIZR_BACK',             '<span>nog een tegeltje</span>');
+define('TEGELIZR_SUBMIT',           'bak mijn tegeltje');
+define('TEGELIZR_SUBMIT_RATING',    'geef sterren');
+define('TEGELIZR_TXT_LENGTH',       90);
+define('TEGELIZR_THUMB_WIDTH',      220);
+define('TEGELIZR_BLUR',             2);
+define('TEGELIZR_TXT_VALUE',        '');
+define('TEGELIZR_SELECTOR',         'tegeltje');
+define('TEGELIZR_PROTOCOL',         'http://');
+define('TEGELIZR_SUMMARY',          'Maak hier je eigen tegeltje. Een geintje van Paul van Buuren, van WBVB Rotterdam.');
+define('TEGELIZR_THUMBS',           'thumbs');
+define('TEGELIZR_VIEWS',            'views');
+define('TEGELIZR_TEGELFOLDER',      'tegeltjes');
+define('TEGELIZR_ALLES',            'alle-tegeltjes');
+define('TEGELIZR_REDACTIE',         'redactie');
+define('TEGELIZR_DEFAULT_IMAGE',    'http://wbvb.nl/images/kiezen-is-een-keuze.jpg');
+define('TEGELIZR_ZOEKEN',           'zoeken');
+define('TEGELIZR_ZOEKTERM',         'zoektegeltje');
+define('TEGELIZR_TRIGGER_KEY',      'pasop');
 define('TEGELIZR_TRIGGER_VALUE',    'heet');
+define('TGLZR_TOTAL_POINTS',        'tglzr_TGLZR_TOTAL_POINTS');
+define('dec_avg',                   'tglzr_dec_avg');
+define('TGLZR_NR_VOTES',            'tglzr_TGLZR_NR_VOTES');
+define('rounded_avg',               'tglzr_rounded_avg');
 
+define('TEGELIZR_AANTAL_STERREN',   5);
+
+
+define('TEGELIZR_RATING_UNITY_S',   'bal');
+define('TEGELIZR_RATING_UNITY',     'ballen');
+define('TEGELIZR_RATING_VOTE',      'waardering');
+define('TEGELIZR_RATING_VOTES',     'waarderingen');
+define('TEGELIZR_VOLGENDE',         'volgende');
+define('TEGELIZR_VORIGE',           'vorige');
 
 $path               = dirname(__FILE__)."/";
 
@@ -42,6 +56,7 @@ $outpath            = $path. TEGELIZR_TEGELFOLDER . "/";
 $outpath_thumbs     = $path. TEGELIZR_THUMBS . "/";
 $baseimgpath        = $sourcefolder."base.png";
 $zoektegeltje       = '';
+$userip             = 'IP' . md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
 
 
 // ===================================================================================================================
@@ -163,21 +178,29 @@ function showthumbs($aantal = '10', $hide = '') {
             $stack       = explode('/', $image);
             $filename    = array_pop($stack);
             $info        = explode('_', $filename );
-            $views       = getviews($outpath.$info[1] . '.txt',false);
-
-            if ( $hide == $info[1] ) {
-//                break;
-            }
-            else {
+            if  ( ( file_exists( $outpath.$info[1] . '.txt' ) ) && ( file_exists( $outpath.$info[1] . '.png' ) ) ) {
                 
-                if ( $aantal > 0 ) {
-                    $counter++;
+                $views       = getviews($outpath.$info[1] . '.txt',false);
+    
+                if ( $hide == $info[1] ) {
+    //                break;
                 }
-
-                $fruit = '<a href="/'  . TEGELIZR_SELECTOR . '/' . $info[1] . '" title="' . filtertext($views['txt_tegeltekst']) . ' - ' . $views[TEGELIZR_VIEWS] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $filename . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . filtertext($views['txt_tegeltekst']) . '" /></a>';
-                echo '<li>' . $fruit . "</li>";
+                else {
+                    
+                    if ( $aantal > 0 ) {
+                        $counter++;
+                    }
+    
+                    $txt_tegeltekst = '';
+                    if ( isset( $views['txt_tegeltekst'] )) {
+                        $txt_tegeltekst = filtertext( $views['txt_tegeltekst'] );
+                    }
+    
+                    $fruit = '<a href="/'  . TEGELIZR_SELECTOR . '/' . $info[1] . '" title="' . $txt_tegeltekst . ' - ' . $views[TEGELIZR_VIEWS] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $filename . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . $txt_tegeltekst . '" /></a>';
+                    echo '<li>' . $fruit . "</li>";
+                }
+    
             }
-
             
         }    
     }    
@@ -251,6 +274,8 @@ function spitoutheader() {
 
 function getviews($filename, $update = false) {
 
+    global $userip;
+
     $json_data      = file_get_contents($filename);
     $archieftekst   = json_decode($json_data, true);
 
@@ -261,11 +286,34 @@ function getviews($filename, $update = false) {
         $archieftekst[TEGELIZR_VIEWS] = 1;
     }
 
+    $archieftekst[$userip . '_comment'] = 'Hoeveel sterren is dit tegeltje waard?';
+
     if ( $update ) {
         $archieftekst[TEGELIZR_VIEWS] = ( intval( $archieftekst[TEGELIZR_VIEWS] ) + $update);
         $newJsonString = json_encode($archieftekst);
         file_put_contents($filename, $newJsonString);
     }
+
+    if ( ( !isset( $archieftekst[TGLZR_TOTAL_POINTS] ) ) || ( !isset( $archieftekst[TGLZR_NR_VOTES] ) ) ) {
+
+        if ( !isset( $archieftekst[TGLZR_NR_VOTES] ) ){
+            $archieftekst[TGLZR_NR_VOTES] = 0;
+//            $archieftekst[TGLZR_NR_VOTES] = rand ( 1 , 245 );
+        }
+
+        if ( !isset( $archieftekst[TGLZR_TOTAL_POINTS] ) ){
+            $archieftekst[TGLZR_TOTAL_POINTS] = 0;
+//            $archieftekst[TGLZR_TOTAL_POINTS] = round(( $archieftekst[TGLZR_NR_VOTES] * ( ( 1 / rand ( 1 , 100 ) ) + rand ( 1 , TEGELIZR_AANTAL_STERREN ) ) ),0);
+        }
+
+        $archieftekst[dec_avg] = ($archieftekst[TGLZR_NR_VOTES] > 0 ) ? ( $archieftekst[TGLZR_TOTAL_POINTS] / $archieftekst[TGLZR_NR_VOTES] ) : 0;
+        $archieftekst[rounded_avg] = round( $archieftekst[dec_avg] ,0);
+        
+        $newJsonString = json_encode($archieftekst);
+        file_put_contents($filename, $newJsonString);
+    }
+
+
 
     if ( isset( $archieftekst[TEGELIZR_VIEWS] ) ) {
         return $archieftekst;

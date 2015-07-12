@@ -95,6 +95,10 @@ form {
     float: none;
     clear: both;
 
+    input {
+        border: 0 none white;    
+        box-shadow: none;
+    }
 
     input[type='text'],
     input[type='search'],
@@ -103,6 +107,7 @@ form {
         font-size: 1.2em;
         border: 2px solid #afafaf;
         border-radius: 0;
+          box-shadow: 1px 1px 3px #eee inset;
     }
 
     select {
@@ -529,7 +534,119 @@ p {
             margin: 0;
         }
     }
+
 }
+
+// rating ==========
+x.rate_widget {
+    overflow:   visible;
+    padding:    10px;
+    position:   relative;
+    
+    label {
+        float: left;        
+    }
+    
+    .is_klikbaar {
+        background: url('rating/star_empty.png') no-repeat;
+        float:      left;
+        height:     28px;
+        padding:    2px;
+        width:      32px;
+    }
+    .ratings_vote {
+        background: url('rating/star_full.png') no-repeat;
+    }
+    .ratings_over {
+        background: url('rating/star_highlight.png') no-repeat;
+    }
+    .total_votes {
+    } 
+}
+
+[itemprop="aggregateRating"] {
+    margin: 0;
+    padding: 0;
+    li {
+        font-size: 50%;
+        float: left;
+        display: inline-block;
+        margin: 0 .5em 0 0;
+        padding: 0;
+    }
+}
+
+.rating {
+    
+    
+    overflow: hidden;
+    clear: both;
+    width: auto;
+    display: inline-block;
+    float: none;
+    
+    .sterretjes {
+    }
+    
+    
+    /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
+       follow these rules. Every browser that supports :checked also supports :not(), so
+       it doesn’t make the test unnecessarily selective */
+    &:not(:checked) > input {
+        position:absolute;
+        top:-9999px;
+        clip:rect(0,0,0,0);
+    }
+    
+    &:not(:checked) > label {
+        float:right;
+        width:1.3em;
+        padding:0 .2em;
+        overflow:hidden;
+        white-space:nowrap;
+        font-size:200%;
+        line-height:1.2;
+        color:#ddd;
+        text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+    }
+    
+    &:not(:checked) > label:before {
+        content: '★ ';
+    }
+    
+    & > input:checked ~ label {
+        color: #f70;
+        text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+    }
+    
+    &:not(:checked) > label.is_klikbaar:hover,
+    &:not(:checked) > label.is_klikbaar:hover ~ label.is_klikbaar {
+        color: gold;
+        cursor:pointer;
+        text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+    }
+    
+    & > input:checked + label.is_klikbaar:hover,
+    & > input:checked + label.is_klikbaar:hover ~ label.is_klikbaar,
+    & > input:checked ~ label.is_klikbaar:hover,
+    & > input:checked ~ label.is_klikbaar:hover ~ label.is_klikbaar,
+    & > label:hover ~ input:checked ~ label.is_klikbaar {
+        color: #ea0;
+        cursor:pointer;
+        text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+    }
+    
+    & > label:active {
+        position:relative;
+        top:2px;
+        left:2px;
+    }
+
+}
+
+
+
+
 // ===================================================================================================================
 
 @media only screen and (max-width: 550px) {
@@ -660,28 +777,34 @@ p {
         border:1px #f00;
     }
 
-    form fieldset {
-        padding: 0;
-        border: 0 none transparent;
-        float:left;
-        width: 80%;
-    }
-    form fieldset + button{
-        float:left;
-        width: 19%;
-        overflow:hidden;
-    }
-    form button {
-        float: right;
-        clear: right;
-    }
-    form button span:after {
-        content: '\A';
-        white-space: pre;
-    }
-    form button + p {
-        float:none;
-        clear:both;
+    form {
+        fieldset {
+            padding: 0;
+            border: 0 none transparent;
+            width: 100%;
+            float:left;
+            
+            legend {
+                float: left;
+            }
+        }
+        fieldset + button{
+            float:left;
+            width: 19%;
+            overflow:hidden;
+        }
+        button {
+            float: right;
+            clear: right;
+        }
+        button span:after {
+            content: '\A';
+            white-space: pre;
+        }
+        button + p {
+            float:none;
+            clear:both;
+        }
     }
     .uitleg {
         width: 100%;
