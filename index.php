@@ -164,6 +164,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
     $rounded_avg    = isset($views[rounded_avg]) ? $views[rounded_avg] : 0;
     $nr_of_votes    = isset($views[TGLZR_NR_VOTES]) ? $views[TGLZR_NR_VOTES] : 0;
 
+
+
     $titel          = $txt_tegeltekst . ' - ' . TEGELIZR_TITLE;
     $canvote        = true;
     $disabled       = '';
@@ -193,9 +195,9 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
         // ===================================================            
         if ( intval( $total_points > 0 ) ) { 
         ?>
-            <li>Totaalscore: <span itemprop="ratingValue"><?php echo $total_points ?></span></li> 
+            <li>Totaalscore: <span itemprop="ratingValue"><?php echo round($dec_avg,2) ?></span></li> 
             <li>Aantal stemmen: <span itemprop="ratingCount"><?php echo $nr_of_votes ?></span></li> 
-            <li>Gemiddeld <span class="avaragerating"><?php echo $dec_avg ?></span> uit <span itemprop="bestRating"><?php echo TEGELIZR_AANTAL_STERREN ?></span></li>
+            <li>Gemiddeld <span class="avaragerating"><?php echo $rounded_avg ?></span> uit <span itemprop="bestRating"><?php echo TEGELIZR_AANTAL_STERREN ?></span></li>
 
             <?php 
                 }
@@ -274,15 +276,36 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 
     
     <p>Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>
-    <?php echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY) ?><?php echo showthumbs(12, $zinnen[2]);?>
+    <?php
+
+    
+    if ( (isset($views[TEGELIZR_VORIGE])) || (isset($views[TEGELIZR_VOLGENDE])) ) {
+
+        echo isset($views[TEGELIZR_VORIGE]) ? '<a class="vorige" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VORIGE] . '">' . TEGELIZR_VORIGE . '</a>' : '';
+        echo  isset($views[TEGELIZR_VOLGENDE])  ? '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VOLGENDE] . '">' . TEGELIZR_VOLGENDE . '</a>' : '';
+        
+        echo '</nav> ';
+    }
+    ?>
+    <?php echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY) ?>
+    <?php echo showthumbs(12, $zinnen[2]);?>
     <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
+    <?php
+    if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
+        echo '<p id="progress">progress</p>';
+        echo '<p id="progress_now">progress</p>';
+        echo '<div id="progress_bar"><div>zo</div></div>';
+    }    
+    ?>
 </article>
+<?php
+    echo spitoutfooter();
+?>    
 
 
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
 
-    // This is the first thing we add ------------------------------------------
     $(document).ready(function() {
         
         $('.rate_widget').each(function(i) {
@@ -305,8 +328,158 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
             );
 
 
+<?php // ===================================================================================================================
+
+    if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
+
+        
+        ?>
+
+        var vorige              = '';
+        var volgende            = '';
+        var widget              = $('#progress');
+        var myNumber            = undefined;
+        var PROGRESSLENGTH      = 300;
+        var TOTALNRDOCUMENTS    = 300;
+        var CURRENTDOCINDEX     = 0;
+        $(widget).html('gestart');
+
+        var generate_data = {
+            widget_id : $('#progress').attr('id'),
+            fetch: 1
+        };
+
+        $.post(
+            'overzichtspagina.php',
+            generate_data,
+            function(generate_data_out) {
+                $('#progress').data( 'progress', generate_data_out );
+                startgenerate(widget);
+            },
+            'json'
+        );
+
+        
+        function startgenerate(widget) {
+    
+            var ledinges    = $('#progress').data( 'progress');
+            var thelength = 0;
+            TOTALNRDOCUMENTS = ledinges.nrdocs;
+            $('#progress').html( TOTALNRDOCUMENTS + ' documenten om te scannen');
+            $('#progress_bar div').html('&nbsp;');
+            
+//            console.log('startgenerate');
+
+            $('#andere').toggle(false);
+            $('.rate_widget').toggle(false);
+            $('.social-media').toggle(false);
+            $('p').toggle(false);
+           
+            $.each(ledinges.docs, function( index, value ) {
+                CURRENTDOCINDEX = index;
+//                console.log('startgenerate: ' + CURRENTDOCINDEX + '=' + value);
+
+                volgende        = ( TOTALNRDOCUMENTS > index+1 ) ? ledinges.docs[index+1] : '';
+                vorige          = ( index == 0 ) ? '' : ledinges.docs[index-1] ;
+
+                addOne(logMyNumber, vorige, value, volgende);
+                
+            });
+
+            $('#andere').toggle(true);
+            $('.rate_widget').toggle(true);
+            $('.social-media').toggle(true);
+            $('p').toggle(true);
+                        
+        }
+
+        function alertprogress(index, element) {
+            $('#progress_now').html(index + ': ' + element);
+        }
+        
+
+
+
+function addOne(callback, vorige, txtfile, volgende) {
+    'use strict';
+
+//    var generate_lalalala_in = {
+//        vorige: vorige,
+//        huidige: txtfile,
+//        volgende: volgende
+//    };
+
+    var generate_lalalala_test = {
+        test : 'joepie'
+    };
+
+
+// console.log(callback);        
+// console.log(generate_lalalala_test);        
+// callback();
+
+    $.post(
+        'overzichtspagina.php',
+        generate_lalalala_test,
+        function( generate_lalalala_out ) {
+            $('#progress_now').data( 'docallback', generate_lalalala_out );
+            console.log('hoppa');
+            tralaa();
+            callback();
+        },
+        'json'
+    );
+}
+        
+        function tralaa() {
+            var dinges = $('#progress_now').data( 'docallback' );
+            console.log('tralaa ' + dinges.kees);
+        }
+        
+        function logMyNumber() {
+            console.log('logMyNumber: ' + CURRENTDOCINDEX + ' / ' + TOTALNRDOCUMENTS + ' / ' + PROGRESSLENGTH);
+
+            var thelength = ( ( CURRENTDOCINDEX / TOTALNRDOCUMENTS ) * PROGRESSLENGTH);
+            $('#progress_bar div').css('width', Math.round(thelength));
+
+        }
+        
+
+        
+        function logArrayElements(element, index, array) {
+
+            var ledinges    = $('#progress').data( 'progress');
+            volgende        = ( ledinges.nrdocs > index+1 ) ? array[index+1] : '';
+            vorige          = ( index == 0 ) ? '' : array[index-1] ;
+
+            var letext = '<li>(' + index + ') Vorige: ' + vorige + '</li><li>Huidige: ' + element + '</li><li>volgende: ' + volgende + '</li>';
+
+            
+            $.post( "overzichtspagina.php", generate_files)
+                .done(function( data ) {
+                console.log( "Data Loaded: " + data + '\n============================\n');
+            });
+            
+
+        }
+
+    
+
+<?php
+
+
+    }
+    // =================================================================================================================== ?>
+
+
+
+
+
 
         });
+    
+
+
     
 
         $('.rate_widget label.mag_klikbaar').addClass('is_klikbaar');
@@ -326,8 +499,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
                 set_votes($(this).parent());
             }
         );
-        
-        
+
         // This actually records the vote
         $( '.is_klikbaar' ).bind('click', function() {
             var star    = this;
@@ -349,10 +521,10 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
                 },
                 'json'
             ); 
-
-
         });
+
     });
+
 
 
     function set_votes(widget) {
@@ -379,21 +551,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 
         $(widget).find('.star_' + avg).prevAll().andSelf().addClass('ratings_vote');
         $(widget).find('.star_' + avg).nextAll().removeClass('ratings_vote'); 
-        if ( votes > 0 ) {
-//            $(widget).find('.total_votes').text( votes + ' votes recorded (' + exact + ' rating)' );
-        }
-        
     }
 
-    // END FIRST THING
-    
-
-
-
-    
-    
-    
-    
     </script>
 
 <?php
@@ -426,21 +585,12 @@ else {
     </div>
     <button type="submit" class="btn btn-primary"><?php echo TEGELIZR_SUBMIT ?></button>
   </form>
-  <?php echo showthumbs(12); ?></article>
-<?php 
+  <?php echo showthumbs(12); ?>
 
-    
+  </article>
+
+<?php  
+    echo spitoutfooter();
+
 }
-// ===================================================================================================================
-
-
-echo spitoutfooter();
-
-if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
-    
-    flush();    
-    maakoverzichtspagina();
-}
-
-
 ?>

@@ -38,6 +38,7 @@ define('dec_avg',                   'tglzr_dec_avg');
 define('TGLZR_NR_VOTES',            'tglzr_TGLZR_NR_VOTES');
 define('rounded_avg',               'tglzr_rounded_avg');
 
+
 define('TEGELIZR_AANTAL_STERREN',   5);
 
 
@@ -59,71 +60,12 @@ $zoektegeltje       = '';
 $userip             = 'IP' . md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
 
 
+
 // ===================================================================================================================
-function maakoverzichtspagina() {
 
-    global $outpath_thumbs;
-    global $outpath;
-    global $path;
-    $list = '';
-    $tegelcounter = 0;
-    
-    $index_html     = $path . TEGELIZR_ALLES . "/index.html";
-    $index_txt      = $path . TEGELIZR_ALLES . "/index.txt";
-
-    if (is_dir($outpath_thumbs)) {
-
-        $images = glob($outpath_thumbs . "*.png");
-        
-        rsort($images);
-        
-        foreach($images as $image) {
-            
-            // door alle thumbs heen lopen
-            $stack          = explode('/', $image);
-            $thumb_filename = array_pop($stack);
-            $info           = explode('_', $thumb_filename );
-            $time           = explode('-', $info[0] );
-
-            $groot_image    = $outpath . $info[1] . '.png';
-            $groot_txt      = $outpath . $info[1] . '.txt';
-            
-            // als de grote plaat ook bestaat
-            if ( file_exists( $groot_image ) ) {
-
-                $tegelcounter++;
-
-                $boom[$thumb_filename]                      = getviews($groot_txt, false);
-                $boom[$thumb_filename]['file_thumb']        = $thumb_filename;
-                $boom[$thumb_filename]['file_name']         = $info[1];
-                
-                $alt = isset( $boom[$thumb_filename]['txt_tegeltekst'] ) ? filtertext($boom[$thumb_filename]['txt_tegeltekst']) : '';
-
-                $list .= '<li><a href="/'  . TEGELIZR_SELECTOR . '/' . $info[1] . '" title="' . $alt . ' - ' . $boom[$thumb_filename][TEGELIZR_VIEWS] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $thumb_filename . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . $alt . '" /></a></li>'; 
-
-            }
-        }    
-
-        if ( file_exists( $index_html ) ) {
-    
-            $desturl        = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ALLES . '/';
-            $stringData     = spitoutheader() . '<meta property="og:title" content="' . filtertext($boom[$thumb_filename]['txt_tegeltekst']) . '" /><meta property="og:description" content="' . TEGELIZR_SUMMARY . '" /><meta property="og:url" content="' . $desturl . '" /><meta property="article:tag" content="' . TEGELIZR_ALLES . '" /><meta property="og:image" content="' . TEGELIZR_DEFAULT_IMAGE . '" /><title>' . TEGELIZR_TITLE . ' - alle ' . $tegelcounter . ' tegeltjes</title>' .  htmlheader() . '<article class="resultaat"><h1><a href="/" title="Maak zelf ook een tegeltje">' . returnlogo() . 'Alle ' . $tegelcounter . ' tegeltjes</a></h1><p>Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>' .  wbvb_d2e_socialbuttons($desturl, filtertext($boom[$thumb_filename]['txt_tegeltekst']), TEGELIZR_SUMMARY) . '<section id="andere"><h2>Wat anderen maakten:</h2><ul class="thumbs">' . $list . '</ul></section><p id="home"> <a href="/">' .  TEGELIZR_BACK . '</a> </p></article>' . spitoutfooter();
-            $fh             = fopen($index_html, 'w') or die("can't open file: " . $index_html );
-            fwrite($fh, $stringData);
-            fclose($fh);
-        }
-        else {
-            die('file does not exist : ' . $index_html);
-        }
-
-        $fh             = fopen($index_txt, 'w') or die("can't open file: " . $index_txt);
-        $stringData     = json_encode($boom);
-
-        fwrite($fh, $stringData);
-        fclose($fh);
-    }    
-}    
-
+function dodebug($text = '') {
+    echo $text . '<br />';
+}
 // ===================================================================================================================
 
 function filtertext($text = '') {
