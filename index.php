@@ -45,7 +45,7 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
 <meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
 <article class="resultaat">
-  <h1><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?>Redactie</a></h1>
+  <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?>Redactie</a></h1>
   <p>Ik houd niet bij wie welk tegeltje gemaakt heeft. Als een tegeltje me niet bevalt, haal ik het weg. </p>
   <p>Door de tekst op een tegeltje te zetten verandert er niet opeens iets aan het auteursrecht van de tekst. Het auteursrecht erop valt niet  aan mij toe, noch aan degene de tekst invoerde.</p>
   <p>Wie teksten invoert op deze site moet ermee leren leven dat ik de teksten misschien aanpas. Zo wordt 'Facebook' altijd 'het satanische Facebook' op de tegeltjes. Als je dat niet leuk vindt, jammer.</p>
@@ -112,7 +112,7 @@ function sortByOrder($a, $b) {
 <meta property="og:image" content="<?php echo $imagesource ?>" />
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
 <article class="resultaat">
-  <h1><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo() . $titel ; ?></a></h1>
+  <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo() . $titel ; ?></a></h1>
 
 <?php
     if ( $results ) {
@@ -121,31 +121,9 @@ function sortByOrder($a, $b) {
         echo '<ul class="thumbs results">';
         
         foreach($results as $result) {
-//echo '<pre>';
-//var_dump($result);
-//echo '</pre>';
 
-            $hashname = seoUrl( $result['file_name'] );
-            $thumb =  $result['file_thumb'];
-            
-            echo '<li><a href="/'  . TEGELIZR_SELECTOR . '/' . $hashname . '" title="' . filtertext($result['txt_tegeltekst']) . ' - ' . $result[TEGELIZR_VIEWS] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $thumb . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . filtertext($result['txt_tegeltekst']) . '" /></a><h3><a href="/'  . TEGELIZR_SELECTOR . '/' . $hashname . '" title="' . filtertext($result['txt_tegeltekst']) . ' - ' . $result[TEGELIZR_VIEWS] . ' keer bekeken">' . filtertext($result['txt_tegeltekst']) . '</a></h3><span class="aantalkeer">' . $result[TEGELIZR_VIEWS] . ' keer bekeken</span>';
-if ( $result[TGLZR_NR_VOTES] > 0 ) {
-    echo '<br /><span class="aantalkeer">waardering: ' . $result[rounded_avg] . ' ';
-    if ( $result[TGLZR_NR_VOTES] > 1 ) {
-        echo TEGELIZR_RATING_UNITY;
-    }
-    else {
-        echo TEGELIZR_RATING_UNITY_S;
-    }
-    echo '</span>';
+            echo getSearchResultItem($result);
 
-
-    
-}
-             
-            echo '</li>';
-
-            
         }    
 
         echo '</ul></section>';
@@ -211,9 +189,20 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 <meta property="og:image" content="<?php echo $imagesource ?>" />
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
 <article class="resultaat" itemscope itemtype="http://schema.org/ImageObject">
-    <h1><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><?php echo TEGELIZR_TITLE ?></a></h1>
+    <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><?php echo TEGELIZR_TITLE ?></a></h1>
 
     <a href="<?php echo htmlspecialchars($desturl)?>" title=""><img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje"  itemprop="contentUrl" /></a>
+<?php
+$thumbs = 12;
+
+    if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
+        $thumbs = 4;
+        echo '<p id="progress_now">&nbsp;</p>';
+        echo '<p id="progress">&nbsp;</p>';
+        echo '<div id="progress_bar"><div>&nbsp;</div></div>';
+    }    
+?>        
+
     <h2 itemprop="name"><?php echo $txt_tegeltekst ?></h2>
 
 <?php
@@ -320,14 +309,6 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 
     
 
-$thumbs = 12;
-
-    if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
-        $thumbs = 4;
-        echo '<p id="progress_now">&nbsp;</p>';
-        echo '<p id="progress">&nbsp;</p>';
-        echo '<div id="progress_bar"><div>&nbsp;</div></div>';
-    }    
 
     
     echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY);
@@ -574,7 +555,7 @@ else {
 <title><?php echo TEGELIZR_TITLE ?>- WBVB Rotterdam</title>
 <?php echo htmlheader() ?>
 <article>
-  <h1><?php echo returnlogo(); ?><?php echo TEGELIZR_TITLE ?></h1>
+  <h1 id="top"><?php echo returnlogo(); ?><?php echo TEGELIZR_TITLE ?></h1>
   <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], TEGELIZR_TITLE, TEGELIZR_SUMMARY) ?>
   <p class="lead"> <?php echo TEGELIZR_FORM ?> </p>
   <aside>(maar Paul, <a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">wat heb je toch met die tegeltjes</a>?)</aside>

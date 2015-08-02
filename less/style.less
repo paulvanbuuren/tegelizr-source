@@ -92,6 +92,29 @@ footer {
         padding-right: 1em;
         margin-bottom: 1em;
     }
+    
+    #totop, #tomenu {
+        position: fixed;
+        right: 1em;
+        bottom: 1em;
+        display: block;
+        border-radius: 5px;
+        border: 3px solid @wit;
+        background: @wit;
+    
+        font-family: toronto,Helvetica,Arial,serif;
+        font-size: 110%;
+        text-decoration: none;
+        color: @txt;
+        padding: 0 1rem;
+    }
+    #tomenu {
+        top: 1em;
+        bottom: auto;
+    }
+    #footer-zoeken {
+        width: 100%;
+    }
 }
 
 form {
@@ -252,6 +275,8 @@ h1 {
     a {
         text-decoration: none;
         color: @titelkleur;
+        display: block;
+        line-height: 1.2;
         
         &:hover,
         &:focus,
@@ -332,29 +357,51 @@ ul.thumbs {
     }
     
 }
-ul.results {
-    li {
-        display: block;
-        clear: both;
-        width: 100%;
-        margin-bottom: 1em;
-        line-height: 1.4;
+ul {
+    &, li {
+        padding-left: 0;
+        margin-left: 0;
+        list-style: none;
     }
-    img {
-        float: left;
-        max-width: 20%;
-        height: auto;
-        margin-right: 1em;
+
+    &.results {
+        li {
+            h3 {
+                line-height: 1.2;
+                 font-size: 100%;
+           }
+        }
     }
-    span {
-//        float: left;
-//        display: inline-block;
-//        clear: right;
-        &:before {
-            content: ' ';
-            float: left;
-            clear: both;
+    
+    &.all, &.results {
+        li {
             display: block;
+            clear: both;
+            width: 100%;
+            margin-bottom: 1em;
+            line-height: 1.4;
+            overflow: hidden;
+            
+        }
+        img {
+            float: left;
+            max-width: 20%;
+            height: auto;
+            margin-right: 1em;
+        }
+        span {
+    //        float: left;
+    //        display: inline-block;
+    //        clear: right;
+            &:before {
+                content: ' ';
+                float: left;
+                clear: both;
+                display: block;
+            }
+        }
+        .aantalkeer {
+            margin-left: 1em;
         }
     }
 }
@@ -613,7 +660,26 @@ x.rate_widget {
 }
 
 .rating {
+    float: left;
+    width: auto;
     
+    input, label {
+        display: inline;
+        width: auto;
+        cursor: pointer;
+    }
+    label {
+        padding: 0 1em;
+        margin-right: 1em;
+    }
+}
+#star_rating {
+    .btn-primary {
+        margin-right: .5em;
+    }
+}
+
+.dojs .rating {
     
     overflow: hidden;
     clear: both;
@@ -795,6 +861,8 @@ nav {
     
 }
 
+
+
 // ===================================================================================================================
 
 @media only screen and (min-width: 1350px) {
@@ -803,6 +871,7 @@ nav {
         position: fixed;
         left: 1em;
         top: 1em;
+
         a {
 
             font-family: toronto,Helvetica,Arial,serif;
@@ -947,10 +1016,10 @@ nav {
             background: fade(@bordercolor, 0%);
             color: fade(@bordercolor, 0%);
             width:  ( @arrowwidth + ( 2 * @arrowpadding ) );
-//            border: 1px solid red;
 
             &:before {
                 padding: 0;
+                display: block;
             }
             
             &:active, 
@@ -971,7 +1040,7 @@ nav {
                 border-right: ( @arrowwidth / 2 ) solid fade(@bordercolor, 30%);
                 float: none;
                 clear: both;
-                margin: 0 auto;
+                margin: 1em auto;
                 right: 0;
             }           
             &:active, 
@@ -992,10 +1061,10 @@ nav {
             &:before {
                 float: none;
                 clear: both;
-                margin: 0 auto;
                 border-left: ( @arrowwidth / 2 ) solid fade(@bordercolor, 30%);
                 border-top: @arrowheight solid transparent;
                 border-bottom: @arrowheight solid transparent;
+                margin: 1em auto;
             }
             
             &:active, 

@@ -6,6 +6,10 @@
 // Same as error_reporting(E_ALL);
 //ini_set('error_reporting', E_ALL);
 
+/* Set locale to Dutch */
+setlocale(LC_ALL, 'nl_NL');
+setlocale(LC_TIME, 'NL_nl');
+
 // ===================================================================================================================
 
 define('PVB_DEBUG', false);
@@ -201,8 +205,49 @@ function wbvb_d2e_socialbuttons($thelink = 'thelink', $thetitle = 'thetitle', $s
 
 // ===================================================================================================================
 function htmlheader() {
-    return '<link href="//wbvb.nl/wp-content/themes/wbvb/style.css" rel="stylesheet" type="text/css"><link href="css/style.css" rel="stylesheet" type="text/css"></head><body>';
+    return '<link href="//wbvb.nl/wp-content/themes/wbvb/style.css" rel="stylesheet" type="text/css"><link href="css/style.css" rel="stylesheet" type="text/css"></head><body class="nojs">';
   
+}
+
+// ===================================================================================================================
+function getSearchResultItem($result, $showImage = true) {
+
+    if (isset($result['file_date'])) {
+        $date = strftime('%e %B %Y',$result['file_date']);
+    }
+    else {
+        $date       = explode('_', $result['file_thumb'] );
+        if ( isset($date[0]) ) {
+            $dateparts = explode('-', $date[0] );
+            $date = strftime('%e %B %Y',strtotime($dateparts[1] . '/'. $dateparts[2]. '/' . $dateparts[0]));
+        } 
+        else {
+            $date = 'heuh';
+        }
+    }
+
+    $hashname = seoUrl( $result['file_name'] );
+    $thumb =  $result['file_thumb'];
+
+    $return =  '<li>';
+    if ( $showImage ) {
+        $return .= '<a href="/'  . TEGELIZR_SELECTOR . '/' . $hashname . '" title="' . filtertext($result['txt_tegeltekst']) . ' - ' . $result[TEGELIZR_VIEWS] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $thumb . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . filtertext($result['txt_tegeltekst']) . '" /></a>';        
+    }
+    $return .= '<h3><a href="/'  . TEGELIZR_SELECTOR . '/' . $hashname . '" title="' . filtertext($result['txt_tegeltekst']) . ' - ' . $result[TEGELIZR_VIEWS] . ' keer bekeken">' . filtertext($result['txt_tegeltekst']) . '</a></h3><span class="datum">' . $date . '</span><span class="aantalkeer">' . $result[TEGELIZR_VIEWS] . ' keer bekeken</span>';
+    if ( $result[TGLZR_NR_VOTES] > 0 ) {
+        $return .= ' - <span class="waardering">waardering: ' . $result[rounded_avg] . ' ';
+        if ( $result[rounded_avg] > 1 ) {
+            $return .=  TEGELIZR_RATING_UNITY;
+        }
+        else {
+            $return .= TEGELIZR_RATING_UNITY_S;
+        }
+        $return .= '</span>';
+    }
+    $return .= '</li>';
+    
+    return $return;
+        
 }
 
 // ===================================================================================================================
@@ -285,7 +330,7 @@ function getviews($filelocation, $update = false) {
 function spitoutfooter() {
     global $zoektegeltje;
     
-    $form = '<form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/" role="search">
+    $form = '<a href="#top" id="totop">Bovenkant</a><a href="#' . TEGELIZR_ZOEKTERM . '" id="tomenu">Menu</a><form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/" role="search">
     <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?zoektegeltje={s}">
     <label for="' . TEGELIZR_ZOEKTERM . '">Zoek een tegel</label>
     <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '" id="' . TEGELIZR_ZOEKTERM . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
@@ -296,7 +341,7 @@ function spitoutfooter() {
 
     
     return '
-<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div><div id="footer-about"><h3>Over de site</h3><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">redactie</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">alle tegeltjes</a></li><li><a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li><li><a href="https://github.com/paulvanbuuren/tegelizr-source">broncode</a></li></ul></div><div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div></footer><scri' . "pt>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-1780046-36', 'auto');ga('send', 'pageview');</scr" . 'ipt></body></html>';
+<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div><div id="footer-about"><h3>Over de site</h3><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">redactie</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">alle tegeltjes</a></li><li><a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li><li><a href="https://github.com/paulvanbuuren/tegelizr-source">broncode</a></li></ul></div><div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div></footer><scri' . "pt>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-1780046-36', 'auto');ga('send', 'pageview');document.body.className = document.body.className.replace('nojs','dojs');</scr" . 'ipt></body></html>';
 
 }
 

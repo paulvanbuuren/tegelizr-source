@@ -94,7 +94,10 @@ class scanfolder {
                 
 //                $list .= '<li><a href="/'  . TEGELIZR_SELECTOR . '/' . $info[1] . '" title="' . $alt . ' - ' . $boom[$thumb_filename][TEGELIZR_VIEWS] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $thumb_filename . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . $alt . '" /></a></li>'; 
 
-                $list .= '<li><a href="/'  . TEGELIZR_SELECTOR . '/' . $info[1] . '" title="' . $alt . ' - ' . $boom[$thumb_filename][TEGELIZR_VIEWS] . ' keer bekeken">' . $alt . '</a></li>'; 
+//                $list .= '<li><a href="/'  . TEGELIZR_SELECTOR . '/' . $info[1] . '" title="' . $alt . ' - ' . $boom[$thumb_filename][TEGELIZR_VIEWS] . ' keer bekeken">' . $alt . '</a></li>'; 
+
+                $list .= getSearchResultItem($boom[$thumb_filename], false);
+                            
 
             }
         }    
@@ -113,7 +116,7 @@ class scanfolder {
             <meta property="og:image" content="' . TEGELIZR_DEFAULT_IMAGE . '" />
             <title>' . TEGELIZR_TITLE . ' - alle ' . $tegelcounter . ' tegeltjes</title>' .  htmlheader() . '
             <article class="resultaat">
-            <h1><a href="/" title="Maak zelf ook een tegeltje">' . returnlogo() . 'Alle ' . $tegelcounter . ' tegeltjes</a></h1>
+            <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje">' . returnlogo() . 'Alle ' . $tegelcounter . ' tegeltjes</a></h1>
             <p>Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>' .  wbvb_d2e_socialbuttons($desturl, $alt, TEGELIZR_SUMMARY) . '
             <section id="alle_tegeltjes"><h2>Wat anderen maakten:</h2><ul class="all">' . $list . '</ul></section>
             <p id="home"> <a href="/">' .  TEGELIZR_BACK . '</a> </p>
