@@ -34,20 +34,25 @@ define('TEGELIZR_ZOEKTERM',         'zoektegeltje');
 define('TEGELIZR_TRIGGER_KEY',      'pasop');
 define('TEGELIZR_TRIGGER_VALUE',    'heet');
 define('TGLZR_TOTAL_POINTS',        'tglzr_TGLZR_TOTAL_POINTS');
+define('TEGELIZR_LASTVISIT',        'last_visit');
+
 define('dec_avg',                   'tglzr_dec_avg');
 define('TGLZR_NR_VOTES',            'tglzr_TGLZR_NR_VOTES');
 define('rounded_avg',               'tglzr_rounded_avg');
 
 
+
 define('TEGELIZR_AANTAL_STERREN',   5);
 
 
-define('TEGELIZR_RATING_UNITY_S',   'bal');
-define('TEGELIZR_RATING_UNITY',     'ballen');
+define('TEGELIZR_RATING_UNITY_S',   'ster');
+define('TEGELIZR_RATING_UNITY',     'sterren');
 define('TEGELIZR_RATING_VOTE',      'waardering');
 define('TEGELIZR_RATING_VOTES',     'waarderingen');
 define('TEGELIZR_VOLGENDE',         'volgende');
+define('TEGELIZR_VOLGENDE_TITEL',   'volgende_titel');
 define('TEGELIZR_VORIGE',           'vorige');
+define('TEGELIZR_VORIGE_TITEL',     'vorige_titel');
 
 $path               = dirname(__FILE__)."/";
 
@@ -70,12 +75,12 @@ function dodebug($text = '') {
 
 function filtertext($text = '') {
 
-    $text                = preg_replace("/script>/", "poep>", trim($text));
-    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"üëïöäéèêç]+/", "", trim($text));
+    $text                = preg_replace("/script/", "scriptr", trim($text));
+    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]+/", "", trim($text));
     $text                = substr($text,0,TEGELIZR_TXT_LENGTH);
     $text                = preg_replace("/Geert Wilders/i", "zaadslurf", trim($text));
     $text                = preg_replace("/Wilders/", "zaadslurf", trim($text));
-    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"üëïöäéèêç]+/", "", trim($text));
+    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]+/", "", trim($text));
     $text                = preg_replace("/PVV/", "NSB", trim($text));
     $text                = preg_replace("/moslima/i", "Tante Truus", trim($text));
     $text                = preg_replace("/Tante Truus's/i", "Tante Truusjes", trim($text));
@@ -214,11 +219,11 @@ function spitoutheader() {
 }
 // ===================================================================================================================
 
-function getviews($filename, $update = false) {
+function getviews($filelocation, $update = false) {
 
     global $userip;
 
-    $json_data      = file_get_contents($filename);
+    $json_data      = file_get_contents($filelocation);
     $archieftekst   = json_decode($json_data, true);
 
     if ( isset( $archieftekst[TEGELIZR_VIEWS] ) ) {
@@ -228,31 +233,38 @@ function getviews($filename, $update = false) {
         $archieftekst[TEGELIZR_VIEWS] = 1;
     }
 
+    if ( isset( $archieftekst[TEGELIZR_LASTVISIT] ) ) {
+        // het ietsje moeilijker maken om de views omhoog te krijgen
+        if ( $archieftekst[TEGELIZR_LASTVISIT] == $userip ) {
+            $update = false;
+        }
+    }
+
+
     $archieftekst[$userip . '_comment'] = 'Hoeveel sterren is dit tegeltje waard?';
 
     if ( $update ) {
         $archieftekst[TEGELIZR_VIEWS] = ( intval( $archieftekst[TEGELIZR_VIEWS] ) + $update);
+        $archieftekst[TEGELIZR_LASTVISIT] = $userip;
         $newJsonString = json_encode($archieftekst);
-        file_put_contents($filename, $newJsonString);
+        file_put_contents($filelocation, $newJsonString);
     }
 
     if ( ( !isset( $archieftekst[TGLZR_TOTAL_POINTS] ) ) || ( !isset( $archieftekst[TGLZR_NR_VOTES] ) ) ) {
 
         if ( !isset( $archieftekst[TGLZR_NR_VOTES] ) ){
             $archieftekst[TGLZR_NR_VOTES] = 0;
-//            $archieftekst[TGLZR_NR_VOTES] = rand ( 1 , 245 );
         }
 
         if ( !isset( $archieftekst[TGLZR_TOTAL_POINTS] ) ){
             $archieftekst[TGLZR_TOTAL_POINTS] = 0;
-//            $archieftekst[TGLZR_TOTAL_POINTS] = round(( $archieftekst[TGLZR_NR_VOTES] * ( ( 1 / rand ( 1 , 100 ) ) + rand ( 1 , TEGELIZR_AANTAL_STERREN ) ) ),0);
         }
 
         $archieftekst[dec_avg] = ($archieftekst[TGLZR_NR_VOTES] > 0 ) ? ( $archieftekst[TGLZR_TOTAL_POINTS] / $archieftekst[TGLZR_NR_VOTES] ) : 0;
         $archieftekst[rounded_avg] = round( $archieftekst[dec_avg] ,0);
         
         $newJsonString = json_encode($archieftekst);
-        file_put_contents($filename, $newJsonString);
+        file_put_contents($filelocation, $newJsonString);
     }
 
 
@@ -274,7 +286,7 @@ function spitoutfooter() {
     global $zoektegeltje;
     
     $form = '<form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/" role="search">
-    <meta itemprop="target" content="http://appropriatepast.org/?s={s}">
+    <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?zoektegeltje={s}">
     <label for="' . TEGELIZR_ZOEKTERM . '">Zoek een tegel</label>
     <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '" id="' . TEGELIZR_ZOEKTERM . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
     <input type="submit" value="Search">
@@ -288,7 +300,14 @@ function spitoutfooter() {
 
 }
 
+// ===================================================================================================================
 
-
+// http://stackoverflow.com/questions/1201798/use-php-to-convert-png-to-jpg-with-compression
+// Quality is a number between 0 (best compression) and 100 (best quality)
+function png2jpg($originalFile, $outputFile, $quality) {
+    $image = imagecreatefrompng($originalFile);
+    imagejpeg($image, $outputFile, $quality);
+    imagedestroy($image);
+}
 
 ?>

@@ -69,7 +69,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_ZOEKEN ) ) {
 
     $zoektegeltje = filtertext($_GET[TEGELIZR_ZOEKTERM]);
 
-    $titeltw      = 'Zoek tegeltjes met ' . $zoektegeltje;
+    $titeltw    = 'Zoek tegeltjes met ' . $zoektegeltje;
     $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ZOEKEN . '/?' . TEGELIZR_ZOEKTERM . '=' . $zoektegeltje;
     
     
@@ -117,15 +117,32 @@ function sortByOrder($a, $b) {
 <?php
     if ( $results ) {
     
-        echo '<section id="andere"><h2>Je zocht op \'' . $zoektegeltje . "'</h2>";
-        echo '<ul class="thumbs">';
+        echo '<section id="zoekresultaten"><h2>Je zocht op \'' . $zoektegeltje . "'</h2>";
+        echo '<ul class="thumbs results">';
         
         foreach($results as $result) {
+//echo '<pre>';
+//var_dump($result);
+//echo '</pre>';
 
             $hashname = seoUrl( $result['file_name'] );
             $thumb =  $result['file_thumb'];
             
-            echo '<li><a href="/'  . TEGELIZR_SELECTOR . '/' . $hashname . '" title="' . filtertext($result['txt_tegeltekst']) . ' - ' . $result[TEGELIZR_VIEWS] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $thumb . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . filtertext($result['txt_tegeltekst']) . '" /></a>'; 
+            echo '<li><a href="/'  . TEGELIZR_SELECTOR . '/' . $hashname . '" title="' . filtertext($result['txt_tegeltekst']) . ' - ' . $result[TEGELIZR_VIEWS] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $thumb . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . filtertext($result['txt_tegeltekst']) . '" /></a><h3><a href="/'  . TEGELIZR_SELECTOR . '/' . $hashname . '" title="' . filtertext($result['txt_tegeltekst']) . ' - ' . $result[TEGELIZR_VIEWS] . ' keer bekeken">' . filtertext($result['txt_tegeltekst']) . '</a></h3><span class="aantalkeer">' . $result[TEGELIZR_VIEWS] . ' keer bekeken</span>';
+if ( $result[TGLZR_NR_VOTES] > 0 ) {
+    echo '<br /><span class="aantalkeer">waardering: ' . $result[rounded_avg] . ' ';
+    if ( $result[TGLZR_NR_VOTES] > 1 ) {
+        echo TEGELIZR_RATING_UNITY;
+    }
+    else {
+        echo TEGELIZR_RATING_UNITY_S;
+    }
+    echo '</span>';
+
+
+    
+}
+             
             echo '</li>';
 
             
@@ -137,12 +154,22 @@ function sortByOrder($a, $b) {
     else {
         echo '<p>Geen tegeltjes gevonden</p>';
     }
+
+    echo '<form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/" role="search">
+    <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?zoektegeltje={s}">
+    <label for="' . TEGELIZR_ZOEKTERM . '">Zoek opnieuw</label>
+    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '" id="' . TEGELIZR_ZOEKTERM . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
+    <input type="submit" value="Search">
+</form>';        
+
+    
 ?>
 
   <?php echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY) ?><?php echo showthumbs(12, $zinnen[2]);?>
   <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
 </article>
 <?php
+    echo spitoutfooter();
 
 
 
@@ -159,12 +186,11 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
     $views          = getviews($outpath.$desttextpath,true);
     $txt_tegeltekst = isset($views['txt_tegeltekst']) ? filtertext($views['txt_tegeltekst']) : '';
 
+
     $total_points   = isset($views[TGLZR_TOTAL_POINTS]) ? $views[TGLZR_TOTAL_POINTS] : 0;
     $dec_avg        = isset($views[dec_avg]) ? $views[dec_avg] : 0;
     $rounded_avg    = isset($views[rounded_avg]) ? $views[rounded_avg] : 0;
     $nr_of_votes    = isset($views[TGLZR_NR_VOTES]) ? $views[TGLZR_NR_VOTES] : 0;
-
-
 
     $titel          = $txt_tegeltekst . ' - ' . TEGELIZR_TITLE;
     $canvote        = true;
@@ -186,8 +212,20 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
 <article class="resultaat" itemscope itemtype="http://schema.org/ImageObject">
     <h1><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><?php echo TEGELIZR_TITLE ?></a></h1>
+
     <a href="<?php echo htmlspecialchars($desturl)?>" title=""><img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje"  itemprop="contentUrl" /></a>
     <h2 itemprop="name"><?php echo $txt_tegeltekst ?></h2>
+
+<?php
+    if ( (isset($views[TEGELIZR_VORIGE])) || (isset($views[TEGELIZR_VOLGENDE])) ) {
+
+        echo '<nav>';
+        echo isset($views[TEGELIZR_VORIGE]) ? '<a class="vorige" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VORIGE] . '" title="Bekijk \'' . $views[TEGELIZR_VORIGE_TITEL] . '\'">' . $views[TEGELIZR_VORIGE_TITEL] . '</a>' : '';
+        echo  isset($views[TEGELIZR_VOLGENDE])  ? '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VOLGENDE] . '" title="Bekijk \'' . $views[TEGELIZR_VOLGENDE_TITEL] . '\'">' . $views[TEGELIZR_VOLGENDE_TITEL] . '</a>' : '';
+        
+        echo '</nav> ';
+    }
+?>    
 
     <ul itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
         <li class="view-counter"><?php echo $views[TEGELIZR_VIEWS] ?> keer bekeken</li>
@@ -209,6 +247,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
     </ul>
 
     <?php
+
     if ( $canvote ) {
     ?>
     <form role="form" id="star_rating" name="star_rating" action="sterretjes.php" method="get" enctype="multipart/form-data">
@@ -268,9 +307,9 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 
     <?php
     if ( $canvote ) {
-    ?></fieldset>
-    </form>
-    <?php
+        ?></fieldset>
+        </form>
+        <?php
     }
     ?>
 
@@ -278,25 +317,26 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
     <p>Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>
     <?php
 
-    
-    if ( (isset($views[TEGELIZR_VORIGE])) || (isset($views[TEGELIZR_VOLGENDE])) ) {
 
-        echo isset($views[TEGELIZR_VORIGE]) ? '<a class="vorige" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VORIGE] . '">' . TEGELIZR_VORIGE . '</a>' : '';
-        echo  isset($views[TEGELIZR_VOLGENDE])  ? '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VOLGENDE] . '">' . TEGELIZR_VOLGENDE . '</a>' : '';
-        
-        echo '</nav> ';
-    }
-    ?>
-    <?php echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY) ?>
-    <?php echo showthumbs(12, $zinnen[2]);?>
-    <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
-    <?php
+    
+
+$thumbs = 12;
+
     if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
-        echo '<p id="progress">progress</p>';
-        echo '<p id="progress_now">progress</p>';
-        echo '<div id="progress_bar"><div>zo</div></div>';
+        $thumbs = 4;
+        echo '<p id="progress_now">&nbsp;</p>';
+        echo '<p id="progress">&nbsp;</p>';
+        echo '<div id="progress_bar"><div>&nbsp;</div></div>';
     }    
+
+    
+    echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY);
+    echo showthumbs($thumbs, $zinnen[2]);
+
+        
+        
     ?>
+    <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
 </article>
 <?php
     echo spitoutfooter();
@@ -307,7 +347,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
     <script>
 
     $(document).ready(function() {
-        
+
         $('.rate_widget').each(function(i) {
             var widget = this;
 
@@ -326,12 +366,14 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
                 },
                 'json'
             );
+        });
+    
 
 
 <?php // ===================================================================================================================
 
-    if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
 
+    if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
         
         ?>
 
@@ -339,9 +381,9 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
         var volgende            = '';
         var widget              = $('#progress');
         var myNumber            = undefined;
-        var PROGRESSLENGTH      = 300;
+        var PROGRESSLENGTH      = 580;
         var TOTALNRDOCUMENTS    = 300;
-        var CURRENTDOCINDEX     = 0;
+        var CURRENTDOCINDEX     = 1;
         $(widget).html('gestart');
 
         var generate_data = {
@@ -350,7 +392,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
         };
 
         $.post(
-            'overzichtspagina.php',
+            'scanfolder.php',
             generate_data,
             function(generate_data_out) {
                 $('#progress').data( 'progress', generate_data_out );
@@ -362,34 +404,23 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
         
         function startgenerate(widget) {
     
-            var ledinges    = $('#progress').data( 'progress');
-            var thelength = 0;
-            TOTALNRDOCUMENTS = ledinges.nrdocs;
-            $('#progress').html( TOTALNRDOCUMENTS + ' documenten om te scannen');
+            var ledinges        = $('#progress').data( 'progress');
+            var thelength       = 0;
+            TOTALNRDOCUMENTS    = ledinges.nrdocs;
+            $('#progress').html( '<p>' + TOTALNRDOCUMENTS + ' documenten om te scannen</p><ul>');
             $('#progress_bar div').html('&nbsp;');
-            
-//            console.log('startgenerate');
 
-            $('#andere').toggle(false);
-            $('.rate_widget').toggle(false);
-            $('.social-media').toggle(false);
-            $('p').toggle(false);
-           
             $.each(ledinges.docs, function( index, value ) {
-                CURRENTDOCINDEX = index;
-//                console.log('startgenerate: ' + CURRENTDOCINDEX + '=' + value);
 
                 volgende        = ( TOTALNRDOCUMENTS > index+1 ) ? ledinges.docs[index+1] : '';
                 vorige          = ( index == 0 ) ? '' : ledinges.docs[index-1] ;
 
-                addOne(logMyNumber, vorige, value, volgende);
+                StartDocumentScan(index, vorige, value, volgende);
                 
             });
 
-            $('#andere').toggle(true);
-            $('.rate_widget').toggle(true);
-            $('.social-media').toggle(true);
-            $('p').toggle(true);
+            $('#progress').append( '</ul>');
+
                         
         }
 
@@ -397,87 +428,55 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
             $('#progress_now').html(index + ': ' + element);
         }
         
-
-
-
-function addOne(callback, vorige, txtfile, volgende) {
-    'use strict';
-
-//    var generate_lalalala_in = {
-//        vorige: vorige,
-//        huidige: txtfile,
-//        volgende: volgende
-//    };
-
-    var generate_lalalala_test = {
-        test : 'joepie'
-    };
-
-
-// console.log(callback);        
-// console.log(generate_lalalala_test);        
-// callback();
-
-    $.post(
-        'overzichtspagina.php',
-        generate_lalalala_test,
-        function( generate_lalalala_out ) {
-            $('#progress_now').data( 'docallback', generate_lalalala_out );
-            console.log('hoppa');
-            tralaa();
-            callback();
-        },
-        'json'
-    );
-}
+        function StartDocumentScan(index, vorige, txtfile, volgende) {
+            'use strict';
         
-        function tralaa() {
-            var dinges = $('#progress_now').data( 'docallback' );
-            console.log('tralaa ' + dinges.kees);
+            var data_in = {
+                widget_id: index,
+                total_docs: TOTALNRDOCUMENTS,
+                vorige: vorige,
+                huidige: txtfile,
+                volgende: volgende
+            };
+
+            $.post(
+                'documentscan.php',
+                data_in,
+                function( data_out ) {
+                    SetProgress(data_out);
+                },
+                'json'
+            );
+        
         }
-        
-        function logMyNumber() {
-            console.log('logMyNumber: ' + CURRENTDOCINDEX + ' / ' + TOTALNRDOCUMENTS + ' / ' + PROGRESSLENGTH);
+
+        function SetProgress(data_in) {
+
+            CURRENTDOCINDEX++;
+            console.log('SetProgress: ' + CURRENTDOCINDEX + '/' + data_in.widget_id);
 
             var thelength = ( ( CURRENTDOCINDEX / TOTALNRDOCUMENTS ) * PROGRESSLENGTH);
             $('#progress_bar div').css('width', Math.round(thelength));
+            $('#progress').html( '<p>' + CURRENTDOCINDEX + ' van ' + TOTALNRDOCUMENTS + ' tegeltjes gescand.</p>');
+
+<?php
+if (22==23) {
+?>    
+            
+            $('#progress').append('<li>' + data_in.widget_id + ': ' + data_in.status + '</li>');
+
+<?php
+}
+?>    
 
         }
         
-
-        
-        function logArrayElements(element, index, array) {
-
-            var ledinges    = $('#progress').data( 'progress');
-            volgende        = ( ledinges.nrdocs > index+1 ) ? array[index+1] : '';
-            vorige          = ( index == 0 ) ? '' : array[index-1] ;
-
-            var letext = '<li>(' + index + ') Vorige: ' + vorige + '</li><li>Huidige: ' + element + '</li><li>volgende: ' + volgende + '</li>';
-
-            
-            $.post( "overzichtspagina.php", generate_files)
-                .done(function( data ) {
-                console.log( "Data Loaded: " + data + '\n============================\n');
-            });
-            
-
-        }
-
-    
 
 <?php
 
 
     }
     // =================================================================================================================== ?>
-
-
-
-
-
-
-        });
-    
 
 
     
@@ -556,6 +555,8 @@ function addOne(callback, vorige, txtfile, volgende) {
     </script>
 
 <?php
+
+
     
 }
 else {
@@ -580,7 +581,7 @@ else {
   <form role="form" id="posterform" name="posterform" action="generate.php" method="get" enctype="multipart/form-data">
     <div class="form-group tekstveld">
       <label for="txt_tegeltekst">Jouw tekst:</label>
-      <input type="text" aria-describedby="tekst-tip" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'üëïöäéèêç]{1,<?php echo TEGELIZR_TXT_LENGTH ?>}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst" required="required" value="<?php echo TEGELIZR_TXT_VALUE ?>" maxlength="<?php echo TEGELIZR_TXT_LENGTH ?>" size="<?php echo TEGELIZR_TXT_LENGTH ?>" autofocus />
+      <input type="text" aria-describedby="tekst-tip" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]{1,<?php echo TEGELIZR_TXT_LENGTH ?>}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst" required="required" value="<?php echo TEGELIZR_TXT_VALUE ?>" maxlength="<?php echo TEGELIZR_TXT_LENGTH ?>" size="<?php echo TEGELIZR_TXT_LENGTH ?>" autofocus />
       <div role="tooltip" id="tekst-tip">Alleen letters, cijfers en leestekens. Maximale lengte <?php echo TEGELIZR_TXT_LENGTH ?> tekens</div>
     </div>
     <button type="submit" class="btn btn-primary"><?php echo TEGELIZR_SUBMIT ?></button>

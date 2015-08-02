@@ -6,9 +6,15 @@
 @grijs:         #eee;
 @titelkleur:    @txt;
 @dinges:        30px;
+@rood:          #9D1626;
+@border-color:  #afafaf;
+
 
 // ===================================================================================================================
+
 @import "socmed-color-codes.less";          /* variables, mixins, operations and functions. */
+
+
 // ===================================================================================================================
 
 @font-face {
@@ -105,7 +111,7 @@ form {
     select,
     button {
         font-size: 1.2em;
-        border: 2px solid #afafaf;
+        border: 2px solid @border-color;
         border-radius: 0;
           box-shadow: 1px 1px 3px #eee inset;
     }
@@ -325,6 +331,32 @@ ul.thumbs {
         float: left;
     }
     
+}
+ul.results {
+    li {
+        display: block;
+        clear: both;
+        width: 100%;
+        margin-bottom: 1em;
+        line-height: 1.4;
+    }
+    img {
+        float: left;
+        max-width: 20%;
+        height: auto;
+        margin-right: 1em;
+    }
+    span {
+//        float: left;
+//        display: inline-block;
+//        clear: right;
+        &:before {
+            content: ' ';
+            float: left;
+            clear: both;
+            display: block;
+        }
+    }
 }
 
 img.tegeltje {
@@ -652,16 +684,63 @@ x.rate_widget {
 }
 
 #progress_bar {
-    border: 1px solid black;
+    border: 2px solid @border-color;
     padding: 3px 0;
-    width: 300px;
+    width: 100%;
+    position: relative;
+    
     
     div {
         display: block;
         width: 10px;
-        background: red;
+        background: @rood;
         height: 10px;    
     }
+}
+
+nav {
+    position: relative;
+    min-height: 30px;
+
+    a {
+        display: inline-block;
+        max-width: 49%;
+        margin-bottom: 1em;
+        line-height: 1.3;
+        
+        &:before,
+        &:after {
+            content: ' ';
+            display: block;
+            width: 0;
+            height: 0;
+        }        
+    }        
+    
+    .vorige {
+        padding: 0 5px 0 0;
+        &:before {
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid @rood;
+            float: left;
+            margin: 0 8px 0 0;
+        }           
+    }
+    
+    .volgende {
+//        position: absolute;
+//        right: 0;
+    float: right;
+        &:after {
+            float: right;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid @rood;
+            margin: 0 0 0 8px;
+        }
+    }
+    
 }
 
 
@@ -781,8 +860,8 @@ x.rate_widget {
         width: 620px;
     }
     #andere {
-        li {
-            max-width: 25%;
+        li img {
+//            max-width: 25%;
         }
     }
     footer {
@@ -794,7 +873,6 @@ x.rate_widget {
     .tegeltje {
         border:1px #f00;
     }
-
     form {
         fieldset {
             padding: 0;
@@ -850,5 +928,86 @@ x.rate_widget {
     }
 }
 
+
+@media only screen and (min-width: 1000px) {
+    @arrowwidth: 140px;    
+    @arrowheight: ( @arrowwidth / 2);    
+    @arrowpadding: 40px;    
+    @arrowpos_y: -700px;    
+    @bordercolor: rgba(256,256,256,.4);    
+    
+    nav {
+        margin-right: ( -1 * ( @arrowwidth + ( 2 * @arrowpadding ) ) );
+        margin-left: ( -1 * ( @arrowwidth + ( 2 * @arrowpadding ) ) );
+        transform: translateY( @arrowpos_y );        
+        height: auto;
+
+        a {
+            position: absolute;
+            background: fade(@bordercolor, 0%);
+            color: fade(@bordercolor, 0%);
+            width:  ( @arrowwidth + ( 2 * @arrowpadding ) );
+//            border: 1px solid red;
+
+            &:before {
+                padding: 0;
+            }
+            
+            &:active, 
+            &:hover, 
+            &:focus {
+                background: fade(@bordercolor, 6%);
+                color: fade(@wit, 100%);
+                text-decoration: none;
+            }
+        }
+
+        .vorige {
+            padding: 25% @arrowpadding;
+            
+            &:before {
+                border-top: @arrowheight solid transparent;
+                border-bottom: @arrowheight solid transparent;
+                border-right: ( @arrowwidth / 2 ) solid fade(@bordercolor, 30%);
+                float: none;
+                clear: both;
+                margin: 0 auto;
+                right: 0;
+            }           
+            &:active, 
+            &:hover, 
+            &:focus {
+                &:before {
+                    border-right-color: fade(@bordercolor, 90%);
+                }
+            }
+        }        
+        
+        .volgende {
+            padding: 25% @arrowpadding;
+            right: 0;
+            &:after {
+                display: none;
+            }
+            &:before {
+                float: none;
+                clear: both;
+                margin: 0 auto;
+                border-left: ( @arrowwidth / 2 ) solid fade(@bordercolor, 30%);
+                border-top: @arrowheight solid transparent;
+                border-bottom: @arrowheight solid transparent;
+            }
+            
+            &:active, 
+            &:hover, 
+            &:focus {
+                &:before {
+                    border-left-color: fade(@bordercolor, 90%);
+                }
+            }
+
+        }
+    }
+}
 // ===================================================================================================================
 
