@@ -107,12 +107,36 @@ footer {
         text-decoration: none;
         color: @txt;
         padding: 0 1rem;
+
+        &:before,
+        &:after {
+            content: ' ';
+            display: block;
+        }        
     }
     #tomenu {
         top: 1em;
         bottom: auto;
         display: none;
+
+        &:before {
+            content: "\2630";
+            float: left;
+            margin: 0 8px 0 0;
+        }
     }
+    #totop {
+        &:before {
+            width: 0;
+            height: 0;
+            border-bottom: @arrowsmall_width solid @txt;
+            border-right: @arrowsmall_height solid transparent;
+            border-left: @arrowsmall_height solid transparent;
+            float: left;
+            margin: ( 2 * @arrowsmall_mtop ) 8px 0 0;
+        }           
+    }
+
     #footer-zoeken {
         width: 100%;
     }
@@ -681,6 +705,11 @@ x.rate_widget {
         padding: 0 1em;
         margin-right: 1em;
     }
+}
+
+.dojs .jsinvisible {
+    display: none;
+    visibility: hidden;    
 }
 
 .dojs .rating {

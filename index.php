@@ -146,6 +146,11 @@ function sortByOrder($a, $b) {
   <?php echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY) ?><?php echo showthumbs(12, $zinnen[2]);?>
   <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
 </article>
+
+<?php
+    echo includejs();
+?>
+
 <?php
     echo spitoutfooter();
 
@@ -319,12 +324,11 @@ $thumbs = 12;
     ?>
     <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
 </article>
+
 <?php
-    echo spitoutfooter();
-?>    
+    echo includejs();
+?>
 
-
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
 
     $(document).ready(function() {
@@ -536,7 +540,9 @@ if (22==23) {
     </script>
 
 <?php
+    echo spitoutfooter();
 
+    
 
     
 }
@@ -570,6 +576,10 @@ else {
   <?php echo showthumbs(12); ?>
 
   </article>
+
+<?php
+    echo includejs();
+?>
 
 <?php  
     echo spitoutfooter();
