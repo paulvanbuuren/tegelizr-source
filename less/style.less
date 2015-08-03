@@ -768,6 +768,11 @@ x.rate_widget {
     }
 }
 
+@arrowsmall_height: 8px;
+@arrowsmall_width: 10px;
+@arrowsmall_mtop: 6px;
+@arrowsmall_mbottom: 5px;
+
 nav {
     position: relative;
     min-height: 30px;
@@ -790,24 +795,22 @@ nav {
     .vorige {
         padding: 0 5px 0 0;
         &:before {
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            border-right: 10px solid @rood;
+            border-top: @arrowsmall_height solid transparent;
+            border-bottom: @arrowsmall_height solid transparent;
+            border-right: @arrowsmall_width solid @rood;
             float: left;
-            margin: 0 8px 0 0;
+            margin: @arrowsmall_mtop 8px @arrowsmall_mbottom 0;
         }           
     }
     
     .volgende {
-//        position: absolute;
-//        right: 0;
-    float: right;
-        &:after {
+        float: right;
+        &:before {
             float: right;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            border-left: 10px solid @rood;
-            margin: 0 0 0 8px;
+            border-top: @arrowsmall_height solid transparent;
+            border-bottom: @arrowsmall_height solid transparent;
+            border-left: @arrowsmall_width solid @rood;
+            margin: @arrowsmall_mtop 0 @arrowsmall_mbottom 8px;
         }
     }
     
