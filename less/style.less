@@ -111,6 +111,7 @@ footer {
     #tomenu {
         top: 1em;
         bottom: auto;
+        display: none;
     }
     #footer-zoeken {
         width: 100%;
@@ -668,14 +669,17 @@ x.rate_widget {
         width: auto;
         cursor: pointer;
     }
-    label {
-        padding: 0 1em;
-        margin-right: 1em;
-    }
 }
 #star_rating {
     .btn-primary {
         margin-right: .5em;
+    }
+}
+
+.nojs .rating {
+    label {
+        padding: 0 1em;
+        margin-right: 1em;
     }
 }
 
@@ -994,6 +998,11 @@ nav {
     .wbvb svg {
        width: 100px;
        height:55px;
+    }
+    footer {
+        #tomenu {
+            display: block;
+        }
     }
 }
 

@@ -5,7 +5,7 @@ Correct me if I'm wrong. Copy me if I'm right.
 ## Tegelizr.nl
 author:    Paul van Buuren
 
-current version: 4.0.3
+current version: 4.0.4
 
 ## contact:                    
 * paul@wbvb.nl
@@ -13,6 +13,7 @@ current version: 4.0.3
 * twitter.com/paulvanbuuren
 
 ## Versions
+* 4.0.4 - bugfixes
 * 4.0.3 - andere weergave van zoekresultaten
 * 4.0.2 - max breedte voor navigatielinks vorige en volgende
 * 4.0.1 - bugfixes

@@ -355,4 +355,5 @@ function png2jpg($originalFile, $outputFile, $quality) {
     imagedestroy($image);
 }
 
+
 ?>
