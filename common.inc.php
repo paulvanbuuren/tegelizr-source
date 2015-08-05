@@ -69,6 +69,30 @@ $zoektegeltje       = '';
 $userip             = 'IP' . md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
 
 
+$arr_sort_by = array(
+    "name"          => "titel",
+    "rating"        => "waardering",
+    "views"         => "aantal keer bekeken",
+    "filter_date"   => "datum",
+);
+
+$arrSteps = array(
+//    "2"    => "2 per pagina",
+//    "3"    => "3 per pagina",
+//    "5"    => "5 per pagina",
+    "10"    => "10 per pagina",
+    "25"    => "25 per pagina",
+    "50"    => "50 per pagina",
+    "100"    => "100 per pagina",
+    "250"    => "250 per pagina",
+//    "500"    => "500 per pagina"
+);
+$arr_sort_dir = array(
+    "asc"   => "oplopend",
+    "desc"  => "aflopend"
+);
+$arrpaginas = array(
+);
 
 // ===================================================================================================================
 
@@ -78,13 +102,14 @@ function dodebug($text = '') {
 // ===================================================================================================================
 
 function filtertext($text = '') {
-
-    $text                = preg_replace("/script/", "scriptr", trim($text));
-    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]+/", "", trim($text));
+    $text                = preg_replace("/</", "&lt;", $text);
+    $text                = preg_replace("/>/", "&gt;", $text);
+    $text                = preg_replace("/script/", "snikkel", $text);
+//    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]+/", "", trim($text));
     $text                = substr($text,0,TEGELIZR_TXT_LENGTH);
     $text                = preg_replace("/Geert Wilders/i", "zaadslurf", trim($text));
     $text                = preg_replace("/Wilders/", "zaadslurf", trim($text));
-    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]+/", "", trim($text));
+//    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]+/", "", trim($text));
     $text                = preg_replace("/PVV/", "NSB", trim($text));
     $text                = preg_replace("/moslima/i", "Tante Truus", trim($text));
     $text                = preg_replace("/Tante Truus's/i", "Tante Truusjes", trim($text));
@@ -99,9 +124,7 @@ function filtertext($text = '') {
     $text                = preg_replace("/facebook/i", " het satanische Facebook", $text);
     
     return $text;
-
 }
-
 // ===================================================================================================================
 
 function showthumbs($aantal = '10', $hide = '') {
@@ -235,7 +258,7 @@ function getSearchResultItem($result, $showImage = true) {
     }
     $return .= '<h3><a href="/'  . TEGELIZR_SELECTOR . '/' . $hashname . '" title="' . filtertext($result['txt_tegeltekst']) . ' - ' . $result[TEGELIZR_VIEWS] . ' keer bekeken">' . filtertext($result['txt_tegeltekst']) . '</a></h3><span class="datum">' . $date . '</span><span class="aantalkeer">' . $result[TEGELIZR_VIEWS] . ' keer bekeken</span>';
     if ( $result[TGLZR_NR_VOTES] > 0 ) {
-        $return .= ' - <span class="waardering">waardering: ' . $result[rounded_avg] . ' ';
+        $return .= ' - <span class="waardering">waardering: ' . $result[dec_avg] . ' ';
         if ( $result[rounded_avg] > 1 ) {
             $return .=  TEGELIZR_RATING_UNITY;
         }
@@ -387,5 +410,9 @@ function png2jpg($originalFile, $outputFile, $quality) {
     imagedestroy($image);
 }
 
+// ===================================================================================================================
+function DoPrefix($value = '', $prefixwith = '0', $stringlength = 20, $side = STR_PAD_LEFT) {
+    return str_pad($value, $stringlength, $prefixwith, $side);
+}
 
 ?>

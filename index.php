@@ -21,7 +21,7 @@ $zinnen         = explode('/', parse_url($url, PHP_URL_PATH));
 $filename       = '';
 $desttextpath   = '';
 $tekststring    = 'tegel tegeltje tegeltjeswijsheden';
-
+    
 if ( isset( $zinnen[2] ) ) {
     $filename       = $zinnen[2] . ".png";
     $fileid         = $zinnen[2];
@@ -45,7 +45,7 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
 <meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
 <article class="resultaat">
-  <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?>Redactie</a></h1>
+  <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><span>Redactie</span></a></h1>
   <p>Ik houd niet bij wie welk tegeltje gemaakt heeft. Als een tegeltje me niet bevalt, haal ik het weg. </p>
   <p>Door de tekst op een tegeltje te zetten verandert er niet opeens iets aan het auteursrecht van de tekst. Het auteursrecht erop valt niet  aan mij toe, noch aan degene de tekst invoerde.</p>
   <p>Wie teksten invoert op deze site moet ermee leren leven dat ik de teksten misschien aanpas. Zo wordt 'Facebook' altijd 'het satanische Facebook' op de tegeltjes. Als je dat niet leuk vindt, jammer.</p>
@@ -112,7 +112,7 @@ function sortByOrder($a, $b) {
 <meta property="og:image" content="<?php echo $imagesource ?>" />
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
 <article class="resultaat">
-  <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo() . $titel ; ?></a></h1>
+  <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><span><?php echo returnlogo() . $titel ; ?></span></a></h1>
 
 <?php
     if ( $results ) {
@@ -194,19 +194,13 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 <meta property="og:image" content="<?php echo $imagesource ?>" />
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
 <article class="resultaat" itemscope itemtype="http://schema.org/ImageObject">
-    <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><?php echo TEGELIZR_TITLE ?></a></h1>
+    <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><span><?php echo TEGELIZR_TITLE ?></span></a></h1>
 
-    <a href="<?php echo htmlspecialchars($desturl)?>" title=""><img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje"  itemprop="contentUrl" /></a>
-<?php
-$thumbs = 12;
-
+    <a href="<?php echo htmlspecialchars($desturl)?>" class="placeholder"><img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje"  itemprop="contentUrl" /><?php
     if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
-        $thumbs = 4;
-        echo '<p id="progress_now">&nbsp;</p>';
-        echo '<p id="progress">&nbsp;</p>';
-        echo '<div id="progress_bar"><div>&nbsp;</div></div>';
+        echo '<p id="progress_now">&nbsp;</p><div id="progress">&nbsp;</div><div id="progress_bar"><div>&nbsp;</div></div>';
     }    
-?>        
+?></a>
 
     <h2 itemprop="name"><?php echo $txt_tegeltekst ?></h2>
 
@@ -308,7 +302,7 @@ $thumbs = 12;
     ?>
 
     
-    <p>Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>
+    <p id="leuk">Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>
     <?php
 
 
@@ -317,7 +311,7 @@ $thumbs = 12;
 
     
     echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY);
-    echo showthumbs($thumbs, $zinnen[2]);
+    echo showthumbs(12, $zinnen[2]);
 
         
         
@@ -366,11 +360,17 @@ $thumbs = 12;
         var volgende            = '';
         var widget              = $('#progress');
         var myNumber            = undefined;
-        var PROGRESSLENGTH      = 580;
+        var PROGRESSLENGTH      = 584;
+        var PROGRESSOPACITY     = 1;
         var TOTALNRDOCUMENTS    = 300;
-        var CURRENTDOCINDEX     = 1;
+        var CURRENTDOCINDEX     = 0;
         $(widget).html('gestart');
 
+        $('.placeholder img').css('opacity','0');
+        $('.placeholder').addClass('momentje');
+        $('.placeholder').append('<div id="momentje" class="momentje"><h3>Hallo</h3><p>Momentje, alsjeblieft.<br />Je tegeltje is bijna klaar.</p></div>');
+        ToggleHide(false);
+        
         var generate_data = {
             widget_id : $('#progress').attr('id'),
             fetch: 1
@@ -392,7 +392,7 @@ $thumbs = 12;
             var ledinges        = $('#progress').data( 'progress');
             var thelength       = 0;
             TOTALNRDOCUMENTS    = ledinges.nrdocs;
-            $('#progress').html( '<p>' + TOTALNRDOCUMENTS + ' documenten om te scannen</p><ul>');
+            $('#progress').html(TOTALNRDOCUMENTS + ' documenten om te scannen');
             $('#progress_bar div').html('&nbsp;');
 
             $.each(ledinges.docs, function( index, value ) {
@@ -404,15 +404,9 @@ $thumbs = 12;
                 
             });
 
-            $('#progress').append( '</ul>');
-
                         
         }
 
-        function alertprogress(index, element) {
-            $('#progress_now').html(index + ': ' + element);
-        }
-        
         function StartDocumentScan(index, vorige, txtfile, volgende) {
             'use strict';
         
@@ -435,6 +429,25 @@ $thumbs = 12;
         
         }
 
+
+
+        function ToggleHide(showhide) {
+            $('#home').toggle(showhide);
+            $('#andere').toggle(showhide);
+            $('footer').toggle(showhide);
+            $('nav').toggle(showhide);
+            $('#leuk').toggle(showhide);
+            $('#star_rating').toggle(showhide);
+            $('.social-media').toggle(showhide);
+            $('[itemprop="aggregateRating"]').toggle(showhide);
+            if ( showhide ) {
+                $('#top a').attr('href','/' );
+            }
+            else {
+                $('#top a').removeAttr('href');
+            }
+        }
+            
         function SetProgress(data_in) {
 
             CURRENTDOCINDEX++;
@@ -442,18 +455,53 @@ $thumbs = 12;
 
             var thelength = ( ( CURRENTDOCINDEX / TOTALNRDOCUMENTS ) * PROGRESSLENGTH);
             $('#progress_bar div').css('width', Math.round(thelength));
+
+            var opacityDiv = (Math.round( ( ( CURRENTDOCINDEX / TOTALNRDOCUMENTS ) * PROGRESSOPACITY ) * 10) / 10 );
+
+            $('#momentje').css('opacity', ( 1 - opacityDiv ) );
+
             $('#progress').html( '<p>' + CURRENTDOCINDEX + ' van ' + TOTALNRDOCUMENTS + ' tegeltjes gescand.</p>');
 
-<?php
-if (22==23) {
-?>    
+            $('#progress_now').html('Even alle tegeltjes tellen en oppoetsen');
             
-            $('#progress').append('<li>' + data_in.widget_id + ': ' + data_in.status + '</li>');
-
-<?php
-}
-?>    
-
+             if ( opacityDiv > 0.1 ) {
+                $('.placeholder img').css('opacity', opacityDiv  );
+            }
+            
+            if ( opacityDiv > 0.25 ) {
+                $('#progress_now').html('Daar gaan we dan.');
+            }
+            if ( opacityDiv > 0.35 ) {
+                $('#progress_now').html('Leuke tekst heb je uitgekozen.');
+            }
+            if ( opacityDiv > 0.45 ) {
+                $('#progress_now').html('Echt, hoor.');
+            }
+            if ( opacityDiv > 0.55 ) {
+                $('#progress_now').html('Nee, echt!');
+            }
+            if ( opacityDiv > 0.65 ) {
+                $('#progress_now').html('We zijn er bijna.');
+            }
+            if ( opacityDiv > 0.7 ) {
+                $('#progress_now').html('Wat zit je haar leuk');
+            }
+            if ( opacityDiv > 0.8 ) {
+                $('#progress_now').html('Tadaaa!');
+            }
+            if ( opacityDiv > 0.85 ) {
+                $('#progress_now').html("Daar is 'ie al");
+            }
+            if ( opacityDiv > 0.9 ) {
+                $('#progress_now').html("Veel plezier!");
+                $('#momentje').remove();
+                $('#progress').remove();
+                $('#progress_bar').remove();
+                ToggleHide(true);
+            }
+            if ( opacityDiv > 0.99 ) {
+                $('#progress_now').remove();
+            }
         }
         
 
@@ -561,7 +609,7 @@ else {
 <title><?php echo TEGELIZR_TITLE ?>- WBVB Rotterdam</title>
 <?php echo htmlheader() ?>
 <article>
-  <h1 id="top"><?php echo returnlogo(); ?><?php echo TEGELIZR_TITLE ?></h1>
+  <h1 id="top"><?php echo returnlogo(); ?><span><?php echo TEGELIZR_TITLE ?></span></h1>
   <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], TEGELIZR_TITLE, TEGELIZR_SUMMARY) ?>
   <p class="lead"> <?php echo TEGELIZR_FORM ?> </p>
   <aside>(maar Paul, <a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">wat heb je toch met die tegeltjes</a>?)</aside>

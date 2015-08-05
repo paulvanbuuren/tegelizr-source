@@ -300,7 +300,7 @@ h1 {
     a {
         text-decoration: none;
         color: @titelkleur;
-        display: block;
+//        display: block;
         line-height: 1.2;
         
         &:hover,
@@ -436,6 +436,78 @@ img.tegeltje {
     width: 100%;
     height: auto;
     margin: 0;
+}
+
+@start: 20px;
+@heightmomentje: 90px;
+@progressnow_height: 80px;
+
+@progressnowstart: ( @start + @heightmomentje );
+
+@progressstart: ( @progressnowstart + @progressnow_height );
+
+.momentje {
+    background: url(/img/momentje.jpg) no-repeat center top;
+    background-size: contain;
+    overflow: hidden;
+    display: block;
+    height: 100%;
+    position: relative;
+
+    div#momentje {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: 8000;
+        top: 0;
+        left: 0;
+        text-align: center;
+        padding: @start 0 0 0;
+        
+        p, h3 {
+            max-width: 60%;
+            margin: 0 auto;
+            line-height: 1.2;
+            color: @txt;    
+        }
+    }
+
+    #progress, #progress_now, #progress_bar {
+        position: absolute;
+        z-index: 9999;
+        height: 40px;
+        width: 100%;
+        color: @txt;    
+    }
+    #progress_now {
+        text-align: center;
+        top: @progressnowstart;
+    }
+    #progress {
+        bottom: 1em;
+
+        height: @progressnow_height;
+        width: 100%;
+        
+        padding: 3px 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    #progress_bar {
+        top: 0;
+
+        div {
+            z-index: 9000;
+            display: block;
+            width: 10px;
+            background: @rood;
+            height: 10px;    
+        }
+        
+    }
+
+    
 }
 
 p {
@@ -778,20 +850,6 @@ x.rate_widget {
     }
 }
 
-#progress_bar {
-    border: 2px solid @border-color;
-    padding: 3px 0;
-    width: 100%;
-    position: relative;
-    
-    
-    div {
-        display: block;
-        width: 10px;
-        background: @rood;
-        height: 10px;    
-    }
-}
 
 @arrowsmall_height: 8px;
 @arrowsmall_width: 10px;
@@ -1040,7 +1098,7 @@ nav {
     @arrowheight: ( @arrowwidth / 2);    
     @arrowpadding: 40px;    
     @arrowpos_y: -700px;    
-    @bordercolor: rgba(256,256,256,.4);    
+    @border-color: rgba(256,256,256,.4);    
     
     nav {
         margin-right: ( -1 * ( @arrowwidth + ( 2 * @arrowpadding ) ) );
@@ -1050,8 +1108,8 @@ nav {
 
         a {
             position: absolute;
-            background: fade(@bordercolor, 0%);
-            color: fade(@bordercolor, 0%);
+            background: fade(@border-color, 0%);
+            color: fade(@border-color, 0%);
             width:  ( @arrowwidth + ( 2 * @arrowpadding ) );
 
             &:before {
@@ -1062,7 +1120,7 @@ nav {
             &:active, 
             &:hover, 
             &:focus {
-                background: fade(@bordercolor, 6%);
+                background: fade(@border-color, 6%);
                 color: fade(@wit, 100%);
                 text-decoration: none;
             }
@@ -1074,7 +1132,7 @@ nav {
             &:before {
                 border-top: @arrowheight solid transparent;
                 border-bottom: @arrowheight solid transparent;
-                border-right: ( @arrowwidth / 2 ) solid fade(@bordercolor, 30%);
+                border-right: ( @arrowwidth / 2 ) solid fade(@border-color, 30%);
                 float: none;
                 clear: both;
                 margin: 1em auto;
@@ -1084,7 +1142,7 @@ nav {
             &:hover, 
             &:focus {
                 &:before {
-                    border-right-color: fade(@bordercolor, 90%);
+                    border-right-color: fade(@border-color, 90%);
                 }
             }
         }        
@@ -1098,7 +1156,7 @@ nav {
             &:before {
                 float: none;
                 clear: both;
-                border-left: ( @arrowwidth / 2 ) solid fade(@bordercolor, 30%);
+                border-left: ( @arrowwidth / 2 ) solid fade(@border-color, 30%);
                 border-top: @arrowheight solid transparent;
                 border-bottom: @arrowheight solid transparent;
                 margin: 1em auto;
@@ -1108,7 +1166,7 @@ nav {
             &:hover, 
             &:focus {
                 &:before {
-                    border-left-color: fade(@bordercolor, 90%);
+                    border-left-color: fade(@border-color, 90%);
                 }
             }
 
@@ -1117,6 +1175,49 @@ nav {
 }
 // ===================================================================================================================
 
+.controls {
+    display: inline-block;
+    clear: both;
+    overflow: hidden;
+    
+    input, button, select, option {
+        font-size: 90%;
+        padding: 0;        
+        margin: 0;
+    }
+    select, button {
+        margin-right: 3px;
+        border: 1px solid @border-color;
+    }
+    select, option, button {
+        width: auto;
+        font-size: 80%;
+        line-height: 2;
+        height: 2em;
+    }
+    select {
+        float: left;
+        &, option {
+            padding: 5px;
+        }
+    }
+    button {
+        float: left;
+        padding: 0 .5em;
+        &.get_previous {
+
+        }
+        &.get_next {
+
+        }
+    }
+}
+#prefix {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    word-break: break-all;
+}
 
 .dojs .jsinvisible {
 //    animation: rideinslight 1.3s forwards;
