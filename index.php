@@ -198,7 +198,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 
     <a href="<?php echo htmlspecialchars($desturl)?>" class="placeholder"><img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje"  itemprop="contentUrl" /><?php
     if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
-        echo '<p id="progress_now">&nbsp;</p><div id="progress">&nbsp;</div><div id="progress_bar"><div>&nbsp;</div></div>';
+//        echo '<p id="progress_now">&nbsp;</p><div id="progress">&nbsp;</div><div id="progress_bar"><div>&nbsp;</div></div>';
+        echo '<p id="progress_now">&nbsp;</p><div id="progress">&nbsp;</div>';
     }    
 ?></a>
 
@@ -208,8 +209,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
     if ( (isset($views[TEGELIZR_VORIGE])) || (isset($views[TEGELIZR_VOLGENDE])) ) {
 
         echo '<nav>';
-        echo isset($views[TEGELIZR_VORIGE]) ? '<a class="vorige" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VORIGE] . '" title="Bekijk \'' . $views[TEGELIZR_VORIGE_TITEL] . '\'">' . $views[TEGELIZR_VORIGE_TITEL] . '</a>' : '';
-        echo  isset($views[TEGELIZR_VOLGENDE])  ? '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VOLGENDE] . '" title="Bekijk \'' . $views[TEGELIZR_VOLGENDE_TITEL] . '\'">' . $views[TEGELIZR_VOLGENDE_TITEL] . '</a>' : '';
+        echo isset($views[TEGELIZR_VORIGE]) ? '<a class="vorige" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VORIGE] . '" title="Bekijk \'' . $views[TEGELIZR_VORIGE_TITEL] . '\'"><span class="pijl">&#10158;</span>' . $views[TEGELIZR_VORIGE_TITEL] . '</a>' : '';
+        echo  isset($views[TEGELIZR_VOLGENDE])  ? '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VOLGENDE] . '" title="Bekijk \'' . $views[TEGELIZR_VOLGENDE_TITEL] . '\'">' . $views[TEGELIZR_VOLGENDE_TITEL] . '<span class="pijl">&#10157;</span></a>' : '';
         
         echo '</nav> ';
     }
@@ -393,7 +394,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
             var thelength       = 0;
             TOTALNRDOCUMENTS    = ledinges.nrdocs;
             $('#progress').html(TOTALNRDOCUMENTS + ' documenten om te scannen');
-            $('#progress_bar div').html('&nbsp;');
+//            $('#progress_bar div').html('&nbsp;');
 
             $.each(ledinges.docs, function( index, value ) {
 
@@ -454,11 +455,13 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
             console.log('SetProgress: ' + CURRENTDOCINDEX + '/' + data_in.widget_id);
 
             var thelength = ( ( CURRENTDOCINDEX / TOTALNRDOCUMENTS ) * PROGRESSLENGTH);
-            $('#progress_bar div').css('width', Math.round(thelength));
+//            $('#progress_bar div').css('width', Math.round(thelength));
+
 
             var opacityDiv = (Math.round( ( ( CURRENTDOCINDEX / TOTALNRDOCUMENTS ) * PROGRESSOPACITY ) * 10) / 10 );
 
-            $('#momentje').css('opacity', ( 1 - opacityDiv ) );
+//            $('#momentje').css('opacity', ( 1 - opacityDiv ) );
+            $('#momentje').css('height', ( PROGRESSLENGTH - Math.round(thelength) ) );
 
             $('#progress').html( '<p>' + CURRENTDOCINDEX + ' van ' + TOTALNRDOCUMENTS + ' tegeltjes gescand.</p>');
 
@@ -495,12 +498,12 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
             if ( opacityDiv > 0.9 ) {
                 $('#progress_now').html("Veel plezier!");
                 $('#momentje').remove();
-                $('#progress').remove();
-                $('#progress_bar').remove();
+//                $('#progress').remove();
+//                $('#progress_bar').remove();
                 ToggleHide(true);
             }
             if ( opacityDiv > 0.99 ) {
-                $('#progress_now').remove();
+//                $('#progress_now').remove();
             }
         }
         

@@ -174,33 +174,32 @@ $table .= "</table></body></html>";
             <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje">' . returnlogo() . '<span>Alle ' . $tegelcounter . ' tegeltjes</span></a></h1>
             <p>Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>' .  wbvb_d2e_socialbuttons($desturl, $alt, TEGELIZR_SUMMARY) . '
             <section id="alle_tegeltjes"><h2>Wat anderen maakten:</h2><ul class="all">' . $list . '</ul></section>
-            <p id="home"> <a href="/">' .  TEGELIZR_BACK . '</a> </p>
-            </article>' . spitoutfooter();
+            <p id="home"> <a href="/">' .  TEGELIZR_BACK . '</a> </p></article>' . includejs() . ' ' . spitoutfooter();
 
 
-        if ( file_exists( $index_html ) ) {
+//        if ( file_exists( $index_html ) ) {
     
-            $alt = count($images) . ' tegeltjes';
-            $fh             = fopen($index_html, 'w') or die("can't open file: " . $index_html );
-            fwrite($fh, $stringData);
-            fclose($fh);
-        }
-        else {
+//            $alt = count($images) . ' tegeltjes';
+//            $fh             = fopen($index_html, 'w') or die("can't open file: " . $index_html );
+//            fwrite($fh, $stringData);
+//            fclose($fh);
+//        }
+//        else {
 
             $fh             = fopen($index_html, 'w') or die("can't open file: " . $index_html );
             fwrite($fh, $stringData);
             fclose($fh);
             
-            die('file does not exist : ' . $index_html);
-        }
+//            die('file does not exist : ' . $index_html);
+//        }
 
-        if ( file_exists( $index_txt ) ) {
+//        if ( file_exists( $index_txt ) ) {
             $fh             = fopen($index_txt, 'w') or die("can't open file: " . $index_txt);
             $stringData     = json_encode($boom);
     
             fwrite($fh, $stringData);
             fclose($fh);
-        }
+//        }
 
     
         $fh             = fopen($index_table, 'w') or die("can't open file: " . $index_table);

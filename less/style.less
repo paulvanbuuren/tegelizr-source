@@ -9,6 +9,8 @@
 @rood:          #9D1626;
 @border-color:  #afafaf;
 
+@fullwidth:     620px;
+
 
 // ===================================================================================================================
 
@@ -42,7 +44,7 @@ html {
 }
 
 body {
-    background-color: #ffffff;
+    background-color: #737371;
     background-image: url(http://cdn.voorwatjes.nl/tegelwand.jpg);
     background-attachment: fixed;
     background-position:center center;
@@ -447,8 +449,7 @@ img.tegeltje {
 @progressstart: ( @progressnowstart + @progressnow_height );
 
 .momentje {
-    background: url(/img/momentje.jpg) no-repeat center top;
-    background-size: contain;
+//    background-size: contain;
     overflow: hidden;
     display: block;
     height: 100%;
@@ -456,6 +457,8 @@ img.tegeltje {
 
     div#momentje {
         position: absolute;
+        background: url(/img/momentje.jpg) no-repeat center top;
+        box-shadow:0px 1px 1px @border-color;        
         height: 100%;
         width: 100%;
         z-index: 8000;
@@ -865,6 +868,8 @@ nav {
         max-width: 49%;
         margin-bottom: 1em;
         line-height: 1.3;
+        text-decoration: none;
+        color: @rood;
         
         &:before,
         &:after {
@@ -873,30 +878,35 @@ nav {
             width: 0;
             height: 0;
         }        
+        
+        &:hover,
+        &:active,
+        &:focus {
+            color: @txt;
+            text-decoration: underline;
+        }
+
+        .pijl {
+            font-size: 300%;
+            display: block;
+            float: right;
+            line-height: .6;
+            padding: 0;
+        }
+        
     }        
-    
-    .vorige {
-        padding: 0 5px 0 0;
-        &:before {
-            border-top: @arrowsmall_height solid transparent;
-            border-bottom: @arrowsmall_height solid transparent;
-            border-right: @arrowsmall_width solid @rood;
-            float: left;
-            margin: @arrowsmall_mtop 8px @arrowsmall_mbottom 0;
-        }           
+
+    .vorige .pijl {
+        transform: rotate(180deg);
+        float: left;
+        padding-left: 10px;
     }
-    
     .volgende {
         float: right;
-        &:before {
-            float: right;
-            border-top: @arrowsmall_height solid transparent;
-            border-bottom: @arrowsmall_height solid transparent;
-            border-left: @arrowsmall_width solid @rood;
-            margin: @arrowsmall_mtop 0 @arrowsmall_mbottom 8px;
+        .pijl {
+            padding-left: 10px;
         }
     }
-    
 }
 
 
@@ -1009,6 +1019,7 @@ nav {
 
 // ===================================================================================================================
 
+
 @media only screen and (min-width: 600px) {
 
     body {
@@ -1016,7 +1027,7 @@ nav {
         padding-top: 1em;
     }
     article, footer {
-        width: 620px;
+        width: @fullwidth;
     }
     #andere {
         li img {
@@ -1112,39 +1123,30 @@ nav {
             color: fade(@border-color, 0%);
             width:  ( @arrowwidth + ( 2 * @arrowpadding ) );
 
-            &:before {
-                padding: 0;
-                display: block;
+            .pijl {
+                color: fade(@wit, 70%);
+                font-size: 800%;
+                float: none;
+                clear: both;
+                position: absolute;
+                top: 150px;
             }
-            
             &:active, 
             &:hover, 
             &:focus {
                 background: fade(@border-color, 6%);
-                color: fade(@wit, 100%);
                 text-decoration: none;
+                color: fade(@wit, 100%);
+
+                .pijl {
+                    color: fade(@wit, 100%);
+                }
             }
+            
         }
 
         .vorige {
             padding: 25% @arrowpadding;
-            
-            &:before {
-                border-top: @arrowheight solid transparent;
-                border-bottom: @arrowheight solid transparent;
-                border-right: ( @arrowwidth / 2 ) solid fade(@border-color, 30%);
-                float: none;
-                clear: both;
-                margin: 1em auto;
-                right: 0;
-            }           
-            &:active, 
-            &:hover, 
-            &:focus {
-                &:before {
-                    border-right-color: fade(@border-color, 90%);
-                }
-            }
         }        
         
         .volgende {
@@ -1153,23 +1155,6 @@ nav {
             &:after {
                 display: none;
             }
-            &:before {
-                float: none;
-                clear: both;
-                border-left: ( @arrowwidth / 2 ) solid fade(@border-color, 30%);
-                border-top: @arrowheight solid transparent;
-                border-bottom: @arrowheight solid transparent;
-                margin: 1em auto;
-            }
-            
-            &:active, 
-            &:hover, 
-            &:focus {
-                &:before {
-                    border-left-color: fade(@border-color, 90%);
-                }
-            }
-
         }
     }
 }

@@ -5,7 +5,7 @@ Correct me if I'm wrong. Copy me if I'm right.
 ## Tegelizr.nl
 author:    Paul van Buuren
 
-current version: 5.0.1
+current version: 5.1.0
 
 ## contact:                    
 * paul@wbvb.nl
@@ -13,6 +13,7 @@ current version: 5.0.1
 * twitter.com/paulvanbuuren
 
 ## Versions
+* 5.1.0 - ander pijltje
 * 5.0.1 - bugfixes
 * 5.0 - sorteermogelijkheid ingebouwd voor alle-tegeltjes-pagina
 * 4.2.0 - github link weggesloopt
