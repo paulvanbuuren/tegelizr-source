@@ -12,7 +12,17 @@
 include("common.inc.php"); 
     
 echo spitoutheader();
-
+?>
+<!-- start -->
+<style>
+<?php 
+include'css/wbvb.css';
+include'css/style.css';
+?>
+</style>
+<!-- end -->
+<?php
+    
 // ===================================================================================================================
 // check of er gevraagd wordt om een tegeltje
 // de sleutel is TEGELIZR_SELECTOR 
@@ -43,19 +53,21 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
 <meta property="og:url" content="<?php echo $desturl; ?>" />
 <meta property="article:tag" content="<?php echo TEGELIZR_ALLES; ?>" />
 <meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
-<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
+<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?>
+<?php echo htmlheader() ?>
 <article class="resultaat">
-  <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><span>Redactie</span></a></h1>
+  <h1 id="top"><a href="/" title="Home"><?php echo returnlogo(); ?><span>Redactie</span></a></h1>
   <p>Ik houd niet bij wie welk tegeltje gemaakt heeft. Als een tegeltje me niet bevalt, haal ik het weg. </p>
   <p>Door de tekst op een tegeltje te zetten verandert er niet opeens iets aan het auteursrecht van de tekst. Het auteursrecht erop valt niet  aan mij toe, noch aan degene de tekst invoerde.</p>
   <p>Wie teksten invoert op deze site moet ermee leren leven dat ik de teksten misschien aanpas. Zo wordt 'Facebook' altijd 'het satanische Facebook' op de tegeltjes. Als je dat niet leuk vindt, jammer.</p>
-  <p>Maar goed, nu jij. <a href="/">Maak eens een leuk tegeltje</a>.</p>
-  <?php echo wbvb_d2e_socialbuttons($desturl, $titel, TEGELIZR_SUMMARY) ?>
-  <?php 
-    echo showthumbs(12, '');
-    ?>
+  <p>Maar goed, nu jij. <a href="/" rel="maaktegeltje">Maak eens een leuk tegeltje</a>.</p>
+
   <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
 </article>
+  <?php 
+    echo showthumbs(12, '');
+    echo spitoutfooter();
+    ?>
 <?php
 
 }
@@ -110,9 +122,11 @@ function sortByOrder($a, $b) {
 <meta property="og:url" content="<?php echo $desturl; ?>" />
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo $imagesource ?>" />
-<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
+<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?>
+<?php echo htmlheader() ?>
+
 <article class="resultaat">
-  <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><span><?php echo returnlogo() . $titel ; ?></span></a></h1>
+  <h1 id="top"><a href="/" title="Home"><span><?php echo returnlogo() . $titel ; ?></span></a></h1>
 
 <?php
     if ( $results ) {
@@ -192,7 +206,9 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 <meta property="og:url" content="<?php echo $desturl; ?>" />
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo $imagesource ?>" />
-<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
+<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?>
+<?php echo htmlheader() ?>
+
 <article class="resultaat" itemscope itemtype="http://schema.org/ImageObject">
     <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><span><?php echo TEGELIZR_TITLE ?></span></a></h1>
 
@@ -303,24 +319,19 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
     ?>
 
     
-    <p id="leuk">Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>
+    <p id="leuk">Leuk? Of kun jij het beter? <a href="/" rel="maaktegeltje">Maak je eigen tegeltje</a>.</p>
     <?php
-
-
-    
-
 
     
     echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY);
-    echo showthumbs(12, $zinnen[2]);
-
-        
         
     ?>
-    <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
+    <p id="home"> <a href="/" rel="maaktegeltje"><?php echo TEGELIZR_BACK ?></a> </p>
 </article>
 
 <?php
+    echo showthumbs(12, $zinnen[2]);
+
     echo includejs();
 ?>
 
@@ -611,6 +622,7 @@ else {
 <meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
 <title><?php echo TEGELIZR_TITLE ?>- WBVB Rotterdam</title>
 <?php echo htmlheader() ?>
+
 <article>
   <h1 id="top"><?php echo returnlogo(); ?><span><?php echo TEGELIZR_TITLE ?></span></h1>
   <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], TEGELIZR_TITLE, TEGELIZR_SUMMARY) ?>
@@ -624,9 +636,9 @@ else {
     </div>
     <button type="submit" class="btn btn-primary"><?php echo TEGELIZR_SUBMIT ?></button>
   </form>
-  <?php echo showthumbs(12); ?>
+</article>
+<?php echo showthumbs(12); ?>
 
-  </article>
 
 <?php
     echo includejs();

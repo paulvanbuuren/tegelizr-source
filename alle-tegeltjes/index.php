@@ -11,6 +11,8 @@
 
 include("../common.inc.php"); 
 
+
+
 $defaultrecords = '10';
 
 $sort_dir       =  isset( $_POST['sort_dir'] ) ? $_POST['sort_dir'] : ( isset( $_GET['sort_dir'] ) ? $_GET['sort_dir'] : 'asc' );
@@ -81,6 +83,14 @@ if ( $possiblepages > 4 ) {
 echo spitoutheader();
 
 ?>    
+<!-- start -->
+<style>
+<?php 
+include'../css/wbvb.css';
+include'../css/style.css';
+?>
+</style>
+<!-- end -->
 
     
 <meta property="og:title" content="592 tegeltjes" />
@@ -492,9 +502,7 @@ function writecontrolform() {
     $returnstring .= makeoptionlist($arr_sort_dir,'sort_dir',$sort_dir);
     $returnstring .= makeoptionlist($arrSteps,'max_items',$max_items);
     $returnstring .= makeoptionlist($arrpaginas,'pagenumber',$pagenumber);
-//    if ( ( $startrecs + $max_items ) < $totalcount ) {
-        $returnstring .= '<button type="submit" class="get_next" name="pagenumber" value="' . ( $pagenumber + 1 ). '">&#10095;</button>';
-//    }
+    $returnstring .= '<button type="submit" class="get_next" name="pagenumber" value="' . ( $pagenumber + 1 ). '">&#10095;</button>';
     $returnstring .= '</fieldset>';
     $returnstring .= '</form>';
     

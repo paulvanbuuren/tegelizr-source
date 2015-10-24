@@ -228,12 +228,12 @@ function calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height
     // Get Bounding Box Size
     $text_box        = imagettfbbox($fontsize,0,$font,$text);
 
-    $coordinaten['hoogte']        = ( $text_box[1] - $text_box[5] );
-    $coordinaten['breedte']        = ( $text_box[2] - $text_box[0] );
+    $coordinaten['hoogte']      = ( $text_box[1] - $text_box[5] );
+    $coordinaten['breedte']     = ( $text_box[2] - $text_box[0] );
     $coordinaten['xbottomr']    = $coordinaten['breedte'];
     $coordinaten['ybottomr']    = 0;
-    $coordinaten['xtopl']        = ($image_width / 2) - ($coordinaten['breedte']/2);
-    $coordinaten['ytopl']        = $coordinaten['hoogte'];
+    $coordinaten['xtopl']       = ($image_width / 2) - ($coordinaten['breedte']/2);
+    $coordinaten['ytopl']       = $coordinaten['hoogte'];
 
 
     return $coordinaten;

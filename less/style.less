@@ -9,26 +9,15 @@
 @rood:          #9D1626;
 @border-color:  #afafaf;
 
-@fullwidth:     620px;
-
-
-// ===================================================================================================================
-
-@import "socmed-color-codes.less";          /* variables, mixins, operations and functions. */
-
+@fullwidth:     720px;
 
 // ===================================================================================================================
 
-@font-face {
-    font-family: 'icomoon';
-    src: url('../fonts/d2eicons.eot');
-    src: url('../fonts/d2eicons.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/d2eicons.woff') format('woff'),
-        url('../fonts/d2eicons.ttf') format('truetype'),
-        url('../fonts/d2eicons.svg') format('svg');
-    font-weight: normal;
-    font-style: normal;
-} 
+@import "font-includes.less";      
+@import "socmed-color-codes.less";          
+
+// ===================================================================================================================
+
 
 // ===================================================================================================================
  
@@ -55,7 +44,7 @@ body {
     padding-bottom: 90px;
     min-height:100%;
 }
-article, footer {
+article, section#andere, footer {
     background: white;
     padding: 1em;
     margin: 0 auto;
@@ -150,6 +139,7 @@ form {
     overflow: hidden;
     float: none;
     clear: both;
+    width: 100%;
 
     input {
         border: 0 none white;    
@@ -1157,6 +1147,10 @@ nav {
             }
         }
     }
+    footer, section#andere {
+        margin: 1em auto;
+        width: 80%;
+    }
 }
 // ===================================================================================================================
 
@@ -1202,6 +1196,10 @@ nav {
     max-width: 100%;
     overflow: hidden;
     word-break: break-all;
+}
+
+aside {
+    border-bottom-style: none;
 }
 
 .dojs .jsinvisible {
