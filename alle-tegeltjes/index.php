@@ -490,7 +490,11 @@ function writecontrolform() {
     global $arrpaginas;
     global $pagenumber;
 
-    $returnstring = '.<form ';
+    $returnstring = 'Sort: ' . $sort_by . ', ';
+    $returnstring .= 'Sort-dir: ' . $sort_dir . ', ';
+    $returnstring .= 'Max_items: ' . $max_items . ', ';
+    $returnstring .= 'Pagenumber: ' . $pagenumber . '. ';
+    $returnstring .= '.<form ';
     $returnstring .= 'role="form" class="controls" action="index.php" method="get">';
     $returnstring .= '<fieldset>';
     $returnstring .= '<legend>Sorteer op:</legend>';

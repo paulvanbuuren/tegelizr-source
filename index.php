@@ -31,6 +31,26 @@ $zinnen         = explode('/', parse_url($url, PHP_URL_PATH));
 $filename       = '';
 $desttextpath   = '';
 $tekststring    = 'tegel tegeltje tegeltjeswijsheden';
+
+$currentpage    = 1;
+$previouspage   = 0;
+$nextpage       = ( $currentpage + 1);
+
+
+if ( ( isset( $zinnen[1] ) && ( isset( $zinnen[2] ) )  ) || ( isset( $zinnen[3] ) && ( isset( $zinnen[4] ))  ) ) {
+
+    
+    if ( ( isset( $zinnen[1] ) && ( isset( $zinnen[2] ) )  ) && ( ( $zinnen[1] == TEGELIZR_PAGEURL ) && ( is_numeric( $zinnen[2] ) ) ) ) {
+            $currentpage    = $zinnen[2];   
+    }
+    else if  ( ( isset( $zinnen[3] ) && ( isset( $zinnen[4] ) )  ) &&  ( ( $zinnen[3] == TEGELIZR_PAGEURL ) && ( is_numeric( $zinnen[4] ) ) ) ) {
+            $currentpage    = $zinnen[4];   
+    }
+    
+    $previouspage   = ( $currentpage - 1);
+    $nextpage       = ( $currentpage + 1);
+}
+
     
 if ( isset( $zinnen[2] ) ) {
     $filename       = $zinnen[2] . ".png";
@@ -60,12 +80,12 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
   <p>Ik houd niet bij wie welk tegeltje gemaakt heeft. Als een tegeltje me niet bevalt, haal ik het weg. </p>
   <p>Door de tekst op een tegeltje te zetten verandert er niet opeens iets aan het auteursrecht van de tekst. Het auteursrecht erop valt niet  aan mij toe, noch aan degene de tekst invoerde.</p>
   <p>Wie teksten invoert op deze site moet ermee leren leven dat ik de teksten misschien aanpas. Zo wordt 'Facebook' altijd 'het satanische Facebook' op de tegeltjes. Als je dat niet leuk vindt, jammer.</p>
-  <p>Maar goed, nu jij. <a href="/" rel="maaktegeltje">Maak eens een leuk tegeltje</a>.</p>
+  <p>Maar goed, nu jij. <a href="/" data-use="maaktegeltje">Maak eens een leuk tegeltje</a>.</p>
 
   <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
 </article>
   <?php 
-    echo showthumbs(12, '');
+    echo showthumbs( DEFAULTTHUMBS, '');
     echo spitoutfooter();
     ?>
 <?php
@@ -157,7 +177,7 @@ function sortByOrder($a, $b) {
     
 ?>
 
-  <?php echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY) ?><?php echo showthumbs(12, $zinnen[2]);?>
+  <?php echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY) ?><?php echo showthumbs( DEFAULTTHUMBS, $zinnen[2]);?>
   <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
 </article>
 
@@ -225,37 +245,18 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
     if ( (isset($views[TEGELIZR_VORIGE])) || (isset($views[TEGELIZR_VOLGENDE])) ) {
 
         echo '<nav>';
-        echo isset($views[TEGELIZR_VORIGE]) ? '<a class="vorige" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VORIGE] . '" title="Bekijk \'' . $views[TEGELIZR_VORIGE_TITEL] . '\'"><span class="pijl">&#10158;</span>' . $views[TEGELIZR_VORIGE_TITEL] . '</a>' : '';
-        echo  isset($views[TEGELIZR_VOLGENDE])  ? '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VOLGENDE] . '" title="Bekijk \'' . $views[TEGELIZR_VOLGENDE_TITEL] . '\'">' . $views[TEGELIZR_VOLGENDE_TITEL] . '<span class="pijl">&#10157;</span></a>' : '';
+        echo isset($views[TEGELIZR_VORIGE]) ? '<a class="vorige" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VORIGE] . '" title="Bekijk \'' . $views[TEGELIZR_VORIGE_TITEL] . '\'" rel="prefetch"><span class="pijl">&#10158;</span>' . $views[TEGELIZR_VORIGE_TITEL] . '</a>' : '';
+        echo  isset($views[TEGELIZR_VOLGENDE])  ? '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VOLGENDE] . '" title="Bekijk \'' . $views[TEGELIZR_VOLGENDE_TITEL] . '\'" rel="prefetch">' . $views[TEGELIZR_VOLGENDE_TITEL] . '<span class="pijl">&#10157;</span></a>' : '';
         
         echo '</nav> ';
     }
 ?>    
 
-    <ul itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-        <li class="view-counter"><?php echo $views[TEGELIZR_VIEWS] ?> keer bekeken</li>
-        <?php 
-        // ===================================================            
-        if ( intval( $total_points > 0 ) ) { 
-        ?>
-            <li>Totaalscore: <span itemprop="ratingValue"><?php echo round($dec_avg,2) ?></span></li> 
-            <li>Aantal stemmen: <span itemprop="ratingCount"><?php echo $nr_of_votes ?></span></li> 
-            <li>Gemiddeld <span class="avaragerating"><?php echo $rounded_avg ?></span> uit <span itemprop="bestRating"><?php echo TEGELIZR_AANTAL_STERREN ?></span></li>
-
-            <?php 
-                }
-            if ( !$canvote ) { ?>
-                <li>Je kunt niet meer stemmen. Je hebt dit <?php echo ( $views[$userip] > 1 ) ? $views[$userip] . ' ' . TEGELIZR_RATING_UNITY : $views[$userip] . ' ' . TEGELIZR_RATING_UNITY_S; ?> gegeven</li>
-            <?php }  // ======================================== ?>
-
-
-    </ul>
-
     <?php
 
     if ( $canvote ) {
     ?>
-    <form role="form" id="star_rating" name="star_rating" action="sterretjes.php" method="get" enctype="multipart/form-data">
+    <form id="star_rating" name="star_rating" action="sterretjes.php" method="get" enctype="multipart/form-data">
         <fieldset class="rate_widget">
             <legend class="result"><?php echo $legend ?></legend>
             
@@ -318,19 +319,39 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
     }
     ?>
 
+    <ul itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+        <li class="view-counter"><?php echo $views[TEGELIZR_VIEWS] ?> keer bekeken</li>
+        <?php 
+        // ===================================================            
+        if ( intval( $total_points > 0 ) ) { 
+        ?>
+            <li>Totaalscore: <span itemprop="ratingValue"><?php echo round($dec_avg,2) ?></span></li> 
+            <li>Aantal stemmen: <span itemprop="ratingCount"><?php echo $nr_of_votes ?></span></li> 
+            <li>Gemiddeld <span class="avaragerating"><?php echo $rounded_avg ?></span> uit <span itemprop="bestRating"><?php echo TEGELIZR_AANTAL_STERREN ?></span></li>
+
+            <?php 
+                }
+            if ( !$canvote ) { ?>
+                <li>Je kunt niet meer stemmen. Je hebt dit <?php echo ( $views[$userip] > 1 ) ? $views[$userip] . ' ' . TEGELIZR_RATING_UNITY : $views[$userip] . ' ' . TEGELIZR_RATING_UNITY_S; ?> gegeven</li>
+            <?php }  // ======================================== ?>
+
+
+    </ul>
+
+
     
-    <p id="leuk">Leuk? Of kun jij het beter? <a href="/" rel="maaktegeltje">Maak je eigen tegeltje</a>.</p>
+    <p id="leuk">Leuk? Of kun jij het beter? <a href="/" data-use="maaktegeltje">Maak je eigen tegeltje</a>.</p>
     <?php
 
     
     echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY);
         
     ?>
-    <p id="home"> <a href="/" rel="maaktegeltje"><?php echo TEGELIZR_BACK ?></a> </p>
+    <p id="home"> <a href="/" data-use="maaktegeltje"><?php echo TEGELIZR_BACK ?></a> </p>
 </article>
 
 <?php
-    echo showthumbs(12, $zinnen[2]);
+    echo showthumbs( DEFAULTTHUMBS, $zinnen[2]);
 
     echo includejs();
 ?>
@@ -627,8 +648,8 @@ else {
   <h1 id="top"><?php echo returnlogo(); ?><span><?php echo TEGELIZR_TITLE ?></span></h1>
   <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], TEGELIZR_TITLE, TEGELIZR_SUMMARY) ?>
   <p class="lead"> <?php echo TEGELIZR_FORM ?> </p>
-  <aside>(maar Paul, <a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">wat heb je toch met die tegeltjes</a>?)</aside>
-  <form role="form" id="posterform" name="posterform" action="generate.php" method="get" enctype="multipart/form-data">
+  <p>(maar Paul, <a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">wat heb je toch met die tegeltjes</a>?)</p>
+  <form id="posterform" name="posterform" action="generate.php" method="get" enctype="multipart/form-data">
     <div class="form-group tekstveld">
       <label for="txt_tegeltekst">Jouw tekst:</label>
       <input type="text" aria-describedby="tekst-tip" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]{1,<?php echo TEGELIZR_TXT_LENGTH ?>}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst" required="required" value="<?php echo TEGELIZR_TXT_VALUE ?>" maxlength="<?php echo TEGELIZR_TXT_LENGTH ?>" size="<?php echo TEGELIZR_TXT_LENGTH ?>" autofocus />
@@ -637,7 +658,7 @@ else {
     <button type="submit" class="btn btn-primary"><?php echo TEGELIZR_SUBMIT ?></button>
   </form>
 </article>
-<?php echo showthumbs(12); ?>
+<?php echo showthumbs( DEFAULTTHUMBS); ?>
 
 
 <?php
