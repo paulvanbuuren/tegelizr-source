@@ -13,9 +13,9 @@ include("../common.inc.php");
 
 
 
-$defaultrecords = '10';
+$defaultrecords     = '10';
 
-$sort_dir       =  isset( $_POST['sort_dir'] ) ? $_POST['sort_dir'] : ( isset( $_GET['sort_dir'] ) ? $_GET['sort_dir'] : 'asc' );
+$sort_dir           =  isset( $_POST['sort_dir'] ) ? $_POST['sort_dir'] : ( isset( $_GET['sort_dir'] ) ? $_GET['sort_dir'] : 'asc' );
 if ( ! isset( $arr_sort_dir[$sort_dir] ) ) {
     $sort_dir = 'asc';
 }
@@ -25,10 +25,22 @@ if ( ! isset( $arr_sort_by[$sort_by] ) ) {
     $sort_by = 'name';
 }
 
-$max_items      =  intval(isset( $_POST['max_items'] ) ? $_POST['max_items'] : ( isset( $_GET['max_items'] ) ? $_GET['max_items'] : $defaultrecords ));
+$max_items          =  intval(isset( $_POST['max_items'] ) ? $_POST['max_items'] : ( isset( $_GET['max_items'] ) ? $_GET['max_items'] : $defaultrecords ));
 
-$pagenumber   =  intval(isset( $_POST['pagenumber'] ) ? $_POST['pagenumber'] : ( isset( $_GET['pagenumber'] ) ? $_GET['pagenumber'] : '1' ));
+$pagenumber         =  intval(isset( $_POST['pagenumber'] ) ? $_POST['pagenumber'] : ( isset( $_GET['pagenumber'] ) ? $_GET['pagenumber'] : '1' ));
+$pagenumber_select  =  intval(isset( $_POST['pagenumber_select'] ) ? $_POST['pagenumber_select'] : ( isset( $_GET['pagenumber_select'] ) ? $_GET['pagenumber_select'] : $pagenumber ));
 
+if ( $pagenumber_select !== $pagenumber ) {
+    if ( ( $pagenumber_select - $pagenumber ) > 1 ) {
+        $pagenumber = $pagenumber_select;
+    }
+    else if ( (  $pagenumber - $pagenumber_select ) > 1 ) {
+        $pagenumber = $pagenumber_select;
+    }
+    else {
+        $pagenumber_select = $pagenumber;
+    }
+}
 
 
 $startrecs  = ( ( $pagenumber - 1 ) * $max_items );
@@ -187,7 +199,6 @@ include'../css/style.css';
 
         </ul>
     </section>
-    <p id="home"> <a href="/"><span>nog een tegeltje</span></a> </p>
         <?php  echo writecontrolform() ?>
 </article>
 <?php
@@ -223,7 +234,7 @@ $(document).ready(function() {
     });
 
 
-    $( ".select_pagenumber" ).change(function(event) {
+    $( ".select_pagenumber_select" ).change(function(event) {
 
         event.preventDefault();
 
@@ -371,6 +382,9 @@ $(document).ready(function() {
 
         $( ".all" ).css( 'opacity', '.7' );
 
+
+        $( "#sortresult" ).text( JSON.stringify( out_data ) );
+
         $.post(
             '/alletegeltjes.php',
             out_data,
@@ -430,8 +444,8 @@ $(document).ready(function() {
             }
             $( ".select_pagenumber" ).toggle(true);
         }
-console.log('sort_dir: ' + sort_dir);
-        $( ".select_pagenumber" ).val(pagenumber);
+//  console.log('sort_dir: ' + sort_dir);
+        $( ".select_pagenumber_select" ).val(pagenumber);
         $( ".select_max_items" ).val(max_items);
         $( ".select_sort_by" ).val(sort_by);
         $( ".select_sort_dir" ).val(sort_dir);
@@ -489,11 +503,14 @@ function writecontrolform() {
     global $totalcount;
     global $arrpaginas;
     global $pagenumber;
+    global $pagenumber_select;
 
-    $returnstring = 'Sort: ' . $sort_by . ', ';
+    $returnstring = '<p id="sortresult">Sort: ' . $sort_by . ', ';
     $returnstring .= 'Sort-dir: ' . $sort_dir . ', ';
     $returnstring .= 'Max_items: ' . $max_items . ', ';
-    $returnstring .= 'Pagenumber: ' . $pagenumber . '. ';
+    $returnstring .= 'Pagenumber: ' . $pagenumber . ', ';
+    $returnstring .= 'Pagenumber_select: ' . $pagenumber_select . '.</p>';
+    
     $returnstring .= '.<form ';
     $returnstring .= 'role="form" class="controls" action="index.php" method="get">';
     $returnstring .= '<fieldset>';
@@ -505,7 +522,7 @@ function writecontrolform() {
     $returnstring .= makeoptionlist($arr_sort_by,'sort_by',$sort_by);
     $returnstring .= makeoptionlist($arr_sort_dir,'sort_dir',$sort_dir);
     $returnstring .= makeoptionlist($arrSteps,'max_items',$max_items);
-    $returnstring .= makeoptionlist($arrpaginas,'pagenumber',$pagenumber);
+    $returnstring .= makeoptionlist($arrpaginas,'pagenumber_select',$pagenumber_select);
     $returnstring .= '<button type="submit" class="get_next" name="pagenumber" value="' . ( $pagenumber + 1 ). '">&#10095;</button>';
     $returnstring .= '</fieldset>';
     $returnstring .= '</form>';

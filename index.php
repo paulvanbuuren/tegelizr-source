@@ -82,7 +82,6 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
   <p>Wie teksten invoert op deze site moet ermee leren leven dat ik de teksten misschien aanpas. Zo wordt 'Facebook' altijd 'het satanische Facebook' op de tegeltjes. Als je dat niet leuk vindt, jammer.</p>
   <p>Maar goed, nu jij. <a href="/" data-use="maaktegeltje">Maak eens een leuk tegeltje</a>.</p>
 
-  <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
 </article>
   <?php 
     echo showthumbs( DEFAULTTHUMBS, '');
@@ -178,7 +177,6 @@ function sortByOrder($a, $b) {
 ?>
 
   <?php echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY) ?><?php echo showthumbs( DEFAULTTHUMBS, $zinnen[2]);?>
-  <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
 </article>
 
 <?php
@@ -227,18 +225,35 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo $imagesource ?>" />
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?>
-<?php echo htmlheader() ?>
+<?php echo htmlheader(); 
+    
+
+
+/*
+    if ( (isset($views[TEGELIZR_VORIGE])) || (isset($views[TEGELIZR_VOLGENDE])) ) {
+
+        echo '<nav id="flappen">';
+        echo isset($views[TEGELIZR_VORIGE]) ? '<a class="vorige" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VORIGE] . '" title="Bekijk \'' . $views[TEGELIZR_VORIGE_TITEL] . '\'" rel="prefetch"><span class="pijl">&#10158;</span>' . $views[TEGELIZR_VORIGE_TITEL] . '</a>' : '';
+        echo  isset($views[TEGELIZR_VOLGENDE])  ? '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VOLGENDE] . '" title="Bekijk \'' . $views[TEGELIZR_VOLGENDE_TITEL] . '\'" rel="prefetch">' . $views[TEGELIZR_VOLGENDE_TITEL] . '<span class="pijl">&#10157;</span></a>' : '';
+        
+        echo '</nav> ';
+    }
+*/
+    
+    
+
+?>
 
 <article class="resultaat" itemscope itemtype="http://schema.org/ImageObject">
     <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><span><?php echo TEGELIZR_TITLE ?></span></a></h1>
 
-    <a href="<?php echo htmlspecialchars($desturl)?>" class="placeholder"><img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje"  itemprop="contentUrl" /><?php
+    <section id="tegelplaatje"><a href="<?php echo htmlspecialchars($desturl)?>" class="placeholder"><img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje"  itemprop="contentUrl" /><?php
     if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
-//        echo '<p id="progress_now">&nbsp;</p><div id="progress">&nbsp;</div><div id="progress_bar"><div>&nbsp;</div></div>';
         echo '<p id="progress_now">&nbsp;</p><div id="progress">&nbsp;</div>';
     }    
-?></a>
+?></a></section>
 
+<section id="tegelmetadata">
     <h2 itemprop="name"><?php echo $txt_tegeltekst ?></h2>
 
 <?php
@@ -347,14 +362,17 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
     echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY);
         
     ?>
-    <p id="home"> <a href="/" data-use="maaktegeltje"><?php echo TEGELIZR_BACK ?></a> </p>
+    </section>
 </article>
 
 <?php
     echo showthumbs( DEFAULTTHUMBS, $zinnen[2]);
 
+
     echo includejs();
-?>
+    
+?>    
+
 
     <script>
 
@@ -465,7 +483,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 
 
         function ToggleHide(showhide) {
-            $('#home').toggle(showhide);
+//            $('#home').toggle(showhide);
             $('#andere').toggle(showhide);
             $('footer').toggle(showhide);
             $('nav').toggle(showhide);

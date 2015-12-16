@@ -264,17 +264,10 @@ function teken_tekst($canvas, $fontsize, $coordinaten, $textcolor, $font, $text,
             break;
     }
 
-//    $ypos = ( ( -1 * ( $coordinaten['hoogte'] + $coordinaten['ybottomr'] ) ) + $verschuiving_y );
     $ypos = ( $coordinaten['hoogte'] + $verschuiving_y );
 
-//    $eindy = ( $coordinaten['hoogte'] + $verschuiving_y );
 
-    // Een rechthoek om de omtrek te zien
-//    imagerectangle($canvas, $coordinaten['xtopl'], $verschuiving_y, $coordinaten['breedte'], $eindy, $color);
-
-//    imagettftextblur($canvas, $fontsize, $angle, $coordinaten['xtopl'], $ypos, $color, $font, $text, $blur);
     imagettftextblur($canvas, $fontsize, $angle, $coordinaten['xtopl'], $ypos, $textcolor, $font, $text, $blur);
-//    imagettftextblur($canvas, $fontsize, $angle, $coordinaten['xtopl'], ( $coordinaten['ytopl'] + $verschuiving_y ), $textcolor, $font, $text, $blur);
 
 }
 

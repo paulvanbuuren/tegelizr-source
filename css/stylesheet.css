@@ -44,13 +44,16 @@ footer {
 }
 footer {
   overflow: hidden;
+  background: #555;
+  color: #fff;
 }
 footer h3 {
   padding: 0;
   margin: 0;
+  color: #e96373;
 }
 footer a {
-  color: #555;
+  color: #fff;
   font-size: 80%;
   text-decoration: none;
 }
@@ -68,7 +71,6 @@ footer div {
   float: none;
   clear: both;
   padding-right: 1em;
-  margin-bottom: 1em;
 }
 footer #totop,
 footer #tomenu {
@@ -136,6 +138,20 @@ form button {
   border-radius: 0;
   box-shadow: 1px 1px 3px #eee inset;
 }
+form input[type='text']:active,
+form input[type='search']:active,
+form select:active,
+form button:active,
+form input[type='text']:hover,
+form input[type='search']:hover,
+form select:hover,
+form button:hover,
+form input[type='text']:focus,
+form input[type='search']:focus,
+form select:focus,
+form button:focus {
+  border-color: #7c7c7c;
+}
 form select {
   margin: 0 .7em 0 0;
 }
@@ -146,12 +162,7 @@ form input[type="search"] {
 form input[type="search"],
 form input[type="submit"] {
   height: 40px !important;
-}
-form input[type="search"],
-form input[type="submit"],
-form input[type="search"]:focus,
-form input[type="submit"]:focus {
-  border-width: 1px;
+  border: 2px solid #afafaf;
 }
 form input[type="text"] {
   display: block;
@@ -159,12 +170,11 @@ form input[type="text"] {
   font-size: 150%;
   width: 100%;
   height: auto;
-  border-width: 2px;
 }
 form button {
   background: #DDD;
   color: #fff;
-  border: 1px solid #DDD;
+  border: 2px solid #afafaf;
   border-radius: 3px;
   text-shadow: 0 1px 1px white;
   -webkit-box-shadow: 0 1px 1px #fff;
@@ -176,7 +186,6 @@ form button {
   color: #666;
   cursor: pointer;
   font: bold 1em Sans-Serif;
-  border-color: #999;
   background: -webkit-linear-gradient(top, white, #E0E0E0);
   background: -moz-linear-gradient(top, white, #E0E0E0);
   background: -ms-linear-gradient(top, white, #E0E0E0);
@@ -220,6 +229,10 @@ form .tekstveld input {
 form .tekstveld input:focus + [role="tooltip"] {
   right: 0;
   width: 99%;
+}
+form.search-form input[type="submit"] {
+  background-image: url(/img/vergrootglas.png);
+  background-image: url(/img/vergrootglas.svg), none;
 }
 li a,
 li img {
@@ -312,7 +325,7 @@ ul.thumbs {
   clear: both;
   float: none;
   width: 100%;
-  overflow: hidden;
+  overflow: auto;
 }
 ul.thumbs,
 ul.thumbs li {
@@ -341,7 +354,7 @@ ul.results li {
   width: 100%;
   margin-bottom: 1em;
   line-height: 1.4;
-  overflow: hidden;
+  overflow: auto;
 }
 ul.all img,
 ul.results img {
@@ -645,27 +658,6 @@ p {
   font-size: 90%;
   margin: 0;
 }
-x.rate_widget {
-  overflow: visible;
-  padding: 10px;
-  position: relative;
-}
-x.rate_widget label {
-  float: left;
-}
-x.rate_widget .is_klikbaar {
-  background: url('rating/star_empty.png') no-repeat;
-  float: left;
-  height: 28px;
-  padding: 2px;
-  width: 32px;
-}
-x.rate_widget .ratings_vote {
-  background: url('rating/star_full.png') no-repeat;
-}
-x.rate_widget .ratings_over {
-  background: url('rating/star_highlight.png') no-repeat;
-}
 [itemprop="aggregateRating"] {
   margin: 0;
   padding: .3em 0;
@@ -787,17 +779,26 @@ nav a .pijl {
   float: right;
   line-height: .6;
   padding: 0;
+  position: absolute;
+  top: 4px;
+  z-index: 10;
+}
+nav .vorige {
+  padding-left: 50px;
 }
 nav .vorige .pijl {
   transform: rotate(180deg);
   float: left;
   padding-left: 10px;
+  left: 0;
 }
 nav .volgende {
   float: right;
+  padding-right: 50px;
 }
 nav .volgende .pijl {
   padding-left: 10px;
+  right: 0;
 }
 @media only screen and (max-width: 550px) {
   body {
@@ -840,12 +841,12 @@ nav .volgende .pijl {
   }
 }
 @media only screen and (min-width: 1350px) {
-  #home {
+  tralla#home {
     position: fixed;
     left: 1em;
     top: 1em;
   }
-  #home a {
+  tralla#home a {
     font-family: toronto,Helvetica,Arial,serif;
     color: #555;
     font-size: 180%;
@@ -854,7 +855,7 @@ nav .volgende .pijl {
     padding: 0 .4em;
     border-radius: .3em;
   }
-  #home a:before {
+  tralla#home a:before {
     content: ' ';
     display: block;
     width: 0;
@@ -864,7 +865,7 @@ nav .volgende .pijl {
     border-right: 60px solid #fff;
     float: left;
   }
-  #home a span {
+  tralla#home a span {
     display: inline-block;
     background: #fff;
     height: 60px;
@@ -872,14 +873,14 @@ nav .volgende .pijl {
     border-radius: 0 10px 10px 0;
     border: 3px solid #fff;
   }
-  #home a:hover,
-  #home a:focus,
-  #home a:active {
+  tralla#home a:hover,
+  tralla#home a:focus,
+  tralla#home a:active {
     text-decoration: underline;
   }
-  #home a:hover span,
-  #home a:focus span,
-  #home a:active span {
+  tralla#home a:hover span,
+  tralla#home a:focus span,
+  tralla#home a:active span {
     background: #555;
     color: #fff;
   }
@@ -891,13 +892,10 @@ nav .volgende .pijl {
   }
   article,
   footer {
-    width: 720px;
+    width: 70%;
   }
   .dojs #andere .thumbs {
     padding: 0 60px 1em 60px;
-  }
-  #andere {
-    overflow: scroll;
   }
   #andere .thumbnav {
     height: 100%;
@@ -1004,48 +1002,54 @@ nav .volgende .pijl {
   }
 }
 @media only screen and (min-width: 1000px) {
-  nav {
-    margin-right: -220px;
-    margin-left: -220px;
-    transform: translateY(-700px);
-    height: auto;
-  }
-  nav a {
-    position: absolute;
-    background: rgba(255, 255, 255, 0);
-    color: rgba(255, 255, 255, 0);
-    width: 220px;
-  }
-  nav a .pijl {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 800%;
-    float: none;
-    clear: both;
-    position: absolute;
-    top: 150px;
-  }
-  nav a:active,
-  nav a:hover,
-  nav a:focus {
-    background: rgba(255, 255, 255, 0.06);
-    text-decoration: none;
-    color: #ffffff;
-  }
-  nav a:active .pijl,
-  nav a:hover .pijl,
-  nav a:focus .pijl {
-    color: #ffffff;
-  }
-  nav .vorige {
-    padding: 25% 40px;
-  }
-  nav .volgende {
-    padding: 25% 40px;
-    right: 0;
-  }
-  nav .volgende:after {
-    display: none;
-  }
+  /*    
+    xxxxxxx.nav {
+        margin-right: ( -1 * ( @arrowwidth + ( 2 * @arrowpadding ) ) );
+        margin-left: ( -1 * ( @arrowwidth + ( 2 * @arrowpadding ) ) );
+        transform: translateY( @arrowpos_y );        
+        height: auto;
+
+        a {
+            position: absolute;
+            background: fade(@border-color, 0%);
+            color: fade(@border-color, 0%);
+            width:  ( @arrowwidth + ( 2 * @arrowpadding ) );
+
+            .pijl {
+                color: fade(@wit, 70%);
+                font-size: 800%;
+                float: none;
+                clear: both;
+                position: absolute;
+                top: 150px;
+            }
+            &:active, 
+            &:hover, 
+            &:focus {
+                background: fade(@border-color, 6%);
+                text-decoration: none;
+                color: fade(@wit, 100%);
+
+                .pijl {
+                    color: fade(@wit, 100%);
+                }
+            }
+            
+        }
+
+        .vorige {
+            padding: 25% @arrowpadding;
+        }        
+        
+        .volgende {
+            padding: 25% @arrowpadding;
+            right: 0;
+            &:after {
+                display: none;
+            }
+        }
+    }
+*/
   footer,
   section#andere {
     margin: 1em auto;
@@ -1384,6 +1388,122 @@ ul.mTSContainer > li img {
 /* ---------------------------------------- */
 /* theme: "hover-full" */
 /* ---------------------------------------- */
+#andere + nav {
+  display: none;
+}
+@media only screen and (min-width: 550px) and (orientation: landscape) {
+  .resultaat {
+    overflow: hidden;
+  }
+  #tegelmetadata,
+  #tegelplaatje {
+    width: 50%;
+  }
+  #tegelplaatje {
+    margin: 0 auto;
+    display: inline-block;
+    float: left;
+    clear: none;
+    padding-right: 1em;
+  }
+  #tegelplaatje img {
+    width: 50vh;
+    height: auto;
+  }
+  #tegelmetadata {
+    width: 50%;
+    float: left;
+    display: inline-block;
+    clear: none;
+  }
+  nav {
+    display: none;
+  }
+  nav#flappen + article {
+    position: relative;
+    z-index: 100;
+  }
+  nav#flappen {
+    display: block;
+    margin: 0;
+    position: inherit;
+    top: 6vw;
+    width: 100%;
+    height: 10px;
+  }
+  nav#flappen .vorige,
+  nav#flappen .volgende {
+    position: relative;
+    background: white;
+    margin: 1em 0;
+    padding: 0 1em;
+    width: 15%;
+    color: #555;
+    overflow: hidden;
+    z-index: 1;
+  }
+  nav#flappen .vorige:hover,
+  nav#flappen .volgende:hover,
+  nav#flappen .vorige:active,
+  nav#flappen .volgende:active,
+  nav#flappen .vorige:focus,
+  nav#flappen .volgende:focus {
+    color: blue;
+    text-decoration: underline;
+  }
+  nav#flappen .vorige {
+    left: 0;
+  }
+  nav#flappen .volgende {
+    right: 0;
+  }
+  #andere h2 {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  footer section {
+    margin: 0 auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+  }
+  footer div,
+  footer form {
+    display: inline-block;
+    float: left;
+    border: 1px solid red;
+  }
+  footer div h3,
+  footer form h3,
+  footer div ul,
+  footer form ul {
+    display: block;
+    float: none;
+    font-family: Georgia, Times, Times New Roman, serif;
+  }
+  footer div ul li,
+  footer form ul li {
+    display: block;
+    float: none;
+  }
+  footer div h3,
+  footer form h3 {
+    padding-right: 1em;
+  }
+  footer #footer-zoeken {
+    width: auto;
+  }
+  footer #footer-zoeken form {
+    padding: 0;
+    margin: 0;
+  }
+}
 body {
   border: 1px solid white;
 }

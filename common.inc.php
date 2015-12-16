@@ -17,7 +17,7 @@ define('PVB_DEBUG', false);
 
 define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
 define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
-define('TEGELIZR_BACK',             '<span>nog een tegeltje</span>');
+define('TEGELIZR_BACK',             'Maak een tegeltje');
 define('TEGELIZR_SUBMIT',           'bak mijn tegeltje');
 define('TEGELIZR_SUBMIT_RATING',    'geef sterren');
 define('TEGELIZR_TXT_LENGTH',       90);
@@ -416,21 +416,20 @@ function spitoutfooter() {
     global $zoektegeltje;
 
 
-    $form = '<a href="#top" id="totop">Bovenkant</a><a href="#' . TEGELIZR_ZOEKTERM . '" id="tomenu">Menu</a>
-    <div itemscope itemtype="http://schema.org/WebSite">
+    $form = '    
     <meta itemprop="url" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/"/>
     <form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/" role="search" itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
     <meta itemprop="target" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?zoektegeltje={s}">
     <label for="' . TEGELIZR_ZOEKTERM . '">Zoek een tegel</label>
     <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '" id="' . TEGELIZR_ZOEKTERM . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
     <input type="submit" value="Search">
-</form></div>';
+</form><a href="#top" id="totop">Bovenkant</a><a href="#' . TEGELIZR_ZOEKTERM . '" id="tomenu">Menu</a> ';
 
 
 
     
     return '
-<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div><div id="footer-about"><h3>Over de site</h3><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">redactie</a></li><li><a href="/sitemap.txt">sitemap</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">alle tegeltjes</a></li><li><a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li></ul></div><div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div></footer>
+<footer><section><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div><div id="footer-about"><h3>Over de site</h3><ul><li id="home"> <a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/" data-use="maaktegeltje">' . TEGELIZR_BACK . '</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">redactie</a></li><li><a href="/sitemap.txt">sitemap</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">alle tegeltjes</a></li><li><a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li></ul></div><div id="footer-zoeken" itemscope itemtype="http://schema.org/WebSite"><h3>Zoeken</h3>'. $form . '</div></section></footer>
 
 <scri' . "pt>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-1780046-36', 'auto');ga('send', 'pageview');document.body.className = document.body.className.replace('nojs','dojs');
 $(document).ready(function() {
@@ -470,5 +469,22 @@ function png2jpg($originalFile, $outputFile, $quality) {
 function DoPrefix($value = '', $prefixwith = '0', $stringlength = 20, $side = STR_PAD_LEFT) {
     return str_pad($value, $stringlength, $prefixwith, $side);
 }
+// ===================================================================================================================
+function WriteGenerateform($value = '') {
+	?>
+  <div id="home"><p><?php echo TEGELIZR_BACK ?></p>
+  <form role="form" id="posterform" name="posterform" action="generate.php" method="get" enctype="multipart/form-data">
+    <div class="form-group tekstveld">
+      <label for="txt_tegeltekst">Jouw tekst:</label>
+      <input type="text" aria-describedby="tekst-tip" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]{1,<?php echo TEGELIZR_TXT_LENGTH ?>}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst" required="required" value="<?php echo TEGELIZR_TXT_VALUE ?>" maxlength="<?php echo TEGELIZR_TXT_LENGTH ?>" size="<?php echo TEGELIZR_TXT_LENGTH ?>" autofocus />
+      <div role="tooltip" id="tekst-tip">Alleen letters, cijfers en leestekens. Maximale lengte <?php echo TEGELIZR_TXT_LENGTH ?> tekens</div>
+    </div>
+    <button type="submit" class="btn btn-primary"><?php echo TEGELIZR_SUBMIT ?></button>
+  </form>
+  </div>
+<?php
+}
+
+
 
 ?>
