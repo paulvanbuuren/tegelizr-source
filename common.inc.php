@@ -118,6 +118,7 @@ function filtertext($text = '', $dogeintje = true ) {
 	    $text                = preg_replace("/moslim/i", "Alfred Jodocus Kwak", trim($text));
 	    $text                = preg_replace("/islam/i", "Kabouter Plop", trim($text));
 	    $text                = preg_replace("/het satanische Facebook/i", "Facebook", $text);
+	    $text                = preg_replace("/dat satanische Facebook/i", "Facebook", $text);
 	    $text                = preg_replace("/facebook/i", " het satanische Facebook", $text);
     }
     $text                = preg_replace("/username/i", " *zucht* ", trim($text));

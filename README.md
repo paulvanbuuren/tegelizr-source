@@ -5,7 +5,7 @@ Correct me if I'm wrong. Copy me if I'm right.
 ## Tegelizr.nl
 author:    Paul van Buuren
 
-current version: 5.2.0 
+current version: 5.2.1 
 
 ## contact:                    
 * paul@wbvb.nl
@@ -13,6 +13,7 @@ current version: 5.2.0
 * twitter.com/paulvanbuuren
 
 ## Versions
+* 5.2.1 - Regex verbeterd
 * 5.2.0 - pop-up voor tegeldetailpagina's. Regex verbeterd
 * 5.1.0 - ander pijltje
 * 5.0.1 - bugfixes
