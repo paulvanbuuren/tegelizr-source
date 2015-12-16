@@ -207,6 +207,14 @@ if (!file_exists($outpath.$filename)) {
     imagedestroy($img);
 
     resize(TEGELIZR_THUMB_WIDTH,$destimagepath_klein,$destimagepath);
+
+    $mailcontent = "Tekst: \n" .  $_GET['txt_tegeltekst'] ."\n";
+    $mailcontent .= "URL: \n";
+    
+    $mailcontent .= $desturl;
+    if ( !PVB_DEBUG ) {
+        mail("vanbuuren@gmail.com", "Tegelizr : " . $titel, $mailcontent, "From: paul@wbvb.nl");
+    }
     
     // doorsturen naar pagina met het aangemaakte image
     header('Location: ' . $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE);    

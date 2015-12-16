@@ -12,12 +12,12 @@ setlocale(LC_TIME, 'NL_nl');
 
 // ===================================================================================================================
 
-define('PVB_DEBUG', false);
+define('PVB_DEBUG', true);
 
 
 define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
 define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
-define('TEGELIZR_BACK',             '<span>nog een tegeltje</span>');
+define('TEGELIZR_BACK',             'Bak je eigen tegeltje');
 define('TEGELIZR_SUBMIT',           'bak mijn tegeltje');
 define('TEGELIZR_SUBMIT_RATING',    'geef sterren');
 define('TEGELIZR_TXT_LENGTH',       90);
@@ -101,27 +101,30 @@ function dodebug($text = '') {
 }
 // ===================================================================================================================
 
-function filtertext($text = '') {
+function filtertext($text = '', $dogeintje = true ) {
     $text                = preg_replace("/</", "&lt;", $text);
     $text                = preg_replace("/>/", "&gt;", $text);
     $text                = preg_replace("/script/", "snikkel", $text);
 //    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]+/", "", trim($text));
     $text                = substr($text,0,TEGELIZR_TXT_LENGTH);
-    $text                = preg_replace("/Geert Wilders/i", "zaadslurf", trim($text));
-    $text                = preg_replace("/Wilders/", "zaadslurf", trim($text));
-//    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]+/", "", trim($text));
-    $text                = preg_replace("/PVV/", "NSB", trim($text));
-    $text                = preg_replace("/moslima/i", "Tante Truus", trim($text));
-    $text                = preg_replace("/Tante Truus's/i", "Tante Truusjes", trim($text));
-    $text                = preg_replace("/moslims/i", "Ajax-supporters en wielrenfans", trim($text));
-    $text                = preg_replace("/moslim/i", "Alfred Jodocus Kwak", trim($text));
-    $text                = preg_replace("/islam/i", "Kabouter Plop", trim($text));
+    if ( $dogeintje ) {
+	    $text                = preg_replace("/Geert Wilders/i", "zaadslurf", trim($text));
+	    $text                = preg_replace("/Wilders/", "zaadslurf", trim($text));
+	//    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]+/", "", trim($text));
+	    $text                = preg_replace("/PVV/", "NSB", trim($text));
+	    $text                = preg_replace("/moslima/i", "Tante Truus", trim($text));
+	    $text                = preg_replace("/Tante Truus's/i", "Tante Truusjes", trim($text));
+	    $text                = preg_replace("/moslims/i", "Ajax-supporters en wielrenfans", trim($text));
+	    $text                = preg_replace("/moslim/i", "Alfred Jodocus Kwak", trim($text));
+	    $text                = preg_replace("/islam/i", "Kabouter Plop", trim($text));
+	    $text                = preg_replace("/het satanische Facebook/i", "Facebook", $text);
+	    $text                = preg_replace("/facebook/i", " het satanische Facebook", $text);
+    }
     $text                = preg_replace("/username/i", " *zucht* ", trim($text));
     $text                = preg_replace("/password/i", " *gaap* ", trim($text));
     $text                = preg_replace("/;DROP /i", " *snurk* ", trim($text));
     $text                = preg_replace("/select /i", " *fart* ", trim($text));
     $text                = preg_replace("/ table /i", " *pfffffrt* ", trim($text));
-    $text                = preg_replace("/facebook/i", " het satanische Facebook", $text);
     
     return $text;
 }
@@ -167,7 +170,7 @@ function showthumbs($aantal = '10', $hide = '') {
     
                     $txt_tegeltekst = '';
                     if ( isset( $views['txt_tegeltekst'] )) {
-                        $txt_tegeltekst = filtertext( $views['txt_tegeltekst'] );
+                        $txt_tegeltekst = filtertext( $views['txt_tegeltekst'], true );
                     }
     
                     $fruit = '<a href="/'  . TEGELIZR_SELECTOR . '/' . $info[1] . '" title="' . $txt_tegeltekst . ' - ' . $views[TEGELIZR_VIEWS] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $filename . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . $txt_tegeltekst . '" /></a>';
@@ -228,7 +231,7 @@ function wbvb_d2e_socialbuttons($thelink = 'thelink', $thetitle = 'thetitle', $s
 
 // ===================================================================================================================
 function htmlheader() {
-    return '<link href="//wbvb.nl/wp-content/themes/wbvb/style.css" rel="stylesheet" type="text/css"><link href="css/style.css" rel="stylesheet" type="text/css"></head><body class="nojs">';
+    return '<link href="//wbvb.nl/wp-content/themes/wbvb/style.css" rel="stylesheet" type="text/css"><link href="css/style.css" rel="stylesheet" type="text/css"><link href="css/print.css" rel="stylesheet" type="text/css" media=""></head><body class="nojs">';
   
 }
 
@@ -254,9 +257,9 @@ function getSearchResultItem($result, $showImage = true) {
 
     $return =  '<li>';
     if ( $showImage ) {
-        $return .= '<a href="/'  . TEGELIZR_SELECTOR . '/' . $hashname . '" title="' . filtertext($result['txt_tegeltekst']) . ' - ' . $result[TEGELIZR_VIEWS] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $thumb . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . filtertext($result['txt_tegeltekst']) . '" /></a>';        
+        $return .= '<a href="/'  . TEGELIZR_SELECTOR . '/' . $hashname . '" title="' . filtertext($result['txt_tegeltekst'], true) . ' - ' . $result[TEGELIZR_VIEWS] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $thumb . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . filtertext($result['txt_tegeltekst'], true ) . '" /></a>';        
     }
-    $return .= '<h3><a href="/'  . TEGELIZR_SELECTOR . '/' . $hashname . '" title="' . filtertext($result['txt_tegeltekst']) . ' - ' . $result[TEGELIZR_VIEWS] . ' keer bekeken">' . filtertext($result['txt_tegeltekst']) . '</a></h3><span class="datum">' . $date . '</span><span class="aantalkeer">' . $result[TEGELIZR_VIEWS] . ' keer bekeken</span>';
+    $return .= '<h3><a href="/'  . TEGELIZR_SELECTOR . '/' . $hashname . '" title="' . filtertext($result['txt_tegeltekst'], true ) . ' - ' . $result[TEGELIZR_VIEWS] . ' keer bekeken">' . filtertext($result['txt_tegeltekst'], true ) . '</a></h3><span class="datum">' . $date . '</span><span class="aantalkeer">' . $result[TEGELIZR_VIEWS] . ' keer bekeken</span>';
     if ( $result[TGLZR_NR_VOTES] > 0 ) {
         $return .= ' - <span class="waardering">waardering: ' . $result[dec_avg] . ' ';
         if ( $result[rounded_avg] > 1 ) {
@@ -352,7 +355,7 @@ function getviews($filelocation, $update = false) {
 
 function includejs() {
     return '
-    <scri' . 'pt src="http://code.jquery.com/jquery-latest.js"></scri' . 'pt>
+    <scri' . 'pt src="http://code.jquery.com/jquery-latest.min.js"></scri' . 'pt>
 ';
 
 }
@@ -367,13 +370,155 @@ function spitoutfooter() {
     <input type="submit" value="Search">
 </form>';
 
+	$tijdvandedag = 'ledig';
 
+	/* This sets the $time variable to the current hour in the 24 hour clock format */
+	$time = date("H");
+	/* Set the $timezone variable to become the current timezone */
+	$timezone = date("e");
+	/* If the time is less than 1200 hours, show good morning */
+	if ($time >= "6" && $time < "12") {
+		$tijdvandedag = 'ochtend';
+	}
+	else {
+		/* If the time is grater than or equal to 1200 hours, but less than 1700 hours, so good afternoon */
+		if ($time >= "12" && $time < "17") {
+			$tijdvandedag = 'middag';
+		}
+		else {
+			/* Should the time be between or equal to 1700 and 1900 hours, show good evening */
+			if ($time >= "17" && $time < "23") {
+				$tijdvandedag = 'avond';
+			} 
+			else {
+			/* Finally, show good night if the time is greater than or equal to 1900 hours */
+				$tijdvandedag = 'nacht';
+			}
+		}
+	}
+
+//echo '<h1 style="padding: 5px; background: #fff;">' . $tijdvandedag . '</h1>';
+
+//_gaq.push(['_setCustomVar',
+//      1,                // This custom var is set to slot #1.  Required parameter.
+//      'Member Type',    // The name of the custom variable.  Required parameter.
+//      'Premium',        // The value of the custom variable.  Required parameter.
+//                        //  (possible values might be Free, Bronze, Gold, and Platinum)
+//      1                 // Sets the scope to visitor-level.  Optional parameter.
+// ]); 
 
     
     return '
 <footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div><div id="footer-about"><h3>Over de site</h3><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">redactie</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">alle tegeltjes</a></li><li><a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li></ul></div><div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div></footer>
 
-<scri' . "pt>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-1780046-36', 'auto');ga('send', 'pageview');document.body.className = document.body.className.replace('nojs','dojs');
+<scri' . "pt>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();
+a=s.createElement(o),m=s.getElementsByTagName(o)[0];
+a.async=1;
+a.src=g;
+m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-1780046-36', 'auto');
+ga('send', 'pageview');
+var dimensionValue = 'dagdeel';
+ga('set', '" . $tijdvandedag . "', dimensionValue);
+
+document.body.className = document.body.className.replace('nojs','dojs');
+
+
+
+// helper function to place modal window as the first child
+// of the #page node
+var m = document.getElementById('modal_window'),
+    p = document.getElementById('page');
+
+function swap () {
+  p.parentNode.insertBefore(m, p);
+}
+
+
+swap();
+
+
+// modal window
+(function() {
+
+  'use strict';
+
+  // list out the vars
+  var mOverlay = getId('modal_window'),
+      mOpen = getId('modal_open'),
+      mClose = getId('modal_close'),
+      modal = getId('modal_holder'),
+      allNodes = document.querySelectorAll('*'),
+      modalOpen = false,
+      lastFocus,
+      i;
+
+
+  // Let's cut down on what we need to type to get an ID
+  function getId ( id ) {
+    return document.getElementById(id);
+  }
+
+
+  // Let's open the modal
+  function modalShow () {
+    lastFocus = document.activeElement;
+    console.log('mOverlay!');
+    mOverlay.setAttribute('aria-hidden', 'false');
+    modalOpen = true;
+    modal.setAttribute('tabindex', '0');
+    modal.focus();
+  }
+
+
+  // binds to both the button click and the escape key to close the modal window
+  // but only if modalOpen is set to true
+  function modalClose ( event ) {
+    if (modalOpen && ( !event.keyCode || event.keyCode === 27 ) ) {
+      mOverlay.setAttribute('aria-hidden', 'true');
+      modal.setAttribute('tabindex', '-1');
+      modalOpen = false;
+      lastFocus.focus();
+    }
+  }
+
+
+  // Restrict focus to the modal window when it's open.
+  // Tabbing will just loop through the whole modal.
+  // Shift + Tab will allow backup to the top of the modal,
+  // and then stop.
+  function focusRestrict ( event ) {
+    if ( modalOpen && !modal.contains( event.target ) ) {
+      event.stopPropagation();
+      modal.focus();
+    }
+  }
+
+
+  // Close modal window by clicking on the overlay
+  mOverlay.addEventListener('click', function( e ) {
+    if (e.target == modal.parentNode) {
+       modalClose( e );
+     }
+  }, false);
+
+
+  // open modal by btn click/hit
+  mOpen.addEventListener('click', modalShow);
+
+  // close modal by btn click/hit
+  mClose.addEventListener('click', modalClose);
+
+  // close modal by keydown, but only if modal is open
+  document.addEventListener('keydown', modalClose);
+
+  // restrict tab focus on elements only inside modal window
+  for (i = 0; i < allNodes.length; i++) {
+    allNodes.item(i).addEventListener('focus', focusRestrict);
+  }
+
+})();
+
 $(document).ready(function() {
 
 $('#totop').addClass('jsinvisible');
@@ -413,6 +558,42 @@ function png2jpg($originalFile, $outputFile, $quality) {
 // ===================================================================================================================
 function DoPrefix($value = '', $prefixwith = '0', $stringlength = 20, $side = STR_PAD_LEFT) {
     return str_pad($value, $stringlength, $prefixwith, $side);
+}
+
+// ===================================================================================================================
+function TheModalWindow() {
+	return '  <p id="home"> <button class="btn" type="button" id="modal_open">' . TEGELIZR_BACK .'</button> </p>
+
+<div class="modal-overlay" id="modal_window"
+             aria-hidden="true" role="dialog"
+             aria-labelledby="modal_title">
+
+      <div class="modal-content" id="modal_holder" role="document">
+
+          <h1 id="modal_title">' . TEGELIZR_BACK .'</h1>
+         ' . TheForm() . '
+
+        <button class="btn-close" id="modal_close" type="button" aria-label="close">
+          &times;
+        </button>
+
+      </div> <!-- end .modal-content -->
+
+    </div> <!-- end .modal-overlay -->	
+	
+';
+}
+
+// ===================================================================================================================
+function TheForm() {
+    return  ' <form role="form" id="posterform" name="posterform" action="generate.php" method="get" enctype="multipart/form-data">
+    <div class="form-group tekstveld">
+      <label for="txt_tegeltekst">Jouw tekst:</label>
+      <input type="text" aria-describedby="tekst-tip" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]{1,' . TEGELIZR_TXT_LENGTH . '}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst" required="required" value="' . TEGELIZR_TXT_VALUE . '" maxlength="' . TEGELIZR_TXT_LENGTH . '" size="' . TEGELIZR_TXT_LENGTH . '" autofocus />
+      <div role="tooltip" id="tekst-tip">Alleen letters, cijfers en leestekens. Maximale lengte ' . TEGELIZR_TXT_LENGTH . ' tekens</div>
+    </div>
+    <button type="submit" class="btn-primary">' . TEGELIZR_SUBMIT . '</button>
+  </form>';
 }
 
 ?>

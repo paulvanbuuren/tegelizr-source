@@ -87,11 +87,11 @@ $table .= "<tr><td>";
 
 
                 if (isset( $boom[$thumb_filename]['txt_tegeltekst'] ) ) {
-                    $alt = filtertext($boom[$thumb_filename]['txt_tegeltekst']);
+                    $alt = filtertext($boom[$thumb_filename]['txt_tegeltekst'], true);
                 }
                 else {
                     $errorcounter++;
-                    $boom[$thumb_filename]['txt_tegeltekst']         = preg_replace("/[\-]/", " ", filtertext($info[1]));
+                    $boom[$thumb_filename]['txt_tegeltekst']         = preg_replace("/[\-]/", " ", filtertext($info[1], true));
         
                     $correct_txt    = $outpath . $info[1] . '_corrected.txt';
 

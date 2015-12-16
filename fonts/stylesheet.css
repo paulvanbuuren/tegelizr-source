@@ -1,0 +1,12 @@
+
+@font-face {
+    font-family: 'toronto';
+    src: url('torontosubwayregular-webfont.eot');
+    src: url('torontosubwayregular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('torontosubwayregular-webfont.woff') format('woff'),
+         url('torontosubwayregular-webfont.ttf') format('truetype'),
+         url('torontosubwayregular-webfont.svg#toronto') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}

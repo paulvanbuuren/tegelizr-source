@@ -44,7 +44,7 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
 <meta property="article:tag" content="<?php echo TEGELIZR_ALLES; ?>" />
 <meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
-<article class="resultaat">
+<article id="page"  class="resultaat">
   <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><span>Redactie</span></a></h1>
   <p>Ik houd niet bij wie welk tegeltje gemaakt heeft. Als een tegeltje me niet bevalt, haal ik het weg. </p>
   <p>Door de tekst op een tegeltje te zetten verandert er niet opeens iets aan het auteursrecht van de tekst. Het auteursrecht erop valt niet  aan mij toe, noch aan degene de tekst invoerde.</p>
@@ -53,8 +53,8 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
   <?php echo wbvb_d2e_socialbuttons($desturl, $titel, TEGELIZR_SUMMARY) ?>
   <?php 
     echo showthumbs(12, '');
+    echo TheModalWindow();
     ?>
-  <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
 </article>
 <?php
 
@@ -67,7 +67,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_ZOEKEN ) ) {
     global $zoektegeltje;
     global $path;
 
-    $zoektegeltje = filtertext($_GET[TEGELIZR_ZOEKTERM]);
+    $zoektegeltje = filtertext($_GET[TEGELIZR_ZOEKTERM], false);
 
     $titeltw    = 'Zoek tegeltjes met ' . $zoektegeltje;
     $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ZOEKEN . '/?' . TEGELIZR_ZOEKTERM . '=' . $zoektegeltje;
@@ -78,7 +78,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_ZOEKEN ) ) {
     $terms      = explode(" ", $zoektegeltje);
     $results    = array_filter($obj, function ($x) use ($terms){
         foreach($terms as $term){
-            if ( isset($x["txt_tegeltekst"]) && stripos("-" . filtertext(strtolower($x["txt_tegeltekst"])), strtolower($term)) ) {
+            if ( isset($x["txt_tegeltekst"]) && stripos("-" . filtertext(strtolower($x["txt_tegeltekst"]), false ), strtolower($term)) ) {
                 return true;
             }
         }
@@ -111,7 +111,7 @@ function sortByOrder($a, $b) {
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo $imagesource ?>" />
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
-<article class="resultaat">
+<article id="page"  class="resultaat">
   <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><span><?php echo returnlogo() . $titel ; ?></span></a></h1>
 
 <?php
@@ -141,10 +141,11 @@ function sortByOrder($a, $b) {
 </form>';        
 
     
-?>
-
-  <?php echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY) ?><?php echo showthumbs(12, $zinnen[2]);?>
-  <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
+    
+	echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY) ?><?php echo showthumbs(12, $zinnen[2]);
+	echo TheModalWindow();
+	  
+  ?>
 </article>
 
 <?php
@@ -167,7 +168,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
     $desturl        = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2];
     $imagesource    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_TEGELFOLDER . '/' . $filename;
     $views          = getviews($outpath.$desttextpath,true);
-    $txt_tegeltekst = isset($views['txt_tegeltekst']) ? filtertext($views['txt_tegeltekst']) : '';
+    $txt_tegeltekst = isset($views['txt_tegeltekst']) ? filtertext($views['txt_tegeltekst'], true) : '';
 
 
     $total_points   = isset($views[TGLZR_TOTAL_POINTS]) ? $views[TGLZR_TOTAL_POINTS] : 0;
@@ -193,7 +194,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo $imagesource ?>" />
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
-<article class="resultaat" itemscope itemtype="http://schema.org/ImageObject">
+<article id="page"  id="page" class="resultaat" itemscope itemtype="http://schema.org/ImageObject">
     <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><span><?php echo TEGELIZR_TITLE ?></span></a></h1>
 
     <a href="<?php echo htmlspecialchars($desturl)?>" class="placeholder"><img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje"  itemprop="contentUrl" /><?php
@@ -314,10 +315,10 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
     echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY);
     echo showthumbs(12, $zinnen[2]);
 
+	echo TheModalWindow();
         
         
     ?>
-    <p id="home"> <a href="/"><?php echo TEGELIZR_BACK ?></a> </p>
 </article>
 
 <?php
@@ -616,15 +617,9 @@ else {
   <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], TEGELIZR_TITLE, TEGELIZR_SUMMARY) ?>
   <p class="lead"> <?php echo TEGELIZR_FORM ?> </p>
   <aside>(maar Paul, <a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">wat heb je toch met die tegeltjes</a>?)</aside>
-  <form role="form" id="posterform" name="posterform" action="generate.php" method="get" enctype="multipart/form-data">
-    <div class="form-group tekstveld">
-      <label for="txt_tegeltekst">Jouw tekst:</label>
-      <input type="text" aria-describedby="tekst-tip" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]{1,<?php echo TEGELIZR_TXT_LENGTH ?>}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst" required="required" value="<?php echo TEGELIZR_TXT_VALUE ?>" maxlength="<?php echo TEGELIZR_TXT_LENGTH ?>" size="<?php echo TEGELIZR_TXT_LENGTH ?>" autofocus />
-      <div role="tooltip" id="tekst-tip">Alleen letters, cijfers en leestekens. Maximale lengte <?php echo TEGELIZR_TXT_LENGTH ?> tekens</div>
-    </div>
-    <button type="submit" class="btn btn-primary"><?php echo TEGELIZR_SUBMIT ?></button>
-  </form>
-  <?php echo showthumbs(12); ?>
+  <?php 
+	  echo TheForm();
+	  echo showthumbs(12); ?>
 
   </article>
 
