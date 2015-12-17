@@ -418,8 +418,9 @@ a.async=1;
 a.src=g;
 m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 ga('create', 'UA-1780046-36', 'auto');
-var dimensionValue = 'dagdeel';
-ga('set', '" . $tijdvandedag . "', dimensionValue);
+var dagdeel = 'dagdeel';
+ga('set', '" . $tijdvandedag . "', dagdeel);
+
 ga('send', 'pageview');
 
 document.body.className = document.body.className.replace('nojs','dojs');
