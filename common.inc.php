@@ -12,7 +12,12 @@ setlocale(LC_TIME, 'NL_nl');
 
 // ===================================================================================================================
 
-define('PVB_DEBUG', true);
+if ( $_SERVER['SERVER_NAME'] == 'tegelizr' ) {
+	define('PVB_DEBUG', true);
+}
+else {
+	define('PVB_DEBUG', false);
+}
 
 
 define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
@@ -20,9 +25,6 @@ define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je
 define('TEGELIZR_BACK',             'Bak je eigen tegeltje');
 define('TEGELIZR_SUBMIT',           'bak mijn tegeltje');
 define('TEGELIZR_SUBMIT_RATING',    'geef sterren');
-define('TEGELIZR_TXT_LENGTH',       90);
-define('TEGELIZR_THUMB_WIDTH',      220);
-define('TEGELIZR_BLUR',             2);
 define('TEGELIZR_TXT_VALUE',        '');
 define('TEGELIZR_SELECTOR',         'tegeltje');
 define('TEGELIZR_PROTOCOL',         'http://');
@@ -39,16 +41,10 @@ define('TEGELIZR_TRIGGER_KEY',      'pasop');
 define('TEGELIZR_TRIGGER_VALUE',    'heet');
 define('TGLZR_TOTAL_POINTS',        'tglzr_TGLZR_TOTAL_POINTS');
 define('TEGELIZR_LASTVISIT',        'last_visit');
-
 define('dec_avg',                   'tglzr_dec_avg');
 define('TGLZR_NR_VOTES',            'tglzr_TGLZR_NR_VOTES');
 define('rounded_avg',               'tglzr_rounded_avg');
-
-
-
-define('TEGELIZR_AANTAL_STERREN',   5);
-
-
+define('TEGELIZR_AUTHOR',            'Paul van Buuren');
 define('TEGELIZR_RATING_UNITY_S',   'ster');
 define('TEGELIZR_RATING_UNITY',     'sterren');
 define('TEGELIZR_RATING_VOTE',      'waardering');
@@ -57,6 +53,10 @@ define('TEGELIZR_VOLGENDE',         'volgende');
 define('TEGELIZR_VOLGENDE_TITEL',   'volgende_titel');
 define('TEGELIZR_VORIGE',           'vorige');
 define('TEGELIZR_VORIGE_TITEL',     'vorige_titel');
+define('TEGELIZR_TXT_LENGTH',       90);
+define('TEGELIZR_THUMB_WIDTH',      220);
+define('TEGELIZR_BLUR',             2);
+define('TEGELIZR_AANTAL_STERREN',   5);
 
 $path               = dirname(__FILE__)."/";
 
@@ -107,6 +107,7 @@ function filtertext($text = '', $dogeintje = true ) {
     $text                = preg_replace("/script/", "snikkel", $text);
 //    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]+/", "", trim($text));
     $text                = substr($text,0,TEGELIZR_TXT_LENGTH);
+
     if ( $dogeintje ) {
 	    $text                = preg_replace("/Geert Wilders/i", "zaadslurf", trim($text));
 	    $text                = preg_replace("/Wilders/", "zaadslurf", trim($text));
@@ -121,6 +122,7 @@ function filtertext($text = '', $dogeintje = true ) {
 	    $text                = preg_replace("/dat satanische Facebook/i", "Facebook", $text);
 	    $text                = preg_replace("/facebook/i", " het satanische Facebook", $text);
     }
+
     $text                = preg_replace("/username/i", " *zucht* ", trim($text));
     $text                = preg_replace("/password/i", " *gaap* ", trim($text));
     $text                = preg_replace("/;DROP /i", " *snurk* ", trim($text));
@@ -201,11 +203,11 @@ function seoUrl($string) {
     return $string;
 }
 
-// ===================================================================================================================
 
 
 // ===================================================================================================================
-
+// debug text
+// ===================================================================================================================
 function writedebug($text) {
     if ( PVB_DEBUG ) {
         @ini_set('display_errors',1);
@@ -217,7 +219,8 @@ function writedebug($text) {
 }
 
 // ===================================================================================================================
-
+// social mediaknoppies
+// ===================================================================================================================
 function wbvb_d2e_socialbuttons($thelink = 'thelink', $thetitle = 'thetitle', $summary = 'summmary') {
 
     $sitetitle  = urlencode($thetitle);
@@ -229,13 +232,31 @@ function wbvb_d2e_socialbuttons($thelink = 'thelink', $thetitle = 'thetitle', $s
     }
 }
 
-
+// ===================================================================================================================
+// last items in header. stylesheets
 // ===================================================================================================================
 function htmlheader() {
-    return '<link href="//wbvb.nl/wp-content/themes/wbvb/style.css" rel="stylesheet" type="text/css"><link href="css/style.css" rel="stylesheet" type="text/css"><link href="css/print.css" rel="stylesheet" type="text/css" media=""></head><body class="nojs">';
+	if ( PVB_DEBUG ) {
+	    return '
+	    <link href="//wbvb.nl/wp-content/themes/wbvb/style.css" rel="stylesheet" type="text/css">
+	    <link href="css/style.css" rel="stylesheet" type="text/css">
+	    <link href="css/print.css" rel="stylesheet" type="text/css" media="">
+	    </head>
+	    <body class="nojs">';
+	}
+	else {
+	    return '
+	    <link href="//wbvb.nl/wp-content/themes/wbvb/style.css" rel="stylesheet" type="text/css">
+	    <link href="css/style.css" rel="stylesheet" type="text/css">
+	    <link href="css/print.css" rel="stylesheet" type="text/css" media="">
+	    </head>
+	    <body class="nojs">';
+	}
   
 }
 
+// ===================================================================================================================
+// stylesheet
 // ===================================================================================================================
 function getSearchResultItem($result, $showImage = true) {
 
@@ -286,7 +307,22 @@ function returnlogo() {
 
 
 function spitoutheader() {
-    return '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" href="http://wbvb.nl/images/favicon.ico" type="image/x-icon" /><link rel="publisher" href="https://plus.google.com/u/0/+PaulvanBuuren"/><meta name="twitter:card" content="summary"/><meta name="twitter:site" content="@paulvanbuuren"/><meta name="twitter:domain" content="WBVB"/><meta name="twitter:creator" content="@paulvanbuuren"/><meta property="og:locale" content="nl_NL" /><meta property="og:type" content="article" /><meta property="og:site_name" content="Webbureau Van Buuren Rotterdam" /><meta property="article:publisher" content="https://www.facebook.com/webbureauvanbuuren" />';
+    return '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="nl">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="http://wbvb.nl/images/favicon.ico" type="image/x-icon">
+		<link rel="publisher" href="https://plus.google.com/u/0/+PaulvanBuuren">
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:site" content="@paulvanbuuren">
+		<meta name="twitter:domain" content="WBVB">
+		<meta name="twitter:creator" content="@paulvanbuuren">
+		<meta property="og:locale" content="nl_NL">
+		<meta property="og:type" content="article">
+		<meta property="og:site_name" content="Webbureau Van Buuren Rotterdam">
+		<meta property="article:publisher" content="https://www.facebook.com/webbureauvanbuuren">';
     
 }
 // ===================================================================================================================
@@ -418,9 +454,7 @@ a.async=1;
 a.src=g;
 m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 ga('create', 'UA-1780046-36', 'auto');
-
-ga('set', 'dagdeel', '" . $tijdvandedag . "');
-
+ga('set', 'dimension1', '" . $tijdvandedag . "');
 ga('send', 'pageview');
 
 document.body.className = document.body.className.replace('nojs','dojs');

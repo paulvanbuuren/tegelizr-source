@@ -199,7 +199,6 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 
     <a href="<?php echo htmlspecialchars($desturl)?>" class="placeholder"><img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje"  itemprop="contentUrl" /><?php
     if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
-//        echo '<p id="progress_now">&nbsp;</p><div id="progress">&nbsp;</div><div id="progress_bar"><div>&nbsp;</div></div>';
         echo '<p id="progress_now">&nbsp;</p><div id="progress">&nbsp;</div>';
     }    
 ?></a>
@@ -395,18 +394,12 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
             var thelength       = 0;
             TOTALNRDOCUMENTS    = ledinges.nrdocs;
             $('#progress').html(TOTALNRDOCUMENTS + ' documenten om te scannen');
-//            $('#progress_bar div').html('&nbsp;');
 
             $.each(ledinges.docs, function( index, value ) {
-
                 volgende        = ( TOTALNRDOCUMENTS > index+1 ) ? ledinges.docs[index+1] : '';
                 vorige          = ( index == 0 ) ? '' : ledinges.docs[index-1] ;
-
                 StartDocumentScan(index, vorige, value, volgende);
-                
             });
-
-                        
         }
 
         function StartDocumentScan(index, vorige, txtfile, volgende) {
@@ -428,10 +421,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
                 },
                 'json'
             );
-        
         }
-
-
 
         function ToggleHide(showhide) {
             $('#home').toggle(showhide);
@@ -456,22 +446,15 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
             console.log('SetProgress: ' + CURRENTDOCINDEX + '/' + data_in.widget_id);
 
             var thelength = ( ( CURRENTDOCINDEX / TOTALNRDOCUMENTS ) * PROGRESSLENGTH);
-//            $('#progress_bar div').css('width', Math.round(thelength));
-
-
             var opacityDiv = (Math.round( ( ( CURRENTDOCINDEX / TOTALNRDOCUMENTS ) * PROGRESSOPACITY ) * 10) / 10 );
 
-//            $('#momentje').css('opacity', ( 1 - opacityDiv ) );
             $('#momentje').css('height', ( PROGRESSLENGTH - Math.round(thelength) ) );
-
             $('#progress').html( '<p>' + CURRENTDOCINDEX + ' van ' + TOTALNRDOCUMENTS + ' tegeltjes gescand.</p>');
-
             $('#progress_now').html('Even alle tegeltjes tellen en oppoetsen');
             
-             if ( opacityDiv > 0.1 ) {
-                $('.placeholder img').css('opacity', opacityDiv  );
-            }
-            
+			if ( opacityDiv > 0.1 ) {
+				$('.placeholder img').css('opacity', opacityDiv  );
+			}
             if ( opacityDiv > 0.25 ) {
                 $('#progress_now').html('Daar gaan we dan.');
             }
@@ -499,24 +482,17 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
             if ( opacityDiv > 0.9 ) {
                 $('#progress_now').html("Veel plezier!");
                 $('#momentje').remove();
-//                $('#progress').remove();
-//                $('#progress_bar').remove();
                 ToggleHide(true);
             }
             if ( opacityDiv > 0.99 ) {
 //                $('#progress_now').remove();
             }
         }
-        
 
 <?php
 
-
     }
     // =================================================================================================================== ?>
-
-
-    
 
         $('.rate_widget label.mag_klikbaar').addClass('is_klikbaar');
 
@@ -603,8 +579,9 @@ else {
 // schrijf formulier
 // ===================================================================================================================
 ?>
-<meta name="description" content="">
-<meta name="author" content="">
+
+<meta name="description" content="<?php echo TEGELIZR_SUMMARY ?>">
+<meta name="author" content="<?php echo TEGELIZR_AUTHOR ?>">
 <meta property="og:title" content="<?php echo TEGELIZR_TITLE ?>" />
 <meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
 <meta property="og:url" content="<?php echo $_SERVER['SERVER_NAME']; ?>" />
