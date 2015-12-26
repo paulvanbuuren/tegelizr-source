@@ -152,7 +152,7 @@ class documentscan {
     
         }
         else {
-            dodebug('niet bereikbaar: outpath_thumbs ' . $outpath_thumbs);
+            writedebug('niet bereikbaar: outpath_thumbs ' . $outpath_thumbs);
         }
 
 

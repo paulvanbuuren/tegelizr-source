@@ -52,11 +52,12 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
   <p>Maar goed, nu jij. <a href="/">Maak eens een leuk tegeltje</a>.</p>
   <?php echo wbvb_d2e_socialbuttons($desturl, $titel, TEGELIZR_SUMMARY) ?>
   <?php 
-    echo showthumbs(12, '');
     echo TheModalWindow();
     ?>
 </article>
 <?php
+    echo showthumbs(12, '');
+
 
 }
 // ===================================================================================================================
@@ -142,13 +143,15 @@ function sortByOrder($a, $b) {
 
     
     
-	echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY) ?><?php echo showthumbs(12, $zinnen[2]);
+	echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY); 
 	echo TheModalWindow();
 	  
   ?>
 </article>
 
 <?php
+	echo showthumbs(12, $zinnen[2]);
+
     echo includejs();
 ?>
 
@@ -197,7 +200,82 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 <article id="page"  id="page" class="resultaat" itemscope itemtype="http://schema.org/ImageObject">
     <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><span><?php echo TEGELIZR_TITLE ?></span></a></h1>
 
-    <a href="<?php echo htmlspecialchars($desturl)?>" class="placeholder"><img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje"  itemprop="contentUrl" /><?php
+    <a href="<?php echo htmlspecialchars($desturl)?>" class="placeholder">
+
+<!--	    <img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje"  itemprop="contentUrl" /> -->
+
+<?php
+
+	if ( isset( $zinnen[2] ) ) {
+	    $fileprefix	= $zinnen[2];
+	}
+	
+	$imgcounter = 0;
+	
+	$srcset = ' srcset="';
+	$sizes 	= ' sizes="';
+	$sources = '';
+
+	
+	foreach ( array_reverse( $arr_thumb_sizes ) as $i => $value) { 
+//	foreach ( $arr_thumb_sizes  as $i => $value) { 
+		// output path voor grote tegel
+		
+		$currenfilename = $fileprefix . "_" . $value['width'] . "_" . $i;
+		$resizedfile	= $currenfilename . '.' . TEGELIZR_RESIZE_EXT;
+		$currentimage	= '/' . TEGELIZR_TEGELFOLDER . '/' . $resizedfile;
+		
+		if ( ! file_exists( $outpath.$resizedfile ) ) {
+			writedebug('bestaat niet: ' . $outpath.$resizedfile );
+		    resize($value['width'],$outpath.$currenfilename,$outpath.$filename);
+		}
+	
+		$imgcounter++;
+		if ( $imgcounter > 1 ) {
+			$srcset .= ", ";
+			$sizes	.= ", ";
+		}
+		
+		$mediaq 	= ( $value['screenwidth'] );
+		$mediawidth	= ( $value['width'] );
+		
+		$srcset .= $currentimage . " " . $value['width'] . 'w ' . $value['width'] . 'h';
+		$sizes 	.= "(min-width: " . $mediaq . "px) " . $mediawidth . 'px';
+		$sources.= '<source media="(min-width: ' . $mediaq . 'px)" srcset="' . $currentimage . '">';
+	}
+
+	$srcset .= '"';
+	$sizes 	.= '"';
+
+if ( 22 == 23 ) {
+?>
+
+
+
+
+<img id="resp_tegeltje" itemprop="contentUrl" alt="<?php echo $titel ?>" 
+	src="<?php echo $imagesource ?>"<?php
+	echo $srcset;
+	echo $sizes;
+?>"	/>
+
+<?php
+}
+else {
+?>
+	
+
+<picture>
+	<?php echo $sources; ?>
+	<!-- img tag for browsers that do not support picture element -->
+	<img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" id="resp_tegeltje">
+</picture>
+
+<?php
+}
+
+	    
+
     if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
         echo '<p id="progress_now">&nbsp;</p><div id="progress">&nbsp;</div>';
     }    
@@ -312,7 +390,6 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 
     
     echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY);
-    echo showthumbs(12, $zinnen[2]);
 
 	echo TheModalWindow();
         
@@ -321,6 +398,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 </article>
 
 <?php
+    echo showthumbs(12, $zinnen[2]);
+
     echo includejs();
 ?>
 

@@ -1,4 +1,4 @@
-rsync -r -a -v --delete '/shared-paul-files/Webs/localhost-multisite/httpdocs/wp-content/themes/wbvb/fonts/' '/shared-paul-files/Webs/localhost-multisite/httpdocs/labs/tegelizr/fonts/';
+# rsync -r -a -v --delete '/shared-paul-files/Webs/localhost-multisite/httpdocs/wp-content/themes/wbvb/fonts/' '/shared-paul-files/Webs/localhost-multisite/httpdocs/labs/tegelizr/fonts/';
 
 rsync -r -a -v --delete '/shared-paul-files/Webs/localhost-multisite/httpdocs/wp-content/themes/wbvb/images/vergrootglas.png' '/shared-paul-files/Webs/localhost-multisite/httpdocs/labs/tegelizr/img/vergrootglas.png';
 

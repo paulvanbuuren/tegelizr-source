@@ -95,12 +95,9 @@ class sorttegeltjes {
         
         $sort_flags = SORT_REGULAR;
 
-//echo '<pre>';
-
 
         foreach ($obj as $key => $value) {
             $counter++;
-
 
             $file_name = $obj[$key]['file_name'];
             
@@ -125,16 +122,10 @@ class sorttegeltjes {
             
             $temparr[$sortkey] = array(
                 "txt_tegeltekst"    => getSearchResultItem($obj[$key],true),
-//                "txt_tegeltekst"    => $obj[$key]['txt_tegeltekst'],
-//                "txt_tegeltekst"    => filtertext($obj[$key]['txt_tegeltekst']),
                 "rating"            => $obj[$key]['tglzr_TGLZR_TOTAL_POINTS'],
                 "views"             => $obj[$key]['views']
             );
-
-
         }
-        
-
         
         if ( $sort_dir == 'desc' ) {
             krsort($temparr, $sort_flags );

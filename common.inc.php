@@ -12,7 +12,11 @@ setlocale(LC_TIME, 'NL_nl');
 
 // ===================================================================================================================
 
-if ( $_SERVER['SERVER_NAME'] == 'tegelizr' ) {
+//define('ALLOW_DEBUG', true);
+define('ALLOW_DEBUG', false);
+
+
+if ( ( $_SERVER['SERVER_NAME'] == 'tegelizr' ) && ALLOW_DEBUG ) {
 	define('PVB_DEBUG', true);
 }
 else {
@@ -53,13 +57,15 @@ define('TEGELIZR_VOLGENDE',         'volgende');
 define('TEGELIZR_VOLGENDE_TITEL',   'volgende_titel');
 define('TEGELIZR_VORIGE',           'vorige');
 define('TEGELIZR_VORIGE_TITEL',     'vorige_titel');
+define('TEGELIZR_RESIZE_EXT',     	'jpg');
+
+
 define('TEGELIZR_TXT_LENGTH',       90);
 define('TEGELIZR_THUMB_WIDTH',      220);
 define('TEGELIZR_BLUR',             2);
 define('TEGELIZR_AANTAL_STERREN',   5);
 
 $path               = dirname(__FILE__)."/";
-
 $sourcefolder       = $path."img/";
 $fontpath           = $path."fonts/";
 $outpath            = $path. TEGELIZR_TEGELFOLDER . "/";
@@ -68,6 +74,34 @@ $baseimgpath        = $sourcefolder."base.png";
 $zoektegeltje       = '';
 $userip             = 'IP' . md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
 
+
+$arr_thumb_sizes = array(
+    "thumb"         => array(
+    		"width" 		=> "150",
+    		"color" 		=> "blue",
+    		"screenwidth" 	=> "300",
+    		),
+    "phone"         => array(
+    		"width" 		=> "280",
+    		"color" 		=> "green",
+    		"screenwidth" 	=> "320",
+    		),
+    "medium"         => array(
+    		"width" 		=> "400",
+    		"color" 		=> "black",
+    		"screenwidth" 	=> "800",
+    		),
+    "larger"         => array(
+    		"width" 		=> "600",
+    		"color" 		=> "brown",
+    		"screenwidth" 	=> "1000",
+    		),
+    "largerster"         => array(
+    		"width" 		=> "1200",
+    		"color" 		=> "cyan",
+    		"screenwidth" 	=> "1800",
+    		),
+);
 
 $arr_sort_by = array(
     "name"          => "titel",
@@ -94,11 +128,7 @@ $arr_sort_dir = array(
 $arrpaginas = array(
 );
 
-// ===================================================================================================================
 
-function dodebug($text = '') {
-    echo $text . '<br />';
-}
 // ===================================================================================================================
 
 function filtertext($text = '', $dogeintje = true ) {
@@ -144,7 +174,7 @@ function showthumbs($aantal = '10', $hide = '') {
 
     if (is_dir($outpath_thumbs)) {
 
-        $images = glob($outpath_thumbs . "*.png");
+        $images = glob($outpath_thumbs . "*.jpg");
         
         rsort($images);
         
@@ -176,7 +206,7 @@ function showthumbs($aantal = '10', $hide = '') {
                         $txt_tegeltekst = filtertext( $views['txt_tegeltekst'], true );
                     }
     
-                    $fruit = '<a href="/'  . TEGELIZR_SELECTOR . '/' . $info[1] . '" title="' . $txt_tegeltekst . ' - ' . $views[TEGELIZR_VIEWS] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $filename . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . $txt_tegeltekst . '" /></a>';
+                    $fruit = '<a href="/'  . TEGELIZR_SELECTOR . '/' . $info[1] . '#top" title="' . $txt_tegeltekst . ' - ' . $views[TEGELIZR_VIEWS] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $filename . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . $txt_tegeltekst . '" /></a>';
                     echo '<li>' . $fruit . "</li>";
                 }
     
@@ -236,13 +266,66 @@ function wbvb_d2e_socialbuttons($thelink = 'thelink', $thetitle = 'thetitle', $s
 // last items in header. stylesheets
 // ===================================================================================================================
 function htmlheader() {
+	global $arr_thumb_sizes;
+
+	$style = '<style>';
+	$extra = '';
+
 	if ( PVB_DEBUG ) {
-	    return '
-	    <link href="//wbvb.nl/wp-content/themes/wbvb/style.css" rel="stylesheet" type="text/css">
-	    <link href="css/style.css" rel="stylesheet" type="text/css">
-	    <link href="css/print.css" rel="stylesheet" type="text/css" media="">
+
+		$extra = '<p id="logger">logger</p>';
+
+		$style .= 'a.placeholder {';
+		$style .= '		background: red;';
+		$style .= '		display: inline-block;';
+		$style .= '		float: left;';
+		$style .= '		position: relative;';
+		$style .= '}';
+		$style .= 'a.placeholder:before {';
+		$style .= '		position: absolute;';
+		$style .= '		display: block;';
+		$style .= "		content: 'yo';";
+		$style .= "		top: 1em;";
+		$style .= "		left: 1em;";
+		$style .= "		padding: 1em;";
+		$style .= "		background: white;";
+		$style .= "		color: black;";
+		$style .= "		border: 1px solid black;";
+		$style .= '}';
+		
+	}
+
+	foreach ( $arr_thumb_sizes  as $i => $value) { 
+		$style .= '@media only screen and (min-width: ' . $value['screenwidth'] . 'px) {';
+		if ( PVB_DEBUG ) {
+			$style .= '	a.placeholder:before {';
+			$style .= "		content: 'width: " . $value['width'] . " / screenwidth: " . $value['screenwidth'] . " / " . $value['color'] . "';";
+			$style .= '	}';
+			$style .= '	a.placeholder {';
+			$style .= '		background: ' . $value['color'] . ';';
+			$style .= '	}';
+
+		}			
+		$style .= '	a.placeholder img {';
+		$style .= '		width: ' . $value['width'] . ';';
+		$style .= '		height: ' . $value['width'] . ';';
+		$style .= '	}';
+		$style .= '}';
+
+	}
+
+	$style .= '	a.placeholder img {';
+	$style .= '	display: block;';
+	$style .= '	overflow: hidden;';
+	$style .= '	}';
+
+	$style .= '</style>';
+		
+	if ( $_SERVER['SERVER_NAME'] == 'tegelizr' ) {
+	    return $style . '
+	    <link href="css/stylesheet.css" rel="stylesheet" type="text/css" media="">
 	    </head>
-	    <body class="nojs">';
+	    <body class="nojs">' . $extra;
 	}
 	else {
 	    return '
@@ -250,7 +333,7 @@ function htmlheader() {
 	    <link href="css/style.css" rel="stylesheet" type="text/css">
 	    <link href="css/print.css" rel="stylesheet" type="text/css" media="">
 	    </head>
-	    <body class="nojs">';
+	    <body class="nojs">' . $extra;
 	}
   
 }
@@ -460,6 +543,23 @@ ga('send', 'pageview');
 document.body.className = document.body.className.replace('nojs','dojs');
 
 
+(function() {
+  var currentSrc, oldSrc, imgEl;
+  var showPicSrc = function() {
+    oldSrc     = currentSrc;
+    imgEl      = document.getElementById('resp_tegeltje');
+    currentSrc = imgEl.currentSrc || imgEl.src;
+ 
+    if (typeof oldSrc === 'undefined' || oldSrc !== currentSrc) {
+      document.getElementById('logger').innerHTML = currentSrc;
+    }
+  };
+ 
+  // You may wish to debounce resize if you have performance concerns
+  window.addEventListener('resize', showPicSrc);
+  window.addEventListener('load', showPicSrc);
+})(window);
+
 
 // helper function to place modal window as the first child
 // of the #page node
@@ -630,6 +730,68 @@ function TheForm() {
     </div>
     <button type="submit" class="btn-primary">' . TEGELIZR_SUBMIT . '</button>
   </form>';
+}
+
+// ===================================================================================================================
+// function to resize an image to a new width
+// ===================================================================================================================
+function resize($newWidth, $targetFile, $originalFile) {
+
+//	writedebug('resize: newWidth:' . $newWidth . ', targetFile:' . $targetFile . ', originalFile:' . $originalFile );
+
+	global $fontpath;
+
+    $info = getimagesize($originalFile);
+    $mime = $info['mime'];
+
+    switch ($mime) {
+            case 'image/jpeg':
+                    $image_create_func	= 'imagecreatefromjpeg';
+                    $image_save_func 	= 'imagejpeg';
+                    $new_image_ext 		= TEGELIZR_RESIZE_EXT;
+                    break;
+
+            case 'image/png':
+                    $image_create_func	= 'imagecreatefrompng';
+                    $image_save_func 	= 'imagejpeg';
+                    $new_image_ext 		= TEGELIZR_RESIZE_EXT;
+
+                    break;
+
+            case 'image/gif':
+                    $image_create_func 	= 'imagecreatefromgif';
+                    $image_save_func 	= 'imagejpeg';
+                    $new_image_ext 		= TEGELIZR_RESIZE_EXT;
+                    break;
+
+            default: 
+                    throw Exception('Unknown image type.');
+    }
+
+    $img 					= $image_create_func($originalFile);
+    list($width, $height)	= getimagesize($originalFile);
+
+    $newHeight 				= ($height / $width) * $newWidth;
+    $tmp 					= imagecreatetruecolor($newWidth, $newHeight);
+    
+    imagecopyresampled($tmp, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+	
+    if ( PVB_DEBUG ) {
+		// Allocate A Color For The Text
+		$white 					= imagecolorallocate($tmp, 255, 0, 0);
+		$font            		= $fontpath."tegeltje.otf";
+		$text 					= "w:" . $newWidth;
+		imagettftext($tmp, 25, 0, 10, ( $newWidth / 2 ), $white, $font, $text);
+	}
+
+    if (file_exists($targetFile)) {
+        unlink($targetFile);
+    }
+
+    // save merged image
+    $image_save_func($tmp, $targetFile . '.' . $new_image_ext);
+
+    
 }
 
 ?>

@@ -19,7 +19,7 @@ $text                = filtertext($_GET['txt_tegeltekst']);
 $hashname           = seoUrl( $text );
 //$hashname           = date("Y") . "-" . date("m") . "-" . date("d") . "-" . date("H") . "-" . date("i") . "-" . date("s") . "_" . seoUrl( $text );
 $filename           = $hashname . ".png";
-$filename_klein     = $hashname . "_thumb.png";
+$filename_klein     = $hashname . "_thumb";
 
 // output path voor grote tegel
 $destimagepath      = $outpath.$filename;
@@ -28,7 +28,7 @@ $destimagepath      = $outpath.$filename;
 $desttextpath       = $outpath.$hashname . ".txt";
 
 // output path voor kleine thumbnail tegel
-$destimagepath_klein= $outpath_thumbs.date("Y") . "-" . date("m") . "-" . date("d") . "-" . date("H") . "-" . date("i") . "-" . date("s") . "_" . $filename_klein;
+$dest_thumbnail		= $outpath_thumbs.date("Y") . "-" . date("m") . "-" . date("d") . "-" . date("H") . "-" . date("i") . "-" . date("s") . "_" . $filename_klein;
 
 $desturl            = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $hashname;
 $imagesource        = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . "/" . TEGELIZR_TEGELFOLDER . "/".$filename;
@@ -190,7 +190,7 @@ if (!file_exists($outpath.$filename)) {
     $boom['txt_tegeltekst']  = $_GET['txt_tegeltekst'];
     $boom['file']            = $filename;
     $boom['file_date']       = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
-    $boom['file_thumb']      = $destimagepath_klein;
+    $boom['file_thumb']      = $dest_thumbnail;
     $boom[TEGELIZR_VIEWS]    = 0;
 
 
@@ -206,19 +206,31 @@ if (!file_exists($outpath.$filename)) {
     imagepng($img, $destimagepath);
     imagedestroy($img);
 
-    resize(TEGELIZR_THUMB_WIDTH,$destimagepath_klein,$destimagepath);
+    resize(TEGELIZR_THUMB_WIDTH,$dest_thumbnail,$destimagepath);
 
-    $mailcontent = "Tekst: \n" .  $_GET['txt_tegeltekst'] ."\n";
-    $mailcontent .= "URL: \n";
-    
-    $mailcontent .= $desturl;
-    if ( !PVB_DEBUG ) {
-        mail("vanbuuren@gmail.com", "Tegelizr : " . $titel, $mailcontent, "From: paul@wbvb.nl");
-    }
+	foreach ($arr_thumb_sizes as $i => $value) { 
+
+		// output path voor grote tegel
+		$dest_thumbnail      = $outpath.$hashname . "_" . $value['width'] . "_" . $i;
+
+	    resize($value['width'],$dest_thumbnail,$destimagepath);
+
+	}
+
+
+
+	$titel 			= $_GET['txt_tegeltekst'];
+    $mailcontent 	= "Tekst: \n" .  $_GET['txt_tegeltekst'] ."\n";
+    $mailcontent	.= "URL: \n";
+    $mailcontent	.= $desturl;
+
+    mail("vanbuuren@gmail.com", "Tegelizr : " . $titel, $mailcontent, "From: paul@wbvb.nl");
+
     
     // doorsturen naar pagina met het aangemaakte image
-    header('Location: ' . $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE);    
-
+//    header('Location: ' . $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE);    
+    header('Location: ' . $desturl . '#top');    
+//    header('Location: ' . $desturl);    
 }
 else {
 
@@ -287,53 +299,6 @@ function teken_tekst($canvas, $fontsize, $coordinaten, $textcolor, $font, $text,
 }
 
 
-// ===================================================================================================================
-// function to resize an image to a new width
-// ===================================================================================================================
-function resize($newWidth, $targetFile, $originalFile) {
-
-    $info = getimagesize($originalFile);
-    $mime = $info['mime'];
-
-    switch ($mime) {
-            case 'image/jpeg':
-                    $image_create_func = 'imagecreatefromjpeg';
-                    $image_save_func = 'imagejpeg';
-                    $new_image_ext = 'jpg';
-                    break;
-
-            case 'image/png':
-                    $image_create_func = 'imagecreatefrompng';
-                    $image_save_func = 'imagepng';
-                    $new_image_ext = 'png';
-                    break;
-
-            case 'image/gif':
-                    $image_create_func = 'imagecreatefromgif';
-                    $image_save_func = 'imagegif';
-                    $new_image_ext = 'gif';
-                    break;
-
-            default: 
-                    throw Exception('Unknown image type.');
-    }
-
-    $img = $image_create_func($originalFile);
-    list($width, $height) = getimagesize($originalFile);
-
-    $newHeight = ($height / $width) * $newWidth;
-    $tmp = imagecreatetruecolor($newWidth, $newHeight);
-    imagecopyresampled($tmp, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-
-    if (file_exists($targetFile)) {
-        unlink($targetFile);
-    }
-
-    // save merged image
-    imagepng($tmp, $targetFile);
-
-    
-}
 
 ?>
 
