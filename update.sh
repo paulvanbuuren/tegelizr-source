@@ -1,10 +1,9 @@
-# rsync -r -a -v --delete '/shared-paul-files/Webs/localhost-multisite/httpdocs/wp-content/themes/wbvb/fonts/' '/shared-paul-files/Webs/localhost-multisite/httpdocs/labs/tegelizr/fonts/';
 
 rsync -r -a -v --delete '/shared-paul-files/Webs/localhost-multisite/httpdocs/wp-content/themes/wbvb/images/vergrootglas.png' '/shared-paul-files/Webs/localhost-multisite/httpdocs/labs/tegelizr/img/vergrootglas.png';
 
 rsync -r -a -v --delete '/shared-paul-files/Webs/localhost-multisite/httpdocs/wp-content/themes/wbvb/images/vergrootglas.svg' '/shared-paul-files/Webs/localhost-multisite/httpdocs/labs/tegelizr/img/vergrootglas.svg';
 
-rsync -r -a -v --delete '/shared-paul-files/Webs/localhost-multisite/httpdocs/wp-content/themes/wbvb/style.css' '/shared-paul-files/Webs/localhost-multisite/httpdocs/labs/tegelizr/css/wbvb.css';
+# rsync -r -a -v --delete '/shared-paul-files/Webs/localhost-multisite/httpdocs/wp-content/themes/wbvb/less/wbvb.less' '/shared-paul-files/Webs/localhost-multisite/httpdocs/labs/tegelizr/less/wbvb.less';
 
 rsync -r -a -v --delete '/shared-paul-files/Webs/localhost-multisite/httpdocs/wp-content/themes/shared-code-for-themes/less/reset-css.less' '/shared-paul-files/Webs/localhost-multisite/httpdocs/labs/tegelizr/less/reset-css.less';
 

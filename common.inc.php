@@ -13,10 +13,10 @@ setlocale(LC_TIME, 'NL_nl');
 // ===================================================================================================================
 
 //define('ALLOW_DEBUG', true);
-define('ALLOW_DEBUG', false);
+define('ALLOW_DEBUG', true);
 
 
-if ( ( $_SERVER['SERVER_NAME'] == 'tegelizr' ) && ALLOW_DEBUG ) {
+if ( ( ( $_SERVER['SERVER_NAME'] == 'tegelizr' ) || ( $_SERVER['SERVER_NAME'] == 'test.tegelizr.nl' ) ) && ALLOW_DEBUG ) {
 	define('PVB_DEBUG', true);
 }
 else {
@@ -58,7 +58,7 @@ define('TEGELIZR_VOLGENDE_TITEL',   'volgende_titel');
 define('TEGELIZR_VORIGE',           'vorige');
 define('TEGELIZR_VORIGE_TITEL',     'vorige_titel');
 define('TEGELIZR_RESIZE_EXT',     	'jpg');
-
+define('TEGELIZR_ZOEK_KNOP',     	'zoek');
 
 define('TEGELIZR_TXT_LENGTH',       90);
 define('TEGELIZR_THUMB_WIDTH',      220);
@@ -94,7 +94,7 @@ $arr_thumb_sizes = array(
     "larger"         => array(
     		"width" 		=> "600",
     		"color" 		=> "brown",
-    		"screenwidth" 	=> "1000",
+    		"screenwidth" 	=> "1200",
     		),
     "largerster"         => array(
     		"width" 		=> "1200",
@@ -173,8 +173,9 @@ function showthumbs($aantal = '10', $hide = '') {
     $counter = 0;
 
     if (is_dir($outpath_thumbs)) {
-
-        $images = glob($outpath_thumbs . "*.jpg");
+		
+//		$images = glob($outpath_thumbs . "*.jpg");
+		$images = glob($outpath_thumbs . "*.{jpg,png,gif}", GLOB_BRACE);        
         
         rsort($images);
         
@@ -251,14 +252,21 @@ function writedebug($text) {
 // ===================================================================================================================
 // social mediaknoppies
 // ===================================================================================================================
+function wbvb_d2e_socialbutton_click($source = '') {
+    return ' onclick="sokmetlink(this.href, \'' . $source . '\');return false;"';
+}
 function wbvb_d2e_socialbuttons($thelink = 'thelink', $thetitle = 'thetitle', $summary = 'summmary') {
 
     $sitetitle  = urlencode($thetitle);
-    $popup      = ' onclick="javascript:window.open(this.href, \'\', \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\');return false;"';
     
     if ( $thelink ) {
-        return '<ul class="social-media">
-            <li><a href="https://twitter.com/share?url=' . $thelink . '&via=paulvanbuuren&text=' . $thetitle . '" class="twitter" data-url="' . $thelink . '" data-text="' . $thetitle . '" data-via="@paulvanbuuren"' . $popup . '><span>Tweet</span></a></li><li><a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=' . $thelink . '&t=' . $thetitle . '"' . $popup . '><span>Facebook</span></a></li><li><a class="linkedin" href="http://www.linkedin.com/shareArticle?mini=true&url=' . $thelink . '&title=' . $thetitle . '&summary=' . $summary . '&source=' . $sitetitle . '"' . $popup . '><span>LinkedIn</span></a></li></ul>';    
+	    
+	    $linkedin = '<li><a class="linkedin" href="http://www.linkedin.com/shareArticle?mini=true&url=' . $thelink . '&title=' . $thetitle . '&summary=' . $summary . '&source=' . $sitetitle . '"' . wbvb_d2e_socialbutton_click('linkedin') . '><span>LinkedIn</span></a></li>';
+	    $linkedin = '';	    
+	    $facebook = '<li><a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=' . $thelink . '&t=' . $thetitle . '"' . wbvb_d2e_socialbutton_click('facebook') . '><span>Facebook</span></a></li>';
+	    $twitter = '<li><a href="https://twitter.com/share?url=' . $thelink . '&via=paulvanbuuren&text=' . $thetitle . '" class="twitter" data-url="' . $thelink . '" data-text="' . $thetitle . '" data-via="@paulvanbuuren"' . wbvb_d2e_socialbutton_click('twitter') . '><span>Tweet</span></a></li>';
+	    
+        return '<ul class="social-media">' . $twitter . $facebook . $linkedin . '</ul>';    
     }
 }
 
@@ -268,7 +276,7 @@ function wbvb_d2e_socialbuttons($thelink = 'thelink', $thetitle = 'thetitle', $s
 function htmlheader() {
 	global $arr_thumb_sizes;
 
-	$style = '<style>';
+	$style = '<style type="text/css">';
 	$extra = '';
 
 	if ( PVB_DEBUG ) {
@@ -318,12 +326,15 @@ function htmlheader() {
 	$style .= '	display: block;';
 	$style .= '	overflow: hidden;';
 	$style .= '	}';
-
 	$style .= '</style>';
+
+	if ( PVB_DEBUG ) {
+	    $style .= '<link href="css/css-for-codekit.css" rel="stylesheet" type="text/css">';
+	}
 		
-	if ( $_SERVER['SERVER_NAME'] == 'tegelizr' ) {
+//	if ( $_SERVER['SERVER_NAME'] == 'tegelizr' ) {
+	if ( ( $_SERVER['SERVER_NAME'] == 'tegelizr' ) || ( $_SERVER['SERVER_NAME'] == 'test.tegelizr.nl' ) ) {
 	    return $style . '
-	    <link href="css/stylesheet.css" rel="stylesheet" type="text/css" media="">
 	    </head>
 	    <body class="nojs">' . $extra;
 	}
@@ -483,11 +494,17 @@ function includejs() {
 function spitoutfooter() {
     global $zoektegeltje;
     
-    $form = '<a href="#top" id="totop">Bovenkant</a><a href="#' . TEGELIZR_ZOEKTERM . '" id="tomenu">Menu</a><form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/" role="search">
+    $form = '<a href="#top" id="totop">Bovenkant</a><div id="menuplaceholder"><a href="#' . TEGELIZR_ZOEKTERM . '" id="tomenu">Menu</a><header class="header js-header" role="banner">
+    <nav id="menu" class="menu js-menu" role="navigation">
+      <ul>
+        <li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">redactie</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">alle tegeltjes</a></li><li><a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li>
+      </ul>
+    </nav>
+  </header></div><form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/" role="search">
     <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?zoektegeltje={s}">
     <label for="' . TEGELIZR_ZOEKTERM . '">Zoek een tegel</label>
     <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '" id="' . TEGELIZR_ZOEKTERM . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
-    <input type="submit" value="Search">
+    <input type="submit" value="' . TEGELIZR_ZOEK_KNOP . '">
 </form>';
 
 	$tijdvandedag = 'ledig';
@@ -531,6 +548,8 @@ function spitoutfooter() {
     return '
 <footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div><div id="footer-about"><h3>Over de site</h3><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">redactie</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">alle tegeltjes</a></li><li><a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li></ul></div><div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div></footer>
 
+
+
 <scri' . "pt>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();
 a=s.createElement(o),m=s.getElementsByTagName(o)[0];
 a.async=1;
@@ -543,6 +562,15 @@ ga('send', 'pageview');
 document.body.className = document.body.className.replace('nojs','dojs');
 
 
+// =========================================================================================================
+function sokmetlink(thisLink, thisNetwork) {
+	ga('send', 'social', thisNetwork, 'Send', thisLink);
+	window.open(thisLink, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+	return false;
+}
+
+
+// =========================================================================================================
 (function() {
   var currentSrc, oldSrc, imgEl;
   var showPicSrc = function() {
@@ -561,14 +589,78 @@ document.body.className = document.body.className.replace('nojs','dojs');
 })(window);
 
 
+// =========================================================================================================
 // helper function to place modal window as the first child
 // of the #page node
 var m = document.getElementById('modal_window'),
     p = document.getElementById('page');
 
+// =========================================================================================================
+
 function swap () {
   p.parentNode.insertBefore(m, p);
 }
+
+// =========================================================================================================
+function verplaatsmenu () {
+	console.log('menu verplaatsen');
+	var node		= document.createElement('div');                 // Create a <li> node
+	var textnode	= document.createTextNode('nieuw menu');         // Create a text node
+	node.appendChild(textnode);                              // Append the text to <li>
+	document.getElementById('menuplaceholder').appendChild(node);     // Append <li> to <ul> with id	
+	document.getElementById('menuplaceholder').appendChild(  document.getElementById('footer-contact') );	
+	document.getElementById('menuplaceholder').appendChild(  document.getElementById('footer-about') );	
+	document.getElementById('menuplaceholder').appendChild(  document.getElementById('zoek-formulier') );	
+	
+}
+
+// =========================================================================================================
+(function(document, window, undefined) {
+
+  'use strict';
+  
+	  // Vars
+	var header = document.querySelector('.js-header'),
+		menu = document.querySelector('.js-menu'),
+		menuButton = document.createElement('button');
+	
+	// Button properties
+	menuButton.classList.add('menu-button');
+	menuButton.setAttribute('id', 'menu-button');
+	menuButton.setAttribute('aria-label', 'Menu');
+	menuButton.setAttribute('aria-expanded', 'false');
+	menuButton.setAttribute('aria-controls', 'menu');
+	menuButton.innerHTML = '<span aria-hidden=\"true\">&#x2261;&nbsp;menu</span>';
+	
+	// Menu properties
+	menu.setAttribute('aria-hidden', 'true');
+	menu.setAttribute('aria-labelledby', 'menu-button');
+	
+	// Add button to page
+	header.insertBefore(menuButton, menu);
+	
+	// Handle button click event
+	menuButton.addEventListener('click', function () {
+	
+		// If active...
+		if (menu.classList.contains('active')) {
+			// Hide
+			menu.classList.remove('active');
+			menu.setAttribute('aria-hidden', 'true');
+			menuButton.setAttribute('aria-expanded', 'false');
+		} else {
+			// Show
+			menu.classList.add('active');
+			menu.setAttribute('aria-hidden', 'false');
+			menuButton.setAttribute('aria-expanded', 'true');
+			
+			// Set focus on first link
+			menu.children[0].children[0].children[0].focus();
+		}
+	}, false);
+	
+})(document, window);
+// =========================================================================================================
 
 
 swap();

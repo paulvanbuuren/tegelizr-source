@@ -1,15 +1,28 @@
 // ===================================================================================================================
 
+@import "mixins.less";      
 @import "font-includes.less";      
+@import "text-styles.less";      
 @import "socmed-color-codes.less";          
+@import "reset-css.less";          
+// @import "wbvb.less";      
 @import "style.less";          
+@import "print.less";      
+@import "modal-window.less";      
+@import "social-media.less";      
 
 // ===================================================================================================================
 
+
+.loadimmediately();
+
+.textstyles();
+
 .loadlater();
 
-@import "print.less";          
+.printstyles();
 
+.socia-media();
 
 #logger {
 	position: fixed;
@@ -21,3 +34,71 @@
 	z-index: 9999;
 	border: 1px solid gray;
 }
+
+.search-form input[type=submit] {
+    background-image: url(/img/vergrootglas.png);
+    background-image: url(/img/vergrootglas.svg),none;
+}
+
+// ===================================================================================================================
+.header {
+	position: relative;
+
+	a {
+//		color: #fff;
+	}
+}
+
+.menu {
+	display: none;
+	
+	&.active {
+		display: block;
+	}
+	
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+	
+	li:nth-child(odd) {
+//		background-color: #333;
+	}
+	
+	li:nth-child(even) {
+//		background-color: #444;
+	}
+	
+	a {
+		display: block;
+		padding: .5em;
+	}
+}
+
+.no-js .menu {
+  display: block;
+}
+
+.menu-button {
+  background-color: transparent;
+  border: none;  
+  font-size: 2em;  
+  line-height: 1;
+  position: absolute;
+  right: .3em;
+  top: .2em;
+}
+
+.main {
+  padding: .5em 1em;
+}
+
+// ===================================================================================================================
+
+
+.modal-window();
+
+
+
+@import "breakpoints.less";      

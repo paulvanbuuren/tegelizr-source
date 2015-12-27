@@ -1,0 +1,16 @@
+.resultaat .social-media {
+  float: none;
+  clear: both;
+  margin: 1em 0 0 0;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1em;
+}
+.resultaat .social-media li {
+  flex: 1 100%;
+  margin: 0;
+}
+.resultaat .social-media li a {
+  font-size: 90%;
+  margin: 0;
+}

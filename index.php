@@ -13,6 +13,12 @@ include("common.inc.php");
     
 echo spitoutheader();
 
+echo '
+<style type="text/css">';
+include("css/stylesheet.css");
+echo '</style>
+';
+
 // ===================================================================================================================
 // check of er gevraagd wordt om een tegeltje
 // de sleutel is TEGELIZR_SELECTOR 
@@ -50,13 +56,14 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
   <p>Door de tekst op een tegeltje te zetten verandert er niet opeens iets aan het auteursrecht van de tekst. Het auteursrecht erop valt niet  aan mij toe, noch aan degene de tekst invoerde.</p>
   <p>Wie teksten invoert op deze site moet ermee leren leven dat ik de teksten misschien aanpas. Zo wordt 'Facebook' altijd 'het satanische Facebook' op de tegeltjes. Als je dat niet leuk vindt, jammer.</p>
   <p>Maar goed, nu jij. <a href="/">Maak eens een leuk tegeltje</a>.</p>
-  <?php echo wbvb_d2e_socialbuttons($desturl, $titel, TEGELIZR_SUMMARY) ?>
   <?php 
-    echo TheModalWindow();
+//	echo wbvb_d2e_socialbuttons($desturl, $titel, TEGELIZR_SUMMARY) 
+	echo TheModalWindow();
     ?>
 </article>
 <?php
     echo showthumbs(12, '');
+    echo spitoutfooter();
 
 
 }
@@ -141,8 +148,6 @@ function sortByOrder($a, $b) {
     <input type="submit" value="Search">
 </form>';        
 
-    
-    
 	echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY); 
 	echo TheModalWindow();
 	  
@@ -151,11 +156,7 @@ function sortByOrder($a, $b) {
 
 <?php
 	echo showthumbs(12, $zinnen[2]);
-
     echo includejs();
-?>
-
-<?php
     echo spitoutfooter();
 
 
@@ -202,87 +203,69 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 
     <a href="<?php echo htmlspecialchars($desturl)?>" class="placeholder">
 
-<!--	    <img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje"  itemprop="contentUrl" /> -->
-
-<?php
-
-	if ( isset( $zinnen[2] ) ) {
-	    $fileprefix	= $zinnen[2];
-	}
+	<?php
 	
-	$imgcounter = 0;
-	
-	$srcset = ' srcset="';
-	$sizes 	= ' sizes="';
-	$sources = '';
-
-	
-	foreach ( array_reverse( $arr_thumb_sizes ) as $i => $value) { 
-//	foreach ( $arr_thumb_sizes  as $i => $value) { 
-		// output path voor grote tegel
-		
-		$currenfilename = $fileprefix . "_" . $value['width'] . "_" . $i;
-		$resizedfile	= $currenfilename . '.' . TEGELIZR_RESIZE_EXT;
-		$currentimage	= '/' . TEGELIZR_TEGELFOLDER . '/' . $resizedfile;
-		
-		if ( ! file_exists( $outpath.$resizedfile ) ) {
-			writedebug('bestaat niet: ' . $outpath.$resizedfile );
-		    resize($value['width'],$outpath.$currenfilename,$outpath.$filename);
-		}
-	
-		$imgcounter++;
-		if ( $imgcounter > 1 ) {
-			$srcset .= ", ";
-			$sizes	.= ", ";
+		if ( isset( $zinnen[2] ) ) {
+		    $fileprefix	= $zinnen[2];
 		}
 		
-		$mediaq 	= ( $value['screenwidth'] );
-		$mediawidth	= ( $value['width'] );
+		$imgcounter = 0;
 		
-		$srcset .= $currentimage . " " . $value['width'] . 'w ' . $value['width'] . 'h';
-		$sizes 	.= "(min-width: " . $mediaq . "px) " . $mediawidth . 'px';
-		$sources.= '<source media="(min-width: ' . $mediaq . 'px)" srcset="' . $currentimage . '">';
-	}
-
-	$srcset .= '"';
-	$sizes 	.= '"';
-
-if ( 22 == 23 ) {
-?>
-
-
-
-
-<img id="resp_tegeltje" itemprop="contentUrl" alt="<?php echo $titel ?>" 
-	src="<?php echo $imagesource ?>"<?php
-	echo $srcset;
-	echo $sizes;
-?>"	/>
-
-<?php
-}
-else {
-?>
+		$srcset = ' srcset="';
+		$sizes 	= ' sizes="';
+		$sources = '';
 	
+		
+		foreach ( array_reverse( $arr_thumb_sizes ) as $i => $value) { 
+	//	foreach ( $arr_thumb_sizes  as $i => $value) { 
+			// output path voor grote tegel
+			
+			$currenfilename = $fileprefix . "_" . $value['width'] . "_" . $i;
+			$resizedfile	= $currenfilename . '.' . TEGELIZR_RESIZE_EXT;
+			$currentimage	= '/' . TEGELIZR_TEGELFOLDER . '/' . $resizedfile;
+			
+			if ( ! file_exists( $outpath.$resizedfile ) ) {
+				writedebug('bestaat niet: ' . $outpath.$resizedfile );
+			    resize($value['width'],$outpath.$currenfilename,$outpath.$filename);
+			}
+		
+			$imgcounter++;
+			if ( $imgcounter > 1 ) {
+				$srcset .= ", ";
+				$sizes	.= ", ";
+			}
+			
+			$mediaq 	= ( $value['screenwidth'] );
+			$mediawidth	= ( $value['width'] );
+			
+			$srcset .= $currentimage . " " . $value['width'] . 'w ' . $value['width'] . 'h';
+			$sizes 	.= "(min-width: " . $mediaq . "px) " . $mediawidth . 'px';
+			$sources.= '<source media="(min-width: ' . $mediaq . 'px)" srcset="' . $currentimage . '">';
+		}
+	
+		$srcset .= '"';
+		$sizes 	.= '"';
+	
+	if ( 22 == 23 ) { ?>
 
-<picture>
-	<?php echo $sources; ?>
-	<!-- img tag for browsers that do not support picture element -->
-	<img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" id="resp_tegeltje">
-</picture>
+		<img id="resp_tegeltje" aria-describedby="header2" itemprop="contentUrl" alt="<?php echo $titel; ?>" 
+			src="<?php echo $imagesource ?>" <?php echo $srcset . $sizes; ?>" />	<?php
+	}
+	else {	?>
 
-<?php
-}
-
-	    
+		<picture>
+			<?php echo $sources; ?>
+			<img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" id="resp_tegeltje">
+		</picture>	<?php
+	}
 
     if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
         echo '<p id="progress_now">&nbsp;</p><div id="progress">&nbsp;</div>';
     }    
-?></a>
+    ?></a>
 
-    <h2 itemprop="name"><?php echo $txt_tegeltekst ?></h2>
-
+<section id="header_and_counter"">
+    <h2 itemprop="name" id="header2"><?php echo $txt_tegeltekst ?></h2>
 <?php
     if ( (isset($views[TEGELIZR_VORIGE])) || (isset($views[TEGELIZR_VOLGENDE])) ) {
 
@@ -378,23 +361,13 @@ else {
         </form>
         <?php
     }
-    ?>
 
-    
-    <p id="leuk">Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>
-    <?php
-
-
-    
-
-
-    
     echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY);
-
 	echo TheModalWindow();
         
         
     ?>
+</section>
 </article>
 
 <?php
@@ -673,18 +646,44 @@ else {
   <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], TEGELIZR_TITLE, TEGELIZR_SUMMARY) ?>
   <p class="lead"> <?php echo TEGELIZR_FORM ?> </p>
   <aside>(maar Paul, <a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">wat heb je toch met die tegeltjes</a>?)</aside>
-  <?php 
-	  echo TheForm();
-	  echo showthumbs(12); ?>
-
+	<?php 
+		echo TheForm();
+	?>
   </article>
-
-<?php
-    echo includejs();
-?>
+	<?php 
+		echo showthumbs(12); 
+		echo includejs();
+	?>
 
 <?php  
     echo spitoutfooter();
 
 }
+
+if ( 22 == 23) {
+	
+	function sanitize_output($buffer) {
+	
+	    $search = array(
+	        '/\>[^\S ]+/s',  // strip whitespaces after tags, except space
+	        '/[^\S ]+\</s',  // strip whitespaces before tags, except space
+	        '/(\s)+/s'       // shorten multiple whitespace sequences
+	    );
+	
+	    $replace = array(
+	        '>',
+	        '<',
+	        '\\1'
+	    );
+	
+	    $buffer = preg_replace($search, $replace, $buffer);
+	
+	    return $buffer;
+	}
+	
+	ob_start("sanitize_output");
+}	
+
+
 ?>
+
