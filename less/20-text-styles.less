@@ -11,6 +11,10 @@
 
 .textstyles() {
 
+	*:focus, *:active {
+//		outline: @focus; 	
+	}
+
     
     a {
     	color: darken(@a_hover, 10%);
@@ -163,10 +167,13 @@
     h5,
     h6 {
     	color: @header_color_2;
-    }    
+    }
     h1 {
     	.font-size( @fontsize_title_h1 );
     	color: @header_color_2;
+    }
+    article h1 {
+	    text-align: center;
     }
     
     h2 {
@@ -189,6 +196,30 @@
     	.font-size( @fontsize_title_h6 );
     }
 
+	@media only screen and (max-width: @tabletwidth) {
+	
+    } 
+	@media only screen and (min-width: @tabletwidth) {
+	
+	    h1 {
+	        font-size: 120%;
+	        text-transform: none;
+	    } 
+    } 
+
+	@media only screen and (min-width: @desktopwidth) {
+	    article {
+		    h1 {
+				font-size: 170%;
+				text-align: center;
+				padding: .5em 0;
+				line-height: 1;
+				margin: 0;
+				border-top: 1px solid @txt;
+		    }
+		} 		
+	} 		
+    
     
     /* Tables
     --------------------------------------------- */

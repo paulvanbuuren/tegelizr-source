@@ -1,15 +1,19 @@
 // ===================================================================================================================
 
-@import "mixins.less";      
-@import "font-includes.less";      
-@import "text-styles.less";      
-@import "socmed-color-codes.less";          
-@import "reset-css.less";          
-// @import "wbvb.less";      
-@import "style.less";          
-@import "print.less";      
-@import "modal-window.less";      
-@import "social-media.less";      
+@import "00-mixins.less";
+@import "10-font-includes.less";
+@import "20-text-styles.less";
+@import "30-social-media.less";
+@import "40-reset-css.less";  
+@import "50-menu.less";  
+@import "60-forms.less";  
+@import "70-style.less";  
+@import "71-tegeltjethumbs.less";  
+@import "72-header.less";  
+@import "73-rating.less";  
+@import "75-modal-window.less";
+@import "80-breakpoints.less";  
+@import "90-print.less";
 
 // ===================================================================================================================
 
@@ -20,74 +24,30 @@
 
 .loadlater();
 
-.printstyles();
+.formstyles();
+
+.menustyles();
+
+.load-header();
 
 .socia-media();
 
-#logger {
-	position: fixed;
-	bottom: 1em;
-	left: 1em;
-	padding: .5em 1em;
-	background: white;
-	text: black;
-	z-index: 9999;
-	border: 1px solid gray;
-}
+.tegeltjesthumbs();
 
-.search-form input[type=submit] {
-    background-image: url(/img/vergrootglas.png);
-    background-image: url(/img/vergrootglas.svg),none;
-}
+.load-rating();
+
+.modal-window();
+
+.breakpoints();
+
+.printstyles();
+
 
 // ===================================================================================================================
 .header {
 	position: relative;
+	padding-top: 50px;
 
-	a {
-//		color: #fff;
-	}
-}
-
-.menu {
-	display: none;
-	
-	&.active {
-		display: block;
-	}
-	
-	ul {
-		list-style-type: none;
-		margin: 0;
-		padding: 0;
-	}
-	
-	li:nth-child(odd) {
-//		background-color: #333;
-	}
-	
-	li:nth-child(even) {
-//		background-color: #444;
-	}
-	
-	a {
-		display: block;
-		padding: .5em;
-	}
-}
-
-.no-js .menu {
-  display: block;
-}
-
-.menu-button {
-  background-color: transparent;
-  border: none;  
-  font-size: 2em;  
-  line-height: 1;
-  position: absolute;
-  right: .3em;
-  top: .2em;
 }
 
 .main {
@@ -97,8 +57,5 @@
 // ===================================================================================================================
 
 
-.modal-window();
 
 
-
-@import "breakpoints.less";      
