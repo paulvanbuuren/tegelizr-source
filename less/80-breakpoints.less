@@ -1,6 +1,5 @@
 
 .breakpoints() {
-
 	#header_and_counter,
 	a.placeholder {
 		float: none;
@@ -12,9 +11,9 @@
 	a.placeholder img {
 		width: 100%;
 		height: auto !important;
+		margin-bottom: 1em;
 	}
 	// ===================================================================================================================
-
 	
 	@media only screen and (max-width: @tabletwidth) {
 	
@@ -22,7 +21,6 @@
 	        font-size: 12px;
 	    }
 	}
-
 	// ===================================================================================================================
 	
 	
@@ -32,7 +30,6 @@
 	        font-size: 14px;
 	        padding-top: 1em;
 	    }
-
 	    footer {
 	        div {
 	            float: left;
@@ -47,23 +44,17 @@
 		        font-size: 200%;
 			}
 		}
-
 	    
-
-
 	    footer {
 	        #tomenu {
 	            display: block;
 	        }
 	    }
-
 	    
 	}
-
 	// ===================================================================================================================
 	
 	@media only screen and (max-width: ( @desktopwidth - 1 ) ) {
-
 	    .dojs {
 			footer {
 			    #tomenu {
@@ -77,13 +68,10 @@
 	// ===================================================================================================================
 	
 	@media only screen and (min-width: ( @desktopwidth - 300 ) ) {
-
 		
-
 		@currentblockwidth: ( 100vw - ( 1 * @gutter ) );
 		@scoreblock: 30vw;
 		@placeholder_width: ( @currentblockwidth - ( @scoreblock + ( 6 * @gutter ) ) );
-
 		article, section#andere, #alle_tegeltjes, footer, header.header {
 			margin: 0 auto;
 			width: @currentblockwidth;
@@ -91,7 +79,6 @@
 		article, section#andere, footer {
 //			margin-bottom: @padding;
 	    }
-
 		#header_and_counter,
 		a.placeholder {
 			float: left;
@@ -103,39 +90,32 @@
 		#header_and_counter {
 			width: @scoreblock;
 			margin-left: @gutter;
-
 		    .tekstveld input:focus + [role="tooltip"] {
 		         font-size: 60%;
 		    }
 			
 		}
-
 		.dojs .resultaat .social-media {
 			margin-bottom: 3em;
 		}
-
     }
 	
 	// ===================================================================================================================
 	
 	@media only screen and (min-width: @desktopwidth) {
-
 	    body {
 	        font-size: 18px;
 	        padding-top: 1em;
 	    }
 	    
-
 	    .dojs {
 			.menu-button {
 				.visuallyhidden();
 			}
 	    }
-
 		@currentblockwidth: ( 100vw - ( @menuwidth + ( 2 * @gutter ) ) );
 		@scoreblock: 30vw;
 		@placeholder_width: ( @currentblockwidth - ( @scoreblock + ( 3 * @gutter ) ) );
-
 		article, section#andere, #alle_tegeltjes, footer, header.header {
 			margin: 0;
 			margin-left: @gutter;
@@ -145,7 +125,6 @@
 		article, section#andere, footer {
 			margin-bottom: @padding;
 	    }
-
 		#header_and_counter,
 		a.placeholder {
 			float: left;
@@ -158,7 +137,6 @@
 			width: @scoreblock;
 			margin-left: @gutter;
 		}
-
 		footer {
 			position: fixed;
 			margin: 0;
@@ -180,90 +158,84 @@
 			    font-size: 80%;
 		    }
 		}
-
-
-
-
-
 		article {
 			overflow: hidden;
 		}
-
-
 	}
-
 	
 	// ===================================================================================================================
 	
 	@media only screen and (min-width: @desktopxlwidth) {
 	
-	    #home {
-	        position: fixed;
-	        left: @button_p_left;
-	        top: @button_p_top;
-	
-	        a {
-	
-	            font-family: toronto,Helvetica,Arial,serif;
-	            
-	            color: @txt;
-	            font-size: 180%;
-	            text-decoration: none;
-	            display: block;
-	            padding: 0 .4em;
-	            border-radius: .3em;
-	
-	            &:before {
-	                content: ' ';
-	                display: block;
-	                width: 0; 
-	                height: 0; 
-	                border-top: @dinges solid transparent;
-	                border-bottom: @dinges solid transparent; 
-	                border-right: ( @dinges * 2 ) solid @wit;     
-	                float: left;
-	            }
-	
-	
-	            span {
-	                display: inline-block;
-	                background: @wit;
-	                height: ( @dinges * 2 );
-	                padding: 0 .6em 0 .2em;
-	                border-radius: 0 10px 10px 0;
-	                border: 3px solid @wit;
-	            }
-	            
-	            &:hover,
-	            &:focus,
-	            &:active {
-	                text-decoration: underline;
-	                span {
-	                    background: @txt;
-	                    color: @wit;
-	                }
-	            }
-	        }
-	    } 
 
-		.modal-window-large();
+	
+		.tegeltje {
+			header.header {
+		        position: fixed;
+		        left: @button_p_left;
+		        top: @homelink_xl_top;
+		        height: @homelink_xl_height;
+		        width: @homelink_xl_width;
+		        margin: 0;
+		        padding: @padding;
+		        
+				#top {
+				    display: flex;
+				    flex-direction: column-reverse;
+					flex-wrap: wrap;
+					align-items: stretch;
+			        height: 100%;
+					
+					
+					&:before {
+						display: none;
+			        }
+			        a {
+				        flex: 1;
+						align-self: stretch;
+						background: url(/img/tegelizr-logo.png) no-repeat center center;
+						background-size: cover;
+						font-size: 150%;
+						text-transform: capitalize;
+						
+				        span {
+							.visuallyhidden();
+				        }
+				        &:hover, &:active, &:focus {
+					        background: none;
+							margin: 4px;
 
+					        span {
+								text-align: center;
+								display: block;
+							    clip: auto;
+							    height: auto;
+							    margin: auto;
+							    overflow: inherit;
+							    padding: inherit;
+							    position: inherit;
+							    width: auto;
+								
+					        }
+				        }
+			        }
+		        }
+			}
+			header.header, article {
+		        border-radius: @borderradius;
+			}
+		}
+
+	    	
+//		.modal-window-large();
 
 		@currentblockwidth: ( 100vw - ( @menuwidth + @buttonwidth + ( 3 * @gutter ) ) );
 		@scoreblock: 20vw;
 		@placeholder_width: ( @currentblockwidth - ( @scoreblock + ( 3 * @gutter ) ) );
-
-
 		article, section#andere, #alle_tegeltjes, footer, header.header {
-
 			width: @currentblockwidth;
 			margin-left: ( @buttonwidth + ( 2 * @gutter ) );
 	    }
-
-
-
-
-
 		#header_and_counter,
 		a.placeholder {
 		}
@@ -274,11 +246,8 @@
 		#header_and_counter {
 			width: @scoreblock;
 		}
-
     
 	}
-
 	// ===================================================================================================================
-
 }
 	

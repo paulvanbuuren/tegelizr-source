@@ -61,7 +61,7 @@ define('TEGELIZR_VORIGE_TITEL',     'vorige_titel');
 define('TEGELIZR_RESIZE_EXT',     	'jpg');
 define('TEGELIZR_ZOEK_KNOP',     	'zoek');
 
-define('TEGELIZR_TXT_LENGTH',       120);
+define('TEGELIZR_TXT_LENGTH',       90);
 define('TEGELIZR_THUMB_WIDTH',      220);
 define('TEGELIZR_BLUR',             2);
 define('TEGELIZR_AANTAL_STERREN',   5);
@@ -171,7 +171,7 @@ function showthumbs($aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage = 
     global $outpath_thumbs;
     global $outpath;
 
-    echo '<section id="andere"><h2>Wat anderen maakten:</h2>';
+    echo '<section id="andere"><h2>Anderen maakten recent:</h2>';
     echo '<ul class="thumbs">';
 
     $counter = 0;
@@ -284,13 +284,15 @@ function wbvb_d2e_socialbuttons($thelink = 'thelink', $thetitle = 'thetitle', $s
 // ===================================================================================================================
 // last items in header. stylesheets
 // ===================================================================================================================
-function htmlheader() {
+function htmlheader($bodyclass = '') {
 	global $arr_thumb_sizes;
 
 	$style = '<style type="text/css">';
 	$extra = '';
 
-
+	if ( $bodyclass ) {
+		$bodyclass = ' ' . $bodyclass;
+	}
 
 	if ( PVB_DEBUG ) {
 
@@ -391,7 +393,7 @@ function htmlheader() {
 	if ( ( $_SERVER['SERVER_NAME'] == 'tegelizr' ) || ( $_SERVER['SERVER_NAME'] == 'test.tegelizr.nl' ) ) {
 	    return $style . '
 	    </head>
-	    <body class="nojs">' . $extra;
+	    <body class="nojs' . $bodyclass . '">' . $extra;
 	}
 	else {
 	    return '
@@ -399,7 +401,7 @@ function htmlheader() {
 	    <link href="css/style.css" rel="stylesheet" type="text/css">
 	    <link href="css/print.css" rel="stylesheet" type="text/css" media="">
 	    </head>
-	    <body class="nojs">' . $extra;
+	    <body class="nojs' . $bodyclass . '">' . $extra;
 	}
   
 }
@@ -476,13 +478,14 @@ function returnlogo() {
 
 
 function spitoutheader() {
-    return '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<html lang="nl">
+    return '
+	<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+	<html lang="nl">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="shortcut icon" href="http://wbvb.nl/images/favicon.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon">
 		<link rel="publisher" href="https://plus.google.com/u/0/+PaulvanBuuren">
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:site" content="@paulvanbuuren">
@@ -645,7 +648,7 @@ function spitoutfooter() {
     
 //    return '';
     return '
-<footer id="documentfooter"><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div><div id="footer-about"><h3>Over de site</h3><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">redactie</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">alle tegeltjes</a></li><li><a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li></ul></div><div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div></footer>
+<footer id="documentfooter"><div id="footer-about"><h3>Menu</h3><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/">Home</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">Over deze site</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">Alle tegeltjes</a></li></ul></div><div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div><a href="https://wbvb.nl/" rel="author">Gemaakt door <span>WBVB Rotterdam</span></a></footer>
 
 
 
@@ -899,7 +902,7 @@ function TheModalWindow() {
 
       <div class="modal-content" id="modal_holder" role="document">
 
-          <p id="modal_title">' . TEGELIZR_BACK .'</p>
+          <h1 id="modal_title">' . TEGELIZR_BACK .'</h1>
          ' . TheForm() . '
 
         <button class="btn-close" id="modal_close" type="button" aria-label="close">
@@ -912,6 +915,9 @@ function TheModalWindow() {
 	
 ';
 }
+
+//      <input type="text" aria-describedby="tekst-tip" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]{1,' . TEGELIZR_TXT_LENGTH . '}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst" required="required" value="' . TEGELIZR_TXT_VALUE . '" maxlength="' . TEGELIZR_TXT_LENGTH . '" size="' . TEGELIZR_TXT_LENGTH . '" autofocus />
+
 
 // ===================================================================================================================
 function TheForm() {

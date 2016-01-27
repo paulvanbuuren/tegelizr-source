@@ -57,13 +57,18 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
 <meta property="og:url" content="<?php echo $desturl; ?>" />
 <meta property="article:tag" content="<?php echo TEGELIZR_ALLES; ?>" />
 <meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
-<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
-<?php echo returnheader("Redactie", "Maak zelf ook een tegeltje", true, 'h1'); ?>
+<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader('over-de-site') ?>
+<?php echo returnheader("Over deze site", "Maak zelf ook een tegeltje", true, 'h1'); ?>
 <article id="page"  class="resultaat">
   <p>Ik houd niet bij wie welk tegeltje gemaakt heeft.</p>
   <p>Door de tekst op een tegeltje te zetten verandert er niet opeens iets aan het auteursrecht van de tekst. Het auteursrecht erop valt niet  aan mij toe, noch aan degene de tekst invoerde.</p>
   <p>Wie teksten invoert op deze site moet ermee leren leven dat ik de teksten misschien aanpas. Zo wordt 'Facebook' altijd 'het satanische Facebook' op de tegeltjes. Als je dat niet leuk vindt, jammer.</p>
   <p>Als een tegeltje me niet bevalt, haal ik het weg.</p>
+  
+<p>Op mijn website <a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">schreef ik iets waarom ik deze site gemaakt heb</a>.</p>  
+
+<h3>Contact via mail of Twitter:</h3><ul><li><a href="mailto:paul@wbvb.nl">paul@wbvb.nl</a></li><li><a href="https://twitter.com/paulvanbuuren" title="Twitter">@paulvanbuuren</a></li></ul>
+  
   <p>Maar goed, nu jij.</p>
   <?php 
 	echo TheModalWindow();
@@ -155,7 +160,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
 <meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
 <meta property="og:url" content="<?php echo $desturl; ?>" />
 <meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
-<?php echo "<title>" . $titeltw . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
+<?php echo "<title>" . $titeltw . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader(TEGELIZR_ALLES) ?>
 <?php echo returnheader( $titeltw, "Maak zelf ook een tegeltje", true, 'h1') ; ?>
 
 <article id="alle_tegeltjes"  class="resultaat">
@@ -290,7 +295,7 @@ function sortByOrder($a, $b) {
 <meta property="og:url" content="<?php echo $desturl; ?>" />
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo $imagesource ?>" />
-<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
+<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader(TEGELIZR_ZOEKEN) ?>
 <?php echo returnheader('zoekresultaten', "Maak zelf ook een tegeltje", true, 'p') ; ?>
 <article id="page"  class="resultaat">
 
@@ -369,8 +374,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 <meta property="og:url" content="<?php echo $desturl; ?>" />
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo $imagesource ?>" />
-<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
-<?php echo returnheader(TEGELIZR_TITLE, "Maak zelf ook een tegeltje", true, 'p'); ?>
+<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader('tegeltje') ?>
+<?php echo returnheader('home', "Naar de homepage", true, 'p'); ?>
 <article id="page"  id="page" class="resultaat" itemscope itemtype="http://schema.org/ImageObject">
 
     <h1 itemprop="name" id="header1"><?php echo $txt_tegeltekst ?></h1>
@@ -839,11 +844,11 @@ else {
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
 <title><?php echo TEGELIZR_TITLE ?>- WBVB Rotterdam</title>
-<?php echo htmlheader() ?>
+<?php echo htmlheader('home') ?>
 <?php echo returnheader(TEGELIZR_TITLE, '', false); ?>
 <article>
-  <p class="lead"> <?php echo TEGELIZR_FORM ?> </p>
-  <aside>(maar Paul, <a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">wat heb je toch met die tegeltjes</a>?)</aside>
+  <p class="lead"> <?php echo TEGELIZR_FORM ?> <br />
+  (maar Paul, <a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">wat heb je toch met die tegeltjes</a>?)</p>
 	<?php 
 		echo TheForm();
 	?>

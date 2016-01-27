@@ -1,8 +1,5 @@
 // ===================================================================================================================
-
-
 // ===================================================================================================================
-
 .loadimmediately() {
 	    
 	html {
@@ -10,7 +7,8 @@
 	    font-size: 62.5%;
 	}
 	
-	*, input[type="search"],
+	*, 
+	input[type="search"],
 	input[type="checkbox"], 
 	input[type="radio"],
 	hr, {
@@ -36,11 +34,26 @@
 	    padding: 1em;
 	    margin: 0;
 	}
-
 	
 	footer {
-	    
+	    border-radius: @borderradius;
 	    overflow: hidden;
+        a[rel="author"] {
+            background: transparent url('/img/wbvb-rotterdam.png') no-repeat center bottom;
+            background-image: url('/img/wbvb-rotterdam.svg'), none;
+            background-size: contain;
+	        height: 30px;
+			width: 100%;
+			padding-bottom: 50px;
+	        content: ' ';
+	        display: inline-block;
+	        float: left;
+			margin-right: @padding;
+			span {
+				.visuallyhidden();
+			}
+        }				
+	    
 	
 	    h3 {
 	        padding: 0;
@@ -68,42 +81,6 @@
 	        padding-right: 1em;
 	        margin-bottom: 1em;
 	    }
-
-	.xx {
-	    #totop, #tomenu {
-	        position: fixed;
-	        right: 1em;
-	        bottom: 1em;
-	        display: block;
-//	        border-radius: 5px;
-	        border: 3px solid @wit;
-	        background: @wit;
-	    
-	        font-size: 110%;
-	        text-decoration: none;
-	        color: @txt;
-	        padding: 0 1rem;
-	
-	        &:before,
-	        &:after {
-	            content: ' ';
-	            display: block;
-	        }
-	    }
-
-//	    #tomenu {
-//	        top: 1em;
-//	        bottom: auto;
-//	        display: none;
-	
-//	        &:before {
-//	            content: "\2630";
-//	            float: left;
-//	            margin: 0 8px 0 0;
-//	        }
-//	    }
-	}	    
-
 	    #totop {
 	        &:before {
 	            width: 0;
@@ -121,7 +98,6 @@
 	        padding: 0;
 	    }
 	}
-
 	
 	
 	    
@@ -178,7 +154,6 @@
 	}
 	
 	
-
 	
 	ul {
 	    &, li {
@@ -246,9 +221,7 @@
 		margin-bottom: 1em;
 		display: inline-block;
 	}
-
 	
-
 	
 	
 	@arrowsmall_height: 8px;
@@ -308,9 +281,7 @@
 	}
 	
 	
-
 	
-
 	#prefix {
 	    width: 100%;
 	    max-width: 100%;
@@ -382,18 +353,14 @@
 	    }
 	}
 	*/
-
 }
-
 .loadlater() {
     body {
     }
 }
-
 .visiblyhidden {
 	.visuallyhidden();
 }
-
 .load-styling() {
 	.momentje {
 	//    background-size: contain;

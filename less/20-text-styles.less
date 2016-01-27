@@ -1,6 +1,4 @@
 
-
-
 .basefont() {
 	color: @txt;
     font-family: @bodyfont;
@@ -8,13 +6,10 @@
 	font-weight: 300;
 	line-height: 1.4;    
 }
-
 .textstyles() {
-
 	*:focus, *:active {
 //		outline: @focus; 	
 	}
-
     
     a {
     	color: darken(@a_hover, 10%);
@@ -41,11 +36,9 @@
     
     ul, ol {
     	padding: 0 0 0 @padding;
-
         &.all {
 	        padding-left: 0;
         }
-
     }
     
     blockquote,
@@ -84,12 +77,10 @@
             padding:1em 0 1em 2.8em;
         	color: @code;
             width:90%;
-
             li {
                 background:#ffc;
                 font-size:small;
             }
-
         }
     }
     
@@ -100,7 +91,6 @@
     	font-style: normal;
     }
     
-
     p {
         -webkit-hyphens: auto;
         -moz-hyphens: auto;
@@ -135,8 +125,6 @@
     	margin-bottom: 0;
     }
     
-
-
     
     /* Headings
     --------------------------------------------- */
@@ -155,7 +143,6 @@
         
         a {
             text-decoration: none;
-
             &:focus,
             &:active,
             &:hover {
@@ -170,12 +157,17 @@
     }
     h1 {
     	.font-size( @fontsize_title_h1 );
-    	color: @header_color_2;
+    	color: @tegelblauw;
     }
-    article h1 {
-	    text-align: center;
-    }
-    
+    header {
+	    border-radius: @borderradius @borderradius 0 0;
+	}    
+    article {
+	    border-radius: 0 0 @borderradius @borderradius;
+	    h1 {
+		    text-align: center;
+	    }
+	}    
     h2 {
     	.font-size( @fontsize_title_h2 );
     }
@@ -195,7 +187,6 @@
     h6 {
     	.font-size( @fontsize_title_h6 );
     }
-
 	@media only screen and (max-width: @tabletwidth) {
 	
     } 
@@ -206,16 +197,25 @@
 	        text-transform: none;
 	    } 
     } 
-
 	@media only screen and (min-width: @desktopwidth) {
 	    article {
 		    h1 {
-				font-size: 170%;
+				font-size: 250%;
 				text-align: center;
 				padding: .5em 0;
 				line-height: 1;
 				margin: 0;
 				border-top: 1px solid @txt;
+		    }
+		} 		
+	} 		
+	@media only screen and (min-width: @desktopwidth) {
+	    article {
+		    h1 {
+				border-top-width: 0;
+				padding: 0 0 @padding 0;
+				border-bottom: 1px solid @tegelblauw;
+				margin-bottom: @padding;
 		    }
 		} 		
 	} 		
@@ -258,66 +258,4 @@
 		padding: ( @padding / 2 ) 4px ( @padding / 2 ) 0;
 	}
 	
-    img.centered,
-    .aligncenter {
-    	display: block;
-    	margin: 0 auto @padding;
-    }
-    
-    img.alignnone {
-//    	margin-bottom: @padding;
-    }
-    
-    .alignleft {
-    	float: left;
-    	text-align: left;
-    }
-    
-    .alignright {
-    	float: right;
-    	text-align: right;
-    }
-    
-    img.alignleft,
-    .wp-caption.alignleft {
-    	margin: ( @padding / 3 ) ( @padding / 2 ) @padding 0;
-    }
-    
-    img.alignright,
-    .wp-caption.alignright {
-    	margin: ( @padding / 3 ) 0 @padding ( @padding / 2 );
-    }
-
-    .wp-caption.alignnone {
-    	margin: ( @padding / 3 ) 0 0 0;
-    }
-    
-    .wp-caption-text, aside, .breadcrumb, .sidebar .widget .entry-title, .sidebar .widget .widget-title {
-        font-family: @fontaside;
-    }
-    .wp-caption-text, aside {
-    	.font-size(12);
-    	font-weight: normal;
-    	text-align: left;
-    	border-bottom: 1px solid #ddd;
-    	line-height: 1.4;
-    	padding: ( @padding / 2 ) 0;
-    }
-
-    .alignright .wp-caption-text {
-        margin-left: 10px;
-        margin-bottom: 0 !important;
-    }
-    .alignleft .wp-caption-text {
-        margin-right: 10px;
-        margin-bottom: 0 !important;
-    }
-    
-    .gallery-caption {
-    	border-bottom: none;
-    }
-
-
-
 }
-

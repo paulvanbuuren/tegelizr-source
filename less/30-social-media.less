@@ -1,7 +1,5 @@
 
 @import "socmed-color-codes.less";  
-
-
 .socia-media() {
 	
 	// heb je niet nodig als je javascript uit staat
@@ -9,7 +7,6 @@
 		display: none;
 		visibility: hidden;
 	}
-
 	.dojs {
 		
 		.social-media {
@@ -38,7 +35,7 @@
 		        width: 100%;
 		        margin: 0;
 		        color: @wit;
-		        border-radius: 3px;
+		        border-radius: @borderradius;
 		        font-size: 80%;
 		        line-height: 1.8;
 		        text-align: left;
@@ -49,19 +46,23 @@
 			        margin: 2px;
 		            text-decoration: none !important;
 					outline: @focus; 	
-
+		        }
+		        &:focus, &:active {
 	                span:before {
 		                content: 'Gooit hem op ';
 	                }
 	                span:after {
 		                content: '!';
 	                }
+	                span {
+		                float: right;
+		                max-width: 67%;
+	                }
 		        }
 		        &:before {
 		            background: transparent url('/img/facebook-icon.png') no-repeat right center;
 		            background-image: url('/img/facebook-icon.svg'), none;
 		            background-size: contain;
-
 			        height: 25px;
 			        width: 25px;
 			        content: ' ';
@@ -76,11 +77,9 @@
 		    .facebook {
 		        background: @facebook;
 		        border-color: @facebook;
-
 		        &:hover, &:focus, &:active {
 	                color: @facebook;
 	                background: @wit;
-
 			        &:before {
 			            background-image: url('/img/facebook-icon-hover.png');
 			            background-image: url('/img/facebook-icon-hover.svg'), none;
@@ -95,18 +94,15 @@
 		            background-image: url('/img/twitter-icon.png');
 		            background-image: url('/img/twitter-icon.svg'), none;
 		        }
-
 		        &:hover, &:focus, &:active {
 	                color: @twitter;
 	                background: @wit;
-
 			        &:before {
 			            background-image: url('/img/twitter-icon-hover.png');
 			            background-image: url('/img/twitter-icon-hover.svg'), none;
 			        }
 		        }
 		    }
-
 		}
 	
 	

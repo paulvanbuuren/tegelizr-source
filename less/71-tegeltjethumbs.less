@@ -1,13 +1,10 @@
 .tegeltjesthumbs() {
-
 	ul.thumbs {
 	
 	    display: flex;
 	    width: 100%;
-
 		flex-direction: row;
 		flex-wrap: wrap;
-
 		align-items: stretch;
 	        
 	    &, li {
@@ -37,10 +34,8 @@
 		    }
 	    }
 	}
-
 	#andere {
 	    margin-bottom: 1em;
-
         p {
 		    margin-top: 1em;
 		    font-size: 150%;
@@ -60,14 +55,11 @@
 	#alle_tegeltjes {
 	    display: flex;
 	    width: 100%;
-
 		flex-direction: row;
 		flex-wrap: wrap;
-
 		align-items: stretch;
 		
 		section {
-
 		    flex-grow: 1;
 		    width: ( 100% / 2 );
 		    background-repeat: no-repeat;
@@ -86,7 +78,6 @@
 			
 		}		
 	}
-
 	#alle_tegeltjes,
 	ul.thumbs {
 	    img {
@@ -99,7 +90,6 @@
     }
 	
 	
-
 	@media only screen and (min-width: ( @tabletwidth - 100 ) ) {
 		ul.thumbs {
 		    li {
@@ -108,7 +98,6 @@
 		}
 	}
 	@media only screen and (min-width: @tabletwidth) {
-
 		#alle_tegeltjes {
 			section {
 			    width: ( 100% / 3 );
@@ -139,5 +128,4 @@
 			}
 		}
 	}
-
 }

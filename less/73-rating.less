@@ -1,6 +1,5 @@
 
 .load-rating() {
-
 	
 	[itemprop="aggregateRating"] {
 	    margin: 0;
@@ -50,20 +49,17 @@
 	       follow these rules. Every browser that supports :checked also supports :not(), so
 	       it doesn’t make the test unnecessarily selective */
 	    &:not(:checked) {
-
 	        &:focus, &:active {
 		        background: red;
 		        border: 1px solid red;
 	        }
 		    
 		    & > input {
-
 //			    .removeme {
 			        position:absolute;
 			        top:-9999px;
 			        clip:rect(0,0,0,0);
 //			    }
-
 		        &:focus, &:active {
 			        background: red;
 			        border: 1px solid red;

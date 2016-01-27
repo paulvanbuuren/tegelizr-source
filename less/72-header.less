@@ -1,10 +1,8 @@
 
 .load-header() {
-
 	header.header {
 		padding-bottom: 0;
 		position: relative;
-
 		h1, p {
 			line-height: 1;
 			margin: 0;
@@ -17,6 +15,7 @@
 			
 			a {
 				text-decoration: none;
+				color: @tegelblauw;
 				&:hover, &:active, &:focus {
 					text-decoration: underline;
 				}
@@ -27,27 +26,35 @@
 			display: inline-block;
 			white-space: nowrap;
 		}
+		
+		@logomargin: 12px;
+		@logosize: ( 48px - @logomargin );
+		
 		#top {
-			a {
-		        &:before {
-
-		            background: transparent url('/img/wbvb-logo.png') no-repeat right center;
-		            background-image: url('/img/wbvb-logo.svg'), none;
-		            background-size: contain;
-
-			        height: 30px;
-			        width: 45px;
-			        content: ' ';
-			        display: inline-block;
-			        float: left;
-					margin-right: @padding;
-		        }				
+			&:before {
+				display: inline-block;
+				height: @logosize;
+				width: @logosize;
+				margin-top: @logomargin;
+				margin-bottom: @logomargin;
+				margin-right: @logomargin;
+				float: left;
+				background: url(/img/tegelizr-logo.png) no-repeat center center;
+				background-size: cover;
+				content: ' ';
 			}
 			&, a, h1 {
-				color: @txt;
-				line-height: 1.625;
-				text-transform: uppercase;
+				line-height: 2;
+//				text-transform: uppercase;
+//				color: @tegelblauw;
 			}
+		}
+		p#top {
+			font-size: 24px;
+			line-height: 1.5;
+		}
+		h1#top {
+			border-bottom: 1px solid @tegelblauw;
 		}
 		#menu {
 			position: absolute;
@@ -64,17 +71,33 @@
 			}
 		}
 	}
-
 	@media only screen and (max-width: @tabletwidth) {
 	
 		header.header {
 			position: fixed;
 			z-index: 999;
 			width: 100%;
-			padding-bottom: 0;
-			box-shadow: 1px 1px 3px #eee inset;
+			padding: 0;
 			top: 0;
 			left: 0;
+
+			@logomargin: 6px;
+			@logosize: ( 24px - @logomargin );
+			
+			p#top {
+				padding: 0 @padding;
+				font-size: 16px;
+				box-shadow: 1px 1px 4px #ddd;
+			}
+			#top {
+				&:before {
+					height: @logosize;
+					width: @logosize;
+					margin-top: @logomargin;
+					margin-bottom: @logomargin;
+					margin-right: @logomargin;
+			    }
+		    }
 			
 		    
 		    &  + article {
@@ -83,21 +106,15 @@
 	    }
 	    
 	}
-
 	@media only screen and (min-width: @tabletwidth) {
-		header.header {
-			padding-right: ( @padding * 7 );
-		}
 	}
 	@media only screen and (min-width: ( @tabletwidth +  ( @padding * 7 ) ) ) {
 		header.header {
 	
 			#top {
-				a {
-			        &:before {
-					    height: 45px;
-					    width: 85px;
-				    }
+		        xx&:before {
+				    height: 45px;
+				    width: 85px;
 			    }
 		    }
 			

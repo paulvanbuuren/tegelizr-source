@@ -1,14 +1,10 @@
 
-
 .formstyles() {
-
-
     fieldset {
         margin: 0;
         padding: 0;
         border: 0 none transparent;
 	}
-
 	input[type='text'],
 	input[type="search"], 
 	input[type="submit"],    
@@ -23,16 +19,14 @@
 			border-color: darken(@border-color, 20%);
 		}
     }
-
 	input {
 	    -webkit-appearance: none !important;
 	    border-radius: 0;
 	}
-
     button {
         background:#DDD;
         color: #fff;
-        border-radius: 3px;
+        border-radius: @borderradius;
         text-shadow: 0 1px 1px white;
         -webkit-box-shadow: 0 1px 1px #fff;
         -moz-box-shadow: 0 1px 1px #fff;
@@ -49,9 +43,7 @@
         -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.25), inset 0 0 3px #fff;
         -moz-box-shadow:    0 1px 2px rgba(0,0,0,0.25), inset 0 0 3px #fff;
         box-shadow:         0 1px 2px rgba(0,0,0,0.25), inset 0 0 3px #fff;    
-
         font-weight: normal;
-
         &:focus,
         &:active,
         &:hover {
@@ -114,7 +106,7 @@
 	        display: block;
 	        margin: 0;
 	        padding: 0 .5em 0 0;
-	        font-size: 80%;
+//	        font-size: 80%;
 	        font-weight: normal;
 	    }
 	    label input {
@@ -126,25 +118,22 @@
 	    .tekstveld input {
 	        padding: 4px;
 	    }
-
 	    .tekstveld input:focus + [role="tooltip"] {
 	         right: 0;
-	         width: 99%;
+	         width: 100%;
+	         background: none;
 	    }
 	    
 	}
 	
 	
-
 	.search-form {
 		width: 100%;
-
 	    input[type="search"] {
 //	        font-size: 80%;
 		  width: 60%; /* fallback if needed */
 		  width: ~"calc(100% - 50px)";
 	    }
-
 	    input[type="search"],
 		input[type=submit] {
 		  font-size: 90%;
@@ -167,26 +156,16 @@
 		}
 	}
 	
-
-
-
-
 	.controls div {
-
-
 	    display: flex;
-
 		flex-direction: row;
 		justify-content: center;
-
-
 		select {
 		    flex-grow: 1;
 		}
 		button {
 		    flex-grow: 1;
 		}
-
 	    
 	    input, button, select, option {
 	        padding: 0;        
