@@ -35,6 +35,24 @@ $zinnen         = explode('/', parse_url($url, PHP_URL_PATH));
 $filename       = '';
 $desttextpath   = '';
 $tekststring    = 'tegel tegeltje tegeltjeswijsheden';
+
+$defaultrecords = DEFAULT_AANTAL_TEGELS;
+
+$pagenumber   	=  intval(isset( $_POST['pagenumber'] ) ? $_POST['pagenumber'] : ( isset( $_GET['pagenumber'] ) ? $_GET['pagenumber'] : '1' ));
+if ( ( intval( $pagenumber ) < 1 ) || ( intval( $pagenumber ) > 1000 ) ) {
+	$pagenumber = 1;	
+}
+$max_items      =  intval(isset( $_POST['max_items'] ) ? $_POST['max_items'] : ( isset( $_GET['max_items'] ) ? $_GET['max_items'] : $defaultrecords ));
+
+$startrecs  	= ( ( $pagenumber - 1 ) * $max_items );
+if ( intval($startrecs) < 0 ) {
+    $startrecs = 0;
+}
+
+$endrecs    	= ( $startrecs + $max_items );
+
+
+
     
 if ( isset( $zinnen[2] ) ) {
     $filename       = $zinnen[2] . ".png";
@@ -75,7 +93,7 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
     ?>
 </article>
 <?php
-    echo showthumbs(12, '');
+    echo showthumbs(12, '', $pagenumber);
     echo spitoutfooter();
 
 
@@ -87,7 +105,6 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
     $titeltw    = 'Alle tegeltjes';
     $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ALLES . '/';
 	
-	$defaultrecords = DEFAULT_AANTAL_TEGELS;
 	
 	$sort_dir       =  isset( $_POST['sort_dir'] ) ? $_POST['sort_dir'] : ( isset( $_GET['sort_dir'] ) ? $_GET['sort_dir'] : 'asc' );
 	if ( ! isset( $arr_sort_dir[$sort_dir] ) ) {
@@ -99,19 +116,9 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
 	    $sort_by = 'name';
 	}
 	
-	$max_items      =  intval(isset( $_POST['max_items'] ) ? $_POST['max_items'] : ( isset( $_GET['max_items'] ) ? $_GET['max_items'] : $defaultrecords ));
-	
-	$pagenumber   =  intval(isset( $_POST['pagenumber'] ) ? $_POST['pagenumber'] : ( isset( $_GET['pagenumber'] ) ? $_GET['pagenumber'] : '1' ));
 	
 	
 	
-	$startrecs  = ( ( $pagenumber - 1 ) * $max_items );
-	
-	if ( intval($startrecs) < 0 ) {
-	    $startrecs = 0;
-	}
-	
-	$endrecs    = ( $startrecs + $max_items );
 	
 	$index_html     = $path . TEGELIZR_ALLES . "/index.html";
 	$index_txt      = $path . 'xxx-alle-tegeltjes' . "/index.txt";
@@ -332,7 +339,7 @@ function sortByOrder($a, $b) {
 </article>
 
 <?php
-	echo showthumbs(12, $zinnen[2]);
+	echo showthumbs(12, $zinnen[2], $pagenumber);
     echo includejs();
     echo spitoutfooter();
 
@@ -575,7 +582,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 </article>
 
 <?php
-    echo showthumbs(12, $zinnen[2]);
+    echo showthumbs(12, $zinnen[2], $pagenumber);
 
     echo includejs();
 ?>
@@ -854,7 +861,7 @@ else {
 	?>
   </article>
 	<?php 
-		echo showthumbs(12); 
+		echo showthumbs(12, '', $pagenumber); 
 		echo includejs();
 	?>
 

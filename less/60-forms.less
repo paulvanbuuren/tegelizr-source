@@ -19,7 +19,9 @@
 			border-color: darken(@border-color, 20%);
 		}
     }
-	input {
+	input[type='text'],
+	input[type="search"], 
+	input[type="submit"] {
 	    -webkit-appearance: none !important;
 	    border-radius: 0;
 	}
@@ -198,6 +200,46 @@
 	        }
 	    }
 	}	
+	#controlnavigation {
+		overflow: hidden;
+		border: 1ox solid red;
+		
+		button, p  {
+			float: left;
+			clear: none;
+			display: inline-block;
+			margin: 0 1em;
+		}
+		
+		.middenlijst,
+		.linkerknop,
+		.rechterknop {
+			display: inline-block;
+			float: left;
+			clear: none;
+		}
+
+		.linkerknop,
+		.rechterknop {
+			position: absolute;
+			padding-top: 90px;
+			z-index: 9999;
+		}
+		.linkerknop {
+			margin-left: -90px;
+			& + .middenlijst .thumbs {
+//				margin-left: 90px;
+//				padding-right: 90px;
+			}
+		}
+		.rechterknop {
+			margin-left: 0px;
+		}
+		legend {
+//			.visuallyhidden();
+		}
+	}
+	
 	
 	
 	@media only screen and (min-width: @tabletwidth) {

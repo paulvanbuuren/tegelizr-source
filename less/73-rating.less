@@ -1,4 +1,6 @@
 
+.xload-rating() {
+}
 .load-rating() {
 	
 	[itemprop="aggregateRating"] {
@@ -48,6 +50,7 @@
 	    /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
 	       follow these rules. Every browser that supports :checked also supports :not(), so
 	       it doesn’t make the test unnecessarily selective */
+	       
 	    &:not(:checked) {
 	        &:focus, &:active {
 		        background: red;

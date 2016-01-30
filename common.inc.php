@@ -171,10 +171,28 @@ function showthumbs($aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage = 
     global $outpath_thumbs;
     global $outpath;
 
-    echo '<section id="andere"><h2>Anderen maakten recent:</h2>';
-    echo '<ul class="thumbs">';
+    global $startrecs;
+    global $max_items;
+    global $totalcount;
+    global $arrpaginas;
+    global $pagenumber;    
+
 
     $counter = 0;
+    
+    $max_counter = $aantal;
+    
+    if ( $startrecs < 0 ) {
+	    $startrecs = 1;
+    }
+    $max_counter = ( $currentpage * $aantal );
+
+    $buttons		= '';
+    $linkerknop		= '';
+    $rechterknop	= '';
+    $totaalaantaltegels = 0;
+    
+
 
     if (is_dir($outpath_thumbs)) {
 		
@@ -182,17 +200,52 @@ function showthumbs($aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage = 
 		$images = glob($outpath_thumbs . "*.{jpg,png,gif}", GLOB_BRACE);        
         
         rsort($images);
+	    if ( count($images) ) {
+		    $totaalaantaltegels = count($images);
+		    if ( $totaalaantaltegels < ( $pagenumber * $aantal ) ) {
+			    $startrecs = ( $totaalaantaltegels - $max_items );
+			    $currentpage = round( ( $totaalaantaltegels / $aantal ), 0);
+			    $pagenumber = $currentpage;
+		    }
+	    }
+
+	    $maxnumberofpages = round( ( $totaalaantaltegels / $aantal ), 0);
+        
+
+	    if ( $pagenumber > 1 ) {
+	        $linkerknop = '<div class="linkerknop"><button type="submit" class="get_previous" name="pagenumber" value="' . ( $pagenumber - 1 ). '">' . TEGELIZR_VORIGE . '(p' . ( $pagenumber - 1 ) . ')</button></div>';
+	    }
+	
+	    $alletegeltje = '<p><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">alle tegeltjes</a></p>';
+	    
+		if ( ( $currentpage < $maxnumberofpages ) ) {
+			
+		    $rechterknop = '<div class="rechterknop"><button type="submit" class="get_previous" name="pagenumber" value="' . ( $pagenumber + 1 ). '">' . TEGELIZR_VOLGENDE . ' (p' . ( $pagenumber + 1 ) . ')</button></div>';
+
+		}
+	
+	
+	
+	    echo '<section id="andere"><h2>Anderen maakten recent:</h2>';
+	
+	    echo '<form method="get" id="controlnavigation"><fieldset><legend>Tegeltjes ' . ( $startrecs + 1 ) . ' tot ' . $max_counter . '</legend>';
+	
+		echo $linkerknop;
+	    
+	    
+	    echo '<div class="middenlijst"><ul class="thumbs">';
+
         
         foreach($images as $image) {
 
-            
-            if ( ( $counter >= $aantal ) && ( $aantal > 0 ) ) {
+            if ( ( $counter >= $max_counter ) && ( $max_counter > 0 ) ) {
                 break;
             }
 
             $stack       = explode('/', $image);
             $filename    = array_pop($stack);
             $info        = explode('_', $filename );
+            
             if  ( ( file_exists( $outpath.$info[1] . '.txt' ) ) && ( file_exists( $outpath.$info[1] . '.png' ) ) ) {
                 
                 $views       = getviews($outpath.$info[1] . '.txt',false);
@@ -202,33 +255,52 @@ function showthumbs($aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage = 
                 }
                 else {
                     
-                    if ( $aantal > 0 ) {
+                    if ( $max_counter > 0 ) {
                         $counter++;
                     }
-    
-                    $txt_tegeltekst = '';
-                    if ( isset( $views['txt_tegeltekst'] )) {
-                        $txt_tegeltekst = filtertext( $views['txt_tegeltekst'], true );
+                    
+                    if ( $counter > $startrecs ) {
+
+	                    $txt_tegeltekst = '';
+	                    if ( isset( $views['txt_tegeltekst'] )) {
+	                        $txt_tegeltekst = filtertext( $views['txt_tegeltekst'], true );
+	                    }
+	    
+	                    $fruit = '<a href="/'  . TEGELIZR_SELECTOR . '/' . $info[1] . '"><span>' . $txt_tegeltekst . '</span><img src="/' . TEGELIZR_THUMBS . '/' . $filename . '" alt="' . $txt_tegeltekst . ' - ' . $views[TEGELIZR_VIEWS] . ' keer bekeken" /></a>';
+	                    
+	                    echo '<li>' . $fruit . '</li>';
                     }
-    
-                    $fruit = '<a href="/'  . TEGELIZR_SELECTOR . '/' . $info[1] . '"><span>' . $txt_tegeltekst . '</span><img src="/' . TEGELIZR_THUMBS . '/' . $filename . '" alt="' . $txt_tegeltekst . ' - ' . $views[TEGELIZR_VIEWS] . ' keer bekeken" /></a>';
-                    echo '<li>' . $fruit . '</li>';
+                    
                 }
     
             }
             
         }
     }
-    echo '</ul>';
 
-    echo '<ul id="controldata"><li>Aantal per pagina: ' . $aantal . '</li></ul>
-    <form method="get" id="controlnavigation"><fieldset><legend>Huidige pagina: ' . $currentpage . '</legend>            
-    <button type="submit" value="' . $currentpage . '" id="btn_' . TEGELIZR_VORIGE . '">' . TEGELIZR_VORIGE . '</button>
-    <button type="submit" value="' . $currentpage . '" id="btn_' . TEGELIZR_VOLGENDE . '">' . TEGELIZR_VOLGENDE . '</button>
-</fieldset></form>
-    <p><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">alle tegeltjes</a></p>
+    echo '</ul></div>';
+
+
+	echo $rechterknop;
+
+    echo $alletegeltje;
+
+	echo '</fieldset></form>';
+    
+    echo '<ul>';
+    
+    echo '<li>Aantal per pagina: ' . $aantal . '</li>
+    <li>Currentpage: ' . $currentpage . '</li>
+    <li>Startrecs: ' . $startrecs . '</li>
+    <li>Max_items: ' . $max_items . '</li>
+    <li>Maxnumberofpages: ' . $maxnumberofpages . '</li>
+    <li>Totaal aantal tegels: ' . $totaalaantaltegels . '</li>
+    
+    
     <p><a href="#top" id="totop">Bovenkant</a></p>
     </section>';
+
+    
     
 }
 
@@ -795,15 +867,13 @@ function WidthChange(mq) {
   'use strict';
 
   // list out the vars
-  var mOverlay = getId('modal_window'),
-      mOpen = getId('modal_open'),
-      mClose = getId('modal_close'),
-      modal = getId('modal_holder'),
-      modalfield = getId('txt_tegeltekst'),
-      allNodes = document.querySelectorAll('*'),
-      modalOpen = false,
-      lastFocus,
-      i;
+  var mOverlay 		= getId('modal_window'),
+      mOpen 		= getId('modal_open'),
+      mClose 		= getId('modal_close'),
+      modal 		= getId('modal_holder'),
+      modalfield	= getId('txt_tegeltekst'),
+      allNodes 		= document.querySelectorAll('*'),
+      modalOpen 	= false, lastFocus, i;
 
 
   // Let's cut down on what we need to type to get an ID
@@ -814,10 +884,9 @@ function WidthChange(mq) {
 
   // Let's open the modal
   function modalShow () {
-    lastFocus = document.activeElement;
-    console.log('mOverlay!');
+    lastFocus 		= document.activeElement;
     mOverlay.setAttribute('aria-hidden', 'false');
-    modalOpen = true;
+    modalOpen 		= true;
     modal.setAttribute('tabindex', '0');
     modalfield.focus();
   }
