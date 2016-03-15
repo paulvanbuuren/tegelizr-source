@@ -38,6 +38,8 @@ define('TEGELIZR_VIEWS',            'views');
 define('TEGELIZR_TEGELFOLDER',      'tegeltjes');
 define('TEGELIZR_ALLES',            'alle-tegeltjes');
 define('TEGELIZR_REDACTIE',         'redactie');
+define('TEGELIZR_ADMIN',         	'admin');
+
 define('TEGELIZR_DEFAULT_IMAGE',    'http://wbvb.nl/images/kiezen-is-een-keuze.jpg');
 
 define('TEGELIZR_ZOEKEN',           'zoeken');
@@ -66,7 +68,11 @@ define('TEGELIZR_THUMB_WIDTH',      220);
 define('TEGELIZR_BLUR',             2);
 define('TEGELIZR_AANTAL_STERREN',   5);
 define('DEFAULT_AANTAL_TEGELS',		12);
+define('TEGELIZR_ADMIN_UID', 		'admin_tegelizr');
 
+// cookie expiration date
+$expire_1000		= time()+60*60*24*1000;	// expire in 1000 days 
+$expire_11			= time()+60*60*24*14;	// expire in 14 days 
 
 
 $path               = dirname(__FILE__)."/";
@@ -185,7 +191,7 @@ function showthumbs($aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage = 
     if ( $startrecs < 0 ) {
 	    $startrecs = 1;
     }
-    $max_counter = ( $currentpage * $aantal );
+    $max_counter 	= ( $currentpage * $aantal );
 
     $buttons		= '';
     $linkerknop		= '';
@@ -203,9 +209,11 @@ function showthumbs($aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage = 
 	    if ( count($images) ) {
 		    $totaalaantaltegels = count($images);
 		    if ( $totaalaantaltegels < ( $pagenumber * $aantal ) ) {
-			    $startrecs = ( $totaalaantaltegels - $max_items );
-			    $currentpage = round( ( $totaalaantaltegels / $aantal ), 0);
-			    $pagenumber = $currentpage;
+			    $currentpage 	= round( ( $totaalaantaltegels / $aantal ), 0);
+			    if ( $currentpage > 0 ) {
+				    $startrecs		= ( $totaalaantaltegels - $max_items );
+				    $pagenumber 	= $currentpage;
+			    }
 		    }
 	    }
 
@@ -223,19 +231,15 @@ function showthumbs($aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage = 
 		    $rechterknop = '<div class="rechterknop"><button type="submit" class="get_previous" name="pagenumber" value="' . ( $pagenumber + 1 ). '">' . TEGELIZR_VOLGENDE . ' (p' . ( $pagenumber + 1 ) . ')</button></div>';
 
 		}
-	
-	
-	
+
 	    echo '<section id="andere"><h2>Anderen maakten recent:</h2>';
 	
 	    echo '<form method="get" id="controlnavigation"><fieldset><legend>Tegeltjes ' . ( $startrecs + 1 ) . ' tot ' . $max_counter . '</legend>';
 	
 		echo $linkerknop;
 	    
-	    
 	    echo '<div class="middenlijst"><ul class="thumbs">';
 
-        
         foreach($images as $image) {
 
             if ( ( $counter >= $max_counter ) && ( $max_counter > 0 ) ) {
@@ -270,11 +274,8 @@ function showthumbs($aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage = 
 	                    
 	                    echo '<li>' . $fruit . '</li>';
                     }
-                    
                 }
-    
             }
-            
         }
     }
 
@@ -716,11 +717,20 @@ function spitoutfooter() {
 	else {
 		$dinges = '';
 	}
+
+	$admin = '';
+
+if ( isset( $_COOKIE["username"] ) ) {
+	// er is bewijs gevonden van een eerdere inlogpoging
+	echo $_COOKIE["username"];
+	$admin = '<li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ADMIN . '/">Admin</a></li>';
+}
+
 		
     
 //    return '';
     return '
-<footer id="documentfooter"><div id="footer-about"><h3>Menu</h3><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/">Home</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">Over deze site</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">Alle tegeltjes</a></li></ul></div><div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div><a href="https://wbvb.nl/" rel="author">Gemaakt door <span>WBVB Rotterdam</span></a></footer>
+<footer id="documentfooter"><div id="footer-about"><h3>Menu</h3><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/">Home</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">Over deze site</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">Alle tegeltjes</a></li>' . $admin . '</ul></div><div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div><a href="https://wbvb.nl/" rel="author">Gemaakt door <span>WBVB Rotterdam</span></a></footer>
 
 
 

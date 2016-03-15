@@ -10,11 +10,16 @@
 // ===================================================================================================================
 
 include("common.inc.php"); 
+
+include("includes/db-conn.pw.php"); 
+include("includes/db-conn.inc.php"); 
+include("includes/db-conn.setup.php"); 
+include("includes/check-user-data.php"); 
+
+
     
 echo spitoutheader();
 
-// if ( 22 == 23 ) {
-	
 echo '
 <style type="text/css">';
 include("css/stylesheet.css");
@@ -24,8 +29,6 @@ if ( PVB_DEBUG ) {
 }
 echo '</style>
 ';
-
-// }
 
 // ===================================================================================================================
 // check of er gevraagd wordt om een tegeltje
@@ -44,7 +47,13 @@ if ( ( intval( $pagenumber ) < 1 ) || ( intval( $pagenumber ) > 1000 ) ) {
 }
 $max_items      =  intval(isset( $_POST['max_items'] ) ? $_POST['max_items'] : ( isset( $_GET['max_items'] ) ? $_GET['max_items'] : $defaultrecords ));
 
-$startrecs  	= ( ( $pagenumber - 1 ) * $max_items );
+if ( $pagenumber > 0 ) {
+	$startrecs  	= ( ( $pagenumber - 1 ) * $max_items );
+//	echo '<h2 style="position: fixed; top: 2em; left: 2em; z-index: 9999; background: yellow; border: 1px solid black; padding: 1em; text-align: center; color: black;">' . $pagenumber . ' : JA</h2>';
+}
+else {
+	echo '<h2>NEE</h2>';
+}
 if ( intval($startrecs) < 0 ) {
     $startrecs = 0;
 }
@@ -90,6 +99,61 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
   <p>Maar goed, nu jij.</p>
   <?php 
 	echo TheModalWindow();
+    ?>
+</article>
+<?php
+    echo showthumbs(12, '', $pagenumber);
+    echo spitoutfooter();
+
+
+}
+
+
+// ===================================================================================================================
+// admin
+// ===================================================================================================================
+elseif ( ( $zinnen[1] == TEGELIZR_ADMIN ) ) {
+
+	global $expire_14;
+
+    $titel      = TEGELIZR_TITLE . ' - ' . TEGELIZR_ADMIN;
+    $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ADMIN . '/';
+
+
+    ?>
+
+<meta property="og:title" content="<?php echo $titel; ?>" />
+<meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
+<meta property="og:url" content="<?php echo $desturl; ?>" />
+<meta property="article:tag" content="<?php echo TEGELIZR_ALLES; ?>" />
+<meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
+<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader('over-de-site') ?>
+<?php echo returnheader("Over deze site", "Maak zelf ook een tegeltje", true, 'h1'); ?>
+<article id="page"  class="resultaat">
+<? if ( $INGELOGD ) { ?>
+		<h1>Ingelogd <?php echo $message ?></h1>
+<?php	
+} 
+else {
+?>
+<form method="post" class="log-in" action="<?php echo $desturl ?>">
+	<fieldset>
+		<legend>Inloggen<?php echo $message ?></legend>
+	    <label for="username">Gebruikersnaam</label>
+	    <input type="text" name="username" id="username" value="<?php echo $username; ?>" placeholder="gebruikersnaam">
+		<label for="password">Wachtwoord</label>
+		<input id="password" name="password" type="password" value="<?php echo $userpassword; ?>" />
+	    <input type="submit" value="inloggen">
+	</fieldset>	    
+</form>
+<?php
+}
+?>
+
+	
+	  
+  <?php 
+//	echo TheModalWindow();
     ?>
 </article>
 <?php
