@@ -1,44 +1,44 @@
 .tegeltjesthumbs() {
-	ul.thumbs {
-	
-	    display: flex;
-	    width: 100%;
-		flex-direction: row;
-		flex-wrap: wrap;
-		align-items: stretch;
-	        
-	    &, li {
-	        list-style: none;
-	        margin: 0;
-	        padding: 0;
-	    }
-	    
-	    li {
-		    flex-grow: 1;
-		    width: 50%;
-		    background-repeat: no-repeat;
-		    background-size: cover;
-		    background-position: center center;
+    ul.thumbs {
+    
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: stretch;
+            
+        &, li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        li {
+            flex-grow: 1;
+            width: 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
             padding: .2em;
-	    }
-	    
-	    a {
-		    overflow: hidden;
-		    display: block;
-		    margin: 0;
-		    padding: 0;
-		    line-height: 1;
-		    
-		    span {
-				.visuallyhidden();			    
-		    }
-	    }
-	}
-	#andere {
-	    margin-bottom: 1em;
+        }
+        
+        a {
+            overflow: hidden;
+            display: block;
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+            
+            span {
+                .visuallyhidden();                
+            }
+        }
+    }
+    #andere {
+        margin-bottom: 1em;
         p {
-		    font-size: 150%;
-	        text-align: center;
+            font-size: 150%;
+            text-align: center;
         }
         .thumbnav {
         }
@@ -50,81 +50,81 @@
         }
             
     }
-    	
-	#alle_tegeltjes {
-	    display: flex;
-	    width: 100%;
-		flex-direction: row;
-		flex-wrap: wrap;
-		align-items: stretch;
-		
-		section {
-		    flex-grow: 1;
-		    width: ( 100% / 2 );
-		    background-repeat: no-repeat;
-		    background-size: cover;
-		    background-position: center center;
+        
+    #alle_tegeltjes {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: stretch;
+        
+        section {
+            flex-grow: 1;
+            width: ( 100% / 2 );
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
             padding: .2em;
             
             
             h2, p, span {
-	            font-size: 100%;
+                font-size: 100%;
             }
             
             span {
-	            display: block;
+                display: block;
             }
-			
-		}		
-	}
-	#alle_tegeltjes,
-	ul.thumbs {
-	    img {
-		    width: 100%;
-		    height: auto;
-		    display: block;
-		    margin: 0;
-		    padding: 0;
-	    }
+            
+        }        
     }
-	
-	
-	@media only screen and (min-width: ( @tabletwidth - 100 ) ) {
-		ul.thumbs {
-		    li {
-			    width: ( 100% / 3 );
-			}
-		}
-	}
-	@media only screen and (min-width: @tabletwidth) {
-		#alle_tegeltjes {
-			section {
-			    width: ( 100% / 3 );
-			}
-		}
-		ul.thumbs {
-		    li {
-			    width: ( 100% / 4 );
-			}
-		}
-	}
-	@media only screen and (min-width: @desktopwidth) {
-		#alle_tegeltjes {
-			section {
-			    width: ( 100% / 4 );
-			}
-		}
-		ul.thumbs {
-		    li {
-			    width: ( 100% / 6 );
-			}
-		}
-	}
-	@media only screen and (min-width: @desktopxlwidth) {
-		ul.thumbs {
-		    li {
-			    width: ( 100% / 6 );
-			}
-		}
-	}
+    #alle_tegeltjes,
+    ul.thumbs {
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+    }
+    
+    
+    @media only screen and (min-width: ( @tabletwidth - 100 ) ) {
+        ul.thumbs {
+            li {
+                width: ( 100% / 3 );
+            }
+        }
+    }
+    @media only screen and (min-width: @tabletwidth) {
+        #alle_tegeltjes {
+            section {
+                width: ( 100% / 3 );
+            }
+        }
+        ul.thumbs {
+            li {
+                width: ( 100% / 4 );
+            }
+        }
+    }
+    @media only screen and (min-width: @desktopwidth) {
+        #alle_tegeltjes {
+            section {
+                width: ( 100% / 4 );
+            }
+        }
+        ul.thumbs {
+            li {
+                width: ( 100% / 6 );
+            }
+        }
+    }
+    @media only screen and (min-width: @desktopxlwidth) {
+        ul.thumbs {
+            li {
+                width: ( 100% / 6 );
+            }
+        }
+    }
 }

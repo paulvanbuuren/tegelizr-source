@@ -1,69 +1,69 @@
 
 .basefont() {
-	color: @txt;
+    color: @txt;
     font-family: @bodyfont;
-	font-size: 16px;
-	font-weight: 300;
-	line-height: 1.4;    
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.4;    
 }
 .textstyles() {
-	*:focus, *:active {
-//		outline: @focus; 	
-	}
+    *:focus, *:active {
+//        outline: @focus;     
+    }
     
     a {
-    	color: darken(@a_hover, 10%);
+        color: darken(@a_hover, 10%);
     }
     
     a img {
-    	margin-bottom: -4px;
-    	margin-bottom: -0.4rem;
+        margin-bottom: -4px;
+        margin-bottom: -0.4rem;
     }
     
     a:hover {
-    	color: @a_hover;
-    	text-decoration: underline;
+        color: @a_hover;
+        text-decoration: underline;
     }
     
     p {
-    	margin: 0 0 @padding 0;
-    	padding: 0;
+        margin: 0 0 @padding 0;
+        padding: 0;
     }
     
     strong {
-    	font-weight: 700;
+        font-weight: 700;
     }
     
     ul, ol {
-    	padding: 0 0 0 @padding;
+        padding: 0 0 0 @padding;
         &.all {
-	        padding-left: 0;
+            padding-left: 0;
         }
     }
     
     blockquote,
     blockquote::before {
-    	color: @txt;
+        color: @txt;
     }
     
     blockquote {
-    	margin: @padding;
+        margin: @padding;
     }
     
     blockquote::before {
-    	content: "\201C";
-    	display: block;
-    	.font-size(30);
-    	height: 0;
-    	left: ( -1 * @padding );
-    	position: relative;
-    	top: ( -1 * @padding );
+        content: "\201C";
+        display: block;
+        .font-size(30);
+        height: 0;
+        left: ( -1 * @padding );
+        position: relative;
+        top: ( -1 * @padding );
     }
     
     .entry-content code {
         display: block;
-    	padding: 0 @padding @padding @padding;
-    	color: @code;
+        padding: 0 @padding @padding @padding;
+        color: @code;
         
         ol, li {
             list-style: none;
@@ -75,7 +75,7 @@
             font-family:"Courier New",Courier,mono;
             margin:0;
             padding:1em 0 1em 2.8em;
-        	color: @code;
+            color: @code;
             width:90%;
             li {
                 background:#ffc;
@@ -88,7 +88,7 @@
         display: block;
         clear: both;
         text-align: right;
-    	font-style: normal;
+        font-style: normal;
     }
     
     p {
@@ -108,21 +108,21 @@
     
     .attachment a,
     .gallery a {
-    	border: none;
+        border: none;
     }
     
     
     ol li {
-    	list-style-type: decimal;
+        list-style-type: decimal;
     }
     
     ul li {
-    	list-style-type: disc;
+        list-style-type: disc;
     }
     
     ol ol,
     ul ul {
-    	margin-bottom: 0;
+        margin-bottom: 0;
     }
     
     
@@ -135,10 +135,10 @@
     h4,
     h5,
     h6 {
-    	color: @header_color;
-    	font-weight: normal;
-    	line-height: 1.2;
-    	margin: ( @gutter / 2 ) 0 ( @gutter / 4 );
+        color: @header_color;
+        font-weight: normal;
+        line-height: 1.2;
+        margin: ( @gutter / 2 ) 0 ( @gutter / 4 );
         font-family: @headerfont;
         
         a {
@@ -153,109 +153,109 @@
     h4,
     h5,
     h6 {
-    	color: @header_color_2;
+        color: @header_color_2;
     }
     h1 {
-    	.font-size( @fontsize_title_h1 );
-    	color: @tegelblauw;
+        .font-size( @fontsize_title_h1 );
+        color: @tegelblauw;
     }
     header {
-	    border-radius: @borderradius @borderradius 0 0;
-	}    
+        border-radius: @borderradius @borderradius 0 0;
+    }    
     article {
-	    border-radius: 0 0 @borderradius @borderradius;
-	    h1 {
-		    text-align: center;
-	    }
-	}    
+        border-radius: 0 0 @borderradius @borderradius;
+        h1 {
+            text-align: center;
+        }
+    }    
     h2 {
-    	.font-size( @fontsize_title_h2 );
+        .font-size( @fontsize_title_h2 );
     }
     
     h3 {
-    	.font-size( @fontsize_title_h3 );
+        .font-size( @fontsize_title_h3 );
     }
     
     h4 {
-    	.font-size( @fontsize_title_h4 );
+        .font-size( @fontsize_title_h4 );
     }
     
     h5 {
-    	.font-size( @fontsize_title_h5 );
+        .font-size( @fontsize_title_h5 );
     }
     
     h6 {
-    	.font-size( @fontsize_title_h6 );
+        .font-size( @fontsize_title_h6 );
     }
-	@media only screen and (max-width: @tabletwidth) {
-	
+    @media only screen and (max-width: @tabletwidth) {
+    
     } 
-	@media only screen and (min-width: @tabletwidth) {
-	
-	    h1 {
-	        font-size: 120%;
-	        text-transform: none;
-	    } 
+    @media only screen and (min-width: @tabletwidth) {
+    
+        h1 {
+            font-size: 120%;
+            text-transform: none;
+        } 
     } 
-	@media only screen and (min-width: @desktopwidth) {
-	    article {
-		    h1 {
-				font-size: 250%;
-				text-align: center;
-				padding: .5em 0;
-				line-height: 1;
-				margin: 0;
-				border-top: 1px solid @txt;
-		    }
-		} 		
-	} 		
-	@media only screen and (min-width: @desktopwidth) {
-	    article {
-		    h1 {
-				border-top-width: 0;
-				padding: 0 0 @padding 0;
-				border-bottom: 1px solid @tegelblauw;
-				margin-bottom: @padding;
-		    }
-		} 		
-	} 		
+    @media only screen and (min-width: @desktopwidth) {
+        article {
+            h1 {
+                font-size: 250%;
+                text-align: center;
+                padding: .5em 0;
+                line-height: 1;
+                margin: 0;
+                border-top: 1px solid @txt;
+            }
+        }         
+    }         
+    @media only screen and (min-width: @desktopwidth) {
+        article {
+            h1 {
+                border-top-width: 0;
+                padding: 0 0 @padding 0;
+                border-bottom: 1px solid @tegelblauw;
+                margin-bottom: @padding;
+            }
+        }         
+    }         
     
     
     /* Tables
     --------------------------------------------- */
     
     table {
-    	border-collapse: collapse;
-    	border-spacing: 0;
-    	line-height: 2;
-    	margin-bottom: @padding;
-    	width: 100%;
-    	font-family: @fontaside;
+        border-collapse: collapse;
+        border-spacing: 0;
+        line-height: 2;
+        margin-bottom: @padding;
+        width: 100%;
+        font-family: @fontaside;
     }
     
     tbody {
-    	border-bottom: 1px solid @grijs;
+        border-bottom: 1px solid @grijs;
     }
     
     th,
     td {
-    	text-align: left;
-    	padding: ( @padding / 4 ) ( @padding / 2 ) ( @padding / 4 ) ( @padding / 4 );
-    	vertical-align: top;
+        text-align: left;
+        padding: ( @padding / 4 ) ( @padding / 2 ) ( @padding / 4 ) ( @padding / 4 );
+        vertical-align: top;
     }
     
     th {
-    	font-weight: bold;
-    	text-transform: uppercase;
-//    	background: @grijs;
-//    	color: @wit;
+        font-weight: bold;
+        text-transform: uppercase;
+//        background: @grijs;
+//        color: @wit;
     }
     
     td, th[scope='row'] {
-    	border-top: 1px solid @grijs;
+        border-top: 1px solid @grijs;
     }
-	th[scope='row'] {
-		padding: ( @padding / 2 ) 4px ( @padding / 2 ) 0;
-	}
-	
+    th[scope='row'] {
+        padding: ( @padding / 2 ) 4px ( @padding / 2 ) 0;
+    }
+    
 }

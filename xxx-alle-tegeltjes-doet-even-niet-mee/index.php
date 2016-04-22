@@ -26,8 +26,7 @@ if ( ! isset( $arr_sort_by[$sort_by] ) ) {
 }
 
 $max_items      =  intval(isset( $_POST['max_items'] ) ? $_POST['max_items'] : ( isset( $_GET['max_items'] ) ? $_GET['max_items'] : $defaultrecords ));
-
-$pagenumber   =  intval(isset( $_POST['pagenumber'] ) ? $_POST['pagenumber'] : ( isset( $_GET['pagenumber'] ) ? $_GET['pagenumber'] : '1' ));
+$pagenumber     =  intval(isset( $_POST['pagenumber'] ) ? $_POST['pagenumber'] : ( isset( $_GET['pagenumber'] ) ? $_GET['pagenumber'] : '1' ));
 
 
 
@@ -86,8 +85,8 @@ echo spitoutheader();
 <!-- start -->
 <style>
 <?php 
-include'../css/wbvb.css';
-include'../css/style.css';
+//include'../css/wbvb.css';
+//include'../css/style.css';
 ?>
 </style>
 <!-- end -->
