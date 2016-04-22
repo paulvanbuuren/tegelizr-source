@@ -24,4 +24,4 @@ rsync -r -a -v --delete '/shared-paul-files/Webs/git-repos/tegelizr-source/' '/s
 # rm -rfv /shared-paul-files/Webs/git-repos/tegelizr-source/thumbs/*
 
 
-	
+    

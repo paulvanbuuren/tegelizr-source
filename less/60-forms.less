@@ -1,30 +1,34 @@
 
+@paging_button_width: 50px;
+@middenwidth_2x: ( 2 * @paging_button_width );
+
+
 .formstyles() {
     fieldset {
         margin: 0;
         padding: 0;
         border: 0 none transparent;
-	}
-	input[type='text'],
-	input[type="search"], 
-	input[type="submit"],    
-	select,
-    button {
-		font-size: 1.2em;
-		border: 2px solid @border-color;
-		border-radius: 0;
-		box-shadow: 1px 1px 3px #eee inset;
-		
-		&:focus, &:hover {
-			border-color: darken(@border-color, 20%);
-		}
     }
-	input[type='text'],
-	input[type="search"], 
-	input[type="submit"] {
-	    -webkit-appearance: none !important;
-	    border-radius: 0;
-	}
+    input[type='text'],
+    input[type="search"], 
+    input[type="submit"],    
+    select,
+    button {
+        font-size: 1.2em;
+        border: 2px solid @border-color;
+        border-radius: 0;
+        box-shadow: 1px 1px 3px #eee inset;
+        
+        &:focus, &:hover {
+            border-color: darken(@border-color, 20%);
+        }
+    }
+    input[type='text'],
+    input[type="search"], 
+    input[type="submit"] {
+        -webkit-appearance: none !important;
+        border-radius: 0;
+    }
     button {
         background:#DDD;
         color: #fff;
@@ -53,222 +57,259 @@
             background: @wit;
         }
     
-	}
-	
-	form {
-	    margin: 1em 0;
-	    padding: 0;
-	    overflow: hidden;
-	    float: none;
-	    clear: both;
-	    width: 100%;
-	
-	    input {
-	        border: 0 none white;    
-	        box-shadow: none;
-	    }
-	
-	    input[type='text'],
-	    input[type='search'],
-	    select,
-	    button {
-			font-size: 1.2em;
-	    }
-	
-	    select {
-	        margin: 0 .7em 0 0;
-	    }
-	
-	
-	    input[type="search"], input[type="submit"] {
-	        height: @searhbuttonwidth !important;
-	    }
-	
-	    input[type="text"] {
-	        display: block;
-	        float: none;
-	        font-size: 150%;
-	        width: 100%;
-	        height: auto;
-	        border-width: 2px;
-	    }
-	
-	    button {
-	        font-size: 80%;
-	    }
-	    .tekstveld  {
-	        position: relative;
-	        float: left;
-	        display: inline-block;
-	        margin: 0 0 2em 0;
-	    }
-	
-	    label {
-	        overflow:hidden;
-	        display: block;
-	        margin: 0;
-	        padding: 0 .5em 0 0;
-//	        font-size: 80%;
-	        font-weight: normal;
-	    }
-	    label input {
-	        padding: 0;
-	        margin: 0 .5em 0 0;
-	        height: auto;
-	    }
-	    
-	    .tekstveld input {
-	        padding: 4px;
-	    }
-	    .tekstveld input:focus + [role="tooltip"] {
-	         right: 0;
-	         width: 100%;
-	         background: none;
-	    }
-	    
-	}
-	
-	
-	.search-form {
-		width: 100%;
-	    input[type="search"] {
-//	        font-size: 80%;
-		  width: 60%; /* fallback if needed */
-		  width: ~"calc(100% - 50px)";
-	    }
-	    input[type="search"],
-		input[type=submit] {
-		  font-size: 90%;
-	    }
-		
-		input[type=submit] {
-	
-		    clip: auto;
-		    height: auto;
-		    position: relative;
-		    background-color: #fff;
-		
-		    background-position: center center;
-		    background-repeat: no-repeat;
-		    width: @searhbuttonwidth;
-		    text-indent: -999em;
-			
-		    background-image: url(/img/vergrootglas.png);
-		    background-image: url(/img/vergrootglas.svg),none;
-		}
-	}
-	
-	.controls div {
-	    display: flex;
-		flex-direction: row;
-		justify-content: center;
-		select {
-		    flex-grow: 1;
-		}
-		button {
-		    flex-grow: 1;
-		}
-	    
-	    input, button, select, option {
-	        padding: 0;        
-	        margin: 0;
-			float: none;
-			clear: none;
-	        
-	    }
-	    select, button {
-	        margin-right: 3px;
-	        border: 1px solid @border-color;
-	    }
-	    select, option, button {
-	        line-height: 2;
-	        height: 2em;
-	        font-size: 14px;
-	    }
-	    select {
-	        &, option {
-	            padding: 5px;
-	        }
-	    }
-	    button {
-	        padding: 0 .5em;
-	        &.get_previous {
-	
-	        }
-	        &.get_next {
-	
-	        }
-	    }
-	}	
-	#controlnavigation {
-		overflow: hidden;
-		border: 1ox solid red;
-		
-		button, p  {
-			float: left;
-			clear: none;
-			display: inline-block;
-			margin: 0 1em;
-		}
-		
-		.middenlijst,
-		.linkerknop,
-		.rechterknop {
-			display: inline-block;
-			float: left;
-			clear: none;
-		}
+    }
+    
+    form {
+        margin: 1em 0;
+        padding: 0;
+        overflow: hidden;
+        float: none;
+        clear: both;
+        width: 100%;
+    
+        input {
+            border: 0 none white;    
+            box-shadow: none;
+        }
+    
+        input[type='text'],
+        input[type='search'],
+        select,
+        button {
+            font-size: 1.2em;
+        }
+    
+        select {
+            margin: 0 .7em 0 0;
+        }
+    
+    
+        input[type="search"], input[type="submit"] {
+            height: @searhbuttonwidth !important;
+        }
+    
+        input[type="text"] {
+            display: block;
+            float: none;
+            font-size: 150%;
+            width: 100%;
+            height: auto;
+            border-width: 2px;
+        }
+    
+        button {
+            font-size: 80%;
+        }
+        .tekstveld  {
+            position: relative;
+            float: left;
+            display: inline-block;
+            margin: 0 0 2em 0;
+        }
+    
+        label {
+            overflow:hidden;
+            display: block;
+            margin: 0;
+            padding: 0 .5em 0 0;
+//            font-size: 80%;
+            font-weight: normal;
+        }
+        label input {
+            padding: 0;
+            margin: 0 .5em 0 0;
+            height: auto;
+        }
+        
+        .tekstveld input {
+            padding: 4px;
+        }
+        .tekstveld input:focus + [role="tooltip"] {
+             right: 0;
+             width: 100%;
+             background: none;
+        }
+        
+    }
 
-		.linkerknop,
-		.rechterknop {
-			position: absolute;
-			padding-top: 90px;
-			z-index: 9999;
-		}
-		.linkerknop {
-			margin-left: -90px;
-			& + .middenlijst .thumbs {
-//				margin-left: 90px;
-//				padding-right: 90px;
-			}
-		}
-		.rechterknop {
-			margin-left: 0px;
-		}
-		legend {
-//			.visuallyhidden();
-		}
-	}
-	
-	
-	
-	@media only screen and (min-width: @tabletwidth) {
-	    form {
-	        fieldset {
-	            padding: 0;
-	            border: 0 none transparent;
-	            width: 100%;
-	            float:left;
-	        }
-	        fieldset + button{
-	            float:left;
-	            width: 19%;
-	            overflow:hidden;
-	        }
-	        button {
-	            float: right;
-	            clear: right;
-	        }
-	        button span:after {
-	            content: '\A';
-	            white-space: pre;
-	        }
-	        button + p {
-	            float:none;
-	            clear:both;
-	        }
-	    }	
-	}
-	
-	
+    span.pijl {
+//        border: 1px solid red;
+        height: ( @paging_button_width / 1.1 );
+        display: block;
+        width: ( @paging_button_width / 1.1 );
+        font-size: 60px;
+        padding: 0;
+        line-height: .77;
+//        background: yellow;
+    }
+    
+    
+    .search-form {
+        width: 100%;
+        input[type="search"] {
+//            font-size: 80%;
+          width: 60%; /* fallback if needed */
+          width: ~"calc(100% - 50px)";
+        }
+        input[type="search"],
+        input[type=submit] {
+          font-size: 90%;
+        }
+        
+        input[type=submit] {
+    
+            clip: auto;
+            height: auto;
+            position: relative;
+            background-color: #fff;
+        
+            background-position: center center;
+            background-repeat: no-repeat;
+            width: @searhbuttonwidth;
+            text-indent: -999em;
+            
+            background-image: url(/img/vergrootglas.png);
+            background-image: url(/img/vergrootglas.svg),none;
+        }
+    }
+    
+    .controls div {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        select {
+            flex-grow: 1;
+        }
+        button {
+            flex-grow: 1;
+        }
+        
+        input, button, select, option {
+            padding: 0;        
+            margin: 0;
+            float: none;
+            clear: none;
+            
+        }
+        select, button {
+            margin-right: 3px;
+            border: 1px solid @border-color;
+        }
+        select, option, button {
+            line-height: 2;
+            height: 2em;
+            font-size: 14px;
+        }
+        select {
+            &, option {
+                padding: 5px;
+            }
+        }
+        button {
+            padding: 0 .5em;
+            &.get_previous {
+    
+            }
+            &.get_next {
+    
+            }
+        }
+    }    
+
+    
+    #controlnavigation {
+        overflow: hidden;
+        
+        button, p  {
+            float: left;
+            clear: none;
+            display: inline-block;
+            margin: 0 1em;
+        }
+        
+        .linkerknop,
+        .rechterknop,
+        .middenlijst {
+            display: inline-block;
+            float: left;
+            clear: none;
+        }
+
+        .linkerknop,
+        .rechterknop {
+            &, button {
+                width: @paging_button_width;
+                padding-left: 0;
+                padding-right: 0;
+                margin: 0;
+            }
+            button {
+                height: @paging_button_width;
+                padding: 0;
+                margin-top: @paging_button_width;
+            }
+            span.label {
+                .visuallyhidden();
+            }
+        }
+        
+
+        .linkerknop button {
+            span.pijl {
+                transform: rotate(180deg);
+            }            
+        }
+
+        &.vorige {
+            .middenlijst {
+                padding-left: 1em;
+                width: ~"calc(100% - @{paging_button_width} )";
+            }
+        }
+        &.volgende {
+            .middenlijst {
+                padding-right: 1em;
+                width: ~"calc(100% - @{paging_button_width} )";
+            }
+        }
+        &.vorige.volgende {
+            .middenlijst {
+                width: ~"calc(100% - @{middenwidth_2x} )";
+            }
+        }
+
+    }
+
+    
+    
+    
+    @media only screen and (min-width: @tabletwidth) {
+        form {
+            fieldset {
+                padding: 0;
+                border: 0 none transparent;
+                width: 100%;
+                float:left;
+            }
+            fieldset + button{
+                float:left;
+                width: 19%;
+                overflow:hidden;
+            }
+            button {
+                float: right;
+                clear: right;
+            }
+            button span:after {
+                content: '\A';
+                white-space: pre;
+            }
+            button + p {
+                float:none;
+                clear:both;
+            }
+        }    
+    }
+    
+    
 }

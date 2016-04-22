@@ -14,16 +14,35 @@ include("common.inc.php");
 echo spitoutheader();
 
 // if ( 22 == 23 ) {
-	
-echo '
-<style type="text/css">';
-include("css/stylesheet.css");
 
-if ( PVB_DEBUG ) {
-	include("css/debug.css");
+//echo '<h1>SERVER_NAME: ' . $_SERVER['SERVER_NAME'] . '</h1>';
+
+if ( $_SERVER['SERVER_NAME'] == 'tegelizr' ) {
+    // ik ben een dev-server en ik wil geen css inline
+    echo '<link href="/css/stylesheet.css" rel="stylesheet" type="text/css">';
+
+    if ( PVB_DEBUG ) {
+        echo '
+        <style type="text/css">';
+            include("css/debug.css");
+        echo '</style>';
+    }
+    
 }
-echo '</style>
-';
+else {
+    // ik ben geen dev server
+    // doe mij maar inline shizzle        
+    echo '
+    <style type="text/css">';
+    include("css/stylesheet.css");
+    
+    if ( PVB_DEBUG ) {
+        include("css/debug.css");
+    }
+    echo '</style>';
+
+}
+
 
 // }
 
@@ -38,18 +57,18 @@ $tekststring    = 'tegel tegeltje tegeltjeswijsheden';
 
 $defaultrecords = DEFAULT_AANTAL_TEGELS;
 
-$pagenumber   	=  intval(isset( $_POST['pagenumber'] ) ? $_POST['pagenumber'] : ( isset( $_GET['pagenumber'] ) ? $_GET['pagenumber'] : '1' ));
+$pagenumber       =  intval(isset( $_POST['pagenumber'] ) ? $_POST['pagenumber'] : ( isset( $_GET['pagenumber'] ) ? $_GET['pagenumber'] : '1' ));
 if ( ( intval( $pagenumber ) < 1 ) || ( intval( $pagenumber ) > 1000 ) ) {
-	$pagenumber = 1;	
+    $pagenumber = 1;    
 }
 $max_items      =  intval(isset( $_POST['max_items'] ) ? $_POST['max_items'] : ( isset( $_GET['max_items'] ) ? $_GET['max_items'] : $defaultrecords ));
 
-$startrecs  	= ( ( $pagenumber - 1 ) * $max_items );
+$startrecs      = ( ( $pagenumber - 1 ) * $max_items );
 if ( intval($startrecs) < 0 ) {
     $startrecs = 0;
 }
 
-$endrecs    	= ( $startrecs + $max_items );
+$endrecs        = ( $startrecs + $max_items );
 
 
 
@@ -89,7 +108,7 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
   
   <p>Maar goed, nu jij.</p>
   <?php 
-	echo TheModalWindow();
+    echo TheModalWindow();
     ?>
 </article>
 <?php
@@ -98,70 +117,71 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
 
 
 }
+
 // ===================================================================================================================
-// er wordt gevraagd om alle tegeltjes
+// er wordt gevraagd om alle tegeltjes // voorlopig even uitgeschakeld
 // ===================================================================================================================
-elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
+elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) && ( 22 == 33 )  ) {
     $titeltw    = 'Alle tegeltjes';
     $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ALLES . '/';
-	
-	
-	$sort_dir       =  isset( $_POST['sort_dir'] ) ? $_POST['sort_dir'] : ( isset( $_GET['sort_dir'] ) ? $_GET['sort_dir'] : 'asc' );
-	if ( ! isset( $arr_sort_dir[$sort_dir] ) ) {
-	    $sort_dir = 'asc';
-	}
-	
-	$sort_by        =  isset( $_POST['sort_by'] ) ? $_POST['sort_by'] : ( isset( $_GET['sort_by'] ) ? $_GET['sort_by'] : 'name' );
-	if ( ! isset( $arr_sort_by[$sort_by] ) ) {
-	    $sort_by = 'name';
-	}
-	
-	
-	
-	
-	
-	$index_html     = $path . TEGELIZR_ALLES . "/index.html";
-	$index_txt      = $path . 'xxx-alle-tegeltjes' . "/index.txt";
-	
-	// read the file
-	$obj        = json_decode(file_get_contents($index_txt), true);
-	$totalcount = count($obj);
-	
-	if ( intval($startrecs) > $totalcount ) {
-	    $startrecs = 0;
-	    $pagenumber= 1;
-	}
-	
-	
-	if ( $endrecs > $totalcount ) {
-	    $endrecs = $totalcount;
-	}
-	
-	$temparr = array();
-	$counter = 0;
-	
-	$prefix = 'sort_by=' . $sort_by . '&sort_dir=' . $sort_dir . '&max_items=' . $max_items . '&pagenumber=' . $pagenumber . '&startrecs=' . $startrecs . '&endrecs=' . $endrecs . '&totalcount=' . $totalcount; 
-	
-	
-	$desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ALLES . '/?' . htmlspecialchars($prefix);
-	
-	
-	$titel = ( $startrecs + 1 ) . " tot " . $endrecs . " van " . $totalcount . " tegeltjes";
-	
-	$possiblepages = round( $totalcount / $max_items );
-	
-	if ( $possiblepages > 4 ) {
-	
-	    $i = 1;
-	    while ($i <= $possiblepages):
-	        $arrpaginas[$i] = 'op pagina ' . $i;
-	        $i++;
-	    endwhile;
-	    
-	}
+    
+    
+    $sort_dir       =  isset( $_POST['sort_dir'] ) ? $_POST['sort_dir'] : ( isset( $_GET['sort_dir'] ) ? $_GET['sort_dir'] : 'asc' );
+    if ( ! isset( $arr_sort_dir[$sort_dir] ) ) {
+        $sort_dir = 'asc';
+    }
+    
+    $sort_by        =  isset( $_POST['sort_by'] ) ? $_POST['sort_by'] : ( isset( $_GET['sort_by'] ) ? $_GET['sort_by'] : 'name' );
+    if ( ! isset( $arr_sort_by[$sort_by] ) ) {
+        $sort_by = 'name';
+    }
+    
+    
+    
+    
+    
+    $index_html     = $path . TEGELIZR_ALLES . "/index.html";
+    $index_txt      = $path . 'xxx-alle-tegeltjes' . "/index.txt";
+    
+    // read the file
+    $obj        = json_decode(file_get_contents($index_txt), true);
+    $totalcount = count($obj);
+    
+    if ( intval($startrecs) > $totalcount ) {
+        $startrecs = 0;
+        $pagenumber= 1;
+    }
+    
+    
+    if ( $endrecs > $totalcount ) {
+        $endrecs = $totalcount;
+    }
+    
+    $temparr = array();
+    $counter = 0;
+    
+    $prefix = 'sort_by=' . $sort_by . '&sort_dir=' . $sort_dir . '&max_items=' . $max_items . '&pagenumber=' . $pagenumber . '&startrecs=' . $startrecs . '&endrecs=' . $endrecs . '&totalcount=' . $totalcount; 
+    
+    
+    $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ALLES . '/?' . htmlspecialchars($prefix);
+    
+    
+    $titel = ( $startrecs + 1 ) . " tot " . $endrecs . " van " . $totalcount . " tegeltjes";
+    
+    $possiblepages = round( $totalcount / $max_items );
+    
+    if ( $possiblepages > 4 ) {
+    
+        $i = 1;
+        while ($i <= $possiblepages):
+            $arrpaginas[$i] = 'op pagina ' . $i;
+            $i++;
+        endwhile;
+        
+    }
 
 
-	
+    
 ?>
 <meta property="og:title" content="<?php echo $titeltw; ?>" />
 <meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
@@ -232,21 +252,21 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
         $temparr = array_slice($temparr, $startrecs, $max_items);
 
         foreach ($temparr as $key => $value) {
-//	        echo 'eh<br />';
+//            echo 'eh<br />';
             echo $temparr[$key]['txt_tegeltekst'];
         }
 
 
 
 
-	echo writecontrolform(); 
-	echo TheModalWindow();
-	  
+    echo writecontrolform(); 
+    echo TheModalWindow();
+      
   ?>
 </article>
 
 <?php
-//	echo showthumbs(12, $zinnen[2]);
+//    echo showthumbs(12, $zinnen[2]);
     echo includejs();
     echo spitoutfooter();
 
@@ -332,14 +352,14 @@ function sortByOrder($a, $b) {
     <input type="submit" value="Search">
 </form>';        
 
-	echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY); 
-	echo TheModalWindow();
-	  
+    echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY); 
+    echo TheModalWindow();
+      
   ?>
 </article>
 
 <?php
-	echo showthumbs(12, $zinnen[2], $pagenumber);
+    echo showthumbs(12, $zinnen[2], $pagenumber);
     echo includejs();
     echo spitoutfooter();
 
@@ -389,58 +409,58 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 
     <a href="<?php echo htmlspecialchars($desturl)?>" class="placeholder">
 
-	<?php
-	
-		if ( isset( $zinnen[2] ) ) {
-		    $fileprefix	= $zinnen[2];
-		}
-		
-		$imgcounter = 0;
-		
-		$srcset = "\n srcset=\"";
-		$sizes 	= "\n sizes=\"";
-		$sources = '';
-	
-		
-//		foreach ( array_reverse( $arr_thumb_sizes ) as $i => $value) { 
-		foreach ( $arr_thumb_sizes  as $i => $value) { 
-			// output path voor grote tegel
-			
-			$currenfilename = $fileprefix . "_" . $value['width'] . "_" . $i;
-			$resizedfile	= $currenfilename . '.' . TEGELIZR_RESIZE_EXT;
-			$currentimage	= '/' . TEGELIZR_TEGELFOLDER . '/' . $resizedfile;
-			
-			if ( ! file_exists( $outpath.$resizedfile ) ) {
-//				writedebug('bestaat niet: ' . $outpath.$resizedfile );
-			    resize($value['width'],$outpath.$currenfilename,$outpath.$filename);
-			}
-		
-			$imgcounter++;
-			if ( $imgcounter > 1 ) {
-				$srcset .= ", ";
-				$sizes	.= ", ";
-			}
-			
-			$screenwidth	= ( $value['screenwidth'] );
-			$mediawidth		= ( $value['width'] );
-			
-			$srcset .= $currentimage . " " . $mediawidth . 'w';
-			$sizes 	.= "(max-width: " . $screenwidth . "px) " . $mediawidth . 'px';
-			$sources.= '<source media="(max-width: ' . $screenwidth . 'px)" srcset="' . $currentimage . '">';
+    <?php
+    
+        if ( isset( $zinnen[2] ) ) {
+            $fileprefix    = $zinnen[2];
+        }
+        
+        $imgcounter = 0;
+        
+        $srcset = "\n srcset=\"";
+        $sizes     = "\n sizes=\"";
+        $sources = '';
+    
+        
+//        foreach ( array_reverse( $arr_thumb_sizes ) as $i => $value) { 
+        foreach ( $arr_thumb_sizes  as $i => $value) { 
+            // output path voor grote tegel
+            
+            $currenfilename = $fileprefix . "_" . $value['width'] . "_" . $i;
+            $resizedfile    = $currenfilename . '.' . TEGELIZR_RESIZE_EXT;
+            $currentimage    = '/' . TEGELIZR_TEGELFOLDER . '/' . $resizedfile;
+            
+            if ( ! file_exists( $outpath.$resizedfile ) ) {
+//                writedebug('bestaat niet: ' . $outpath.$resizedfile );
+                resize($value['width'],$outpath.$currenfilename,$outpath.$filename);
+            }
+        
+            $imgcounter++;
+            if ( $imgcounter > 1 ) {
+                $srcset .= ", ";
+                $sizes    .= ", ";
+            }
+            
+            $screenwidth    = ( $value['screenwidth'] );
+            $mediawidth        = ( $value['width'] );
+            
+            $srcset .= $currentimage . " " . $mediawidth . 'w';
+            $sizes     .= "(max-width: " . $screenwidth . "px) " . $mediawidth . 'px';
+            $sources.= '<source media="(max-width: ' . $screenwidth . 'px)" srcset="' . $currentimage . '">';
 
-		    $imagesource    = $currentimage;
-			
-		}
-	
-		$srcset .= '"';
-		$sizes 	.= ', 254px"';
-	
-	if ( 22 == 22 ) { ?>
+            $imagesource    = $currentimage;
+            
+        }
+    
+        $srcset .= '"';
+        $sizes     .= ', 254px"';
+    
+    if ( 22 == 22 ) { ?>
 
-<?php	if ( 23 == 22 ) { ?>
+<?php    if ( 23 == 22 ) { ?>
 
 <pre style="border: 1px solid black; background: white; color: grey; font-family: monospace; font-size: 11px; padding-top: 10em;">
-&lt;img id="" aria-describedby="header1" itemprop="contentUrl" alt="<?php echo $titel; ?>" src="<?php echo $imagesource ?>" <?php echo $srcset ; ?> <?php echo $sizes; ?>/&gt;	
+&lt;img id="" aria-describedby="header1" itemprop="contentUrl" alt="<?php echo $titel; ?>" src="<?php echo $imagesource ?>" <?php echo $srcset ; ?> <?php echo $sizes; ?>/&gt;    
 
 
 &lt;img src="cat.jpg" alt="cat"
@@ -451,22 +471,22 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 
 <?php } ?>
 
-		<img id="resp_tegeltje" aria-describedby="header1" itemprop="contentUrl" alt="<?php echo $titel; ?>" 
-			src="<?php echo $imagesource ?>" 
-			<?php echo $srcset ; ?>
-			<?php echo $sizes; ?>
-			  />	<?php
+        <img id="resp_tegeltje" aria-describedby="header1" itemprop="contentUrl" alt="<?php echo $titel; ?>" 
+            src="<?php echo $imagesource ?>" 
+            <?php echo $srcset ; ?>
+            <?php echo $sizes; ?>
+              />    <?php
 
 
-				  
-	}
-	else {	?>
+                  
+    }
+    else {    ?>
 
-		<picture>
-			<?php echo $sources; ?>
-			<img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" id="resp_tegeltje">
-		</picture>	<?php
-	}
+        <picture>
+            <?php echo $sources; ?>
+            <img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" id="resp_tegeltje">
+        </picture>    <?php
+    }
 
     if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
         echo '<p id="progress_now">&nbsp;</p><div id="progress">&nbsp;</div>';
@@ -561,16 +581,17 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
     }
 
     echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY);
-	echo TheModalWindow();
+    echo TheModalWindow();
     ?>
 </section>
 
 <?php
     if ( (isset($views[TEGELIZR_VORIGE])) || (isset($views[TEGELIZR_VOLGENDE])) ) {
 
+
         echo '<nav id="previousnext">';
-        echo isset($views[TEGELIZR_VORIGE]) ? '<a class="vorige" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VORIGE] . '" title="Bekijk \'' . $views[TEGELIZR_VORIGE_TITEL] . '\'"><span class="pijl">&#10158;</span>' . $views[TEGELIZR_VORIGE_TITEL] . '</a>' : '';
-        echo  isset($views[TEGELIZR_VOLGENDE])  ? '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VOLGENDE] . '" title="Bekijk \'' . $views[TEGELIZR_VOLGENDE_TITEL] . '\'">' . $views[TEGELIZR_VOLGENDE_TITEL] . '<span class="pijl">&#10157;</span></a>' : '';
+        echo isset($views[TEGELIZR_VORIGE]) ? '<a class="vorige" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VORIGE] . '" title="Bekijk \'' . $views[TEGELIZR_VORIGE_TITEL] . '\'">' . HTML_PIJL_VORIGE . $views[TEGELIZR_VORIGE_TITEL] . '</a>' : '';
+        echo  isset($views[TEGELIZR_VOLGENDE])  ? '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VOLGENDE] . '" title="Bekijk \'' . $views[TEGELIZR_VOLGENDE_TITEL] . '\'">' . HTML_PIJL_VOLGENDE . $views[TEGELIZR_VOLGENDE_TITEL] . '</a>' : '';
         
         echo '</nav> ';
     }
@@ -715,9 +736,9 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
             $('#progress').html( '<p>' + CURRENTDOCINDEX + ' van ' + TOTALNRDOCUMENTS + ' tegeltjes gescand.</p>');
             $('#progress_now').html('Even alle tegeltjes tellen en oppoetsen');
             
-			if ( opacityDiv > 0.1 ) {
-				$('.placeholder img').css('opacity', opacityDiv  );
-			}
+            if ( opacityDiv > 0.1 ) {
+                $('.placeholder img').css('opacity', opacityDiv  );
+            }
             if ( opacityDiv > 0.25 ) {
                 $('#progress_now').html('Daar gaan we dan.');
             }
@@ -856,14 +877,14 @@ else {
 <article>
   <p class="lead"> <?php echo TEGELIZR_FORM ?> <br />
   (maar Paul, <a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">wat heb je toch met die tegeltjes</a>?)</p>
-	<?php 
-		echo TheForm();
-	?>
+    <?php 
+        echo TheForm();
+    ?>
   </article>
-	<?php 
-		echo showthumbs(12, '', $pagenumber); 
-		echo includejs();
-	?>
+    <?php 
+        echo showthumbs(12, '', $pagenumber); 
+        echo includejs();
+    ?>
 
 <?php  
     echo spitoutfooter();
@@ -871,27 +892,27 @@ else {
 }
 
 if ( 22 == 23) {
-	
-	function sanitize_output($buffer) {
-	
-	    $search = array(
-	        '/\>[^\S ]+/s',  // strip whitespaces after tags, except space
-	        '/[^\S ]+\</s',  // strip whitespaces before tags, except space
-	        '/(\s)+/s'       // shorten multiple whitespace sequences
-	    );
-	
-	    $replace = array(
-	        '>',
-	        '<',
-	        '\\1'
-	    );
-	
-	    $buffer = preg_replace($search, $replace, $buffer);
-	
-	    return $buffer;
-	}
-	
-	ob_start("sanitize_output");
+    
+    function sanitize_output($buffer) {
+    
+        $search = array(
+            '/\>[^\S ]+/s',  // strip whitespaces after tags, except space
+            '/[^\S ]+\</s',  // strip whitespaces before tags, except space
+            '/(\s)+/s'       // shorten multiple whitespace sequences
+        );
+    
+        $replace = array(
+            '>',
+            '<',
+            '\\1'
+        );
+    
+        $buffer = preg_replace($search, $replace, $buffer);
+    
+        return $buffer;
+    }
+    
+    ob_start("sanitize_output");
 }
 
 
