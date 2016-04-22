@@ -229,8 +229,8 @@ if (!file_exists($outpath.$filename)) {
     
     // doorsturen naar pagina met het aangemaakte image
 //    header('Location: ' . $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE);    
-//    header('Location: ' . $desturl . '#top');    
-    header('Location: ' . $desturl);    
+    header('Location: ' . $desturl . '#top');    
+//    header('Location: ' . $desturl);    
 }
 else {
 
