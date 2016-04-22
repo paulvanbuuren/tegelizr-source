@@ -41,7 +41,7 @@ define('TEGELIZR_REDACTIE',         'redactie');
 define('TEGELIZR_DEFAULT_IMAGE',    'http://wbvb.nl/images/kiezen-is-een-keuze.jpg');
 
 define('TEGELIZR_ZOEKEN',           'zoeken');
-define('TEGELIZR_ZOEKTERM',         'zoektegeltje');
+define('TEGELIZR_ZOEKTERM',         'q');
 define('TEGELIZR_TRIGGER_KEY',      'pasop');
 define('TEGELIZR_TRIGGER_VALUE',    'heet');
 define('TGLZR_TOTAL_POINTS',        'tglzr_TGLZR_TOTAL_POINTS');
@@ -75,7 +75,7 @@ $fontpath           = $path."fonts/";
 $outpath            = $path. TEGELIZR_TEGELFOLDER . "/";
 $outpath_thumbs     = $path. TEGELIZR_THUMBS . "/";
 $baseimgpath        = $sourcefolder."base.png";
-$zoektegeltje       = '';
+$q       = '';
 $userip             = 'IP' . md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
 
 
@@ -655,12 +655,12 @@ function includejs() {
 // ===================================================================================================================
 
 function spitoutfooter() {
-    global $zoektegeltje;
+    global $q;
     
     $form = '<form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/" role="search">
-    <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?zoektegeltje={s}">
+    <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?q={s}">
     <label for="' . TEGELIZR_ZOEKTERM . '">Zoek een tegel</label>
-    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '" id="' . TEGELIZR_ZOEKTERM . '" value="' . $zoektegeltje . '" placeholder="zoekterm">
+    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '" id="' . TEGELIZR_ZOEKTERM . '" value="' . $q . '" placeholder="zoekterm">
     <input type="submit" value="' . TEGELIZR_ZOEK_KNOP . '">
 </form>';
 
@@ -720,7 +720,7 @@ function spitoutfooter() {
     
 //    return '';
     return '
-<footer id="documentfooter"><div id="footer-about"><h3>Menu</h3><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/">Home</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">Over deze site</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">Alle tegeltjes</a></li></ul></div><div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div><a href="https://wbvb.nl/" rel="author">Gemaakt door <span>WBVB Rotterdam</span></a></footer>
+<footer id="documentfooter"><div id="footer-about"><nav><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/">Home</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">Over deze site</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">Alle tegeltjes</a></li></ul></nav></div><div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div><a href="https://wbvb.nl/" rel="author">Gemaakt door <span>WBVB Rotterdam</span></a></footer>
 
 
 

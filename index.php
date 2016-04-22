@@ -256,18 +256,18 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
 // ===================================================================================================================
 elseif ( ( $zinnen[1] == TEGELIZR_ZOEKEN ) ) {
 
-    global $zoektegeltje;
+    global $q;
     global $path;
 
-    $zoektegeltje = filtertext($_GET[TEGELIZR_ZOEKTERM], false);
+    $q = filtertext($_GET[TEGELIZR_ZOEKTERM], false);
 
-    $titeltw    = 'Zoek tegeltjes met ' . $zoektegeltje;
-    $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ZOEKEN . '/?' . TEGELIZR_ZOEKTERM . '=' . $zoektegeltje;
+    $titeltw    = 'Zoek tegeltjes met ' . $q;
+    $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ZOEKEN . '/?' . TEGELIZR_ZOEKTERM . '=' . $q;
     
     
     $obj        = json_decode(file_get_contents($path . TEGELIZR_ALLES . "/index.txt"), true);
     
-    $terms      = explode(" ", $zoektegeltje);
+    $terms      = explode(" ", $q);
     $results    = array_filter($obj, function ($x) use ($terms){
         foreach($terms as $term){
             if ( isset($x["txt_tegeltekst"]) && stripos("-" . filtertext(strtolower($x["txt_tegeltekst"]), false ), strtolower($term)) ) {
@@ -286,7 +286,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_ZOEKEN ) ) {
         }
     }
     else {
-        $titel   = "Niets gevonden voor '" . $zoektegeltje . "'";
+        $titel   = "Niets gevonden voor '" . $q . "'";
     }
     
 
@@ -309,7 +309,7 @@ function sortByOrder($a, $b) {
 <?php
     if ( $results ) {
     
-        echo '<section id="zoekresultaten"><h1>' . $titel . ' voor \'' . $zoektegeltje . "'</h1>";
+        echo '<section id="zoekresultaten"><h1>' . $titel . ' voor \'' . $q . "'</h1>";
         echo '<ul class="thumbs results">';
         
         foreach($results as $result) {
@@ -326,9 +326,9 @@ function sortByOrder($a, $b) {
     }
 
     echo '<form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/" role="search">
-    <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?zoektegeltje={s}">
+    <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?q={s}">
     <label for="' . TEGELIZR_ZOEKTERM . '">Zoek opnieuw</label>
-    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '" id="' . TEGELIZR_ZOEKTERM . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
+    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '" id="' . TEGELIZR_ZOEKTERM . '" value="' . $q . '" placeholder="Hier je zoekterm">
     <input type="submit" value="Search">
 </form>';        
 
