@@ -229,16 +229,23 @@ if (!file_exists($outpath.$filename)) {
     
     // doorsturen naar pagina met het aangemaakte image
 //    header('Location: ' . $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE);    
-    header('Location: ' . $desturl . '#top');    
+//    header('Location: ' . $desturl . '#top');    
 //    header('Location: ' . $desturl);    
+
+
 }
 else {
 
-    // doorsturen naar pagina met het bestaande image
-    header('Location: ' . $desturl);    
 
 }
 
+include("werk-alle-plaatjes-bij.php"); 
+
+die('klaar');
+
+
+// doorsturen naar pagina met het image
+header('Location: ' . $desturl);    
 
 
 function calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height) {

@@ -121,7 +121,7 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
 // ===================================================================================================================
 // er wordt gevraagd om alle tegeltjes // voorlopig even uitgeschakeld
 // ===================================================================================================================
-elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) && ( 22 == 33 )  ) {
+elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
     $titeltw    = 'Alle tegeltjes';
     $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ALLES . '/';
     
@@ -140,8 +140,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) && ( 22 == 33 )  ) {
     
     
     
-    $index_html     = $path . TEGELIZR_ALLES . "/index.html";
-    $index_txt      = $path . 'xxx-alle-tegeltjes' . "/index.txt";
+    $index_html     = $path . TEGELIZR_ARCHIEFFOLDER . "/index.html";
+    $index_txt      = $path . TEGELIZR_ARCHIEFFOLDER . "/index.txt";
     
     // read the file
     $obj        = json_decode(file_get_contents($index_txt), true);
@@ -220,7 +220,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) && ( 22 == 33 )  ) {
             }
             
             if ( $sort_by == 'rating' ) {
-                $sortkey = DoPrefix('rating_'.$obj[$key]['tglzr_TGLZR_TOTAL_POINTS'].'_','0',20) . $file_name;
+                $sortkey = DoPrefix('rating_'.$obj[$key][TGLZR_TOTAL_POINTS].'_','0',20) . $file_name;
             }
             elseif ( $sort_by == 'views' ) {
                 $sortkey = DoPrefix('rating_'.$obj[$key]['views'].'_','0',20) . $file_name;
@@ -234,9 +234,14 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) && ( 22 == 33 )  ) {
                 $sortkey = $file_name;
             }
             
+            $rating = 0;
+            if ( isset( $obj[$key][TGLZR_TOTAL_POINTS] ) ) {
+                $rating = ( $obj[$key][TGLZR_TOTAL_POINTS] ? $obj[$key][TGLZR_TOTAL_POINTS] : '0' );
+            }
+            
             $temparr[$sortkey] = array(
                 "txt_tegeltekst"    => getSearchResultItem($obj[$key],true),
-                "rating"            => $obj[$key]['tglzr_TGLZR_TOTAL_POINTS'],
+                "rating"            => $rating,
                 "views"             => $obj[$key]['views']
             );
         }

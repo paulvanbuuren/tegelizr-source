@@ -38,6 +38,7 @@ define('TEGELIZR_THUMBS',           'thumbs');
 define('TEGELIZR_VIEWS',            'views');
 define('TEGELIZR_TEGELFOLDER',      'tegeltjes');
 define('TEGELIZR_ALLES',            'alle-tegeltjes');
+define('TEGELIZR_ARCHIEFFOLDER',    'archief');
 define('TEGELIZR_REDACTIE',         'redactie');
 define('TEGELIZR_DEFAULT_IMAGE',    'http://wbvb.nl/images/kiezen-is-een-keuze.jpg');
 
@@ -168,7 +169,28 @@ function filtertext($text = '', $dogeintje = true ) {
     
     return $text;
 }
+
 // ===================================================================================================================
+function dodebug($var1 = true, $var2 = '') {
+    if ( PVB_DEBUG ) {
+        if ( $var1 ) {
+            echo $var2;
+        }
+    }
+}
+
+// ===================================================================================================================
+function dovardump($arrayhere) {
+    if ( PVB_DEBUG ) {
+        echo '<pre>';
+        var_dump($arrayhere);
+        echo '</pre>';
+    }
+}
+
+
+// ===================================================================================================================
+
 
 function showthumbs($aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage = 1) {
     global $outpath_thumbs;
@@ -523,15 +545,19 @@ function getSearchResultItem($result, $showImage = true) {
     }
     $return .= '<div><h2><a href="/'  . TEGELIZR_SELECTOR . '/' . $hashname . '" title="' . filtertext($result['txt_tegeltekst'], true ) . ' - ' . $result[TEGELIZR_VIEWS] . ' keer bekeken">' . filtertext($result['txt_tegeltekst'], true ) . '</a></h2><p><span class="datum">' . $date . '</span><span class="aantalkeer">' . $result[TEGELIZR_VIEWS] . ' keer bekeken</span>';
     
-    if ( $result[TGLZR_NR_VOTES] > 0 ) {
-        $return .= '<span class="waardering">waardering: ' . $result[dec_avg] . ' ';
-        if ( $result[rounded_avg] > 1 ) {
-            $return .=  TEGELIZR_RATING_UNITY;
+
+    
+    if ( isset( $result[TGLZR_NR_VOTES] ) ) {
+        if ( $result[TGLZR_NR_VOTES] > 0 ) {
+            $return .= '<span class="waardering">waardering: ' . $result[dec_avg] . ' ';
+            if ( $result[rounded_avg] > 1 ) {
+                $return .=  TEGELIZR_RATING_UNITY;
+            }
+            else {
+                $return .= TEGELIZR_RATING_UNITY_S;
+            }
+            $return .= '</span>';
         }
-        else {
-            $return .= TEGELIZR_RATING_UNITY_S;
-        }
-        $return .= '</span>';
     }
     $return .= '</p></div></section>';
     
