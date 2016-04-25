@@ -13,6 +13,9 @@ rsync -r -a -v --delete '/shared-paul-files/Webs/localhost-multisite/httpdocs/wp
 
 rsync -r -a -v --delete '/shared-paul-files/Webs/git-repos/tegelizr-source/' '/shared-paul-files/Webs/webfaction/webapps/testtegelizr/';
 
+rm -rfv '/shared-paul-files/Webs/webfaction/webapps/testtegelizr/.git/'
+rm -rfv '/shared-paul-files/Webs/webfaction/webapps/testtegelizr/.codekit-cache/'
+
 
 ## rm -rfv /shared-paul-files/Webs/webfaction/webapps/tegelizr/tegeltjes/*
 ## rm -rfv /shared-paul-files/Webs/webfaction/webapps/tegelizr/thumbs/*

@@ -112,14 +112,14 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
     ?>
 </article>
 <?php
-    echo showthumbs(12, '', $pagenumber);
+    echo showthumbs( DEFAULT_AANTAL_TEGELS, '', $pagenumber);
     echo spitoutfooter();
 
 
 }
 
 // ===================================================================================================================
-// er wordt gevraagd om alle tegeltjes // voorlopig even uitgeschakeld
+// er wordt gevraagd om alle tegeltjes 
 // ===================================================================================================================
 elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
     $titeltw    = 'Alle tegeltjes';
@@ -257,7 +257,6 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
         $temparr = array_slice($temparr, $startrecs, $max_items);
 
         foreach ($temparr as $key => $value) {
-//            echo 'eh<br />';
             echo $temparr[$key]['txt_tegeltekst'];
         }
 
@@ -271,7 +270,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
 </article>
 
 <?php
-//    echo showthumbs(12, $zinnen[2]);
+//    echo showthumbs( DEFAULT_AANTAL_TEGELS, $zinnen[2]);
     echo includejs();
     echo spitoutfooter();
 
@@ -290,7 +289,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_ZOEKEN ) ) {
     $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ZOEKEN . '/?' . TEGELIZR_ZOEKTERM . '=' . $q;
     
     
-    $obj        = json_decode(file_get_contents($path . TEGELIZR_ALLES . "/index.txt"), true);
+    $obj        = json_decode(file_get_contents($path . TEGELIZR_ARCHIEFFOLDER . "/index.txt"), true);
     
     $terms      = explode(" ", $q);
     $results    = array_filter($obj, function ($x) use ($terms){
@@ -329,12 +328,13 @@ function sortByOrder($a, $b) {
 <meta property="og:image" content="<?php echo $imagesource ?>" />
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader(TEGELIZR_ZOEKEN) ?>
 <?php echo returnheader('zoekresultaten', "Maak zelf ook een tegeltje", true, 'p') ; ?>
-<article id="page"  class="resultaat">
+<article id="alle_tegeltjes"  class="resultaat">
 
 <?php
     if ( $results ) {
+
     
-        echo '<section id="zoekresultaten"><h1>' . $titel . ' voor \'' . $q . "'</h1>";
+        echo '<h1>' . $titel . ' voor \'' . $q . "'</h1>";
         echo '<ul class="thumbs results">';
         
         foreach($results as $result) {
@@ -343,7 +343,7 @@ function sortByOrder($a, $b) {
 
         }
 
-        echo '</ul></section>';
+        echo '</ul>';
 
     }
     else {
@@ -364,7 +364,7 @@ function sortByOrder($a, $b) {
 </article>
 
 <?php
-    echo showthumbs(12, $zinnen[2], $pagenumber);
+    echo showthumbs( DEFAULT_AANTAL_TEGELS, $zinnen[2], $pagenumber);
     echo includejs();
     echo spitoutfooter();
 
@@ -412,9 +412,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 
     <h1 itemprop="name" id="header1"><?php echo $txt_tegeltekst ?></h1>
 
-    <a href="<?php echo htmlspecialchars($desturl)?>" class="placeholder">
 
-    <?php
+    <a href="<?php echo htmlspecialchars($desturl)?>" class="placeholder"><?php
     
         if ( isset( $zinnen[2] ) ) {
             $fileprefix    = $zinnen[2];
@@ -422,9 +421,9 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
         
         $imgcounter = 0;
         
-        $srcset = "\n srcset=\"";
-        $sizes     = "\n sizes=\"";
-        $sources = '';
+        $srcset     = "\n srcset=\"";
+        $sizes      = "\n sizes=\"";
+        $sources    = '';
     
         
 //        foreach ( array_reverse( $arr_thumb_sizes ) as $i => $value) { 
@@ -433,7 +432,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
             
             $currenfilename = $fileprefix . "_" . $value['width'] . "_" . $i;
             $resizedfile    = $currenfilename . '.' . TEGELIZR_RESIZE_EXT;
-            $currentimage    = '/' . TEGELIZR_TEGELFOLDER . '/' . $resizedfile;
+            $currentimage   = '/' . TEGELIZR_TEGELFOLDER . '/' . $resizedfile;
             
             if ( ! file_exists( $outpath.$resizedfile ) ) {
 //                writedebug('bestaat niet: ' . $outpath.$resizedfile );
@@ -447,11 +446,11 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
             }
             
             $screenwidth    = ( $value['screenwidth'] );
-            $mediawidth        = ( $value['width'] );
+            $mediawidth     = ( $value['width'] );
             
-            $srcset .= $currentimage . " " . $mediawidth . 'w';
-            $sizes     .= "(max-width: " . $screenwidth . "px) " . $mediawidth . 'px';
-            $sources.= '<source media="(max-width: ' . $screenwidth . 'px)" srcset="' . $currentimage . '">';
+            $srcset     .= $currentimage . " " . $mediawidth . 'w';
+            $sizes      .= "(max-width: " . $screenwidth . "px) " . $mediawidth . 'px';
+            $sources    .= '<source media="(max-width: ' . $screenwidth . 'px)" srcset="' . $currentimage . '">';
 
             $imagesource    = $currentimage;
             
@@ -460,23 +459,23 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
         $srcset .= '"';
         $sizes     .= ', 254px"';
     
-    if ( 22 == 22 ) { ?>
+    if ( 22 == 23 ) { ?>
 
-<?php    if ( 23 == 22 ) { ?>
+        <?php    if ( 23 == 22 ) { ?>
+        
+        <pre style="border: 1px solid black; background: white; color: grey; font-family: monospace; font-size: 11px; padding-top: 10em;">
+        &lt;img id="" aria-describedby="header1" itemprop="contentUrl" alt="<?php echo $titel; ?>" src="<?php echo $imagesource ?>" <?php echo $srcset ; ?> <?php echo $sizes; ?>/&gt;    
+        
+        
+        &lt;img src="cat.jpg" alt="cat"
+          srcset="cat-160.jpg 160w, cat-320.jpg 320w, cat-640.jpg 640w, cat-1280.jpg 1280w"
+          sizes="(max-width: 480px) 100vw, (max-width: 900px) 33vw, 254px"&gt;
+          
+        </pre>
+        
+        <?php } ?>
 
-<pre style="border: 1px solid black; background: white; color: grey; font-family: monospace; font-size: 11px; padding-top: 10em;">
-&lt;img id="" aria-describedby="header1" itemprop="contentUrl" alt="<?php echo $titel; ?>" src="<?php echo $imagesource ?>" <?php echo $srcset ; ?> <?php echo $sizes; ?>/&gt;    
-
-
-&lt;img src="cat.jpg" alt="cat"
-  srcset="cat-160.jpg 160w, cat-320.jpg 320w, cat-640.jpg 640w, cat-1280.jpg 1280w"
-  sizes="(max-width: 480px) 100vw, (max-width: 900px) 33vw, 254px"&gt;
-  
-</pre>
-
-<?php } ?>
-
-        <img id="resp_tegeltje" aria-describedby="header1" itemprop="contentUrl" alt="<?php echo $titel; ?>" 
+        <img id="resp_tegeltje" aria-describedby="header1" itemprop="contentUrl" alt="<?php echo $txt_tegeltekst; ?>" 
             src="<?php echo $imagesource ?>" 
             <?php echo $srcset ; ?>
             <?php echo $sizes; ?>
@@ -489,7 +488,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 
         <picture>
             <?php echo $sources; ?>
-            <img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" id="resp_tegeltje">
+            <img src="<?php echo $imagesource ?>" alt="<?php echo $txt_tegeltekst ?>" id="resp_tegeltje">
         </picture>    <?php
     }
 
@@ -608,13 +607,19 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 </article>
 
 <?php
-    echo showthumbs(12, $zinnen[2], $pagenumber);
+    echo showthumbs( DEFAULT_AANTAL_TEGELS, $zinnen[2], $pagenumber);
 
-    echo includejs();
+//    echo includejs();
+
+//    return '<scri' . 'pt src="/js/jquery-1.7.2.min.js"></scri' . 'pt>';
+
 ?>
 
     <script>
 
+<?php
+    include("js/jquery.min.js");
+?>
     $(document).ready(function() {
 
         $('.rate_widget').each(function(i) {
@@ -703,7 +708,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
             };
 
             $.post(
-                'documentscan.php',
+                'update-single-tegeltje.php',
                 data_in,
                 function( data_out ) {
                     SetProgress(data_out);
@@ -887,7 +892,7 @@ else {
     ?>
   </article>
     <?php 
-        echo showthumbs(12, '', $pagenumber); 
+        echo showthumbs( DEFAULT_AANTAL_TEGELS, '', $pagenumber); 
         echo includejs();
     ?>
 

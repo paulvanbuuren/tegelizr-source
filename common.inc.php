@@ -60,17 +60,21 @@ define('TEGELIZR_VOLGENDE',         'volgende');
 define('TEGELIZR_VOLGENDE_TITEL',   'volgende_titel');
 define('TEGELIZR_VORIGE',           'vorige');
 define('TEGELIZR_VORIGE_TITEL',     'vorige_titel');
-define('TEGELIZR_RESIZE_EXT',        'jpg');
-define('TEGELIZR_ZOEK_KNOP',         'zoek');
+define('TEGELIZR_RESIZE_EXT',       'jpg');
+define('TEGELIZR_ZOEK_KNOP',        'zoek');
 
 define('TEGELIZR_TXT_LENGTH',       90);
 define('TEGELIZR_THUMB_WIDTH',      220);
 define('TEGELIZR_BLUR',             2);
 define('TEGELIZR_AANTAL_STERREN',   5);
-define('DEFAULT_AANTAL_TEGELS',     12);
+define('DEFAULT_AANTAL_TEGELS',     18);
 
-define('HTML_PIJL_VORIGE',          '<span class="pijl">&#10158;</span>');
-define('HTML_PIJL_VOLGENDE',        '<span class="pijl">&#10158;</span>');
+//define('HTML_PIJL_VORIGE',          '<span class="pijl">&#10158;</span>');
+define('HTML_PIJL_VORIGE',          '<span class="pijl">&#x2039;</span>');
+
+//define('HTML_PIJL_VOLGENDE',        '<span class="pijl">&#10158;</span>');
+define('HTML_PIJL_VOLGENDE',        '<span class="pijl">&#x203A;</span>');
+
 
 
 $path               = dirname(__FILE__)."/";
@@ -86,28 +90,33 @@ $userip             = 'IP' . md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_A
 $arr_thumb_sizes = array(
     "thumb"         => array(
             "width"         => "150",
+            "text"          => "white",
             "color"         => "blue",
-            "screenwidth"     => "300",
+            "screenwidth"   => "300",
             ),
     "phone"         => array(
             "width"         => "280",
+            "text"          => "white",
             "color"         => "green",
-            "screenwidth"     => "320",
+            "screenwidth"   => "320",
             ),
     "medium"         => array(
             "width"         => "400",
+            "text"          => "white",
             "color"         => "black",
-            "screenwidth"     => "800",
+            "screenwidth"   => "800",
             ),
-    "larger"         => array(
+    "large"         => array(
             "width"         => "600",
+            "text"          => "white",
             "color"         => "brown",
-            "screenwidth"     => "1200",
+            "screenwidth"   => "1200",
             ),
-    "largerster"         => array(
-            "width"         => "1200",
+    "mega"         => array(
+            "width"         => "800",
+            "text"          => "white",
             "color"         => "cyan",
-            "screenwidth"     => "1800",
+            "screenwidth"   => "1800",
             ),
 );
 
@@ -260,9 +269,10 @@ function showthumbs($aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage = 
         }
 
     
-        echo '<section id="andere"><h2>Anderen maakten recent:</h2>';
+//        echo '<section id="andere"><h2>Anderen maakten recent:</h2>';
+        echo '<section id="andere">';
     
-        echo '<form method="get" id="controlnavigation" class="'. $cssvolgende . $cssvorige . '"><fieldset><legend>Tegeltjes ' . ( $startrecs + 1 ) . ' tot ' . $max_counter . '</legend>';
+        echo '<form method="get" id="controlnavigation" class="'. $cssvolgende . $cssvorige . '"><fieldset><legend>Recente tegeltjes ' . ( $startrecs + 1 ) . ' tot ' . $max_counter . '</legend>';
     
         echo $linkerknop;
         
@@ -465,22 +475,22 @@ function htmlheader($bodyclass = '') {
         }
     }
 
-    if ( 22 == 23 ) {
+    if ( PVB_DEBUG ) {
         foreach ( $arr_thumb_sizes  as $i => $value) { 
+            
             $style .= '@media only screen and (min-width: ' . $value['screenwidth'] . 'px) {';
-    
-            if ( PVB_DEBUG ) {
-                $style .= '    a.placeholder:before {';
-                $style .= "        content: 'width: " . $value['width'] . " / screenwidth: " . $value['screenwidth'] . " / " . $value['color'] . "';";
-                $style .= '    }';
-                $style .= '    a.placeholder {';
-                $style .= '        background: ' . $value['color'] . ';';
-                $style .= '    }';
-    
-            }    
+            $style .= '    a.placeholder:before {';
+            $style .= "        content: 'width: " . $value['width'] . " / screenwidth: " . $value['screenwidth'] . " / " . $value['color'] . "';";
+            $style .= '    }';
+            $style .= '    a.placeholder {';
+            $style .= '        background: ' . $value['color'] . ';';
+            $style .= '        color: ' . $value['text'] . ';';
+            $style .= '    }';
             $style .= '    a.placeholder img {';
             $style .= '        width: ' . $value['width'] . 'px;';
-            $style .= '        height: ' . $value['width'] . 'px;';
+//            $style .= '        height: ' . $value['width'] . 'px;';
+            $style .= '        height: auto;';
+            $style .= '        max-width: 100%;';
             $style .= '    }';
             $style .= '}';
     
@@ -687,7 +697,9 @@ function return_nav_menu() {
 
 function includejs() {
 //    return '<scri' . 'pt src="http://code.jquery.com/jquery-latest.min.js"></scri' . 'pt>';
-    return '<scri' . 'pt src="/js/jquery-1.7.2.min.js"></scri' . 'pt>';
+//    return '<scri' . 'pt src="/js/jquery-1.7.2.min.js"></scri' . 'pt>';
+
+
 
 }
 // ===================================================================================================================
@@ -756,12 +768,12 @@ function spitoutfooter() {
     }
 
 $alletegeltjes = '<li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">Alle tegeltjes</a></li>';
-$alletegeltjes = '';
+//$alletegeltjes = '';
 
 $zoekheader = '<h3>Zoeken</h3>';
 $zoekheader = '';
 
-$form = '';
+//$form = '';
     
 //    return '';
     return '

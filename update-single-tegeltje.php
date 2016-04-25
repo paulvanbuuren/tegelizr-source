@@ -36,13 +36,13 @@ class documentscan {
         $list = '';
         $tegelcounter = 0;
         
-        $huidige    =  isset( $_POST['huidige'] ) ? $_POST['huidige'] : ( isset( $_GET['huidige'] ) ? $_GET['huidige'] : 'huidige' );
-        $vorige     =  isset( $_POST['vorige'] ) ? $_POST['vorige'] : ( isset( $_GET['vorige'] ) ? $_GET['vorige'] : '' );
-        $volgende   =  isset( $_POST['volgende'] ) ? $_POST['volgende'] : ( isset( $_GET['volgende'] ) ? $_GET['volgende'] : '' );
-        $temp_wid   =  isset( $_POST['widget_id'] ) ? $_POST['widget_id'] : ( isset( $_GET['widget_id'] ) ? $_GET['widget_id'] : 'widget_id' );
+        $huidige    =  isset( $_POST['huidige'] )   ? $_POST['huidige']     : ( isset( $_GET['huidige'] )   ? $_GET['huidige']      : 'huidige' );
+        $vorige     =  isset( $_POST['vorige'] )    ? $_POST['vorige']      : ( isset( $_GET['vorige'] )    ? $_GET['vorige']       : '' );
+        $volgende   =  isset( $_POST['volgende'] )  ? $_POST['volgende']    : ( isset( $_GET['volgende'] )  ? $_GET['volgende']     : '' );
+        $temp_wid   =  isset( $_POST['widget_id'] ) ? $_POST['widget_id']   : ( isset( $_GET['widget_id'] ) ? $_GET['widget_id']    : 'widget_id' );
 
     
-//===================
+        //===================
 
        if (is_dir($outpath_thumbs)) {
             

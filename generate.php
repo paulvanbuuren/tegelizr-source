@@ -241,8 +241,9 @@ else {
 
 include("werk-alle-plaatjes-bij.php"); 
 
-die('klaar');
-
+if ( PVB_DEBUG ) {
+    die('klaar');
+}
 
 // doorsturen naar pagina met het image
 header('Location: ' . $desturl);    
