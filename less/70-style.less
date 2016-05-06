@@ -35,9 +35,8 @@
         margin: 0;
     }
     
-    footer {
-        border-radius: @borderradius;
-        overflow: hidden;
+    footer, #menu {
+        
         a[rel="author"] {
             background: transparent url('/img/wbvb-rotterdam.png') no-repeat center bottom;
             background-image: url('/img/wbvb-rotterdam.svg'), none;
@@ -53,8 +52,42 @@
                 .visuallyhidden();
             }
         }                
-        
+    }                
+
     
+    #menu {
+        border: 1px solid red;
+        width: 100%;
+        overflow: hidden;
+
+        #footer-about,
+        #footer-zoeken,
+        a[rel="author"] {
+            border: 1px solid red;
+            float: left;
+            overflow: hidden;
+            max-width: 25%;
+            margin: 0;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        #footer-zoeken {
+            max-width: 40%;
+            form {
+                margin: 0;
+            }
+        }
+        a[rel="author"] {
+            text-align: center;
+            float: right;
+        }
+    }
+
+    
+    footer {
+        border-radius: @borderradius;
+        overflow: hidden;
+
         h3 {
             padding: 0;
             margin: 0;
@@ -81,18 +114,7 @@
             padding-right: 1em;
             margin-bottom: 1em;
         }
-        #totop {
-            &:before {
-                width: 0;
-                height: 0;
-                border-bottom: @arrowsmall_width solid @txt;
-                border-right: @arrowsmall_height solid transparent;
-                border-left: @arrowsmall_height solid transparent;
-                float: left;
-                margin: ( 2 * @arrowsmall_mtop ) 8px 0 0;
-            } 
-        }
-    
+
         #footer-zoeken {
             width: 100%;
             padding: 0;

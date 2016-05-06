@@ -38,7 +38,18 @@
 //        font-size: 1em;  
         line-height: 1;
         position: absolute;
-        right: @padding;
+        right: ( 1 * @padding );
         top: 0;
+        border: 1px solid @txt;
+        box-shadow: none;
+        text-shadow: none;
+        color: @txt;
+        
+        &:hover,
+        &:focus,
+        &:active {
+          background: @tegelblauw;
+          color: @wit;
+        }
     }
 }

@@ -67,7 +67,7 @@ define('TEGELIZR_TXT_LENGTH',       90);
 define('TEGELIZR_THUMB_WIDTH',      220);
 define('TEGELIZR_BLUR',             2);
 define('TEGELIZR_AANTAL_STERREN',   5);
-define('DEFAULT_AANTAL_TEGELS',     18);
+define('DEFAULT_AANTAL_TEGELS',     30);
 
 //define('HTML_PIJL_VORIGE',          '<span class="pijl">&#10158;</span>');
 define('HTML_PIJL_VORIGE',          '<span class="pijl">&#x2039;</span>');

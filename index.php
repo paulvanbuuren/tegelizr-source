@@ -104,6 +104,8 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
   
 <p>Op mijn website <a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">schreef ik iets waarom ik deze site gemaakt heb</a>.</p>  
 
+<p>Het tegeltje komt <a href="http://www.geheugenvannederland.nl/?/indonesie_onafhankelijk_-_fotos_1947-1953/items/TM01:05872/">uit de collectie van het Nederlands Tegelmuseum</a>. Het font heet <a href="https://www.myfonts.com/fonts/nicksfonts/abbey-road-nf/">Abbey Road</a>.
+
 <h3>Contact via mail of Twitter:</h3><ul><li><a href="mailto:paul@wbvb.nl">paul@wbvb.nl</a></li><li><a href="https://twitter.com/paulvanbuuren" title="Twitter">@paulvanbuuren</a></li></ul>
   
   <p>Maar goed, nu jij.</p>

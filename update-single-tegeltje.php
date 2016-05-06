@@ -11,13 +11,6 @@
 
 include("common.inc.php"); 
 
-
-
-//$temp_wid = isset( $_POST['widget_id'] ) ? $_POST['widget_id'] : isset( $_GET['widget_id'] ) ? $_GET['widget_id'] : 'widget_id';
-
-
-
-//$rating = new documentscan( $_GET['widget_id'] );
 $rating = new documentscan( '' );
 $status = '';
 
@@ -155,11 +148,7 @@ class documentscan {
             writedebug('niet bereikbaar: outpath_thumbs ' . $outpath_thumbs);
         }
 
-
-
-
-
-//===================
+        //===================
         echo $newJsonString;
 
     }

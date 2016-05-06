@@ -91,20 +91,30 @@
     
     @media only screen and (min-width: ( @tabletwidth - 100 ) ) {
         ul.thumbs {
+            border: 10px solid green;
             li {
                 width: ( 100% / 3 );
             }
         }
     }
-    @media only screen and (min-width: @tabletwidth) {
+    @media only screen and (min-width: ( @tabletwidth + 1 ) ) {
         #alle_tegeltjes {
             section {
-                width: ( 100% / 3 );
+                width: ( 100% / 4 );
             }
         }
         ul.thumbs {
+            border-color: blue;
             li {
                 width: ( 100% / 4 );
+            }
+        }
+    }
+    @media only screen and (min-width: ( @tabletwidth + 300 ) ) {
+        ul.thumbs {
+            border-color: yellow;
+            li {
+                width: ( 100% / 5 );
             }
         }
     }
@@ -115,13 +125,81 @@
             }
         }
         ul.thumbs {
+            border-color: fuchsia;
             li {
-                width: ( 100% / 6 );
+                width: ( 100% / 4 );
+            }
+        }
+    
+        #controlnavigation {
+          overflow: hidden;
+          border: 10px solid green;
+    
+          fieldset {
+            position: static;
+            padding-bottom: 0;
+          }
+      
+          .linkerknop,
+          .rechterknop {
+            position: static;
+          }
+    
+          .linkerknop,
+          .rechterknop,
+          .middenlijst {
+            display: inline-block;
+            float: left;
+            clear: none;
+          }
+      
+          .linkerknop,
+          .rechterknop {
+            &, button {
+              width: @paging_button_width;
+              padding-left: 0;
+              padding-right: 0;
+              margin: 0;
+            }
+            button {
+              height: @paging_button_width;
+              padding: 0;
+              margin-top: 0;
+            }
+          }
+          
+      
+          &.vorige {
+            .middenlijst {
+              padding-left: 1em;
+              width: ~"calc(100% - @{paging_button_width} )";
+            }
+          }
+          &.volgende {
+            .middenlijst {
+              padding-right: 1em;
+              width: ~"calc(100% - @{paging_button_width} )";
+            }
+          }
+          &.vorige.volgende {
+            .middenlijst {
+              width: ~"calc(100% - @{middenwidth_2x} )";
+            }
+          }
+        }         
+        
+    }
+    @media only screen and (min-width: ( @desktopwidth + 300 ) ) {
+        ul.thumbs {
+            border-color: yellow;
+            li {
+                width: ( 100% / 5 );
             }
         }
     }
     @media only screen and (min-width: @desktopxlwidth) {
         ul.thumbs {
+            border-color: aqua;
             li {
                 width: ( 100% / 6 );
             }
