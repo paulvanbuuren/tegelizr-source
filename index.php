@@ -57,9 +57,9 @@ $tekststring    = 'tegel tegeltje tegeltjeswijsheden';
 
 $defaultrecords = DEFAULT_AANTAL_TEGELS;
 
-$pagenumber       =  intval(isset( $_POST['pagenumber'] ) ? $_POST['pagenumber'] : ( isset( $_GET['pagenumber'] ) ? $_GET['pagenumber'] : '1' ));
+$pagenumber     =  intval(isset( $_POST['pagenumber'] ) ? $_POST['pagenumber'] : ( isset( $_GET['pagenumber'] ) ? $_GET['pagenumber'] : '1' ));
 if ( ( intval( $pagenumber ) < 1 ) || ( intval( $pagenumber ) > 1000 ) ) {
-    $pagenumber = 1;    
+  $pagenumber = 1;    
 }
 $max_items      =  intval(isset( $_POST['max_items'] ) ? $_POST['max_items'] : ( isset( $_GET['max_items'] ) ? $_GET['max_items'] : $defaultrecords ));
 
@@ -89,11 +89,11 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
 
 
 ?>
-<meta property="og:title" content="<?php echo $titel; ?>" />
-<meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
-<meta property="og:url" content="<?php echo $desturl; ?>" />
-<meta property="article:tag" content="<?php echo TEGELIZR_ALLES; ?>" />
-<meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
+<meta property="og:title" content="<?php echo $titel; ?>">
+<meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>">
+<meta property="og:url" content="<?php echo $desturl; ?>">
+<meta property="article:tag" content="<?php echo TEGELIZR_ALLES; ?>">
+<meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>">
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader('over-de-site') ?>
 <?php echo returnheader("Over deze site", "Maak zelf ook een tegeltje", true, 'h1'); ?>
 <article id="page"  class="resultaat">
@@ -185,10 +185,10 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
 
     
 ?>
-<meta property="og:title" content="<?php echo $titeltw; ?>" />
-<meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
-<meta property="og:url" content="<?php echo $desturl; ?>" />
-<meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
+<meta property="og:title" content="<?php echo $titeltw; ?>">
+<meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>">
+<meta property="og:url" content="<?php echo $desturl; ?>">
+<meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>">
 <?php echo "<title>" . $titeltw . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader(TEGELIZR_ALLES) ?>
 <?php echo returnheader( $titeltw, "Maak zelf ook een tegeltje", true, 'h1') ; ?>
 
@@ -280,7 +280,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
 // ===================================================================================================================
 // er wordt gezocht naar tegeltjes
 // ===================================================================================================================
-elseif ( ( $zinnen[1] == TEGELIZR_ZOEKEN ) ) {
+elseif ( ( isset( $_GET[TEGELIZR_ZOEKTERM] ) ) && ( filtertext($_GET[TEGELIZR_ZOEKTERM], false) !== '' ) ) {
 
     global $q;
     global $path;
@@ -323,14 +323,14 @@ function sortByOrder($a, $b) {
     
 
 ?>
-<meta property="og:title" content="<?php echo $titeltw; ?>" />
-<meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
-<meta property="og:url" content="<?php echo $desturl; ?>" />
-<meta property="article:tag" content="<?php echo $tekststring; ?>" />
-<meta property="og:image" content="<?php echo $imagesource ?>" />
+<meta property="og:title" content="<?php echo $titeltw; ?>">
+<meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>">
+<meta property="og:url" content="<?php echo $desturl; ?>">
+<meta property="article:tag" content="<?php echo $tekststring; ?>">
+<meta property="og:image" content="<?php echo $imagesource ?>">
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader(TEGELIZR_ZOEKEN) ?>
 <?php echo returnheader('zoekresultaten', "Maak zelf ook een tegeltje", true, 'p') ; ?>
-<article id="alle_tegeltjes"  class="resultaat">
+<article id="alle_tegeltjes" class="">
 
 <?php
     if ( $results ) {
@@ -352,14 +352,24 @@ function sortByOrder($a, $b) {
         echo '<p>Geen tegeltjes gevonden</p>';
     }
 
-    echo '<form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/" role="search">
-    <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?q={s}">
-    <label for="' . TEGELIZR_ZOEKTERM . '">Zoek opnieuw</label>
-    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '" id="' . TEGELIZR_ZOEKTERM . '" value="' . $q . '" placeholder="Hier je zoekterm">
-    <input type="submit" value="Search">
-</form>';        
+//    echo '<form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/" role="search">
+//    <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?q={s}">
+//    <label for="' . TEGELIZR_ZOEKTERM . '">Zoek opnieuw</label>
+//    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '" id="' . TEGELIZR_ZOEKTERM . '" value="' . $q . '" placeholder="Hier je zoekterm">
+//    <input type="submit" value="Search">
+//</form>';        
 
-    echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY); 
+    echo '<div itemscope itemtype="http://schema.org/WebSite" style="border: 10px solid red; width: 100%;">
+  <meta itemprop="url" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/"/>
+  <form itemprop="potentialAction" class="search-form" itemscope itemtype="http://schema.org/SearchAction" method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/">
+    <meta itemprop="target" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?q={' . TEGELIZR_ZOEKTERM . '}"/>
+    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '"  id="' . TEGELIZR_ZOEKTERM . '" value="' . $q . '" placeholder="zoekterm" required/>
+    <input type="submit" value="' . TEGELIZR_ZOEK_KNOP . '">
+  </form>
+</div>';
+
+
+//    echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY); 
     echo TheModalWindow();
       
   ?>
@@ -403,14 +413,14 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
     }
 
 ?>
-<meta property="og:title" content="<?php echo $titel; ?>" />
-<meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
-<meta property="og:url" content="<?php echo $desturl; ?>" />
-<meta property="article:tag" content="<?php echo $tekststring; ?>" />
-<meta property="og:image" content="<?php echo $imagesource ?>" />
+<meta property="og:title" content="<?php echo $titel; ?>">
+<meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>">
+<meta property="og:url" content="<?php echo $desturl; ?>">
+<meta property="article:tag" content="<?php echo $tekststring; ?>">
+<meta property="og:image" content="<?php echo $imagesource ?>">
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader('tegeltje') ?>
 <?php echo returnheader('home', "Naar de homepage", true, 'p'); ?>
-<article id="page"  id="page" class="resultaat" itemscope itemtype="http://schema.org/ImageObject">
+<article id="page" class="resultaat" itemscope itemtype="http://schema.org/ImageObject">
 
     <h1 itemprop="name" id="header1"><?php echo $txt_tegeltekst ?></h1>
 
@@ -524,7 +534,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 
     if ( $canvote ) {
     ?>
-    <form role="form" id="star_rating" name="star_rating" action="sterretjes.php" method="get" enctype="multipart/form-data">
+    <form id="star_rating" name="star_rating" action="sterretjes.php" method="get" enctype="multipart/form-data">
         <fieldset class="rate_widget">
             <legend class="result"><?php echo $legend ?></legend>
             
@@ -572,8 +582,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
         </div>
 
         <?php if ( $canvote ) {  // ======================================== ?>
-            <input type="hidden" id="widget_id" name="widget_id" value="<?php echo $fileid ?>" />
-            <input type="hidden" id="redirect" name="redirect" value="<?php echo $fileid ?>" />
+            <input type="hidden" id="widget_id" name="widget_id" value="<?php echo $fileid ?>">
+            <input type="hidden" id="redirect" name="redirect" value="<?php echo $fileid ?>">
             <button type="submit" class="btn btn-primary"<?php echo $disabled ?>><?php echo TEGELIZR_SUBMIT_RATING ?></button>
         <?php }?>
 
@@ -878,11 +888,11 @@ else {
 
 <meta name="description" content="<?php echo TEGELIZR_SUMMARY ?>">
 <meta name="author" content="<?php echo TEGELIZR_AUTHOR ?>">
-<meta property="og:title" content="<?php echo TEGELIZR_TITLE ?>" />
-<meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
-<meta property="og:url" content="<?php echo $_SERVER['SERVER_NAME']; ?>" />
-<meta property="article:tag" content="<?php echo $tekststring; ?>" />
-<meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
+<meta property="og:title" content="<?php echo TEGELIZR_TITLE ?>">
+<meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>">
+<meta property="og:url" content="<?php echo $_SERVER['SERVER_NAME']; ?>">
+<meta property="article:tag" content="<?php echo $tekststring; ?>">
+<meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>">
 <title><?php echo TEGELIZR_TITLE ?>- WBVB Rotterdam</title>
 <?php echo htmlheader('home') ?>
 <?php echo returnheader(TEGELIZR_TITLE, '', false); ?>

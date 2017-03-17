@@ -209,7 +209,7 @@
   
   #controlnavigation {
     overflow: hidden;
-    border: 1px solid red;
+
     fieldset {
       position: relative;
       padding-bottom: 90px;
@@ -234,21 +234,29 @@
     .rechterknop {
       position: fixed;
       background: white;
-      padding: 1em;
-      bottom: 1em;
+      padding: 1em 2%;
+      bottom: 0;
+      width: 50%;
+
       button {
-        border: 1px solid red;
         &, .pijl {
           font-size: 36px;
           line-height: 1;
+          width: 96%;
         }
       }
     }
     .linkerknop {
       left: 0;
+      button {
+        float: left;
+      }
     }
     .rechterknop {
       right: 0;
+      button {
+        float: left;
+      }
     }
   }
 

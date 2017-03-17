@@ -43,7 +43,7 @@
             background-size: contain;
             height: 30px;
             width: 100%;
-            padding-bottom: 50px;
+            padding-bottom: 30px;
             content: ' ';
             display: inline-block;
             float: left;
@@ -64,15 +64,30 @@
         #footer-zoeken,
         a[rel="author"] {
             border: 1px solid red;
-            float: left;
+            float: none;
             overflow: hidden;
-            max-width: 25%;
+            width: 99%;
             margin: 0;
             padding-left: 0;
             padding-right: 0;
+            
+            li {
+              display: block;
+              float: left;
+              padding-right: 1em;
+            }
         }
+        a[rel="author"] {
+          width: 40%;
+          float: right;
+        }
+
         #footer-zoeken {
-            max-width: 40%;
+//            max-width: 40%;
+            #search-container {
+              border: 1px solid blue;
+              width: 60%;
+            }
             form {
                 margin: 0;
             }

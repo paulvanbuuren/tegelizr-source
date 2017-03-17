@@ -22,12 +22,16 @@
             padding: .2em;
         }
         
+        h2 {
+          margin-top: 0;
+        }
+        
         a {
             overflow: hidden;
             display: block;
             margin: 0;
             padding: 0;
-            line-height: 1;
+            line-height: 1.25;
             
             span {
                 .visuallyhidden();                
@@ -91,7 +95,7 @@
     
     @media only screen and (min-width: ( @tabletwidth - 100 ) ) {
         ul.thumbs {
-            border: 10px solid green;
+//            border: 10px solid green;
             li {
                 width: ( 100% / 3 );
             }
@@ -121,7 +125,33 @@
     @media only screen and (min-width: @desktopwidth) {
         #alle_tegeltjes {
             section {
-                width: ( 100% / 4 );
+                width: ( 100% / 2 );
+                border-bottom: 1px solid @grijs;
+                border-right: 1px solid @grijs;
+                padding: 1em;
+                
+                img {
+                  max-width: 100%;
+                }
+                span {
+                  display: block;
+                  padding-left: 0;
+                  margin-left: 0;
+                  line-height: 1.2;
+                }
+                div {
+                  display: inline-block;
+                  float: left;
+                  width: 30%;
+                  
+                  & + div {
+                    width: 65%;
+                    padding-left: 1em;
+                  }
+                }
+            }
+            section:nth-child(even) {
+                border-right-style: none;
             }
         }
         ul.thumbs {
@@ -133,7 +163,7 @@
     
         #controlnavigation {
           overflow: hidden;
-          border: 10px solid green;
+//          border: 10px solid green;
     
           fieldset {
             position: static;

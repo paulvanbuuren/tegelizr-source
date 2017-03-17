@@ -62,12 +62,15 @@ define('TEGELIZR_VORIGE',           'vorige');
 define('TEGELIZR_VORIGE_TITEL',     'vorige_titel');
 define('TEGELIZR_RESIZE_EXT',       'jpg');
 define('TEGELIZR_ZOEK_KNOP',        'zoek');
+define('TEGELIZR_TXT_TO_TOP',       'bovenkant');
+
+
 
 define('TEGELIZR_TXT_LENGTH',       90);
 define('TEGELIZR_THUMB_WIDTH',      220);
 define('TEGELIZR_BLUR',             2);
 define('TEGELIZR_AANTAL_STERREN',   5);
-define('DEFAULT_AANTAL_TEGELS',     30);
+define('DEFAULT_AANTAL_TEGELS',     36);
 
 //define('HTML_PIJL_VORIGE',          '<span class="pijl">&#10158;</span>');
 define('HTML_PIJL_VORIGE',          '<span class="pijl">&#x2039;</span>');
@@ -385,17 +388,20 @@ function writedebug($text) {
 function wbvb_d2e_socialbutton_click($source = '') {
     return ' onclick="sokmetlink(this.href, \'' . $source . '\');return false;"';
 }
+
 function wbvb_d2e_socialbuttons($thelink = 'thelink', $thetitle = 'thetitle', $summary = 'summmary') {
 
-    $sitetitle  = urlencode($thetitle);
+  $sitetitle  = urlencode($thetitle);
     
-    if ( $thelink ) {
-        
-        $facebook = '<li><a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=' . $thelink . '&t=' . $thetitle . '"' . wbvb_d2e_socialbutton_click('facebook') . '><span>Facebook</span></a></li>';
-        $twitter = '<li><a href="https://twitter.com/share?url=' . $thelink . '&via=paulvanbuuren&text=' . $thetitle . '" class="twitter" data-url="' . $thelink . '" data-text="' . $thetitle . '" data-via="@paulvanbuuren"' . wbvb_d2e_socialbutton_click('twitter') . '><span>Twitter</span></a></li>';
-        
-        return '<ul class="social-media">' . $twitter . $facebook . '</ul>';    
-    }
+  if ( $thelink ) {
+
+    $thelink = htmlentities($thelink);
+    
+    $facebook = '<li><a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=' . rawurlencode($thelink) . '&t=' . rawurlencode($thetitle) . '"' . wbvb_d2e_socialbutton_click('facebook') . '><span>Facebook</span></a></li>';
+    $twitter = '<li><a href="https://twitter.com/share?url=' . rawurlencode($thelink) . '&via=paulvanbuuren&text=' . rawurlencode($thetitle) . '" class="twitter" data-url="' . $thelink . '" data-text="' . $thetitle . '" data-via="@paulvanbuuren"' . wbvb_d2e_socialbutton_click('twitter') . '><span>Twitter</span></a></li>';
+    
+    return '<ul class="social-media">' . $twitter . $facebook . '</ul>';    
+  }
 }
 
 // ===================================================================================================================
@@ -547,7 +553,7 @@ function getSearchResultItem($result, $showImage = true) {
     }
 
     $hashname = seoUrl( $result['file_name'] );
-    $thumb =  $result['file_thumb'];
+    $thumb    =  $result['file_thumb'];
 
     $return =  '<section>';
     if ( $showImage ) {
@@ -578,7 +584,7 @@ function getSearchResultItem($result, $showImage = true) {
 // ===================================================================================================================
 function returnheader($pagetitle = '', $atitle = '', $withlinks = true, $tag = 'h1') {
     
-    $return =  '<header class="header js-header" role="banner"><' . $tag . ' id="top">';
+    $return =  '<header class="header js-header"><' . $tag . ' id="top">';
     if ( $withlinks ) {
         $return .=  '<a href="/" title="' . $atitle . '">';        
     }
@@ -604,7 +610,7 @@ function returnlogo() {
 
 function spitoutheader() {
     return '
-    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+    <!DOCTYPE html>
     <html lang="nl">
     <head>
         <meta charset="utf-8">
@@ -706,13 +712,31 @@ function includejs() {
 
 function spitoutfooter() {
     global $q;
+    global $zinnen;
     
     $form = '<form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/" role="search">
-    <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?q={s}">
+    <meta itemprop="target" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?q={s}">
     <label for="' . TEGELIZR_ZOEKTERM . '">Zoek een tegel</label>
     <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '" id="' . TEGELIZR_ZOEKTERM . '" value="' . $q . '" placeholder="zoekterm">
     <input type="submit" value="' . TEGELIZR_ZOEK_KNOP . '">
 </form>';
+
+if ( ( $zinnen[1] == TEGELIZR_ZOEKEN ) ) {
+      $form = '';
+}
+else {
+
+    $form = '<a href="#top" id="' . TEGELIZR_TXT_TO_TOP . '">Bovenkant</a><a href="#' . TEGELIZR_ZOEKTERM . '" id="tomenu">Menu</a><div itemscope itemtype="http://schema.org/WebSite" id="search-container">
+  <meta itemprop="url" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/"/>
+  <form itemprop="potentialAction" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/" class="search-form" itemscope itemtype="http://schema.org/SearchAction">
+    <meta itemprop="target" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?q={' . TEGELIZR_ZOEKTERM . '}"/>
+    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '"  id="' . TEGELIZR_ZOEKTERM . '" value="' . $q . '" placeholder="zoekterm" required/>
+    <input type="submit" value="' . TEGELIZR_ZOEK_KNOP . '">
+  </form>';
+
+  
+}
+
 
     $tijdvandedag = 'ledig';
 
@@ -777,13 +801,15 @@ $zoekheader = '';
     
 //    return '';
     return '
-<footer id="documentfooter"><div id="footer-about"><nav><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/">Home</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">Over deze site</a></li>' . $alletegeltjes . '</ul></nav></div><div id="footer-zoeken">' . $zoekheader . $form . '</div><a href="https://wbvb.nl/" rel="author">Gemaakt door <span>WBVB Rotterdam</span></a></footer>
+<footer id="documentfooter"><div id="footer-about"><nav><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/">Home</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">Over deze site</a></li>' . $alletegeltjes . '</ul></nav></div><div id="footer-zoeken">' . $zoekheader . $form . '</div><a href="https://wbvb.nl/" rel="author"><span>Gemaakt door WBVB Rotterdam</span></a></footer>
 
 
 
 <scri' . "pt>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-1780046-36', 'auto');ga('set', 'dimension1', '" . $tijdvandedag . "');ga('send', 'pageview');
 
 document.body.className = document.body.className.replace('nojs','dojs');
+
+" . $dinges . "
 
 
 // =========================================================================================================
@@ -793,7 +819,6 @@ function sokmetlink(thisLink, thisNetwork) {
     return false;
 }
 
-" . $dinges . "
 
 // =========================================================================================================
 // helper function to place modal window as the first child
@@ -917,12 +942,12 @@ function WidthChange(mq) {
   'use strict';
 
   // list out the vars
-  var mOverlay         = getId('modal_window'),
+  var mOverlay      = getId('modal_window'),
       mOpen         = getId('modal_open'),
-      mClose         = getId('modal_close'),
+      mClose        = getId('modal_close'),
       modal         = getId('modal_holder'),
       modalfield    = getId('txt_tegeltekst'),
-      allNodes         = document.querySelectorAll('*'),
+      allNodes      = document.querySelectorAll('*'),
       modalOpen     = false, lastFocus, i;
 
 
@@ -1021,7 +1046,7 @@ function TheModalWindow() {
 
       <div class="modal-content" id="modal_holder" role="document">
 
-          <h1 id="modal_title">' . TEGELIZR_BACK .'</h1>
+          <h2 id="modal_title">' . TEGELIZR_BACK .'</h2>
          ' . TheForm() . '
 
         <button class="btn-close" id="modal_close" type="button" aria-label="close">
@@ -1040,7 +1065,7 @@ function TheModalWindow() {
 
 // ===================================================================================================================
 function TheForm() {
-    return  ' <form role="form" id="posterform" name="posterform" action="generate.php" method="get" enctype="multipart/form-data">
+    return  ' <form id="posterform" name="posterform" action="generate.php" method="get" enctype="multipart/form-data">
     <div class="form-group tekstveld">
       <label for="txt_tegeltekst">De tekst op jouw tegeltje:</label>
       <input type="text" aria-describedby="tekst-tip" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]{1,' . TEGELIZR_TXT_LENGTH . '}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst" required="required" value="' . TEGELIZR_TXT_VALUE . '" maxlength="' . TEGELIZR_TXT_LENGTH . '" size="' . TEGELIZR_TXT_LENGTH . '" autofocus />
@@ -1159,7 +1184,7 @@ function writecontrolform() {
     global $pagenumber;
 
     $returnstring = '<form ';
-    $returnstring .= 'role="form" class="controls" action="index.php" method="get">';
+    $returnstring .= 'class="controls" action="index.php" method="get">';
     $returnstring .= '<fieldset>';
     $returnstring .= '<legend>Sorteer op:</legend>';
     $returnstring .= '<div>';
