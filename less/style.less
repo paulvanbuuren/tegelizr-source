@@ -1,0 +1,1301 @@
+// ===================================================================================================================
+
+@wit:           #fff;
+@txt:           #555;
+@grijs:         #eee;
+@titelkleur:    @txt;
+@dinges:        30px;
+@rood:          #9D1626;
+@border-color:  #afafaf;
+
+@fullwidth:     720px;
+
+// ===================================================================================================================
+
+@import "font-includes.less";      
+@import "socmed-color-codes.less";          
+
+// ===================================================================================================================
+
+.loadimmediately() {
+    
+html {
+    font-family: sans-serif;
+    font-size: 62.5%;
+}
+
+*, input[type="search"] {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #737371;
+    background-image: url(http://cdn.voorwatjes.nl/tegelwand.jpg);
+    background-attachment: fixed;
+    background-position:center center;
+    background-repeat:repeat;
+    color: #333333;
+    font-size: 14px;
+    line-height: 1.5625;
+    padding-bottom: 90px;
+    min-height:100%;
+}
+article, section#andere, footer {
+    background: white;
+    padding: 1em;
+    margin: 0 auto;
+
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
+    
+}
+
+footer {
+    
+    overflow: hidden;
+
+    h3 {
+        padding: 0;
+        margin: 0;
+    }
+    a {
+        color: @txt;
+        font-size: 80%;
+        text-decoration: none;
+    }
+    ul {
+        &, li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            float: left;
+            margin: 0 .7em 0 0;
+        }
+    }
+    div {
+        float: none;
+        clear: both;
+        padding-right: 1em;
+        margin-bottom: 1em;
+    }
+    
+    #totop, #tomenu {
+        position: fixed;
+        right: 1em;
+        bottom: 1em;
+        display: block;
+        border-radius: 5px;
+        border: 3px solid @wit;
+        background: @wit;
+    
+        font-family: toronto,Helvetica,Arial,serif;
+        font-size: 110%;
+        text-decoration: none;
+        color: @txt;
+        padding: 0 1rem;
+
+        &:before,
+        &:after {
+            content: ' ';
+            display: block;
+        }        
+    }
+    #tomenu {
+        top: 1em;
+        bottom: auto;
+        display: none;
+
+        &:before {
+            content: "\2630";
+            float: left;
+            margin: 0 8px 0 0;
+        }
+    }
+    #totop {
+        &:before {
+            width: 0;
+            height: 0;
+            border-bottom: @arrowsmall_width solid @txt;
+            border-right: @arrowsmall_height solid transparent;
+            border-left: @arrowsmall_height solid transparent;
+            float: left;
+            margin: ( 2 * @arrowsmall_mtop ) 8px 0 0;
+        }           
+    }
+
+    #footer-zoeken {
+        width: 100%;
+    }
+}
+
+form {
+    margin: 1em 0;
+    padding: 0;
+    overflow: hidden;
+    float: none;
+    clear: both;
+    width: 100%;
+
+    input {
+        border: 0 none white;    
+        box-shadow: none;
+    }
+
+    input[type='text'],
+    input[type='search'],
+    select,
+    button {
+        font-size: 1.2em;
+        border: 2px solid @border-color;
+        border-radius: 0;
+      box-shadow: 1px 1px 3px #eee inset;
+    }
+
+/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
+//legend { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+
+
+    select {
+        margin: 0 .7em 0 0;
+    }
+
+    input[type="search"] {
+        font-size: 80%;
+        width: 70%;
+    }
+
+    input[type="search"], input[type="submit"] {
+        height: 40px !important;
+        &, &:focus {
+            border-width: 1px;
+        }
+    }
+
+    input[type="text"] {
+        display: block;
+        float: none;
+        font-size: 150%;
+        width: 100%;
+        height: auto;
+        border-width: 2px;
+    }
+
+    button {
+        background:#DDD;
+        color: #fff;
+        border: 1px solid #DDD;
+        border-radius: 3px;
+        text-shadow: 0 1px 1px white;
+        -webkit-box-shadow: 0 1px 1px #fff;
+        -moz-box-shadow: 0 1px 1px #fff;
+        box-shadow: 0 1px 1px #fff;
+        padding: 6px 10px;
+        white-space: nowrap;
+        vertical-align: middle;
+        color: #666;
+        cursor: pointer;
+        font: bold 1em Sans-Serif;
+        border-color: #999;
+        background: -webkit-linear-gradient(top, white, #E0E0E0);
+        background:    -moz-linear-gradient(top, white, #E0E0E0);
+        background:     -ms-linear-gradient(top, white, #E0E0E0);
+        background:      -o-linear-gradient(top, white, #E0E0E0);
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.25), inset 0 0 3px #fff;
+        -moz-box-shadow:    0 1px 2px rgba(0,0,0,0.25), inset 0 0 3px #fff;
+        box-shadow:         0 1px 2px rgba(0,0,0,0.25), inset 0 0 3px #fff;    
+
+        font-size: 80%;
+        text-transform: uppercase;
+        font-weight: normal;
+
+        &:focus,
+        &:active,
+        &:hover {
+            color: #666;
+            background: @wit;
+        }
+    
+    }
+    .tekstveld  {
+        position: relative;
+        float: left;
+        display: inline-block;
+        margin: 0 0 2em 0;
+    }
+
+    label {
+        overflow:hidden;
+        display: block;
+        margin: 0;
+        padding: 0 .5em 0 0;
+        font-size: 80%;
+        text-transform: uppercase;
+        font-weight: normal;
+    }
+    label input {
+        padding: 0;
+        margin: 0 .5em 0 0;
+        height: auto;
+    }
+    
+    .tekstveld input {
+        padding: 4px;
+    }
+    
+
+    .tekstveld input:focus + [role="tooltip"] {
+         right: 0;
+         width: 99%;
+    }
+    
+}
+
+
+    
+li {
+    a, img {
+        overflow: hidden;
+    }
+}
+
+
+
+h1, h2 {
+
+    line-height:1.4;
+    word-break:normal;
+    overflow:hidden;
+    font-weight: normal;
+    padding: 0;
+    margin: 0 0 .3em 0;
+    display: block;
+    float: none;
+    clear: both;
+}
+h1 {
+    font-size: 180%;
+    line-height: 2;
+    text-transform: uppercase;
+    
+    svg {
+        display: table-cell;
+        float: left;
+        vertical-align: middle;
+        margin-right: .2em;
+    }
+    
+    a {
+        text-decoration: none;
+        color: @titelkleur;
+//        display: block;
+        line-height: 1.2;
+        
+        &:hover,
+        &:focus,
+        &:active {
+            text-decoration: underline;
+        }
+    }
+}
+h2 {
+    font-size: 120%;
+}
+h1::first-letter {
+    text-transform:capitalize;
+}
+.wbvb {
+    position: fixed;
+    right: 1em;
+    bottom: 1em;
+    font-size: .5em;
+    text-align:center;
+    z-index:800;
+}
+.wbvb a {
+    width: 65px;
+    padding: 5px;
+    display: block;
+    line-height: 1.2;
+    font-family: sans-serif;
+    text-decoration: none;
+    color: #555;
+    border: 1px solid #dadada;
+    background:#fff;
+}
+.wbvb a:hover, .wbvb a:focus, .wbvb a:active {
+    border: 1px solid #555;
+}
+
+
+/* see: http://heydonworks.com/practical_aria_examples/css/a11y.css */
+/* set up hidden tooltip */
+[role="tooltip"] {
+    display: none;
+    padding: 0.25em;
+    margin: 0;
+    background:#fff;
+    color: #555;
+    width: 100%;
+    z-index: 2;
+    font-size: 80%;
+    font-family: sans-serif;
+}
+
+/* reveal associated tooltip on focus of preceeding input */
+input:focus + [role="tooltip"] {
+    display: block;
+    position: absolute;
+    top: 100%;
+}
+
+
+ul.thumbs {
+
+    display: block;
+    clear: both;
+    float: none;
+    width: 100%;
+    overflow: hidden;
+        
+    &, li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    li {
+        display: inline-block;
+        float: left;
+    }
+    
+}
+ul {
+    &, li {
+        padding-left: 0;
+        margin-left: 0;
+        list-style: none;
+    }
+
+    &.results {
+        li {
+            h3 {
+                line-height: 1.2;
+                 font-size: 100%;
+           }
+        }
+    }
+    
+    &.all, &.results {
+        li {
+            display: block;
+            clear: both;
+            width: 100%;
+            margin-bottom: 1em;
+            line-height: 1.4;
+            overflow: hidden;
+            
+        }
+        img {
+            float: left;
+            max-width: 20%;
+            height: auto;
+            margin-right: 1em;
+        }
+        span {
+    //        float: left;
+    //        display: inline-block;
+    //        clear: right;
+            &:before {
+                content: ' ';
+                float: left;
+                clear: both;
+                display: block;
+            }
+        }
+        .aantalkeer {
+            margin-left: 1em;
+        }
+    }
+}
+
+img.tegeltje {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    margin: 0;
+}
+
+@start: 20px;
+@heightmomentje: 90px;
+@progressnow_height: 80px;
+
+@progressnowstart: ( @start + @heightmomentje );
+
+@progressstart: ( @progressnowstart + @progressnow_height );
+
+.momentje {
+//    background-size: contain;
+    overflow: hidden;
+    display: block;
+    height: 100%;
+    position: relative;
+
+    div#momentje {
+        position: absolute;
+        background: url(/img/momentje.jpg) no-repeat center top;
+        box-shadow:0px 1px 1px @border-color;        
+        height: 100%;
+        width: 100%;
+        z-index: 8000;
+        top: 0;
+        left: 0;
+        text-align: center;
+        padding: @start 0 0 0;
+        
+        p, h3 {
+            max-width: 60%;
+            margin: 0 auto;
+            line-height: 1.2;
+            color: @txt;    
+        }
+    }
+
+    #progress, #progress_now, #progress_bar {
+        position: absolute;
+        z-index: 9999;
+        height: 40px;
+        width: 100%;
+        color: @txt;    
+    }
+    #progress_now {
+        text-align: center;
+        top: @progressnowstart;
+    }
+    #progress {
+        bottom: 1em;
+
+        height: @progressnow_height;
+        width: 100%;
+        
+        padding: 3px 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    #progress_bar {
+        top: 0;
+
+        div {
+            z-index: 9000;
+            display: block;
+            width: 10px;
+            background: @rood;
+            height: 10px;    
+        }
+        
+    }
+
+    
+}
+
+p {
+    margin: 0;
+}
+
+
+.social-media {
+    display: block;
+    overflow: hidden;
+    list-style: none;
+    margin: 0 0 .5em 1em;
+    padding: 0;
+    float: right;
+    
+    li {
+        overflow: hidden;
+        list-style: none;
+        margin: 0 8px 3px 0 !important;
+        padding: 0;
+        font-family: sans-serif;
+    }
+    li {
+        display: block;
+        float: none;
+    }
+    a {
+        padding: 2px 10px 2px 2px;
+        display: block;
+        width: 100%;
+        margin: 0;
+        color: @wit;
+        border-radius: 3px;
+        font-size: 80%;
+        line-height: 1.8;
+        text-align: left;
+
+        &:focus, &:hover, &:active {
+            text-decoration: none !important;
+        }
+        span {
+            float: left;
+        }
+    }
+    
+    a:before {
+        font-family: 'icomoon';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+    
+        /* Better Font Rendering =========== */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+        content: "\e600";
+        padding: 3px 1px 0 4px;
+        
+        font-size: 1.35em;
+        margin-right: 4px;
+        width: 24px;
+        display: block;
+        float: left;
+        text-align: center;
+        border-style: none;
+    }
+    
+    .facebook {
+        background: @facebook;
+        &:before {
+            content: "\e604";
+            padding-left: 2px;
+        }
+        &:hover, &:focus {
+            &:before {
+                color: @facebook;
+                background: @wit;
+            }
+        }
+    }
+    .twitter {
+        background: @twitter;
+        &:before {
+            content: "\e605";
+        }
+        &:hover, &:focus {
+            &:before {
+                color: @twitter;
+                background: @wit;
+            }
+        }
+    }
+    .googleplus {
+        background: @googleplus;
+        &:before {
+            content: "\e600";
+        }
+        &:hover, &:focus {
+            &:before {
+                color: @googleplus;
+                background: @wit;
+            }
+        }
+    }
+
+    
+    .pinterest {
+            background: @pinterest;
+        &:before {
+            content: "\e603";
+        }
+        &:hover, &:focus {
+            &:before {
+                color: @pinterest;
+                background: @wit;
+            }
+        }
+    }
+    .youtube {
+            background: @youtube;
+        &:before {
+            content: "\e606";
+        }
+        &:hover, &:focus {
+            &:before {
+                color: @youtube;
+                background: @wit;
+            }
+        }
+    }
+    .home {
+        &:before {
+            content: "\e602";
+        }
+    }
+    .linkedin {
+            background: @linkedin;
+        &:before {
+            content: "\e601";
+        }
+        &:hover, &:focus {
+            &:before {
+                color: @linkedin;
+                background: @wit;
+            }
+        }
+    }
+
+    
+    .mail {
+            background: @mail;
+        &:before {
+            content: "\e602";
+        }
+        &:hover, &:focus {
+            &:before {
+                color: @mail;
+                background: @wit;
+            }
+        }
+    }
+    .rss {
+            background: @rss;
+        &:before {
+            content: "\e607";
+        }
+        &:hover, &:focus {
+            &:before {
+                color: @rss;
+                background: @wit;
+            }
+        }
+    }
+}
+#andere {
+    border-top: 3px solid @grijs;
+    border-bottom: 3px solid @grijs;
+    padding: 1em 0;
+    margin-bottom: 1em;
+    li {
+        max-width: 33%;
+        img {
+            width: auto;
+        }
+    }
+}
+
+.resultaat     .social-media {
+    float: none;
+    clear: both;
+    margin: 1em 0 0 0;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1em;
+    
+    li {
+        flex: 1 100%;
+        margin: 0;
+        a {
+            font-size: 90%;
+            margin: 0;
+        }
+    }
+
+}
+
+// rating ==========
+x.rate_widget {
+    overflow:   visible;
+    padding:    10px;
+    position:   relative;
+    
+    label {
+        float: left;        
+    }
+    
+    .is_klikbaar {
+        background: url('rating/star_empty.png') no-repeat;
+        float:      left;
+        height:     28px;
+        padding:    2px;
+        width:      32px;
+    }
+    .ratings_vote {
+        background: url('rating/star_full.png') no-repeat;
+    }
+    .ratings_over {
+        background: url('rating/star_highlight.png') no-repeat;
+    }
+    .total_votes {
+    } 
+}
+
+[itemprop="aggregateRating"] {
+    margin: 0;
+    padding: 0;
+    li {
+        font-size: 50%;
+        float: left;
+        display: inline-block;
+        margin: 0 .5em 0 0;
+        padding: 0;
+    }
+}
+
+.rating {
+    float: left;
+    width: auto;
+    
+    input, label {
+        display: inline;
+        width: auto;
+        cursor: pointer;
+    }
+}
+#star_rating {
+    .btn-primary {
+        margin-right: .5em;
+    }
+}
+
+.nojs .rating {
+    label {
+        padding: 0 1em;
+        margin-right: 1em;
+    }
+}
+
+
+.dojs .rating {
+
+    overflow: hidden;
+    clear: both;
+    width: auto;
+    display: inline-block;
+    float: none;
+    
+    .sterretjes {
+    }
+    
+    
+    /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
+       follow these rules. Every browser that supports :checked also supports :not(), so
+       it doesn’t make the test unnecessarily selective */
+    &:not(:checked) > input {
+        position:absolute;
+        top:-9999px;
+        clip:rect(0,0,0,0);
+    }
+    
+    &:not(:checked) > label {
+        float:right;
+        width:1.3em;
+        padding:0 .2em;
+        overflow:hidden;
+        white-space:nowrap;
+        font-size:200%;
+        line-height:1.2;
+        color:#ddd;
+        text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+    }
+    
+    &:not(:checked) > label:before {
+        content: '★ ';
+    }
+    
+    & > input:checked ~ label {
+        color: #f70;
+        text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+    }
+    
+    &:not(:checked) > label.is_klikbaar:hover,
+    &:not(:checked) > label.is_klikbaar:hover ~ label.is_klikbaar {
+        color: gold;
+        cursor:pointer;
+        text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+    }
+    
+    & > input:checked + label.is_klikbaar:hover,
+    & > input:checked + label.is_klikbaar:hover ~ label.is_klikbaar,
+    & > input:checked ~ label.is_klikbaar:hover,
+    & > input:checked ~ label.is_klikbaar:hover ~ label.is_klikbaar,
+    & > label:hover ~ input:checked ~ label.is_klikbaar {
+        color: #ea0;
+        cursor:pointer;
+        text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+    }
+    
+    & > label:active {
+        position:relative;
+        top:2px;
+        left:2px;
+    }
+
+    &:not(:checked) > label.waardering {
+        color: #f70;
+    }
+}
+
+
+@arrowsmall_height: 8px;
+@arrowsmall_width: 10px;
+@arrowsmall_mtop: 6px;
+@arrowsmall_mbottom: 5px;
+
+nav {
+    position: relative;
+    min-height: 30px;
+
+    a {
+        display: inline-block;
+        max-width: 49%;
+        margin-bottom: 1em;
+        line-height: 1.3;
+        text-decoration: none;
+        color: @rood;
+        
+        &:before,
+        &:after {
+            content: ' ';
+            display: block;
+            width: 0;
+            height: 0;
+        }        
+        
+        &:hover,
+        &:active,
+        &:focus {
+            color: @txt;
+            text-decoration: underline;
+        }
+
+        .pijl {
+            font-size: 300%;
+            display: block;
+            float: right;
+            line-height: .6;
+            padding: 0;
+        }
+        
+    }        
+
+    .vorige .pijl {
+        transform: rotate(180deg);
+        float: left;
+        padding-left: 10px;
+    }
+    .volgende {
+        float: right;
+        .pijl {
+            padding-left: 10px;
+        }
+    }
+}
+
+
+// ===================================================================================================================
+
+@media only screen and (max-width: 550px) {
+
+    body {
+        font-size: 12px;
+    }
+    h1 {
+        font-size: 140%;
+        text-transform: none;
+    }    
+    .social-media {
+        float: none;
+        clear: both;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 1em;
+        
+        li {
+            flex: 1 100%;
+            margin: 0;
+            a {
+                font-size: 90%;
+                margin: 0;
+                &:before {
+                    padding-left: 0;
+                    padding-right: 0;
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+    footer ul {
+        display: flex;
+        flex-direction: row;
+        
+        li {
+            flex: 1 100%;
+        }
+    }
+
+    #andere {
+        li {
+            max-width: 50%;
+        }
+    }
+
+    
+}
+
+
+
+// ===================================================================================================================
+
+@media only screen and (min-width: 1350px) {
+
+    #home {
+        position: fixed;
+        left: 1em;
+        top: 1em;
+
+        a {
+
+            font-family: toronto,Helvetica,Arial,serif;
+            
+            color: @txt;
+            font-size: 180%;
+            text-decoration: none;
+            display: block;
+            padding: 0 .4em;
+            border-radius: .3em;
+
+            &:before {
+                content: ' ';
+                display: block;
+                width: 0; 
+                height: 0; 
+                border-top: @dinges solid transparent;
+                border-bottom: @dinges solid transparent; 
+                border-right: ( @dinges * 2 ) solid @wit;     
+                float: left;
+            }
+
+
+            span {
+                display: inline-block;
+                background: @wit;
+                height: ( @dinges * 2 );
+                padding: 0 .6em 0 .2em;
+                border-radius: 0 10px 10px 0;
+                border: 3px solid @wit;
+            }
+            
+            &:hover,
+            &:focus,
+            &:active {
+                text-decoration: underline;
+                span {
+                    background: @txt;
+                    color: @wit;
+                }
+            }
+        }
+    }    
+}
+
+// ===================================================================================================================
+
+
+@media only screen and (min-width: 600px) {
+
+    body {
+        font-size: 18px;
+        padding-top: 1em;
+    }
+    article, footer {
+        width: @fullwidth;
+    }
+    #andere {
+        overflow: scroll;
+        position: relative;
+        background: red;
+        
+        .thumbnav {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            display: block;
+            border: 1px solid red;
+        }
+        .nextpage {
+            right: 0;
+        }
+        .previouspage {
+            left: 0;
+        }
+            
+        ul {
+            display: flex;
+            overflow: scroll;
+            padding: 0 0 1em 0;
+
+            li {
+                width: 20%;
+                min-width: 120px;
+                padding: .2em;
+                img {
+                }
+            }
+        }
+    }
+    footer {
+        div {
+            float: left;
+            clear: none;
+        }
+    }
+    .tegeltje {
+        border:1px #f00;
+    }
+    form {
+        fieldset {
+            padding: 0;
+            border: 0 none transparent;
+            width: 100%;
+            float:left;
+            
+        }
+        fieldset + button{
+            float:left;
+            width: 19%;
+            overflow:hidden;
+        }
+        button {
+            float: right;
+            clear: right;
+        }
+        button span:after {
+            content: '\A';
+            white-space: pre;
+        }
+        button + p {
+            float:none;
+            clear:both;
+        }
+    }
+    .uitleg {
+        width: 100%;
+        text-align:right;
+        display:block;
+        clear: both;        
+        padding-top: .5em;
+        font-size: 1.4em;
+    }
+    .wbvb {
+        position:absolute;
+        right: 2em;
+        top: 1em;
+        font-size: .55em;
+        
+    }
+    .wbvb a {
+       width: 120px;
+    }
+    .wbvb a:hover, .wbvb a:active, .wbvb a:focus {
+        -webkit-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, .5);
+        -moz-box-shadow:    7px 7px 5px 0px rgba(50, 50, 50, .5);
+        box-shadow:         7px 7px 5px 0px rgba(50, 50, 50, .5);
+    }
+    .wbvb svg {
+       width: 100px;
+       height:55px;
+    }
+    footer {
+        #tomenu {
+            display: block;
+        }
+    }
+}
+
+
+@media only screen and (min-width: 1000px) {
+    @arrowwidth: 140px;    
+    @arrowheight: ( @arrowwidth / 2);    
+    @arrowpadding: 40px;    
+    @arrowpos_y: -700px;    
+    @border-color: rgba(256,256,256,.4);    
+    
+    nav {
+        margin-right: ( -1 * ( @arrowwidth + ( 2 * @arrowpadding ) ) );
+        margin-left: ( -1 * ( @arrowwidth + ( 2 * @arrowpadding ) ) );
+        transform: translateY( @arrowpos_y );        
+        height: auto;
+
+        a {
+            position: absolute;
+            background: fade(@border-color, 0%);
+            color: fade(@border-color, 0%);
+            width:  ( @arrowwidth + ( 2 * @arrowpadding ) );
+
+            .pijl {
+                color: fade(@wit, 70%);
+                font-size: 800%;
+                float: none;
+                clear: both;
+                position: absolute;
+                top: 150px;
+            }
+            &:active, 
+            &:hover, 
+            &:focus {
+                background: fade(@border-color, 6%);
+                text-decoration: none;
+                color: fade(@wit, 100%);
+
+                .pijl {
+                    color: fade(@wit, 100%);
+                }
+            }
+            
+        }
+
+        .vorige {
+            padding: 25% @arrowpadding;
+        }        
+        
+        .volgende {
+            padding: 25% @arrowpadding;
+            right: 0;
+            &:after {
+                display: none;
+            }
+        }
+    }
+    footer, section#andere {
+        margin: 1em auto;
+        width: 100%;
+    }
+}
+// ===================================================================================================================
+
+.controls {
+    display: inline-block;
+    clear: both;
+    overflow: hidden;
+    
+    input, button, select, option {
+        font-size: 90%;
+        padding: 0;        
+        margin: 0;
+    }
+    select, button {
+        margin-right: 3px;
+        border: 1px solid @border-color;
+    }
+    select, option, button {
+        width: auto;
+        font-size: 80%;
+        line-height: 2;
+        height: 2em;
+    }
+    select {
+        float: left;
+        &, option {
+            padding: 5px;
+        }
+    }
+    button {
+        float: left;
+        padding: 0 .5em;
+        &.get_previous {
+
+        }
+        &.get_next {
+
+        }
+    }
+}
+#prefix {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    word-break: break-all;
+}
+
+aside {
+    border-bottom-style: none;
+}
+
+.dojs .jsinvisible {
+//    animation: rideinslight 1.3s forwards;
+//    animation-delay: 0;
+    display: none;
+    visibility: hidden;
+}
+
+    
+.dojs .jsvisible {
+//    animation: slideinright 1.3s forwards;
+//    animation-delay: 0;
+    display: block;
+    visibility: visible;
+}
+/*
+//====================================
+@-webkit-keyframes slideinright {
+    from {
+        font-size: 10% !important;
+        bottom: -10em;
+    }
+    to {
+        font-size: 110% !important;
+        bottom: 1em;
+    }
+}
+
+@keyframes slideinright {
+    from {
+        font-size: 10% !important;
+        bottom: -10em;
+    }
+    to {
+        font-size: 110% !important;
+        bottom: 1em;
+    }
+}
+//====================================
+@-webkit-keyframes rideinslight {
+    from {
+        font-size: 110% !important;
+        bottom: 1em;
+    }
+    to {
+        font-size: 10% !important;
+        bottom: -10em;
+    }
+}
+
+@keyframes rideinslight {
+    from {
+        font-size: 110% !important;
+        bottom: 1em;
+    }
+    to {
+        font-size: 10% !important;
+        bottom: -10em;
+    }
+}
+*/
+
+}
+
+.loadlater() {
+    body {
+//        background: red;
+        border: 1px solid white;
+    }
+}
+
+.loadimmediately();

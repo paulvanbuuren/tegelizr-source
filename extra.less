@@ -1,0 +1,22 @@
+
+li {
+}
+
+li:nth-child(n+5) {
+
+    & ~ li {
+        border: 8px solid blue;
+        display: block;
+        float: none;
+    }
+    
+    &:first-child {
+        border: 30px solid green;
+    }
+    
+}
+
+
+li:nth-last-child(5) {
+    border: 10px solid red;
+}
