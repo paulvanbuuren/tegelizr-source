@@ -616,7 +616,7 @@ else {
   <h1 id="top"><?php echo returnlogo(); ?><span><?php echo TEGELIZR_TITLE ?></span></h1>
   <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], TEGELIZR_TITLE, TEGELIZR_SUMMARY) ?>
   <p class="lead"> <?php echo TEGELIZR_FORM ?> </p>
-  <aside>(maar Paul, <a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">wat heb je toch met die tegeltjes</a>?)</aside>
+  <aside>(maar Paul, <a href="//wbvb.nl/tegeltjes-maken-is-een-keuze/">wat heb je toch met die tegeltjes</a>?)</aside>
   <?php 
 	  echo TheForm();
 	  echo showthumbs(12); 

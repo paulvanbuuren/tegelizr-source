@@ -29,11 +29,12 @@ define('TEGELIZR_SELECTOR',         'tegeltje');
 define('TEGELIZR_PROTOCOL',         'http://');
 define('TEGELIZR_SUMMARY',          'Maak hier je eigen tegeltje. Een geintje van Paul van Buuren, van WBVB Rotterdam.');
 define('TEGELIZR_THUMBS',           'thumbs');
+define('TEGELIZR_DELETED_FILES',    'deleted_files');
 define('TEGELIZR_VIEWS',            'views');
 define('TEGELIZR_TEGELFOLDER',      'tegeltjes');
 define('TEGELIZR_ALLES',            'alle-tegeltjes');
 define('TEGELIZR_REDACTIE',         'redactie');
-define('TEGELIZR_DEFAULT_IMAGE',    'http://wbvb.nl/images/kiezen-is-een-keuze.jpg');
+define('TEGELIZR_DEFAULT_IMAGE',    '//wbvb.nl/images/kiezen-is-een-keuze.jpg');
 define('TEGELIZR_ZOEKEN',           'zoeken');
 define('TEGELIZR_ZOEKTERM',         'zoektegeltje');
 define('TEGELIZR_TRIGGER_KEY',      'pasop');
@@ -66,6 +67,8 @@ $sourcefolder       = $path."img/";
 $fontpath           = $path."fonts/";
 $outpath            = $path. TEGELIZR_TEGELFOLDER . "/";
 $outpath_thumbs     = $path. TEGELIZR_THUMBS . "/";
+$outpath_thumbs_del = $path. TEGELIZR_DELETED_FILES . "/" . TEGELIZR_THUMBS . "/";
+$outpath_tegel_del  = $path. TEGELIZR_DELETED_FILES . "/" . TEGELIZR_TEGELFOLDER . "/";
 $baseimgpath        = $sourcefolder."base.png";
 $zoektegeltje       = '';
 $userip             = 'IP' . md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
@@ -292,7 +295,7 @@ function returnlogo() {
 
 
 function spitoutheader() {
-    return '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" href="http://wbvb.nl/images/favicon.ico" type="image/x-icon" /><link rel="publisher" href="https://plus.google.com/u/0/+PaulvanBuuren"/><meta name="twitter:card" content="summary"/><meta name="twitter:site" content="@paulvanbuuren"/><meta name="twitter:domain" content="WBVB"/><meta name="twitter:creator" content="@paulvanbuuren"/><meta property="og:locale" content="nl_NL" /><meta property="og:type" content="article" /><meta property="og:site_name" content="Webbureau Van Buuren Rotterdam" /><meta property="article:publisher" content="https://www.facebook.com/webbureauvanbuuren" /><link rel="apple-touch-icon" href="/img/apple-favicon.png">';
+    return '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" href="//wbvb.nl/images/favicon.ico" type="image/x-icon" /><link rel="publisher" href="https://plus.google.com/u/0/+PaulvanBuuren"/><meta name="twitter:card" content="summary"/><meta name="twitter:site" content="@paulvanbuuren"/><meta name="twitter:domain" content="WBVB"/><meta name="twitter:creator" content="@paulvanbuuren"/><meta property="og:locale" content="nl_NL" /><meta property="og:type" content="article" /><meta property="og:site_name" content="Webbureau Van Buuren Rotterdam" /><meta property="article:publisher" content="https://www.facebook.com/webbureauvanbuuren" /><link rel="apple-touch-icon" href="/img/apple-favicon.png">';
     
 }
 // ===================================================================================================================
@@ -362,7 +365,7 @@ function getviews($filelocation, $update = false) {
 
 function includejs() {
     return '
-    <scri' . 'pt src="http://code.jquery.com/jquery-latest.min.js"></scri' . 'pt>
+    <scri' . 'pt src="//code.jquery.com/jquery-latest.min.js"></scri' . 'pt>
 ';
 
 }
@@ -426,7 +429,7 @@ function spitoutfooter() {
 
     
     return '
-<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div><div id="footer-about"><h3>Over de site</h3><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">redactie</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">alle tegeltjes</a></li><li><a href="http://wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li></ul></div><div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div></footer>
+<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div><div id="footer-about"><h3>Over de site</h3><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">redactie</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">alle tegeltjes</a></li><li><a href="//wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li></ul></div><div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div></footer>
 
 <scri' . "pt>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();
 a=s.createElement(o),m=s.getElementsByTagName(o)[0];
