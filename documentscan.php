@@ -29,8 +29,8 @@ class documentscan {
     
     // ==========================================================================    
     function __construct($wid) {
-        global $outpath_thumbs;
-        global $outpath;
+        global $sourcefiles_thumbs;
+        global $sourcefiles_tegels;
         global $path;
         global $status;
         $list = '';
@@ -44,15 +44,15 @@ class documentscan {
     
 //===================
 
-       if (is_dir($outpath_thumbs)) {
+       if (is_dir($sourcefiles_thumbs)) {
             
             $info           = explode('_', $huidige );
             $time           = explode('-', $info[0] );
 
-            $this->info['pngbestand']   = $outpath . $info[1] . '.png';
-            $this->info['txtbestand']   = $outpath . $info[1] . '.txt';
+            $this->info['pngbestand']   = $sourcefiles_tegels . $info[1] . '.png';
+            $this->info['txtbestand']   = $sourcefiles_tegels . $info[1] . '.txt';
 
-            $this->thumb        = $outpath_thumbs . $huidige . '.png';
+            $this->thumb        = $sourcefiles_thumbs . $huidige . '.png';
 
             if ( $huidige && ( (! $vorige) && (! $volgende ) ) )  {
                 setstatus('\$vorige & \$vorige zijn leeg: ' . $vorige . ' | ' . $volgende);
@@ -67,10 +67,10 @@ class documentscan {
                 $info           = explode('_', $huidige );
                 $time           = explode('-', $info[0] );
     
-                $this->info['pngbestand']   = $outpath . $info[1] . '.png';
-                $this->info['txtbestand']   = $outpath . $info[1] . '.txt';
+                $this->info['pngbestand']   = $sourcefiles_tegels . $info[1] . '.png';
+                $this->info['txtbestand']   = $sourcefiles_tegels . $info[1] . '.txt';
 
-                $this->thumb        = $outpath_thumbs . $huidige . '.png';
+                $this->thumb        = $sourcefiles_thumbs . $huidige . '.png';
 
                 if ( file_exists( $this->info['txtbestand'] ) &&  file_exists( $this->info['pngbestand'] ) ) {
 
@@ -88,8 +88,8 @@ class documentscan {
                         $time           = explode('-',  $info[0] );
             
                         if ( isset( $info[1] )) {
-                            $this->info['vorige-png']   = $outpath . $info[1] . '.png';
-                            $this->info['vorige-txt']   = $outpath . $info[1] . '.txt';
+                            $this->info['vorige-png']   = $sourcefiles_tegels . $info[1] . '.png';
+                            $this->info['vorige-txt']   = $sourcefiles_tegels . $info[1] . '.txt';
                             
                             if ( file_exists( $this->info['vorige-png'] ) &&  file_exists( $this->info['vorige-txt'] ) ) {
 
@@ -107,8 +107,8 @@ class documentscan {
             
                         if ( isset( $info[1] )) {
                             
-                            $this->info['volgende-png']   = $outpath . $info[1] . '.png';
-                            $this->info['volgende-txt']   = $outpath . $info[1] . '.txt';
+                            $this->info['volgende-png']   = $sourcefiles_tegels . $info[1] . '.png';
+                            $this->info['volgende-txt']   = $sourcefiles_tegels . $info[1] . '.txt';
                             
                             if ( file_exists( $this->info['volgende-png'] ) &&  file_exists( $this->info['volgende-txt'] ) ) {
 
@@ -132,8 +132,8 @@ class documentscan {
 
             }
             else {
-                $images     = glob($outpath_thumbs . "*.png");
-                $replace    = $outpath_thumbs;
+                $images     = glob($sourcefiles_thumbs . "*.png");
+                $replace    = $sourcefiles_thumbs;
                 $with       = '';
                 $pattern    = '|' . $replace . '|i';
                 $images     = preg_replace($pattern, $with, $images);
@@ -152,7 +152,7 @@ class documentscan {
     
         }
         else {
-            dodebug('niet bereikbaar: outpath_thumbs ' . $outpath_thumbs);
+            dodebug('niet bereikbaar: outpath_thumbs ' . $sourcefiles_thumbs);
         }
 
 

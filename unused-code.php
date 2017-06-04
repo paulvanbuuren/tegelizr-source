@@ -4,12 +4,12 @@
     // ==========================================================================    
     public function get_redirect() {
 
-        global $outpath;
+        global $sourcefiles_tegels;
 
         if ( isset( $_POST['redirect'] ) ||  isset($_GET['redirect'] ) ) {
             $this->desturl            = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/';
 
-            if ( file_exists( $this->filetxt ) &&  file_exists( $outpath . $this->widget_id . '.png' ) ) {
+            if ( file_exists( $this->filetxt ) &&  file_exists( $sourcefiles_tegels . $this->widget_id . '.png' ) ) {
                  $this->desturl .=  TEGELIZR_SELECTOR . '/' . $this->widget_id;
             }
             header('Location: ' . $this->desturl);    
@@ -30,7 +30,7 @@
     public function vote() {
 
         global $userip;
-        global $outpath;
+        global $sourcefiles_tegels;
     
         # Get the value of the vote
         if ( isset( $_POST[TEGELIZR_RATING_VOTE] ) ||  isset($_GET[TEGELIZR_RATING_VOTE] ) ) {
@@ -66,7 +66,7 @@
         if ( isset( $_POST['redirect'] ) ||  isset($_GET['redirect'] ) ) {
             $this->desturl            = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/';
 
-            if ( file_exists( $this->filetxt ) &&  file_exists( $outpath . $this->widget_id . '.png' ) ) {
+            if ( file_exists( $this->filetxt ) &&  file_exists( $sourcefiles_tegels . $this->widget_id . '.png' ) ) {
                  $this->desturl .=  TEGELIZR_SELECTOR . '/' . $this->widget_id;
             }
             header('Location: ' . $this->desturl);    
@@ -80,8 +80,8 @@
 
 function maakoverzichtspagina() {
 
-    global $outpath_thumbs;
-    global $outpath;
+    global $sourcefiles_thumbs;
+    global $sourcefiles_tegels;
     global $path;
     $list = '';
     $tegelcounter = 0;
@@ -89,9 +89,9 @@ function maakoverzichtspagina() {
     $index_html     = $path . TEGELIZR_ALLES . "/index.html";
     $index_txt      = $path . TEGELIZR_ALLES . "/index.txt";
 
-    if (is_dir($outpath_thumbs)) {
+    if (is_dir($sourcefiles_thumbs)) {
 
-        $images = glob($outpath_thumbs . "*.png");
+        $images = glob($sourcefiles_thumbs . "*.png");
         
         rsort($images);
         
@@ -103,8 +103,8 @@ function maakoverzichtspagina() {
             $info           = explode('_', $thumb_filename );
             $time           = explode('-', $info[0] );
 
-            $groot_image    = $outpath . $info[1] . '.png';
-            $groot_txt      = $outpath . $info[1] . '.txt';
+            $groot_image    = $sourcefiles_tegels . $info[1] . '.png';
+            $groot_txt      = $sourcefiles_tegels . $info[1] . '.txt';
             
             // als de grote plaat ook bestaat
             if ( file_exists( $groot_image ) ) {

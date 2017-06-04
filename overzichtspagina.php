@@ -25,8 +25,8 @@ class documentscan {
     
     // ==========================================================================    
     function __construct($wid) {
-        global $outpath_thumbs;
-        global $outpath;
+        global $sourcefiles_thumbs;
+        global $sourcefiles_tegels;
         global $path;
         $list = '';
         $tegelcounter = 0;
@@ -45,7 +45,7 @@ class documentscan {
             $this->data['test']     = $this->test;
             die(json_encode($this->data));
         } 
-        elseif (is_dir($outpath_thumbs)) {
+        elseif (is_dir($sourcefiles_thumbs)) {
 
             if ( $this->huidige && (! ( $this->vorige && $this->volgende ) ) ) {
 
@@ -62,10 +62,10 @@ class documentscan {
                 $info           = explode('_', $this->huidige );
                 $time           = explode('-', $info[0] );
     
-                $this->pngbestand   = $outpath . $info[1] . '.png';
-                $this->txtbestand   = $outpath . $info[1] . '.txt';
+                $this->pngbestand   = $sourcefiles_tegels . $info[1] . '.png';
+                $this->txtbestand   = $sourcefiles_tegels . $info[1] . '.txt';
 
-                $this->thumb        = $outpath_thumbs . $this->huidige . '.png';
+                $this->thumb        = $sourcefiles_thumbs . $this->huidige . '.png';
 
                 if ( file_exists( $this->txtbestand ) &&  file_exists( $this->pngbestand ) ) {
                     
@@ -79,8 +79,8 @@ class documentscan {
                         $time           = explode('-', $info[0] );
             
                         if ( isset( $info[1] )) {
-                            $this->VORIGEPNG   = $outpath . $info[1] . '.png';
-                            $this->VORIGETXT   = $outpath . $info[1] . '.txt';
+                            $this->VORIGEPNG   = $sourcefiles_tegels . $info[1] . '.png';
+                            $this->VORIGETXT   = $sourcefiles_tegels . $info[1] . '.txt';
                             
                             if ( file_exists( $this->VORIGEPNG ) &&  file_exists( $this->VORIGETXT ) ) {
                                 $this->data[TEGELIZR_VORIGE]  = $info[1];
@@ -93,8 +93,8 @@ class documentscan {
             
                         if ( isset( $info[1] )) {
                             
-                            $this->VOLGENDEPNG   = $outpath . $info[1] . '.png';
-                            $this->VOLGENDETXT   = $outpath . $info[1] . '.txt';
+                            $this->VOLGENDEPNG   = $sourcefiles_tegels . $info[1] . '.png';
+                            $this->VOLGENDETXT   = $sourcefiles_tegels . $info[1] . '.txt';
                             
                             if ( file_exists( $this->VOLGENDEPNG ) &&  file_exists( $this->VOLGENDETXT ) ) {
                                 $this->data[TEGELIZR_VOLGENDE]  = $info[1];
@@ -111,8 +111,8 @@ class documentscan {
 
             }
             else {
-                $images     = glob($outpath_thumbs . "*.png");
-                $replace    = $outpath_thumbs;
+                $images     = glob($sourcefiles_thumbs . "*.png");
+                $replace    = $sourcefiles_thumbs;
                 $with       = '';
                 $pattern    = '|' . $replace . '|i';
                 $images     = preg_replace($pattern, $with, $images);
@@ -132,7 +132,7 @@ class documentscan {
     
         }
         else {
-            dodebug('niet bereikbaar: outpath_thumbs ' . $outpath_thumbs);
+            dodebug('niet bereikbaar: outpath_thumbs ' . $sourcefiles_thumbs);
         }
     }
 

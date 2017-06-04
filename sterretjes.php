@@ -36,14 +36,14 @@ class ratings {
     // ==========================================================================    
     function __construct($wid) {
         
-        global $outpath;
+        global $sourcefiles_tegels;
 
         $this->desturl      = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/';
 
         $this->widget_id    = $wid;
-        $this->filetxt      = $outpath . $this->widget_id . '.txt';
+        $this->filetxt      = $sourcefiles_tegels . $this->widget_id . '.txt';
 
-        if ( file_exists( $this->filetxt ) &&  file_exists( $outpath . $this->widget_id . '.png' ) ) {
+        if ( file_exists( $this->filetxt ) &&  file_exists( $sourcefiles_tegels . $this->widget_id . '.png' ) ) {
             
             $all = file_get_contents($this->filetxt);
             
@@ -74,12 +74,12 @@ class ratings {
     // ==========================================================================    
     public function get_redirect() {
 
-        global $outpath;
+        global $sourcefiles_tegels;
 
         if ( isset( $_POST['redirect'] ) ||  isset($_GET['redirect'] ) ) {
             $this->desturl            = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/';
 
-            if ( file_exists( $this->filetxt ) &&  file_exists( $outpath . $this->widget_id . '.png' ) ) {
+            if ( file_exists( $this->filetxt ) &&  file_exists( $sourcefiles_tegels . $this->widget_id . '.png' ) ) {
                  $this->desturl .=  TEGELIZR_SELECTOR . '/' . $this->widget_id;
             }
             header('Location: ' . $this->desturl);    
@@ -100,7 +100,7 @@ class ratings {
     public function vote() {
 
         global $userip;
-        global $outpath;
+        global $sourcefiles_tegels;
     
         # Get the value of the vote
         if ( isset( $_POST[TEGELIZR_RATING_VOTE] ) ||  isset($_GET[TEGELIZR_RATING_VOTE] ) ) {
@@ -136,7 +136,7 @@ class ratings {
         if ( isset( $_POST['redirect'] ) ||  isset($_GET['redirect'] ) ) {
             $this->desturl            = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/';
 
-            if ( file_exists( $this->filetxt ) &&  file_exists( $outpath . $this->widget_id . '.png' ) ) {
+            if ( file_exists( $this->filetxt ) &&  file_exists( $sourcefiles_tegels . $this->widget_id . '.png' ) ) {
                  $this->desturl .=  TEGELIZR_SELECTOR . '/' . $this->widget_id;
             }
             header('Location: ' . $this->desturl);    

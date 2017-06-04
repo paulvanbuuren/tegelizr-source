@@ -25,8 +25,8 @@ class scanfolder {
     
     // ==========================================================================    
     function __construct($wid) {
-        global $outpath_thumbs;
-        global $outpath;
+        global $sourcefiles_thumbs;
+        global $sourcefiles_tegels;
         global $path;
         $list = '';
         $tegelcounter   = 0;
@@ -38,8 +38,8 @@ class scanfolder {
     
 $table = "<html><body><table>";
     
-        $images         = glob($outpath_thumbs . "*.png");
-        $replace        = $outpath_thumbs;
+        $images         = glob($sourcefiles_thumbs . "*.png");
+        $replace        = $sourcefiles_thumbs;
         $with           = '';
         $pattern        = '|' . $replace . '|i';
         $images         = preg_replace($pattern, $with, $images);
@@ -63,8 +63,8 @@ $table .= "<tr><td>";
             $info           = explode('_', $thumb_filename );
             $time           = explode('-', $info[0] );
 
-            $groot_image    = $outpath . $info[1] . '.png';
-            $groot_txt      = $outpath . $info[1] . '.txt';
+            $groot_image    = $sourcefiles_tegels . $info[1] . '.png';
+            $groot_txt      = $sourcefiles_tegels . $info[1] . '.txt';
 
             
             // als de grote plaat ook bestaat
@@ -93,7 +93,7 @@ $table .= "<tr><td>";
                     $errorcounter++;
                     $boom[$thumb_filename]['txt_tegeltekst']         = preg_replace("/[\-]/", " ", filtertext($info[1], true));
         
-                    $correct_txt    = $outpath . $info[1] . '_corrected.txt';
+                    $correct_txt    = $sourcefiles_tegels . $info[1] . '_corrected.txt';
 
                     $fh             = fopen($groot_txt, 'w') or die("can't open file: " . $groot_txt);
                     $stringData     = json_encode($boom[$thumb_filename]);
@@ -143,7 +143,7 @@ $table .= "<td>" . TEGELIZR_VOLGENDE . ":" .  $volgende . "</td>";
             else {
 $table .= '<img src="/' . TEGELIZR_THUMBS . '/' . $image . '.png" height="' . ( TEGELIZR_THUMB_WIDTH / 2 ). '" width="' . ( TEGELIZR_THUMB_WIDTH / 2 ) . '" alt="" /></td>';
 
-        $images         = $outpath_thumbs . $image . ".png";
+        $images         = $sourcefiles_thumbs . $image . ".png";
 
 $table .= '<td colspan="4"><span style="color: red;">Groot image bestaat niet: ' . $images . '</span></td>';
 

@@ -47,6 +47,17 @@ define('rounded_avg',               'tglzr_rounded_avg');
 
 define('TEGELIZR_ZOEK_KNOP',        'zoek');
 
+if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
+  define('TEGELIZR_PROTOCOL',         'https://');
+  define('TEGELIZR_DEBUG',            false );
+}
+else {
+  define('TEGELIZR_PROTOCOL',         'http://');
+
+//  define('TEGELIZR_DEBUG',            false );
+  define('TEGELIZR_DEBUG',            true );
+}
+
 
 define('TEGELIZR_AANTAL_STERREN',   5);
 
@@ -64,10 +75,10 @@ $path               = dirname(__FILE__)."/";
 
 $sourcefolder       = $path."img/";
 $fontpath           = $path."fonts/";
-$outpath            = $path. TEGELIZR_TEGELFOLDER . "/";
-$outpath_thumbs     = $path. TEGELIZR_THUMBS . "/";
-$outpath_thumbs_del = $path. TEGELIZR_DELETED_FILES . "/" . TEGELIZR_THUMBS . "/";
-$outpath_tegel_del  = $path. TEGELIZR_DELETED_FILES . "/" . TEGELIZR_TEGELFOLDER . "/";
+$sourcefiles_tegels            = $path. TEGELIZR_TEGELFOLDER . "/";
+$sourcefiles_thumbs     = $path. TEGELIZR_THUMBS . "/";
+$deletedfiles_thumbs = $path. TEGELIZR_DELETED_FILES . "/" . TEGELIZR_THUMBS . "/";
+$deletedfiles_tegels  = $path. TEGELIZR_DELETED_FILES . "/" . TEGELIZR_TEGELFOLDER . "/";
 $baseimgpath        = $sourcefolder."base.png";
 $zoektegeltje       = '';
 $userip             = 'IP' . md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
@@ -101,7 +112,9 @@ $arrpaginas = array(
 // ===================================================================================================================
 
 function dodebug($text = '') {
-    echo $text . '<br />';
+  if ( TEGELIZR_DEBUG ) {
+    echo $text;
+  }
 }
 // ===================================================================================================================
 
@@ -140,17 +153,17 @@ function filtertext($text = '', $dogeintje = true ) {
 // ===================================================================================================================
 
 function showthumbs($aantal = '10', $hide = '') {
-    global $outpath_thumbs;
-    global $outpath;
+    global $sourcefiles_thumbs;
+    global $sourcefiles_tegels;
 
     echo '<section id="andere"><h2>Wat anderen maakten:</h2>';
     echo '<ul class="thumbs">';
 
     $counter = 0;
 
-    if (is_dir($outpath_thumbs)) {
+    if (is_dir($sourcefiles_thumbs)) {
 
-        $images = glob($outpath_thumbs . "*.png");
+        $images = glob($sourcefiles_thumbs . "*.png");
         
         rsort($images);
         
@@ -164,9 +177,9 @@ function showthumbs($aantal = '10', $hide = '') {
             $stack       = explode('/', $image);
             $filename    = array_pop($stack);
             $info        = explode('_', $filename );
-            if  ( ( file_exists( $outpath.$info[1] . '.txt' ) ) && ( file_exists( $outpath.$info[1] . '.png' ) ) ) {
+            if  ( ( file_exists( $sourcefiles_tegels.$info[1] . '.txt' ) ) && ( file_exists( $sourcefiles_tegels.$info[1] . '.png' ) ) ) {
                 
-                $views       = getviews($outpath.$info[1] . '.txt',false);
+                $views       = getviews($sourcefiles_tegels.$info[1] . '.txt',false);
     
                 if ( $hide == $info[1] ) {
     //                break;
@@ -240,7 +253,7 @@ function wbvb_d2e_socialbuttons($thelink = 'thelink', $thetitle = 'thetitle', $s
 
 // ===================================================================================================================
 function htmlheader() {
-    return '<link href="//wbvb.nl/wp-content/themes/wbvb/style.css" rel="stylesheet" type="text/css"><link href="css/style.css" rel="stylesheet" type="text/css"><link href="css/print.css" rel="stylesheet" type="text/css" media=""></head><body class="nojs">';
+    return '<link href="//wbvb.nl/wp-content/themes/wbvb/style.css" rel="stylesheet" type="text/css"><link href="/css/style.css" rel="stylesheet" type="text/css"><link href="/css/print.css" rel="stylesheet" type="text/css" media=""></head><body class="nojs">';
   
 }
 
@@ -604,7 +617,7 @@ function TheModalWindow() {
 
 // ===================================================================================================================
 function TheForm() {
-    return  ' <form role="form" id="posterform" name="posterform" action="generate.php" method="get" enctype="multipart/form-data">
+    return  ' <form role="form" id="posterform" name="posterform" action="/generate.php" method="get" enctype="multipart/form-data">
     <div class="form-group tekstveld">
       <label for="txt_tegeltekst">Jouw tekst:</label>
       <input type="text" aria-describedby="tekst-tip" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]{1,' . TEGELIZR_TXT_LENGTH . '}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst" required="required" value="' . TEGELIZR_TXT_VALUE . '" maxlength="' . TEGELIZR_TXT_LENGTH . '" size="' . TEGELIZR_TXT_LENGTH . '" autofocus />
