@@ -3,8 +3,9 @@
 // Report all PHP errors
 //error_reporting(-1);
 
-// Same as error_reporting(E_ALL);
-//ini_set('error_reporting', E_ALL);
+// Report all PHP errors (see changelog)
+error_reporting(E_ALL);
+
 
 /* Set locale to Dutch */
 setlocale(LC_ALL, 'nl_NL');
@@ -50,14 +51,42 @@ define('TEGELIZR_ZOEK_KNOP',        'zoek');
 if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
   define('TEGELIZR_PROTOCOL',         'https://');
   define('TEGELIZR_DEBUG',            false );
+
+  // Report no PHP errors
+  error_reporting(0);
+  
+  // Same as error_reporting(E_ALL);
+  ini_set('error_reporting', E_ALL);
+
+  
+}
+elseif ( $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl' ) {
+  define('TEGELIZR_PROTOCOL',         'https://');
+  define('TEGELIZR_DEBUG',            false );
+
+  // Report no PHP errors
+  error_reporting(0);
+  
+  // Same as error_reporting(E_ALL);
+  ini_set('error_reporting', E_ALL);
+
+  
 }
 else {
   define('TEGELIZR_PROTOCOL',         'http://');
 
 //  define('TEGELIZR_DEBUG',            false );
   define('TEGELIZR_DEBUG',            true );
+
+  // Report all PHP errors
+  error_reporting(-1);
+  
+  // Same as error_reporting(E_ALL);
+//  ini_set('error_reporting', E_ALL);
+  
 }
 
+//die('debug: ' . TEGELIZR_DEBUG);
 
 define('TEGELIZR_AANTAL_STERREN',   5);
 
@@ -79,17 +108,17 @@ define('TEGELIZR_JS_SCRIPTERROR',       'Script fout. Maar dat maakt verder niet
 
 
 
-$path               = dirname(__FILE__)."/";
+$path                   = dirname(__FILE__)."/";
 
-$sourcefolder       = $path."img/";
-$fontpath           = $path."fonts/";
-$sourcefiles_tegels            = $path. TEGELIZR_TEGELFOLDER . "/";
+$sourcefolder           = $path."img/";
+$fontpath               = $path."fonts/";
+$sourcefiles_tegels     = $path. TEGELIZR_TEGELFOLDER . "/";
 $sourcefiles_thumbs     = $path. TEGELIZR_THUMBS . "/";
-$deletedfiles_thumbs = $path. TEGELIZR_DELETED_FILES . "/" . TEGELIZR_THUMBS . "/";
-$deletedfiles_tegels  = $path. TEGELIZR_DELETED_FILES . "/" . TEGELIZR_TEGELFOLDER . "/";
-$baseimgpath        = $sourcefolder."base.png";
-$zoektegeltje       = '';
-$userip             = 'IP' . md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
+$deletedfiles_thumbs    = $path. TEGELIZR_DELETED_FILES . "/" . TEGELIZR_THUMBS . "/";
+$deletedfiles_tegels    = $path. TEGELIZR_DELETED_FILES . "/" . TEGELIZR_TEGELFOLDER . "/";
+$baseimgpath            = $sourcefolder."base.png";
+$zoektegeltje           = '';
+$userip                 = 'IP' . md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
 
 
 $arr_sort_by = array(
@@ -129,6 +158,7 @@ function dodebug( $text = '', $doecho = true ) {
     }
   }
 }
+
 // ===================================================================================================================
 
 function filtertext($text = '', $dogeintje = true ) {
@@ -233,21 +263,6 @@ function seoUrl($string) {
     //Convert whitespaces and underscore to dash
     $string = preg_replace("/[\s_]/", "-", $string);
     return $string;
-}
-
-// ===================================================================================================================
-
-
-// ===================================================================================================================
-
-function writedebug($text) {
-    if ( PVB_DEBUG ) {
-        @ini_set('display_errors',1);
-        echo $text . "<br />";
-    }
-    else {
-        @ini_set('display_errors',0);
-    }    
 }
 
 // ===================================================================================================================
@@ -452,18 +467,24 @@ function spitoutfooter() {
 //      1                 // Sets the scope to visitor-level.  Optional parameter.
 // ]); 
 
-    
-    return '
-<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div><div id="footer-about"><h3>Over de site</h3><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">redactie</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">alle tegeltjes</a></li><li><a href="//wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li></ul></div><div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div></footer>
+$analytics = '';
 
-<scri' . "pt>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();
+if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
+$analytics = "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();
 a=s.createElement(o),m=s.getElementsByTagName(o)[0];
 a.async=1;
 a.src=g;
 m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 ga('create', 'UA-1780046-36', 'auto');
 ga('set', 'dimension1', '" . $tijdvandedag . "');
-ga('send', 'pageview');
+ga('send', 'pageview');";
+
+}
+    
+    return '
+<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div><div id="footer-about"><h3>Over de site</h3><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">redactie</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">alle tegeltjes</a></li><li><a href="//wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li></ul></div><div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div></footer>
+
+<scri' . "pt>" . $analytics . "
 
 document.body.className = document.body.className.replace('nojs','dojs');
 
@@ -630,7 +651,7 @@ function TheModalWindow() {
 
 // ===================================================================================================================
 function TheForm() {
-    return  ' <form role="form" id="posterform" name="posterform" action="/generate.php" method="get" enctype="multipart/form-data">
+    return  ' <form role="form" id="posterform" name="posterform" action="/includes/generate.php" method="get" enctype="multipart/form-data">
     <div class="form-group tekstveld">
       <label for="txt_tegeltekst">Jouw tekst:</label>
       <input type="text" aria-describedby="tekst-tip" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]{1,' . TEGELIZR_TXT_LENGTH . '}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst" required="required" value="' . TEGELIZR_TXT_VALUE . '" maxlength="' . TEGELIZR_TXT_LENGTH . '" size="' . TEGELIZR_TXT_LENGTH . '" autofocus />

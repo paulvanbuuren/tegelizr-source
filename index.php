@@ -36,7 +36,8 @@ function wbvb_set_hsts_policy() {
 
 }
 
-include("common.inc.php");     
+
+include("common.inc.php"); 
 
 // ===================================================================================================================
 
@@ -105,12 +106,22 @@ elseif (
     global $zoektegeltje;
     global $path;
 
+    $titel    = 'ZOEKEN is stuk';
+    $desturl  = '';
+    $titeltw  = '';
+    $results  = array();
+
+if ( 22 == 22 ) {
+  echo '<h1 style="background: red; color: white; padding: .2em;">' . $titel . '</h1>';
+} 
+else {
+
     $zoektegeltje = filtertext($_GET[TEGELIZR_ZOEKTERMKEY], false);
 
     $titeltw    = 'Zoek tegeltjes met ' . $zoektegeltje;
     $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ZOEKURL . '/?' . TEGELIZR_ZOEKTERMKEY . '=' . $zoektegeltje;
     
-    
+  
     $obj        = json_decode(file_get_contents($path . TEGELIZR_ALLES . "/index.txt"), true);
     
     $terms      = explode(" ", $zoektegeltje);
@@ -134,6 +145,8 @@ elseif (
     else {
         $titel   = "Niets gevonden voor '" . $zoektegeltje . "'";
     }
+
+}  
     
 
 function sortByOrder($a, $b) {
@@ -277,7 +290,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
     if ( $canvote ) {
     ?>
-    <form role="form" id="star_rating" name="star_rating" action="sterretjes.php" method="get" enctype="multipart/form-data">
+    <form role="form" id="star_rating" name="star_rating" action="/includes/sterretjes.php" method="get" enctype="multipart/form-data">
         <fieldset class="rate_widget">
             <legend class="result"><?php echo $legend ?></legend>
             
@@ -375,7 +388,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
             };
 
             $.post(
-                'sterretjes.php',
+                '/includes/sterretjes.php',
                 out_data,
                 function(INFO) {
                     $( ".result" ).data( 'fsr', INFO );
@@ -396,7 +409,6 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 ?>
 
         var theStiekemeURL = $('.placeholder').attr('href');
-        console.log('dit is de URL: ' + theStiekemeURL);
 
         function ToggleHide(showhide) {
             $('#home').toggle(showhide);
@@ -407,6 +419,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
             $('#star_rating').toggle(showhide);
             $('.social-media').toggle(showhide);
             $('[itemprop="aggregateRating"]').toggle(showhide);
+
             if ( showhide ) {
               // toon de output
               $('.placeholder').attr('href', theStiekemeURL);
@@ -448,6 +461,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
         if ( 22 == 22 ) {
 ?>
 
+            console.log('Check is gestart');
+
         var oppoetsscript = {
             widget_id : $('#progress').attr('id'),
             fetch: 1
@@ -458,7 +473,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
         };
 
         $.post(
-            'tegeltjesoppoetsen.php',
+            '/includes/tegeltjesoppoetsen.php',
             oppoetsscript,
             function(oppoetsscript_out) {
               SetProgress2(widget);
@@ -468,13 +483,15 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
         function SetProgress2(index, vorige, txtfile, volgende) {
             'use strict';
+
+            console.log('SetProgress2.Script is gestart');
         
             var data_in = {
                 gestart: ''
             };
 
             $.post(
-                'tegeltjesoppoetsen.php',
+              '/includes/tegeltjesoppoetsen.php',
                 data_in,
                 function( data_out ) {
                     SetProgress4(data_out);
@@ -486,7 +503,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
 
         function SetProgress4(data_in) {
-
+          console.log('SetProgress4. Data is in');
           if ( data_in.<?php echo TEGELIZR_JS_START_KEY ?> == '<?php echo TEGELIZR_JS_START_MSG ?>' )  {
               $('#progress_now').html( data_in.<?php echo TEGELIZR_JS_START_KEY ?> );
               ToggleHide(true);
@@ -665,7 +682,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
                 widget_id : $(star).parent().attr('id')
             };
             $.post(
-                'sterretjes.php',
+                '/includes/sterretjes.php',
                 clicked_data,
                 function(INFO) {
                     console.log('er is gescoord');                    

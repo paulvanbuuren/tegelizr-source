@@ -1,6 +1,12 @@
 <?php
 
-$outputyesno = false;
+if ( TEGELIZR_DEBUG ) {
+//  $outputyesno = true;
+  $outputyesno = false;
+}
+else {
+  $outputyesno = false;
+}
 
   
 function checkthreefiles( $type = '', $keyfilename = '',  $thumbfilename = '' ) {
@@ -110,6 +116,7 @@ function verbeteralletegelmetadata( $redirect = '' ) {
   global $deletedfiles_thumbs;
   global $deletedfiles_tegels;
   global $path;
+  global $outputyesno;
 
 
   $images         = '';
@@ -223,14 +230,19 @@ function verbeteralletegelmetadata( $redirect = '' ) {
       if($all) {
 
         $huidige        = $thumbs[$loopcounter] . '.png';      
-        $vorige         = $thumbs[$vorigenr];      
-        $volgende       = $thumbs[$volgendenr];      
+        $vorige         = ( isset( $thumbs[$vorigenr] ) ) ? $thumbs[$vorigenr] : '';      
+        $volgende       = ( isset( $thumbs[$volgendenr] ) ) ? $thumbs[$volgendenr] : '';      
 
-        $vorige         = explode('_', $thumbs[$vorigenr] );
-        $vorige         = $vorige[1];
+        if ( $vorige ) {
+          $vorige         = explode('_', $vorige );
+          $vorige         = $vorige[1];
+        }
 
-        $volgende       = explode('_', $thumbs[$volgendenr] );
-        $volgende       = $volgende[1];
+        if ( $volgende ) {
+          $volgende       = explode('_', $volgende );
+          $volgende       = $volgende[1];
+        }
+
 
         dodebug('<li><strong>' . $huidige . '</strong> (' . $loopcounter . ')<ul><li>vorige: ' . $vorige . '</li><li>volgende: ' . $volgende . '</ul></li>', $outputyesno );
       
@@ -271,6 +283,53 @@ function verbeteralletegelmetadata( $redirect = '' ) {
     return true;
     
 
+  }
+  else {
+
+    dodebug('Een folderprobleem.<br>', $outputyesno );    
+    
+    if ( ! is_dir($sourcefiles_thumbs) ) {
+      if (!mkdir($sourcefiles_thumbs, 0777, true)) {
+        die('Kon folder niet aanmaken: ' . $sourcefiles_thumbs);
+      }
+      else {
+      }
+    }
+    else {
+    }
+    
+    if ( ! is_dir($sourcefiles_tegels) ) {
+      if (!mkdir($sourcefiles_tegels, 0777, true)) {
+        die('Kon folder niet aanmaken: ' . $sourcefiles_tegels);
+      }
+      else {
+      }
+    }
+    else {
+    }
+    
+    if ( ! is_dir($deletedfiles_thumbs) ) {
+      if (!mkdir($deletedfiles_thumbs, 0777, true)) {
+        die('Kon folder niet aanmaken: ' . $deletedfiles_thumbs);
+      }
+      else {
+      }
+    }
+    else {
+    }
+    
+    if ( ! is_dir($deletedfiles_tegels) ) {
+      if (!mkdir($deletedfiles_tegels, 0777, true)) {
+        die('Kon folder niet aanmaken: ' . $deletedfiles_tegels);
+      }
+      else {
+      }
+    }
+    else {
+    }
+    
+
+    return false;
   }
 
   

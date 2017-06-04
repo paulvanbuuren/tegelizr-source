@@ -1,8 +1,8 @@
 <?php
 
-include("common.inc.php"); 
-include("includes/filecheck.inc.php"); 
-include("includes/blur.php"); 
+include("../common.inc.php"); 
+include("filecheck.inc.php"); 
+include("blur.inc.php"); 
 
 
 // ===================================================================================================================
