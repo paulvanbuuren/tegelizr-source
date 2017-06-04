@@ -1,6 +1,7 @@
-<?
+<?php
 
 include("common.inc.php"); 
+include("includes/filecheck.inc.php"); 
 include("includes/blur.php"); 
 
 
@@ -13,7 +14,13 @@ if (empty($_GET['txt_tegeltekst']))
 // ===================================================================================================================
 
 // opschonen
-$text                = filtertext($_GET['txt_tegeltekst']);
+
+if ( TEGELIZR_DEBUG && ( 22 == 33 ) ) {
+$text                = filtertext( $_GET['txt_tegeltekst'] . ' ' . date("Y") . "-" . date("m") . "-" . date("d") . "-" . date("H") . "-" . date("i") . "-" . date("s") );
+}
+else {
+  $text               = filtertext( $_GET['txt_tegeltekst'] );
+}
 
 // zorgen dat er per unieke tekst maar 1 uniek plaatje aangemaakt wordt
 $hashname           = seoUrl( $text );
@@ -22,13 +29,13 @@ $filename           = $hashname . ".png";
 $filename_klein     = $hashname . "_thumb.png";
 
 // output path voor grote tegel
-$destimagepath      = $outpath.$filename;
+$destimagepath      = $sourcefiles_tegels.$filename;
 
 // en dat tekstbestand erbij
-$desttextpath       = $outpath.$hashname . ".txt";
+$desttextpath       = $sourcefiles_tegels.$hashname . ".txt";
 
 // output path voor kleine thumbnail tegel
-$destimagepath_klein= $outpath_thumbs.date("Y") . "-" . date("m") . "-" . date("d") . "-" . date("H") . "-" . date("i") . "-" . date("s") . "_" . $filename_klein;
+$destimagepath_klein= $sourcefiles_thumbs.date("Y") . "-" . date("m") . "-" . date("d") . "-" . date("H") . "-" . date("i") . "-" . date("s") . "_" . $filename_klein;
 
 $desturl            = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $hashname;
 $imagesource        = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . "/" . TEGELIZR_TEGELFOLDER . "/".$filename;
@@ -37,7 +44,7 @@ $imagesource        = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . "/" . TEGELIZR
 // ===================================================================================================================
 
 // als het bestand niet bestaat
-if (!file_exists($outpath.$filename)) {
+if ( !file_exists( $destimagepath ) &&  !file_exists( $desttextpath ) &&  !file_exists( $destimagepath_klein ) ) {
 
     // base image importeren
     $img            = imagecreatefrompng($baseimgpath);
@@ -208,26 +215,56 @@ if (!file_exists($outpath.$filename)) {
 
     resize(TEGELIZR_THUMB_WIDTH,$destimagepath_klein,$destimagepath);
 
-	$titel                = filtertext($_GET['txt_tegeltekst']);
+  	$titel                = filtertext($_GET['txt_tegeltekst']);
 
     $mailcontent = "Tekst: \n" .  $_GET['txt_tegeltekst'] ."\n";
     $mailcontent .= "URL: \n";
     
     $mailcontent .= $desturl;
     mail("vanbuuren@gmail.com", "Tegelizr : " . $titel, $mailcontent, "From: paul@wbvb.nl");
-    
-    // doorsturen naar pagina met het aangemaakte image
-    header('Location: ' . $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE);    
 
+//  $sourcefiles_tegels            = $path. TEGELIZR_TEGELFOLDER . "/";
+//  $sourcefiles_thumbs     = $path. TEGELIZR_THUMBS . "/";
+
+    $destimagepath2       = linkbakker( $destimagepath, $path );
+    $desttextpath2        = linkbakker( $desttextpath, $path );
+    $destimagepath_klein2 = linkbakker( $destimagepath_klein, $path );
+    
+
+//  dodebug('case 1: deze bestaat niet: <ul><li>' . $destimagepath2 . '</li><li>' . $desttextpath2 . '</li><li>' . $destimagepath_klein2 . ')</li></ul>');
+  
+  cleanfolder( $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE);
+//  die( $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE );
+  
 }
 else {
+  
+  dodebug('bestaat wel: ' . $destimagepath . '<br>');
+  
 
-    // doorsturen naar pagina met het bestaande image
-    header('Location: ' . $desturl);    
+  cleanfolder( $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE);
+  
+  die('case 2: ' . $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE );
 
 }
 
 
+
+function linkbakker( $textstring = '',  $filter = ''  ) {
+
+  $with           = '/';
+  $pattern        = '|' . $filter . '|i';
+  $url         = preg_replace($pattern, $with, $textstring);
+
+  $with           = '';
+  $pattern        = '|' . $filter . '|i';
+  $textstring   = preg_replace($pattern, $with, $textstring);
+
+
+  $stroutput = '<a href="' . $url . '">' . $textstring . '</a>';
+  return $stroutput;
+
+}
 
 function calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height) {
     
