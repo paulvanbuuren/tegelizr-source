@@ -66,4 +66,6 @@ version:  6.0.0
 * paging voor ALLE tegeltjes-pagina?
 * Zou het niet handiger zijn om een folder /tegeltjes/ te hebben?
 * Vertaal de strings voor wordsofwisdomtile.com / tegelizr.nl
+* mogelijkheid om breaks te gebruiken
+* automatische compressie van de PNGs op de server
 
