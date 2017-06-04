@@ -1,5 +1,18 @@
 <?php 
 
+///
+// Tegelizr - common.inc.php
+// ----------------------------------------------------------------------------------
+// constanten en functies
+// ----------------------------------------------------------------------------------
+// @author  Paul van Buuren
+// @license GPL-2.0+
+// @version 7.0.0
+// @desc.   Filecheck aangepast. Navigatie retour. Wachtanimatie toegevoegd.
+// @link    https://github.com/paulvanbuuren/tegelizr-source
+///
+
+
 // Report all PHP errors
 //error_reporting(-1);
 
@@ -105,6 +118,7 @@ define('TEGELIZR_JS_START_MSG',         'Ja, ik ben klaar');
 define('TEGELIZR_JS_BUSY_MSG',          'Even geduld nog.<br />Je tegeltje is bijna klaar.');
 define('TEGELIZR_JS_BUSY_MSG_HEADER',   'Momentje');
 define('TEGELIZR_JS_SCRIPTERROR',       'Script fout. Maar dat maakt verder niet uit. Veel plezier met je tegel!');
+define('TEGELIZR_JS_NAV_NEXTKEY',       'navnext');
 
 
 
@@ -281,7 +295,13 @@ function wbvb_d2e_socialbuttons($thelink = 'thelink', $thetitle = 'thetitle', $s
 
 // ===================================================================================================================
 function htmlheader() {
-    return '<link href="//wbvb.nl/wp-content/themes/wbvb/style.css" rel="stylesheet" type="text/css"><link href="/css/style.css" rel="stylesheet" type="text/css"><link href="/css/print.css" rel="stylesheet" type="text/css" media=""></head><body class="nojs">';
+    return '
+    <link href="//wbvb.nl/wp-content/themes/wbvb/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css?asdf" rel="stylesheet" type="text/css">
+    <link href="/css/spinner.css?asdf" rel="stylesheet" type="text/css">
+    <link href="/css/print.css" rel="stylesheet" type="text/css" media="">
+    </head>
+    <body class="nojs">';
   
 }
 

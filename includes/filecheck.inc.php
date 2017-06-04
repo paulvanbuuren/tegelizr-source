@@ -1,5 +1,18 @@
 <?php
 
+///
+// Tegelizr - filecheck.inc.php
+// ----------------------------------------------------------------------------------
+// checkt de thumbs en tegeltjes op consistentie
+// ----------------------------------------------------------------------------------
+// @author  Paul van Buuren
+// @license GPL-2.0+
+// @version 7.0.0
+// @desc.   Filecheck aangepast. Navigatie retour. Wachtanimatie toegevoegd.
+// @link    https://github.com/paulvanbuuren/tegelizr-source
+///
+
+
 if ( TEGELIZR_DEBUG ) {
 //  $outputyesno = true;
   $outputyesno = false;
@@ -210,6 +223,9 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 
     dodebug('<h1>Vorige en volgende</h1><ul>', $outputyesno );    
 
+$returnfirst_titel  = '';
+$returnfirst_url    = '';
+
     foreach( $thumbs as $thethumb) {
 
       
@@ -244,6 +260,8 @@ function verbeteralletegelmetadata( $redirect = '' ) {
         }
 
 
+
+
         dodebug('<li><strong>' . $huidige . '</strong> (' . $loopcounter . ')<ul><li>vorige: ' . $vorige . '</li><li>volgende: ' . $volgende . '</ul></li>', $outputyesno );
       
         $all['file_thumb']        = $huidige;
@@ -265,6 +283,11 @@ function verbeteralletegelmetadata( $redirect = '' ) {
           $all['volgende_titel']    = isset($volgende_views['txt_tegeltekst']) ? $volgende_views['txt_tegeltekst'] : $volgende;
         }
 
+        if ( 0 == $loopcounter ) {
+          $returnfirst_titel  = $all['volgende_titel'];
+          $returnfirst_url    = $all['volgende'];
+        }
+
         $all['laatst_bijgewerkt']   = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
 
       
@@ -280,7 +303,17 @@ function verbeteralletegelmetadata( $redirect = '' ) {
     
     dodebug('</ul>', $outputyesno );    
 
-    return true;
+    $returnarray = array();
+    
+
+    $returnarray[TEGELIZR_JS_NAV_NEXTKEY]   = '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $returnfirst_url . '" title="Bekijk \'' . $returnfirst_titel . '\'">' . $returnfirst_titel . '<span class="pijl">&#10157;</span></a>';
+  
+
+
+  
+
+
+    return $returnarray;
     
 
   }
@@ -291,6 +324,7 @@ function verbeteralletegelmetadata( $redirect = '' ) {
     if ( ! is_dir($sourcefiles_thumbs) ) {
       if (!mkdir($sourcefiles_thumbs, 0777, true)) {
         die('Kon folder niet aanmaken: ' . $sourcefiles_thumbs);
+        return false;
       }
       else {
       }

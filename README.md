@@ -5,7 +5,7 @@ Correct me if I'm wrong. Copy me if I'm right.
 ## Tegelizr.nl
 author:    Paul van Buuren
 
-version:  6.0.0 
+version:  7.0.0 
 
 ## contact:                    
 * ([paul@wbvb.nl](paul@wbvb.nl))
@@ -13,6 +13,7 @@ version:  6.0.0
 * Twitter: [@paulvanbuuren](https://twitter.com/paulvanbuuren/)
 
 ## Versions
+* 7.0.0 - Filecheck aangepast. Navigatie retour. Wachtanimatie toegevoegd.
 * 6.0.0 - Geklungel met zoeken vanuit de adresbalk in Chrome
 * 5.3.2 - GA-tracking gecorrigeerd
 * 5.3.1 - GA-tracking gecorrigeerd

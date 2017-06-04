@@ -1,5 +1,18 @@
 <?php
 
+///
+// Tegelizr - generate.php
+// ----------------------------------------------------------------------------------
+// maakt tegeltjes aan
+// ----------------------------------------------------------------------------------
+// @author  Paul van Buuren
+// @license GPL-2.0+
+// @version 7.0.0
+// @desc.   Filecheck aangepast. Navigatie retour. Wachtanimatie toegevoegd.
+// @link    https://github.com/paulvanbuuren/tegelizr-source
+///
+
+
 include("../common.inc.php"); 
 include("filecheck.inc.php"); 
 include("blur.inc.php"); 

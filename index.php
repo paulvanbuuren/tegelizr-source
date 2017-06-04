@@ -1,14 +1,16 @@
 <?php
 
-// ===================================================================================================================
-// 
-//    Tegelizr.nl
-//    author:                     Paul van Buuren
-//    contact:                    paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
-//    version:                    6.0.0
-//    version description:        Geklungel met zoeken vanuit de adresbalk in Chrome
-
-// ===================================================================================================================
+///
+// Tegelizr - index.php
+// ----------------------------------------------------------------------------------
+// geeft de tegeltjes weer in diverse verschijningsvormen. Hoofdscript.
+// ----------------------------------------------------------------------------------
+// @author  Paul van Buuren
+// @license GPL-2.0+
+// @version 7.0.0
+// @desc.   Filecheck aangepast. Navigatie retour. Wachtanimatie toegevoegd.
+// @link    https://github.com/paulvanbuuren/tegelizr-source
+///
 
 
 wbvb_set_hsts_policy();
@@ -257,14 +259,13 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
     <h2 itemprop="name"><?php echo $txt_tegeltekst ?></h2>
 
 <?php
-    if ( (isset($views[TEGELIZR_VORIGE])) || (isset($views[TEGELIZR_VOLGENDE])) ) {
+  echo '<nav id="navnextprev">';
 
-        echo '<nav>';
-        echo isset($views[TEGELIZR_VORIGE]) ? '<a class="vorige" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VORIGE] . '" title="Bekijk \'' . $views[TEGELIZR_VORIGE_TITEL] . '\'"><span class="pijl">&#10158;</span>' . $views[TEGELIZR_VORIGE_TITEL] . '</a>' : '';
-        echo  isset($views[TEGELIZR_VOLGENDE])  ? '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VOLGENDE] . '" title="Bekijk \'' . $views[TEGELIZR_VOLGENDE_TITEL] . '\'">' . $views[TEGELIZR_VOLGENDE_TITEL] . '<span class="pijl">&#10157;</span></a>' : '';
-        
-        echo '</nav> ';
-    }
+  if ( (isset($views[TEGELIZR_VORIGE])) || (isset($views[TEGELIZR_VOLGENDE])) ) {
+    echo isset($views[TEGELIZR_VORIGE]) ? '<a class="vorige" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VORIGE] . '" title="Bekijk \'' . $views[TEGELIZR_VORIGE_TITEL] . '\'"><span class="pijl">&#10158;</span>' . $views[TEGELIZR_VORIGE_TITEL] . '</a>' : '';
+    echo  isset($views[TEGELIZR_VOLGENDE])  ? '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[TEGELIZR_VOLGENDE] . '" title="Bekijk \'' . $views[TEGELIZR_VOLGENDE_TITEL] . '\'">' . $views[TEGELIZR_VOLGENDE_TITEL] . '<span class="pijl">&#10157;</span></a>' : '';
+  }
+  echo '&nbsp;</nav>';
 ?>    
 
     <ul itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
@@ -421,6 +422,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
             $('[itemprop="aggregateRating"]').toggle(showhide);
 
             if ( showhide ) {
+
               // toon de output
               $('.placeholder').attr('href', theStiekemeURL);
               $('#top a').attr('href','/' );
@@ -433,6 +435,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
             }
             else {
+              
               // toon de placeholder
               $('.placeholder').removeAttr('href');
               $('#top a').removeAttr('href');
@@ -440,6 +443,9 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
               
                 $('.placeholder').addClass('momentje');
                 $('.placeholder').append('<div id="momentje" class="momentje"><h3><?php echo TEGELIZR_JS_BUSY_MSG_HEADER ?></h3><p><?php echo TEGELIZR_JS_BUSY_MSG ?></p></div>');
+                $('#momentje').append('<div id="progress_spinner"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div><div class="bounce4"></div></div></div>');
+
+
 
             }
         }
@@ -506,6 +512,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
           console.log('SetProgress4. Data is in');
           if ( data_in.<?php echo TEGELIZR_JS_START_KEY ?> == '<?php echo TEGELIZR_JS_START_MSG ?>' )  {
               $('#progress_now').html( data_in.<?php echo TEGELIZR_JS_START_KEY ?> );
+              $('#navnextprev').html( data_in.<?php echo TEGELIZR_JS_NAV_NEXTKEY ?> );
               ToggleHide(true);
           }
           else {
