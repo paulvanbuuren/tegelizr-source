@@ -26,7 +26,6 @@ define('TEGELIZR_THUMB_WIDTH',      220);
 define('TEGELIZR_BLUR',             2);
 define('TEGELIZR_TXT_VALUE',        '');
 define('TEGELIZR_SELECTOR',         'tegeltje');
-define('TEGELIZR_PROTOCOL',         'http://');
 define('TEGELIZR_SUMMARY',          'Maak hier je eigen tegeltje. Een geintje van Paul van Buuren, van WBVB Rotterdam.');
 define('TEGELIZR_THUMBS',           'thumbs');
 define('TEGELIZR_DELETED_FILES',    'deleted_files');

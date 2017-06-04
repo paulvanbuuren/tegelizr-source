@@ -9,8 +9,39 @@
 
 // ===================================================================================================================
 
-include("common.inc.php"); 
-    
+
+wbvb_set_hsts_policy();
+
+/**
+ * Enables the HTTP Strict Transport Security (HSTS) header.
+ *
+ * @since 1.0.0
+ */
+function wbvb_set_hsts_policy() {
+
+  if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
+
+    define('TEGELIZR_PROTOCOL',         'https://');
+
+    if($_SERVER["HTTPS"] != "on") {
+        header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+        exit();
+    }
+   
+    // 2 year expiration: 63072000
+    header( 'Strict-Transport-Security: max-age=63072000; includeSubDomains; preload' );
+  
+  }
+  else {
+    define('TEGELIZR_PROTOCOL',         'https://');
+  }
+
+}
+
+include("common.inc.php");     
+
+// ===================================================================================================================
+
 echo spitoutheader();
 
 // ===================================================================================================================
@@ -165,8 +196,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 
     global $userip;
     
-    $desturl        = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2];
-    $imagesource    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_TEGELFOLDER . '/' . $filename;
+    $desturl        = '//' . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2];
+    $imagesource    = '//' . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_TEGELFOLDER . '/' . $filename;
     $views          = getviews($outpath.$desttextpath,true);
     $txt_tegeltekst = isset($views['txt_tegeltekst']) ? filtertext($views['txt_tegeltekst'], true) : '';
 
