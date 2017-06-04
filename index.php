@@ -5,7 +5,8 @@
 //    Tegelizr.nl
 //    author:                     Paul van Buuren
 //    contact:                    paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
-//    version:                    3.0
+//    version:                    6.0.0
+//    version description:        Geklungel met zoeken vanuit de adresbalk in Chrome
 
 // ===================================================================================================================
 
