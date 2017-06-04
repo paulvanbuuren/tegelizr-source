@@ -34,8 +34,8 @@ define('TEGELIZR_TEGELFOLDER',      'tegeltjes');
 define('TEGELIZR_ALLES',            'alle-tegeltjes');
 define('TEGELIZR_REDACTIE',         'redactie');
 define('TEGELIZR_DEFAULT_IMAGE',    '//wbvb.nl/images/kiezen-is-een-keuze.jpg');
-define('TEGELIZR_ZOEKEN',           'zoeken');
-define('TEGELIZR_ZOEKTERM',         'zoektegeltje');
+define('TEGELIZR_ZOEKURL',           'zoeken');
+define('TEGELIZR_ZOEKTERMKEY',       'q');
 define('TEGELIZR_TRIGGER_KEY',      'pasop');
 define('TEGELIZR_TRIGGER_VALUE',    'heet');
 define('TGLZR_TOTAL_POINTS',        'tglzr_TGLZR_TOTAL_POINTS');
@@ -372,19 +372,19 @@ function includejs() {
 function spitoutfooter() {
     global $zoektegeltje;
     
-    $form = '<a href="#top" id="totop">Bovenkant</a><a href="#' . TEGELIZR_ZOEKTERM . '" id="tomenu">Menu</a><form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/" role="search">
-    <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?zoektegeltje={s}">
-    <label for="' . TEGELIZR_ZOEKTERM . '">Zoek een tegel</label>
-    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '" id="' . TEGELIZR_ZOEKTERM . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
+    $form = '<a href="#top" id="totop">Bovenkant</a><a href="#' . TEGELIZR_ZOEKTERMKEY . '" id="tomenu">Menu</a><form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/" role="search">
+    <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/?' . TEGELIZR_ZOEKTERMKEY . '={s}">
+    <label for="' . TEGELIZR_ZOEKTERMKEY . '">Zoek een tegel</label>
+    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERMKEY . '" id="' . TEGELIZR_ZOEKTERMKEY . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
     <input type="submit" value="Search">
 </form>';
 
 
-    $form = '<a href="#top" id="totop">Bovenkant</a><a href="#' . TEGELIZR_ZOEKTERM . '" id="tomenu">Menu</a><div itemscope itemtype="http://schema.org/WebSite">
-  <meta itemprop="url" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/"/>
+    $form = '<a href="#top" id="totop">Bovenkant</a><a href="#' . TEGELIZR_ZOEKTERMKEY . '" id="tomenu">Menu</a><div itemscope itemtype="http://schema.org/WebSite">
+  <meta itemprop="url" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/"/>
   <form itemprop="potentialAction" class="search-form" itemscope itemtype="http://schema.org/SearchAction">
-    <meta itemprop="target" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?q={' . TEGELIZR_ZOEKTERM . '}"/>
-    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '"  id="' . TEGELIZR_ZOEKTERM . '" value="' . $zoektegeltje . '" placeholder="zoekterm" required/>
+    <meta itemprop="target" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/?q={' . TEGELIZR_ZOEKTERMKEY . '}"/>
+    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERMKEY . '"  id="' . TEGELIZR_ZOEKTERMKEY . '" value="' . $zoektegeltje . '" placeholder="zoekterm" required/>
     <input type="submit" value="' . TEGELIZR_ZOEK_KNOP . '">
   </form>
 </div>';

@@ -42,22 +42,28 @@ include("common.inc.php");
 
 // ===================================================================================================================
 
-echo spitoutheader();
-
-// ===================================================================================================================
-// check of er gevraagd wordt om een tegeltje
-// de sleutel is TEGELIZR_SELECTOR 
 $url            = $_SERVER['REQUEST_URI'];
 $zinnen         = explode('/', parse_url($url, PHP_URL_PATH));
 $filename       = '';
 $desttextpath   = '';
 $tekststring    = 'tegel tegeltje tegeltjeswijsheden';
-    
+$afgevangenzoekstring = '';
+
 if ( isset( $zinnen[2] ) ) {
     $filename       = $zinnen[2] . ".png";
     $fileid         = $zinnen[2];
     $desttextpath   = $zinnen[2] . ".txt";
 }
+
+if ( $zinnen[1] == TEGELIZR_SELECTOR ) {
+ if ( ! file_exists( $outpath.$filename ) ) {
+   $afgevangenzoekstring = $zinnen[2];
+ }
+}
+
+// ===================================================================================================================
+
+echo spitoutheader();
 
 // ===================================================================================================================
 // er wordt gevraagd om de tekst over hoe ik alle tegeltjes stuk mag maken
@@ -91,17 +97,20 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
 
 }
 // ===================================================================================================================
-// er wordt gevraagd om alle tegeltjes
+// er wordt gevraagd om te zoeken
 // ===================================================================================================================
-elseif ( ( isset( $_GET[TEGELIZR_ZOEKTERM] ) ) && ( filtertext($_GET[TEGELIZR_ZOEKTERM], false) !== '' ) ) {
+elseif ( 
+  ( $afgevangenzoekstring ) ||  
+  ( ( isset( $_GET[TEGELIZR_ZOEKTERMKEY] ) ) && ( filtertext($_GET[TEGELIZR_ZOEKTERMKEY], false) !== '' ) ) 
+  ) {
 
     global $zoektegeltje;
     global $path;
 
-    $zoektegeltje = filtertext($_GET[TEGELIZR_ZOEKTERM], false);
+    $zoektegeltje = filtertext($_GET[TEGELIZR_ZOEKTERMKEY], false);
 
     $titeltw    = 'Zoek tegeltjes met ' . $zoektegeltje;
-    $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ZOEKEN . '/?' . TEGELIZR_ZOEKTERM . '=' . $zoektegeltje;
+    $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ZOEKURL . '/?' . TEGELIZR_ZOEKTERMKEY . '=' . $zoektegeltje;
     
     
     $obj        = json_decode(file_get_contents($path . TEGELIZR_ALLES . "/index.txt"), true);
@@ -164,10 +173,10 @@ function sortByOrder($a, $b) {
         echo '<p>Geen tegeltjes gevonden</p>';
     }
 
-    echo '<form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/" role="search">
-    <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKEN . '/?zoektegeltje={s}">
-    <label for="' . TEGELIZR_ZOEKTERM . '">Zoek opnieuw</label>
-    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERM . '" id="' . TEGELIZR_ZOEKTERM . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
+    echo '<form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/" role="search">
+    <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/?zoektegeltje={s}">
+    <label for="' . TEGELIZR_ZOEKTERMKEY . '">Zoek opnieuw</label>
+    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERMKEY . '" id="' . TEGELIZR_ZOEKTERMKEY . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
     <input type="submit" value="Search">
 </form>';        
 
