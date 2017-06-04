@@ -9,8 +9,8 @@ version:  6.0.0
 
 ## contact:                    
 * ([paul@wbvb.nl](paul@wbvb.nl))
-* Contact: ([wbvb.nl/contact](https://wbvb.nl/contact/))
-* Twitter: ([@paulvanbuuren](https://twitter.com/paulvanbuuren/))
+* Contact: [wbvb.nl/contact](https://wbvb.nl/contact/)
+* Twitter: [@paulvanbuuren](https://twitter.com/paulvanbuuren/)
 
 ## Versions
 * 6.0.0 - Geklungel met zoeken vanuit de adresbalk in Chrome
