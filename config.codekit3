@@ -63,46 +63,6 @@
 		"oAP": "\/common.inc.php",
 		"oF": 0
 		},
-	"\/css\/bootstrap-theme.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/css\/bootstrap-theme-min.css",
-		"oF": 0,
-		"oS": 0
-		},
-	"\/css\/bootstrap-theme.min.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/css\/bootstrap-theme.min-min.css",
-		"oF": 0,
-		"oS": 0
-		},
-	"\/css\/bootstrap.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/css\/bootstrap-min.css",
-		"oF": 0,
-		"oS": 0
-		},
-	"\/css\/bootstrap.min.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/css\/bootstrap.min-min.css",
-		"oF": 0,
-		"oS": 0
-		},
 	"\/css\/extra.css": {
 		"aP": 1,
 		"bl": 0,
@@ -153,6 +113,12 @@
 		"oF": 0,
 		"oS": 0
 		},
+	"\/css\/stylesheet.css.map": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/css\/stylesheet.css.map",
+		"oF": 0
+		},
 	"\/css\/wbvb.css": {
 		"aP": 1,
 		"bl": 0,
@@ -162,6 +128,12 @@
 		"oAP": "\/css\/wbvb-min.css",
 		"oF": 0,
 		"oS": 0
+		},
+	"\/deleted_files\/Archive.zip": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/deleted_files\/Archive.zip",
+		"oF": 0
 		},
 	"\/deleted_files\/tegeltjes\/-----------200-ok---------------------------------.png": {
 		"ft": 32768,
@@ -22399,6 +22371,12 @@
 		"oAP": "\/fonts\/webfontkit-20150828-172324.zip",
 		"oF": 0
 		},
+	"\/generate.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/generate.php",
+		"oF": 0
+		},
 	"\/google07c653d0eb7815ba.html": {
 		"ft": 8192,
 		"oA": 0,
@@ -22504,23 +22482,11 @@
 		"oAP": "\/index.php",
 		"oF": 0
 		},
-	"\/js\/bootstrap.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/js\/min\/bootstrap-min.js",
-		"oF": 0,
-		"sC": 1,
-		"tS": 0
-		},
-	"\/js\/bootstrap.min.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/js\/min\/bootstrap.min-min.js",
-		"oF": 0,
-		"sC": 1,
-		"tS": 0
+	"\/js.zip": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/js.zip",
+		"oF": 0
 		},
 	"\/lala.html": {
 		"ft": 8192,
@@ -22631,13 +22597,13 @@
 		"sU": 0
 		},
 	"\/less\/stylesheet.less": {
-		"aP": 0,
-		"bl": 0,
+		"aP": 1,
+		"bl": 1,
 		"dJ": 0,
 		"ft": 1,
 		"ie": 1,
 		"iI": 0,
-		"ma": 0,
+		"ma": 1,
 		"oA": 0,
 		"oAP": "\/css\/stylesheet.css",
 		"oF": 0,
