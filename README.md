@@ -54,3 +54,16 @@ version:  6.0.0
 * 1.2 - URL gecorrigeerd voor deelknoppen op default pagina
 * 1.1 - File clean up
 * 1.0 - First checkin
+
+## Must do:
+* in txt alleen relatieve URL voor thumb opslaan. Niet de volledige filename met serverfolder. 
+* pagina voor alle tegeltjes bijwerken
+
+## To do:
+* Mogelijkheid een tegeltje te verwijderen als mislukt. Deze keuze direct na genereren
+* Zoeken vanuit de adresbalk foutloos. Niet laten doorschieten naar genereren van een tegeltje
+* paging voor thumbnailoverzicht
+* paging voor ALLE tegeltjes-pagina?
+* Zou het niet handiger zijn om een folder /tegeltjes/ te hebben?
+* Vertaal de strings voor wordsofwisdomtile.com / tegelizr.nl
+
