@@ -223,29 +223,18 @@ if ( !file_exists( $destimagepath ) &&  !file_exists( $desttextpath ) &&  !file_
     $mailcontent .= $desturl;
     mail("vanbuuren@gmail.com", "Tegelizr : " . $titel, $mailcontent, "From: paul@wbvb.nl");
 
-//  $sourcefiles_tegels            = $path. TEGELIZR_TEGELFOLDER . "/";
-//  $sourcefiles_thumbs     = $path. TEGELIZR_THUMBS . "/";
-
     $destimagepath2       = linkbakker( $destimagepath, $path );
     $desttextpath2        = linkbakker( $desttextpath, $path );
     $destimagepath_klein2 = linkbakker( $destimagepath_klein, $path );
     
 
-//  dodebug('case 1: deze bestaat niet: <ul><li>' . $destimagepath2 . '</li><li>' . $desttextpath2 . '</li><li>' . $destimagepath_klein2 . ')</li></ul>');
-  
-  cleanfolder( $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE);
-//  die( $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE );
-  
+    redirect_naar_verbetermetadatascript( $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE);
+
 }
 else {
-  
-  dodebug('bestaat wel: ' . $destimagepath . '<br>');
-  
 
-  cleanfolder( $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE);
+  redirect_naar_verbetermetadatascript( $desturl );
   
-  die('case 2: ' . $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE );
-
 }
 
 

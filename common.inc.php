@@ -71,6 +71,14 @@ define('TEGELIZR_VOLGENDE_TITEL',   'volgende_titel');
 define('TEGELIZR_VORIGE',           'vorige');
 define('TEGELIZR_VORIGE_TITEL',     'vorige_titel');
 
+define('TEGELIZR_JS_START_KEY',         'js_start_key');
+define('TEGELIZR_JS_START_MSG',         'Ja, ik ben klaar');
+define('TEGELIZR_JS_BUSY_MSG',          'Even geduld nog.<br />Je tegeltje is bijna klaar.');
+define('TEGELIZR_JS_BUSY_MSG_HEADER',   'Momentje');
+define('TEGELIZR_JS_SCRIPTERROR',       'Script fout. Maar dat maakt verder niet uit. Veel plezier met je tegel!');
+
+
+
 $path               = dirname(__FILE__)."/";
 
 $sourcefolder       = $path."img/";
@@ -111,9 +119,14 @@ $arrpaginas = array(
 
 // ===================================================================================================================
 
-function dodebug($text = '') {
-  if ( TEGELIZR_DEBUG ) {
-    echo $text;
+function dodebug( $text = '', $doecho = true ) {
+  if ( TEGELIZR_DEBUG && $text ) {
+    if ( $doecho ) {
+      echo $text;
+    }
+    else {
+      return $text;
+    }
   }
 }
 // ===================================================================================================================

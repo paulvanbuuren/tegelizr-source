@@ -237,7 +237,6 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
     <a href="<?php echo htmlspecialchars($desturl)?>" class="placeholder"><img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje"  itemprop="contentUrl" width="584" height="584" /><?php
     if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
-//        echo '<p id="progress_now">&nbsp;</p><div id="progress">&nbsp;</div><div id="progress_bar"><div>&nbsp;</div></div>';
         echo '<p id="progress_now">&nbsp;</p><div id="progress">&nbsp;</div>';
     }    
 ?></a>
@@ -393,8 +392,44 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
 
     if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
-        
-        ?>
+
+?>
+
+        var theStiekemeURL = $('.placeholder').attr('href');
+        console.log('dit is de URL: ' + theStiekemeURL);
+
+        function ToggleHide(showhide) {
+            $('#home').toggle(showhide);
+            $('#andere').toggle(showhide);
+            $('footer').toggle(showhide);
+            $('nav').toggle(showhide);
+            $('#leuk').toggle(showhide);
+            $('#star_rating').toggle(showhide);
+            $('.social-media').toggle(showhide);
+            $('[itemprop="aggregateRating"]').toggle(showhide);
+            if ( showhide ) {
+              // toon de output
+              $('.placeholder').attr('href', theStiekemeURL);
+              $('#top a').attr('href','/' );
+              $('.placeholder img').css('opacity','1');
+              $('.placeholder').removeClass('momentje');
+              $('.placeholder').remove('#momentje');
+              $('#progress').remove();
+              $('#progress_now').remove();
+              $('#momentje').remove();
+
+            }
+            else {
+              // toon de placeholder
+              $('.placeholder').removeAttr('href');
+              $('#top a').removeAttr('href');
+              $('.placeholder img').css('opacity','0');
+              
+                $('.placeholder').addClass('momentje');
+                $('.placeholder').append('<div id="momentje" class="momentje"><h3><?php echo TEGELIZR_JS_BUSY_MSG_HEADER ?></h3><p><?php echo TEGELIZR_JS_BUSY_MSG ?></p></div>');
+
+            }
+        }
 
         var vorige              = '';
         var volgende            = '';
@@ -404,13 +439,72 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
         var PROGRESSOPACITY     = 1;
         var TOTALNRDOCUMENTS    = 300;
         var CURRENTDOCINDEX     = 0;
-        $(widget).html('gestart');
 
-        $('.placeholder img').css('opacity','0');
-        $('.placeholder').addClass('momentje');
-        $('.placeholder').append('<div id="momentje" class="momentje"><h3>Hallo</h3><p>Momentje, alsjeblieft.<br />Je tegeltje is bijna klaar.</p></div>');
         ToggleHide(false);
         
+
+<?php 
+                
+        if ( 22 == 22 ) {
+?>
+
+        var oppoetsscript = {
+            widget_id : $('#progress').attr('id'),
+            fetch: 1
+        };
+
+        var data_in = {
+          gestart: '',
+        };
+
+        $.post(
+            'tegeltjesoppoetsen.php',
+            oppoetsscript,
+            function(oppoetsscript_out) {
+              SetProgress2(widget);
+            },
+            'json'
+        );
+
+        function SetProgress2(index, vorige, txtfile, volgende) {
+            'use strict';
+        
+            var data_in = {
+                gestart: ''
+            };
+
+            $.post(
+                'tegeltjesoppoetsen.php',
+                data_in,
+                function( data_out ) {
+                    SetProgress4(data_out);
+                },
+                'json'
+            );
+        
+        }
+
+
+        function SetProgress4(data_in) {
+
+          if ( data_in.<?php echo TEGELIZR_JS_START_KEY ?> == '<?php echo TEGELIZR_JS_START_MSG ?>' )  {
+              $('#progress_now').html( data_in.<?php echo TEGELIZR_JS_START_KEY ?> );
+              ToggleHide(true);
+          }
+          else {
+              $('#progress_now').html( '<?php echo TEGELIZR_JS_SCRIPTERROR ?> ' );
+          }
+          
+        }
+
+
+<?php
+          
+        }
+        else {
+
+        ?>
+
         var generate_data = {
             widget_id : $('#progress').attr('id'),
             fetch: 1
@@ -471,22 +565,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
 
 
-        function ToggleHide(showhide) {
-            $('#home').toggle(showhide);
-            $('#andere').toggle(showhide);
-            $('footer').toggle(showhide);
-            $('nav').toggle(showhide);
-            $('#leuk').toggle(showhide);
-            $('#star_rating').toggle(showhide);
-            $('.social-media').toggle(showhide);
-            $('[itemprop="aggregateRating"]').toggle(showhide);
-            if ( showhide ) {
-                $('#top a').attr('href','/' );
-            }
-            else {
-                $('#top a').removeAttr('href');
-            }
-        }
+
             
         function SetProgress(data_in) {
 
@@ -548,7 +627,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
         
 
 <?php
-
+        }
 
     }
     // =================================================================================================================== ?>
@@ -650,7 +729,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
 <title><?php echo TEGELIZR_TITLE ?>- WBVB Rotterdam</title>
 <?php echo htmlheader() ?>
 <article id="page">
-  <h1 id="top"><?php echo returnlogo(); ?><span><?php echo $titel ?></span></h1>
+  <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><span><?php echo $titel ?></span></a></h1>
   <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], $titel, TEGELIZR_SUMMARY) ?>
   <p class="lead">
     <?php 
