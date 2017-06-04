@@ -22,8 +22,6 @@ function wbvb_set_hsts_policy() {
 
   if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
 
-    define('TEGELIZR_PROTOCOL',         'https://');
-
     if($_SERVER["HTTPS"] != "on") {
         header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
         exit();
@@ -34,7 +32,6 @@ function wbvb_set_hsts_policy() {
   
   }
   else {
-    define('TEGELIZR_PROTOCOL',         'https://');
   }
 
 }
@@ -57,7 +54,7 @@ if ( isset( $zinnen[2] ) ) {
 }
 
 if ( $zinnen[1] == TEGELIZR_SELECTOR ) {
- if ( ! file_exists( $outpath.$filename ) ) {
+ if ( ! file_exists( $sourcefiles_tegels.$filename ) ) {
    $afgevangenzoekstring = $zinnen[2];
  }
 }
@@ -202,13 +199,13 @@ function sortByOrder($a, $b) {
 // ===================================================================================================================
 // er wordt gevraagd om een tegeltje en het bestand bestaat ook al op de server
 // ===================================================================================================================
-elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filename ) ) && ( file_exists( $outpath.$desttextpath ) ) ) {
+elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tegels.$filename ) ) && ( file_exists( $sourcefiles_tegels.$desttextpath ) ) ) {
 
     global $userip;
     
     $desturl        = '//' . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2];
     $imagesource    = '//' . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_TEGELFOLDER . '/' . $filename;
-    $views          = getviews($outpath.$desttextpath,true);
+    $views          = getviews($sourcefiles_tegels.$desttextpath,true);
     $txt_tegeltekst = isset($views['txt_tegeltekst']) ? filtertext($views['txt_tegeltekst'], true) : '';
 
 
@@ -639,9 +636,51 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $outpath.$filenam
 
     
 }
+
+elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
+  $titel = 'HIER ALLE TEGELTJES';
+?>
+<meta name="description" content="">
+<meta name="author" content="">
+<meta property="og:title" content="<?php echo $titel ?>" />
+<meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
+<meta property="og:url" content="<?php echo $_SERVER['SERVER_NAME']; ?>" />
+<meta property="article:tag" content="<?php echo $tekststring; ?>" />
+<meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
+<title><?php echo TEGELIZR_TITLE ?>- WBVB Rotterdam</title>
+<?php echo htmlheader() ?>
+<article id="page">
+  <h1 id="top"><?php echo returnlogo(); ?><span><?php echo $titel ?></span></h1>
+  <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], $titel, TEGELIZR_SUMMARY) ?>
+  <p class="lead">
+    <?php 
+      if (is_dir($sourcefiles_thumbs)) {
+        $images = glob($sourcefiles_thumbs . "*.png");
+        rsort($images);
+        echo 'Er zijn ' . count( $images ) . ' tegeltjes';
+      }        
+    ?>
+   </p>
+  <?php 
+	  echo TheForm();
+	  echo showthumbs(12); 
+    echo TheModalWindow();
+    ?>
+
+  </article>
+
+<?php
+    echo includejs();
+?>
+
+<?php  
+    echo spitoutfooter();
+  
+}
+
 else {
 // ===================================================================================================================
-// schrijf formulier
+// voorpagina
 // ===================================================================================================================
 ?>
 <meta name="description" content="">
