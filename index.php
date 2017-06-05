@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.3.1
-// @desc.   Paging in de tegeltjes.
+// @version 7.3.2
+// @desc.   Twitter-card gefikst. CSS bugs.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -94,6 +94,9 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
 ?>
 <meta property="og:title" content="<?php echo $titel; ?>" />
 <meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
+<meta name="twitter:title" content="<?php echo $titel; ?>" />
+<meta name="twitter:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
+<meta name="twitter:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
 <meta property="og:url" content="<?php echo $desturl; ?>" />
 <meta property="article:tag" content="<?php echo TEGELIZR_ALLES; ?>" />
 <meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
@@ -177,6 +180,9 @@ function sortByOrder($a, $b) {
 ?>
 <meta property="og:title" content="<?php echo $titeltw; ?>" />
 <meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
+<meta name="twitter:title" content="<?php echo $titeltw; ?>" />
+<meta name="twitter:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
+<meta name="twitter:image" content="<?php echo $imagesource ?>" />
 <meta property="og:url" content="<?php echo $desturl; ?>" />
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo $imagesource ?>" />
@@ -237,8 +243,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
     global $userip;
     
-    $desturl        = '//' . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2];
-    $imagesource    = '//' . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_TEGELFOLDER . '/' . $filename;
+    $desturl        = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2];
+    $imagesource    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_TEGELFOLDER . '/' . $filename;
     $views          = getviews($sourcefiles_tegels.$desttextpath,true);
     $txt_tegeltekst = isset($views['txt_tegeltekst']) ? filtertext($views['txt_tegeltekst'], true) : '';
 
@@ -262,6 +268,9 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 ?>
 <meta property="og:title" content="<?php echo $titel; ?>" />
 <meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
+<meta name="twitter:title" content="<?php echo $titel; ?>" />
+<meta name="twitter:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
+<meta name="twitter:image" content="<?php echo $imagesource ?>" />
 <meta property="og:url" content="<?php echo $desturl; ?>" />
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo $imagesource ?>" />
@@ -479,17 +488,9 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
         ToggleHide(false);
         
-
-<?php 
-                
-        if ( 22 == 22 ) {
-?>
-
-            console.log('Check is gestart');
-
         var oppoetsscript = {
-            widget_id : $('#progress').attr('id'),
-            fetch: 1
+          widget_id : $('#progress').attr('id'),
+          fetch: 1
         };
 
         var data_in = {
@@ -497,181 +498,44 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
         };
 
         $.post(
-            '/includes/tegeltjesoppoetsen.php',
-            oppoetsscript,
-            function(oppoetsscript_out) {
-              SetProgress2(widget);
-            },
-            'json'
+          '/includes/tegeltjesoppoetsen.php',
+          oppoetsscript,
+          function(oppoetsscript_out) {
+            TriggerTegelCheck(widget);
+          },
+          'json'
         );
 
-        function SetProgress2(index, vorige, txtfile, volgende) {
-            'use strict';
+        function TriggerTegelCheck(index, vorige, txtfile, volgende) {
+          'use strict';
+          var data_in = {
+              gestart: ''
+          };
 
-            console.log('SetProgress2.Script is gestart');
-        
-            var data_in = {
-                gestart: ''
-            };
-
-            $.post(
-              '/includes/tegeltjesoppoetsen.php',
-                data_in,
-                function( data_out ) {
-                    SetProgress4(data_out);
-                },
-                'json'
-            );
-        
+          $.post(
+            '/includes/tegeltjesoppoetsen.php',
+              data_in,
+              function( data_out ) {
+                TegelIsKlaar(data_out);
+              },
+              'json'
+          );
         }
 
 
-        function SetProgress4(data_in) {
-          console.log('SetProgress4. Data is in');
+        function TegelIsKlaar(data_in) {
           if ( data_in.<?php echo TEGELIZR_JS_START_KEY ?> == '<?php echo TEGELIZR_JS_START_MSG ?>' )  {
-              $('#progress_now').html( data_in.<?php echo TEGELIZR_JS_START_KEY ?> );
-              $('#navnextprev').html( data_in.<?php echo TEGELIZR_JS_NAV_NEXTKEY ?> );
-              ToggleHide(true);
+            $('#progress_now').html( data_in.<?php echo TEGELIZR_JS_START_KEY ?> );
+            $('#navnextprev').html( data_in.<?php echo TEGELIZR_JS_NAV_NEXTKEY ?> );
+            ToggleHide(true);
           }
           else {
-              ToggleHide(true);
-              $('#progress_now').html( '<?php echo TEGELIZR_JS_SCRIPTERROR ?> ' );
+            $('#progress_now').html( '<?php echo TEGELIZR_JS_SCRIPTERROR ?> ' );
+            ToggleHide(true);
           }
-          
+
         }
-
-
 <?php
-          
-        }
-        else {
-
-        ?>
-
-        var generate_data = {
-            widget_id : $('#progress').attr('id'),
-            fetch: 1
-        };
-
-        $.post(
-            'scanfolder.php',
-            generate_data,
-            function(generate_data_out) {
-                $('#progress').data( 'progress', generate_data_out );
-                startgenerate(widget);
-            },
-            'json'
-        );
-
-        
-        function startgenerate(widget) {
-    
-            var ledinges        = $('#progress').data( 'progress');
-            var thelength       = 0;
-            TOTALNRDOCUMENTS    = ledinges.nrdocs;
-            $('#progress').html(TOTALNRDOCUMENTS + ' documenten om te scannen');
-//            $('#progress_bar div').html('&nbsp;');
-
-            $.each(ledinges.docs, function( index, value ) {
-
-                volgende        = ( TOTALNRDOCUMENTS > index+1 ) ? ledinges.docs[index+1] : '';
-                vorige          = ( index == 0 ) ? '' : ledinges.docs[index-1] ;
-
-                StartDocumentScan(index, vorige, value, volgende);
-                
-            });
-
-                        
-        }
-
-        function StartDocumentScan(index, vorige, txtfile, volgende) {
-            'use strict';
-        
-            var data_in = {
-                widget_id: index,
-                total_docs: TOTALNRDOCUMENTS,
-                vorige: vorige,
-                huidige: txtfile,
-                volgende: volgende
-            };
-
-            $.post(
-                'documentscan.php',
-                data_in,
-                function( data_out ) {
-                    SetProgress(data_out);
-                },
-                'json'
-            );
-        
-        }
-
-
-
-
-            
-        function SetProgress(data_in) {
-
-            CURRENTDOCINDEX++;
-            console.log('SetProgress: ' + CURRENTDOCINDEX + '/' + data_in.widget_id);
-
-            var thelength = ( ( CURRENTDOCINDEX / TOTALNRDOCUMENTS ) * PROGRESSLENGTH);
-//            $('#progress_bar div').css('width', Math.round(thelength));
-
-
-            var opacityDiv = (Math.round( ( ( CURRENTDOCINDEX / TOTALNRDOCUMENTS ) * PROGRESSOPACITY ) * 10) / 10 );
-
-//            $('#momentje').css('opacity', ( 1 - opacityDiv ) );
-            $('#momentje').css('height', ( PROGRESSLENGTH - Math.round(thelength) ) );
-
-            $('#progress').html( '<p>' + CURRENTDOCINDEX + ' van ' + TOTALNRDOCUMENTS + ' tegeltjes gescand.</p>');
-
-            $('#progress_now').html('Even alle tegeltjes tellen en oppoetsen');
-            
-             if ( opacityDiv > 0.1 ) {
-                $('.placeholder img').css('opacity', opacityDiv  );
-            }
-            
-            if ( opacityDiv > 0.25 ) {
-                $('#progress_now').html('Daar gaan we dan.');
-            }
-            if ( opacityDiv > 0.35 ) {
-                $('#progress_now').html('Leuke tekst heb je uitgekozen.');
-            }
-            if ( opacityDiv > 0.45 ) {
-                $('#progress_now').html('Echt, hoor.');
-            }
-            if ( opacityDiv > 0.55 ) {
-                $('#progress_now').html('Nee, echt!');
-            }
-            if ( opacityDiv > 0.65 ) {
-                $('#progress_now').html('We zijn er bijna.');
-            }
-            if ( opacityDiv > 0.7 ) {
-                $('#progress_now').html('Wat zit je haar leuk');
-            }
-            if ( opacityDiv > 0.8 ) {
-                $('#progress_now').html('Tadaaa!');
-            }
-            if ( opacityDiv > 0.85 ) {
-                $('#progress_now').html("Daar is 'ie al");
-            }
-            if ( opacityDiv > 0.9 ) {
-                $('#progress_now').html("Veel plezier!");
-                $('#momentje').remove();
-//                $('#progress').remove();
-//                $('#progress_bar').remove();
-                ToggleHide(true);
-            }
-            if ( opacityDiv > 0.99 ) {
-//                $('#progress_now').remove();
-            }
-        }
-        
-
-<?php
-        }
-
     }
     // =================================================================================================================== ?>
 
@@ -768,6 +632,10 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
 <meta name="author" content="">
 <meta property="og:title" content="<?php echo $titel ?>" />
 <meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
+<meta name="twitter:title" content="<?php echo $titel; ?>" />
+<meta name="twitter:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
+<meta name="twitter:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
+
 <meta property="og:url" content="<?php echo $_SERVER['SERVER_NAME']; ?>" />
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
@@ -826,9 +694,15 @@ else {
 <meta name="author" content="">
 <meta property="og:title" content="<?php echo TEGELIZR_TITLE ?>" />
 <meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
-<meta property="og:url" content="<?php echo $_SERVER['SERVER_NAME']; ?>" />
+
+<meta name="twitter:title" content="<?php echo TEGELIZR_TITLE; ?>" />
+<meta name="twitter:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
+<meta name="twitter:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
+
+<meta property="og:url" content="<?php echo TEGELIZR_PROTOCOL . $_SERVER['SERVER_NAME']; ?>" />
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
+
 <title><?php echo TEGELIZR_TITLE ?>- WBVB Rotterdam</title>
 <?php get_end_htmlheader(); ?>
 <article id="page">

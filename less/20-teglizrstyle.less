@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.3.1
-// @desc.   Paging in de tegeltjes.
+// @version 7.3.2
+// @desc.   Twitter-card gefikst. CSS bugs.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -44,8 +44,8 @@
 
   #top {
     min-height: 36px;
-    background: url('/img/tegelizr-logo.png') no-repeat left 6px;
-    background-size: 36px 36px;
+    background: url('/img/tegelizr-logo.png') no-repeat left top;
+    background-size: contain;
     padding-left: 48px;
   }  
   
@@ -270,71 +270,56 @@
   @progressstart: ( @progressnowstart + @progressnow_height );
   
   .momentje {
-  //    background-size: contain;
-      overflow: hidden;
-      display: block;
+    overflow: hidden;
+    display: block;
+    height: 100%;
+    position: relative;
+    
+    div#momentje {
+      position: absolute;
+      background: url('/img/momentje.jpg') no-repeat center center;
+      background-size: contain;
+      box-shadow:0px 1px 1px @border-color;        
       height: 100%;
-      position: relative;
-  
-      div#momentje {
-          position: absolute;
-          background: url(/img/momentje.jpg) no-repeat center top;
-          box-shadow:0px 1px 1px @border-color;        
-          height: 100%;
-          width: 100%;
-          z-index: 8000;
-          top: 0;
-          left: 0;
-          text-align: center;
-          padding: @start 0 0 0;
-          
-          p, h3 {
-              max-width: 60%;
-              margin: 0 auto;
-              line-height: 1.2;
-              color: @txt;    
-          }
+      width: 100%;
+      z-index: 8000;
+      top: 0;
+      left: 0;
+      text-align: center;
+      padding: @start 0 0 0;
+      
+      p, h3 {
+        max-width: 60%;
+        margin: 0 auto;
+        line-height: 1.2;
       }
-  
-      #progress,
-      #progress_now,
-      #progress_bar {
-        position: absolute;
-        z-index: 9999;
-        height: 40px;
-        width: 100%;
+      p {
         color: @txt;    
       }
-      
-      
-      #progress_now {
-          text-align: center;
-          top: @progressnowstart;
-      }
-      #progress {
-          bottom: 1em;
-  
-          height: @progressnow_height;
-          width: 100%;
-          
-          padding: 3px 0;
-          width: 100%;
-          text-align: center;
-      }
-  
-      #progress_bar {
-          top: 0;
-  
-          div {
-              z-index: 9000;
-              display: block;
-              width: 10px;
-              background: @rood;
-              height: 10px;    
-          }
-          
-      }
-  
+    }
+    
+    #progress,
+    #progress_now {
+      position: absolute;
+      z-index: 9999;
+      height: 40px;
+      width: 100%;
+      color: @txt;    
+    }
+    
+    
+    #progress_now {
+      text-align: center;
+      top: @progressnowstart;
+    }
+    #progress {
+      bottom: 1em;
+      height: @progressnow_height;
+      width: 100%;
+      padding: 3px 0;
+      width: 100%;
+      text-align: center;
+    }
   }
   
   p {
