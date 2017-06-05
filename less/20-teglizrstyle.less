@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.4.1
-// @desc.   Layout voor alle-tegeltjespagina bijgewerkt.
+// @version 7.4.2
+// @desc.   CSS bugs.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -44,7 +44,7 @@
 
   #top {
     min-height: 42px;
-    background: url('/img/tegelizr-logo.png') no-repeat left 6px;
+    background: url('/img/tegelizr-logo.png') no-repeat left center;
     background-size: 36px 36px;
     padding-left: 48px;
     padding-left: 48px;
@@ -277,9 +277,23 @@
         }
       }
     }
-    
   }
-  
+
+  .placeholder {
+    border: 3px solid @tegelgrijs;  
+    background: @tegelgrijs;  
+    overflow: hidden;
+    margin: 3x;
+    display: table;
+    margin-bottom: 1em;
+    padding: 5px;
+    border-radius: 8px;
+    img {
+      background: @tegelgrijs;  
+      display: table-cell;
+    }
+  } 
+ 
   img.tegeltje {
       max-width: 100%;
       width: 100%;
@@ -605,11 +619,52 @@
       
   }
   
+  // ===================================================================================================================
+  
+  
+  @media only screen and (min-width: 600px) {
+    
+    body {
+      padding-top: 1em;
+    }
+    article, footer {
+      width: @fullwidth;
+    }
+    .uitleg {
+      width: 100%;
+      text-align:right;
+      display:block;
+      clear: both;        
+      padding-top: .5em;
+      font-size: 1.4em;
+    }
+    footer {
+      #tomenu {
+        display: block;
+      }
+    }
+    
+    #top {
+      border-bottom: 1px solid @tegelblauw;
+      padding-bottom: 16px;
+      margin-bottom: 1em;
+      background-position: left 6px;
+    }
+    
+  }
+  
+  
   
   
   // ===================================================================================================================
   
   @media only screen and (min-width: 1350px) {
+
+    #top {
+      border-top: 1px solid @tegelblauw;
+      padding-top: 16px;
+      background-position: left 22px;
+    }
   
       #home {
           position: fixed;
@@ -660,33 +715,6 @@
           }
       }    
   }
-  
-  // ===================================================================================================================
-  
-  
-  @media only screen and (min-width: 600px) {
-    
-    body {
-      padding-top: 1em;
-    }
-    article, footer {
-      width: @fullwidth;
-    }
-    .uitleg {
-      width: 100%;
-      text-align:right;
-      display:block;
-      clear: both;        
-      padding-top: .5em;
-      font-size: 1.4em;
-    }
-    footer {
-      #tomenu {
-        display: block;
-      }
-    }
-  }
-  
   
   // ===================================================================================================================
   
