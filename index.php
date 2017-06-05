@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.3.3
-// @desc.   Meta-tag voor description bijgewerkt.
+// @version 7.4.1
+// @desc.   Layout voor alle-tegeltjespagina bijgewerkt.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -191,7 +191,7 @@ function sortByOrder($a, $b) {
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?>
 <?php get_end_htmlheader(); ?>
 <article id="page"  class="resultaat">
-  <h1 id="top"><a href="/"><span><?php echo returnlogo() . $titel ; ?></span></a></h1>
+  <h1 id="top"><a href="/"><span><?php echo $titel ; ?></span></a></h1>
 
 <?php
     if ( $results ) {

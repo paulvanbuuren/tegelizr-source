@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.3.3
-// @desc.   Meta-tag voor description bijgewerkt.
+// @version 7.4.1
+// @desc.   Layout voor alle-tegeltjespagina bijgewerkt.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -26,7 +26,7 @@ setlocale(LC_TIME, 'NL_nl');
 
 // ===================================================================================================================
 
-define('TEGELIZR_VERSION',          '7.3.3');
+define('TEGELIZR_VERSION',          '7.4.1');
 define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
 define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
 define('TEGELIZR_BACK',             'Bak een tegeltje!');

@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.3.1
-// @desc.   Paging in de tegeltjes.
+// @version 7.4.1
+// @desc.   Layout voor alle-tegeltjespagina bijgewerkt.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -46,6 +46,9 @@
     input[type="search"] {
       font-size: 80%;
       width: 70%;
+      -webkit-border-radius:0; 
+      border-radius:0;      
+      -webkit-appearance: none;      
     }
     
     input[type="search"], input[type="submit"] {
@@ -215,6 +218,32 @@
         float: left;
         padding: 0;
       }
+      
+      ul.thumbs {
+        border: 2px solid @tegelgrijs;
+        background: @tegelgrijs;        
+
+        li {
+          background: @tegelgrijs;
+
+          a {
+            background: @tegelgrijs;
+            margin: 2px;
+            padding: 2px;
+            border-radius: 2px;
+            
+            &:hover,
+            &:active,
+            &:focus {
+              background: darken( @tegelgrijs, 25% );
+            }          
+          }          
+          span {
+            .visuallyhidden();
+          }        
+        }        
+      }
+      
       .linkerknop,
       .rechterknop {
         button {
