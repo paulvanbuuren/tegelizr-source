@@ -5,14 +5,19 @@ Correct me if I'm wrong. Copy me if I'm right.
 ## Tegelizr.nl
 author:    Paul van Buuren
 
-current version: 5.3.2 
+version:  7.0.2 
 
 ## contact:                    
-* paul@wbvb.nl
-* wbvb.nl/contact
-* twitter.com/paulvanbuuren
+* ([paul@wbvb.nl](paul@wbvb.nl))
+* Contact: [wbvb.nl/contact](https://wbvb.nl/contact/)
+* Twitter: [@paulvanbuuren](https://twitter.com/paulvanbuuren/)
 
 ## Versions
+* 7.0.3 - Favicon. Tegeldatum.
+* 7.0.2 - Alle tegeltjes tonen.
+* 7.0.1 - CSS bijgewerkt, zoekdata bijgwerkt, zoekmogelijkheid hersteld.
+* 7.0.0 - Filecheck aangepast. Navigatie retour. Wachtanimatie toegevoegd.
+* 6.0.0 - Geklungel met zoeken vanuit de adresbalk in Chrome
 * 5.3.2 - GA-tracking gecorrigeerd
 * 5.3.1 - GA-tracking gecorrigeerd
 * 5.3.0 - GA-tracking gecorrigeerd
@@ -53,3 +58,18 @@ current version: 5.3.2
 * 1.2 - URL gecorrigeerd voor deelknoppen op default pagina
 * 1.1 - File clean up
 * 1.0 - First checkin
+
+## Must do:
+* in txt alleen relatieve URL voor thumb opslaan. Niet de volledige filename met serverfolder. 
+* pagina voor alle tegeltjes bijwerken
+
+## To do:
+* Mogelijkheid een tegeltje te verwijderen als mislukt. Deze keuze direct na genereren
+* Zoeken vanuit de adresbalk foutloos. Niet laten doorschieten naar genereren van een tegeltje
+* paging voor thumbnailoverzicht
+* paging voor ALLE tegeltjes-pagina?
+* Zou het niet handiger zijn om een folder /tegeltjes/ te hebben?
+* Vertaal de strings voor wordsofwisdomtile.com / tegelizr.nl
+* mogelijkheid om breaks te gebruiken
+* automatische compressie van de PNGs op de server
+

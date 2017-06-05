@@ -1,0 +1,95 @@
+
+///
+// Tegelizr - spinner.less
+// ----------------------------------------------------------------------------------
+// css voor de spinner terwijl het tegeltje gegenereerd wordt
+// ----------------------------------------------------------------------------------
+// @author  Paul van Buuren
+// @license GPL-2.0+
+// @version 7.0.0
+// @desc.   Filecheck aangepast. Navigatie retour. Wachtanimatie toegevoegd.
+// @link    https://github.com/paulvanbuuren/tegelizr-source
+///
+
+// ===================================================================================================================
+
+@wit:           #fff;
+@txt:           #555;
+@grijs:         #eee;
+@titelkleur:    @txt;
+@dinges:        30px;
+@rood:          #9D1626;
+@border-color:  #afafaf;
+
+@fullwidth:     720px;
+
+// ===================================================================================================================
+
+
+#progress_spinner {
+  position: absolute;
+  z-index: 9999;
+  height: 100%;
+  width: 100%;
+  color: @txt;    
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+@spinnerwidt: 125px;    
+@animationspeed: 2s;    
+@animationdelay: 0.2s;    
+@spinnerbg: rgba( 10, 10, 10, .5 );
+
+.spinner {
+  margin: 50% auto 0;
+  width: 100%;
+  text-align: center;
+  height: ( @spinnerwidt / 4 );
+}
+
+.spinner > div {
+  width: ( @spinnerwidt / 5 );
+  height: ( @spinnerwidt / 5 );
+  background-color: @spinnerbg;
+  margin: 0 8px;
+
+  filter: blur(2px);
+
+  border-radius: 100%;
+  display: inline-block;
+  animation: sk-bouncedelay @animationspeed infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+  animation-delay: ( 1 * @animationdelay );
+}
+
+.spinner .bounce2 {
+  animation-delay: ( 2 * @animationdelay );
+}
+
+.spinner .bounce3 {
+  animation-delay: ( 3 * @animationdelay );
+}
+
+.spinner .bounce4 {
+  animation-delay: ( 4 * @animationdelay );
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% { 
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+}
