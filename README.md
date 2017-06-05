@@ -5,7 +5,7 @@ Correct me if I'm wrong. Copy me if I'm right.
 ## Tegelizr.nl
 author:    Paul van Buuren
 
-version:  7.4.3 
+version:  7.4.4 
 
 ## contact:                    
 * ([paul@wbvb.nl](paul@wbvb.nl))
@@ -13,6 +13,7 @@ version:  7.4.3
 * Twitter: [@paulvanbuuren](https://twitter.com/paulvanbuuren/)
 
 ## Versions
+* 7.4.4 - CSS bugs.
 * 7.4.3 - Zoekresultaat bijgewerkt.
 * 7.4.2 - CSS bugs.
 * 7.4.1 - Layout voor alle-tegeltjespagina bijgewerkt.
@@ -86,3 +87,4 @@ version:  7.4.3
 * automatische compressie van de PNGs op de server
 * RSS-feed aanmaken.
 * sitemap laten genereren en submitten.
+* Site kloonbaar maken voor bijvoorbeeld een HMD-plaatjesgenerator.
