@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.3.2
-// @desc.   Twitter-card gefikst. CSS bugs.
+// @version 7.3.3
+// @desc.   Meta-tag voor description bijgewerkt.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -26,7 +26,7 @@ setlocale(LC_TIME, 'NL_nl');
 
 // ===================================================================================================================
 
-define('TEGELIZR_VERSION',          '7.3.2');
+define('TEGELIZR_VERSION',          '7.3.3');
 define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
 define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
 define('TEGELIZR_BACK',             'Bak een tegeltje!');
@@ -38,7 +38,8 @@ define('TEGELIZR_THUMB_WIDTH',      220);
 define('TEGELIZR_BLUR',             2);
 define('TEGELIZR_TXT_VALUE',        '');
 define('TEGELIZR_SELECTOR',         'tegeltje');
-define('TEGELIZR_SUMMARY',          'Maak hier je eigen tegeltje. Een geintje van Paul van Buuren, van WBVB Rotterdam.');
+define('TEGELIZR_SUMMARY',          'Online generator voor plaatjes van tegeltjes. Een geintje van Paul van Buuren, van WBVB Rotterdam.');
+define('TEGELIZR_METADESC',         'Maak zelf online een oud-Hollands tegeltje.');
 define('TEGELIZR_THUMBS',           'thumbs');
 define('TEGELIZR_DELETED_FILES',    'deleted_files');
 define('TEGELIZR_VIEWS',            'views');

@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.3.2
-// @desc.   Twitter-card gefikst. CSS bugs.
+// @version 7.3.3
+// @desc.   Meta-tag voor description bijgewerkt.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -92,6 +92,7 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
 
 
 ?>
+<meta name="description" content="<?php echo $titel . ' - ' . TEGELIZR_METADESC ?>">
 <meta property="og:title" content="<?php echo $titel; ?>" />
 <meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
 <meta name="twitter:title" content="<?php echo $titel; ?>" />
@@ -179,6 +180,7 @@ function sortByOrder($a, $b) {
 
 ?>
 <meta property="og:title" content="<?php echo $titeltw; ?>" />
+<meta name="description" content="<?php echo $titeltw . ' -  ' . TEGELIZR_METADESC ?>">
 <meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
 <meta name="twitter:title" content="<?php echo $titeltw; ?>" />
 <meta name="twitter:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
@@ -267,6 +269,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
 ?>
 <meta property="og:title" content="<?php echo $titel; ?>" />
+<meta name="description" content="<?php echo $txt_tegeltekst . ' - ' . TEGELIZR_METADESC ?>">
 <meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
 <meta name="twitter:title" content="<?php echo $titel; ?>" />
 <meta name="twitter:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
@@ -628,7 +631,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
   
   $titel = count($results) . ' tegeltjes';
 ?>
-<meta name="description" content="">
+<meta name="description" content="<?php echo 'Alle tegeltjes die inmmiddels gemaakt zijn op tegelizr. ' . TEGELIZR_METADESC ?>">
 <meta name="author" content="">
 <meta property="og:title" content="<?php echo $titel ?>" />
 <meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
@@ -690,8 +693,8 @@ else {
 // voorpagina
 // ===================================================================================================================
 ?>
-<meta name="description" content="">
 <meta name="author" content="">
+<meta name="description" content="Voorpagina van tegelizr.nl - <?php echo TEGELIZR_METADESC ?>">
 <meta property="og:title" content="<?php echo TEGELIZR_TITLE ?>" />
 <meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
 
