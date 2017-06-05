@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.2.3
-// @desc.   Andere tegelkleur.
+// @version 7.3.1
+// @desc.   Paging in de tegeltjes.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -15,8 +15,7 @@
 // ===================================================================================================================
 
 .tegelizrstyling() {
-      
-  
+
   *, input[type="search"] {
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
@@ -167,6 +166,8 @@
     overflow: hidden;
     margin: 0 auto;
     width: auto;
+    border: 2px solid @tegelgrijs;
+    background: @tegelgrijs;
     
     &, li {
       list-style: none;
@@ -178,6 +179,10 @@
       display: inline-block;
       float: left;
       background: @tegelgrijs;
+
+      span {
+        .visuallyhidden();
+      }
 
       a {
         display: block;

@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.2.2
-// @desc.   Form elements, list items with images.
+// @version 7.3.1
+// @desc.   Paging in de tegeltjes.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -137,7 +137,6 @@
       right: 0;
       width: 99%;
     }
-    
   }
 
   .search-form {
@@ -208,6 +207,60 @@
         background: @wit;
       }
     }
+
+    #controlnavigation {
+      .linkerknop,
+      .rechterknop,
+      .middenlijst {
+        float: left;
+        padding: 0;
+      }
+      .linkerknop,
+      .rechterknop {
+        button {
+          width: 100%;
+          font-size: 80%;
+          text-transform: lowercase;
+          height: auto;
+          overflow: hidden;
+          white-space: normal;
+        }
+      }
+      .pijl,
+      .label {
+        float: left;
+        display: block;
+        overflow: hidden;
+        height: auto;
+        white-space: normal;
+        border: 1px solid transparent;
+      }
+      .pijl {
+        width: 11%;  
+      }
+      .label {
+        width: 89%;  
+      }
+      
+      .linkerknop {
+        width: ( @pagingbuttonwidth );
+        margin-right: 16px;
+        .label {
+          text-align: left;
+        }
+      }
+      .rechterknop {
+        width: @pagingbuttonwidth;
+        float: right;
+        .label {
+          text-align: right;
+        }
+      }
+      .middenlijst {
+        width: ( @fullwidth - ( 2 * 20px ) );
+      }
+    }    
+
 
     /*
     Modal Overlay
@@ -312,6 +365,33 @@
     }
   }
 
+  @media only screen and (max-width: 600px) {
+    #controlnavigation {
+      position: relative;
+      padding-bottom: 60px;
+      max-width: 100%;
+
+      .middenlijst {
+        max-width: 100%;
+      }
+
+      .linkerknop,
+      .rechterknop {
+        position: absolute;
+        bottom: 0;
+        width: 50%;
+        padding: 1em;
+      }
+      .linkerknop {
+        left: 0;
+      }
+      .rechterknop {
+        right: 0;
+      }
+      
+    }
+  }
+  
   @media only screen and (min-width: 600px) {
 
     form {
@@ -337,6 +417,35 @@
       button + p {
         float:none;
         clear:both;
+      }
+    }    
+
+    #controlnavigation {
+      margin-left: ( -1 * @pagingbuttonwidth - 16px);      
+      margin-right: ( -1 * @pagingbuttonwidth );      
+      width: ( @fullwidth + ( 2 * @pagingbuttonwidth ) );
+      
+      h2 {
+        width: ( @fullwidth + ( 2 * @pagingbuttonwidth ) );
+        padding: 0 @pagingbuttonwidth;
+      }
+      
+      .linkerknop,
+      .rechterknop,
+      .middenlijst {
+        float: left;
+        padding: 0;
+      }
+      .linkerknop {
+        width: ( @pagingbuttonwidth );
+        margin-right: 16px;
+      }
+      .rechterknop {
+        width: @pagingbuttonwidth;
+        float: right;
+      }
+      .middenlijst {
+        width: ( @fullwidth - ( 2 * 20px ) );
       }
     }    
     

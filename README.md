@@ -13,6 +13,7 @@ version:  7.0.2
 * Twitter: [@paulvanbuuren](https://twitter.com/paulvanbuuren/)
 
 ## Versions
+* 7.3.1 - Paging in de tegeltjes.
 * 7.2.4 - Kleine tekstuele wijzigingen.
 * 7.2.3 - Andere tegelkleur.
 * 7.2.2 - Form elements, list items with images.

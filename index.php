@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.2.1
-// @desc.   Header fonts en tegelizr-logo
+// @version 7.3.1
+// @desc.   Paging in de tegeltjes.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -63,6 +63,22 @@ if ( $zinnen[1] == TEGELIZR_SELECTOR ) {
 }
 
 // ===================================================================================================================
+// paging
+  $defaultrecords = DEFAULT_AANTAL_TEGELS;
+
+  $pagenumber       =  intval(isset( $_POST['pagenumber'] ) ? $_POST['pagenumber'] : ( isset( $_GET['pagenumber'] ) ? $_GET['pagenumber'] : '1' ));
+  if ( ( intval( $pagenumber ) < 1 ) || ( intval( $pagenumber ) > 1000 ) ) {
+    $pagenumber = 1;    
+  }
+  $max_items      =  intval(isset( $_POST['max_items'] ) ? $_POST['max_items'] : ( isset( $_GET['max_items'] ) ? $_GET['max_items'] : $defaultrecords ));
+  
+  $startrecs      = ( ( $pagenumber - 1 ) * $max_items );
+  if ( intval($startrecs) < 0 ) {
+    $startrecs = 0;
+  }
+  $endrecs        = ( $startrecs + $max_items );
+
+// ===================================================================================================================
 
 echo spitoutheader();
 
@@ -91,9 +107,9 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
   <p>Maar goed, nu jij. <a href="/">Maak eens een leuk tegeltje</a>.</p>
   <?php echo wbvb_d2e_socialbuttons($desturl, $titel, TEGELIZR_SUMMARY) ?>
   <?php 
-    echo showthumbs(12, '');
+    echo showthumbs( DEFAULT_AANTAL_TEGELS, '', $pagenumber);
     echo TheModalWindow();
-    ?>
+  ?>
 </article>
 <?php
 
@@ -197,7 +213,8 @@ function sortByOrder($a, $b) {
 
     
     
-	echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY) ?><?php echo showthumbs(12, $zinnen[2]);
+	echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY); 
+  echo showthumbs( DEFAULT_AANTAL_TEGELS, $zinnen[2], $pagenumber);
 	echo TheModalWindow();
 	  
   ?>
@@ -367,7 +384,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
     
   echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY);
   echo TheModalWindow();
-  echo showthumbs(12, $zinnen[2]);
+  echo showthumbs( DEFAULT_AANTAL_TEGELS, $zinnen[2], $pagenumber);
         
         
     ?>
@@ -785,7 +802,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
    </p>
   <?php 
 	  echo TheForm();
-//	  echo showthumbs(12); 
+//    echo showthumbs( DEFAULT_AANTAL_TEGELS, '', $pagenumber);
     echo TheModalWindow();
     ?>
 
@@ -821,7 +838,7 @@ else {
   <aside>(maar Paul, <a href="//wbvb.nl/tegeltjes-maken-is-een-keuze/">wat heb je toch met die tegeltjes</a>?)</aside>
   <?php 
 	  echo TheForm();
-	  echo showthumbs(12); 
+    echo showthumbs( DEFAULT_AANTAL_TEGELS, '', $pagenumber);
     echo TheModalWindow();
     ?>
 

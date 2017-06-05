@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.2.4
-// @desc.   Kleine tekstuele wijzigingen.
+// @version 7.3.1
+// @desc.   Paging in de tegeltjes.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -26,9 +26,7 @@ setlocale(LC_TIME, 'NL_nl');
 
 // ===================================================================================================================
 
-define('PVB_DEBUG', true);
-
-define('TEGELIZR_VERSION',          '7.2.4');
+define('TEGELIZR_VERSION',          '7.3.1');
 define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
 define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
 define('TEGELIZR_BACK',             'Bak een tegeltje!');
@@ -60,7 +58,12 @@ define('TGLZR_NR_VOTES',            'tglzr_TGLZR_NR_VOTES');
 define('rounded_avg',               'tglzr_rounded_avg');
 define('TEGELIZR_ZOEK_KNOP',        'zoek');
 
-define('DEFAULT_AANTAL_TEGELS',     30);
+// voor de paging
+define('DEFAULT_AANTAL_TEGELS',     12);
+define('HTML_PIJL_VORIGE',          '<span class="pijl">&#x2039;</span>');
+define('HTML_PIJL_VOLGENDE',        '<span class="pijl">&#x203A;</span>');
+define('TEGELLABEL_PLURAL',         'tegels');
+
 
 
 if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
@@ -210,9 +213,136 @@ function filtertext($text = '', $dogeintje = true ) {
     
     return $text;
 }
+
+// ===================================================================================================================
+function showthumbs($aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage = 1) {
+
+  global $sourcefiles_thumbs;
+  global $sourcefiles_tegels;
+  global $startrecs;
+  global $max_items;
+  global $totalcount;
+  global $arrpaginas;
+  global $pagenumber;    
+  
+  
+  $counter = 0;
+  
+  $max_counter = $aantal;
+  
+  if ( $startrecs < 0 ) {
+    $startrecs = 1;
+  }
+  $max_counter = ( $currentpage * $aantal );
+  
+  $buttons            = '';
+  $linkerknop         = '';
+  $linkerknop         = '<div class="linkerknop">&nbsp;</div>';
+  $rechterknop        = '<div class="rechterknop">&nbsp;</div>';
+  $totaalaantaltegels = 0;
+
+  if (is_dir($sourcefiles_thumbs)) {
+    
+    //        $images = glob($sourcefiles_thumbs . "*.jpg");
+    $images = glob($sourcefiles_thumbs . "*.{jpg,png,gif}", GLOB_BRACE);        
+    
+    rsort($images);
+    if ( count($images) ) {
+      $totaalaantaltegels = count($images);
+      if ( $totaalaantaltegels < ( $pagenumber * $aantal ) ) {
+        $startrecs = ( $totaalaantaltegels - $max_items );
+        $currentpage = round( ( $totaalaantaltegels / $aantal ), 0);
+        $pagenumber = $currentpage;
+      }
+    }
+    
+    $maxnumberofpages = round( ( $totaalaantaltegels / $aantal ), 0);
+    
+    $cssvolgende    = '';
+    $cssvorige      = '';
+    
+    if ( $pagenumber > 1 ) {
+      $linkerknop = '<div class="linkerknop"><button type="submit" class="get_previous" name="pagenumber" value="' . ( $pagenumber - 1 ). '">' . HTML_PIJL_VORIGE . '<span class="label">' . TEGELIZR_VORIGE . ' ' . DEFAULT_AANTAL_TEGELS . ' ' . TEGELLABEL_PLURAL . '</span></button></div>';
+      $cssvorige    = ' vorige';
+    }
+
+    $alletegeltje = '';
+    
+    if ( ( $currentpage < $maxnumberofpages ) ) {
+      $rechterknop = '<div class="rechterknop"><button type="submit" class="get_previous" name="pagenumber" value="' . ( $pagenumber + 1 ). '"><span class="label">' . TEGELIZR_VOLGENDE . ' ' . DEFAULT_AANTAL_TEGELS . ' ' . TEGELLABEL_PLURAL . '</span>' . HTML_PIJL_VOLGENDE . '</button></div>';
+      $cssvolgende    = ' volgende';
+    }
+
+    echo '<section id="andere">';
+    echo '<h2>Recente tegeltjes ' . ( $startrecs + 1 ) . ' tot ' . $max_counter . '</h2>';
+    echo '<form method="get" id="controlnavigation" class="'. $cssvolgende . $cssvorige . '">';
+    echo $linkerknop;
+    echo '<div class="middenlijst"><ul class="thumbs">';
+    
+    foreach($images as $image) {
+      
+      if ( ( $counter >= $max_counter ) && ( $max_counter > 0 ) ) {
+        break;
+      }
+      
+      $stack       = explode('/', $image);
+      $filename    = array_pop($stack);
+      $info        = explode('_', $filename );
+      
+      if  ( ( file_exists( $sourcefiles_tegels.$info[1] . '.txt' ) ) && ( file_exists( $sourcefiles_tegels.$info[1] . '.png' ) ) ) {
+        
+        $views       = getviews($sourcefiles_tegels.$info[1] . '.txt',false);
+        
+        if ( $hide == $info[1] ) {
+        //                break;
+        }
+        else {
+          if ( $max_counter > 0 ) {
+              $counter++;
+          }
+          
+          if ( $counter > $startrecs ) {
+          
+              $txt_tegeltekst = '';
+              if ( isset( $views['txt_tegeltekst'] )) {
+                $txt_tegeltekst = filtertext( $views['txt_tegeltekst'], true );
+              }
+          
+              $fruit = '<a href="/'  . TEGELIZR_SELECTOR . '/' . $info[1] . '"><span>' . $txt_tegeltekst . '</span><img src="/' . TEGELIZR_THUMBS . '/' . $filename . '" alt="' . $txt_tegeltekst . ' - ' . $views[TEGELIZR_VIEWS] . ' keer bekeken" /></a>';
+              
+              echo '<li>' . $fruit . '</li>';
+          }
+        }
+      }
+    }
+  }
+  
+  echo '</ul></div>';
+  echo $rechterknop;
+  echo $alletegeltje;
+  echo '</form>';
+  
+  if ( TEGELIZR_DEBUG ) {
+  echo '<ul>';
+  echo '<li>Aantal per pagina: ' . $aantal . '</li>
+  <li>Currentpage: ' . $currentpage . '</li>
+  <li>Startrecs: ' . $startrecs . '</li>
+  <li>Max_items: ' . $max_items . '</li>
+  <li>Maxnumberofpages: ' . $maxnumberofpages . '</li>
+  <li>Totaal aantal tegels: ' . $totaalaantaltegels . '</li>';
+  echo '</ul>';
+  }
+  
+  echo '<p><a href="#top" id="totop">Bovenkant</a></p>
+  </section>';
+  
+  
+  
+  }
+
 // ===================================================================================================================
 
-function showthumbs($aantal = '10', $hide = '') {
+function showthumbs_oud($aantal = 10, $hide = '', $currentpage = 1) {
     global $sourcefiles_thumbs;
     global $sourcefiles_tegels;
 
