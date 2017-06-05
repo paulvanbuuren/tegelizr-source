@@ -1,0 +1,54 @@
+
+///
+// Tegelizr - 02-font-includes.less
+// ----------------------------------------------------------------------------------
+// fonts voor tegelizr
+// ----------------------------------------------------------------------------------
+// @author  Paul van Buuren
+// @license GPL-2.0+
+// @version 7.1.0
+// @desc.   CSS structuur aangepast.
+// @link    https://github.com/paulvanbuuren/tegelizr-source
+///
+
+
+// ===================================================================================================================
+
+.fontincludes() {
+  
+  
+  @font-face {
+      font-family: 'Subway';
+      src: url('/fonts/torontosubwaybold-webfont.eot');
+      src: url('/fonts/torontosubwaybold-webfont.eot?#iefix') format('embedded-opentype'),
+           url('/fonts/torontosubwaybold-webfont.woff') format('woff'),
+           url('/fonts/torontosubwaybold-webfont.ttf') format('truetype'),
+           url('/fonts/torontosubwaybold-webfont.svg#toronto') format('svg');
+      font-weight: normal;
+      font-style: normal;
+  
+  }
+  
+  @font-face {
+      font-family: 'icomoon';
+      src: url('/fonts/d2eicons.eot');
+      src: url('/fonts/d2eicons.eot?#iefix') format('embedded-opentype'),
+          url('/fonts/d2eicons.woff') format('woff'),
+          url('/fonts/d2eicons.ttf') format('truetype'),
+          url('/fonts/d2eicons.svg') format('svg');
+      font-weight: normal;
+      font-style: normal;
+  } 
+
+}
+
+// ===================================================================================================================
+
+
+@swift_regular:     Georgia,Times,Times New Roman,serif;
+@bodyfont: @swift_regular;
+@headerfont:        'Subway', Helvetica, Arial, serif;
+@monospacefont:     'courier', monospace;
+@iconfont:          'icomoon';
+@bodyfontsans:      @swift_regular;
+

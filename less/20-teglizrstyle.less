@@ -1,40 +1,23 @@
 
 ///
-// Tegelizr - style.less
+// Tegelizr - 20-teglizrstyle.less
 // ----------------------------------------------------------------------------------
 // algemene tegelizr styling
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.0.0
-// @desc.   Filecheck aangepast. Navigatie retour. Wachtanimatie toegevoegd.
+// @version 7.1.0
+// @desc.   CSS structuur aangepast.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
 
 // ===================================================================================================================
 
-@wit:           #fff;
-@txt:           #555;
-@grijs:         #eee;
-@titelkleur:    @txt;
-@dinges:        30px;
-@rood:          #9D1626;
-@border-color:  #afafaf;
-
-@fullwidth:     720px;
-
-// ===================================================================================================================
-
-@import "font-includes.less";      
-@import "socmed-color-codes.less";          
-
-// ===================================================================================================================
-
-.loadimmediately() {
+.tegelizrstyling() {
       
   html {
-      font-family: sans-serif;
+      font-family: @bodyfont;
       font-size: 62.5%;
   }
   
@@ -105,7 +88,8 @@
           border: 3px solid @wit;
           background: @wit;
       
-          font-family: toronto,Helvetica,Arial,serif;
+          font-family: @headerfont;
+          
           font-size: 110%;
           text-decoration: none;
           color: @txt;
@@ -333,7 +317,7 @@
       padding: 5px;
       display: block;
       line-height: 1.2;
-      font-family: sans-serif;
+      font-family: @bodyfontsans;
       text-decoration: none;
       color: #555;
       border: 1px solid #dadada;
@@ -355,7 +339,7 @@
       width: 100%;
       z-index: 2;
       font-size: 80%;
-      font-family: sans-serif;
+      font-family: @bodyfontsans;
   }
   
   /* reveal associated tooltip on focus of preceeding input */
@@ -536,7 +520,7 @@
           list-style: none;
           margin: 0 8px 3px 0 !important;
           padding: 0;
-          font-family: sans-serif;
+        font-family: @bodyfontsans;
       }
       li {
           display: block;
@@ -562,7 +546,7 @@
       }
       
       a:before {
-          font-family: 'icomoon';
+        font-family: @iconfont;
           speak: none;
           font-style: normal;
           font-weight: normal;
@@ -979,7 +963,7 @@
   
           a {
   
-              font-family: toronto,Helvetica,Arial,serif;
+            font-family: @headerfont;
               
               color: @txt;
               font-size: 180%;
@@ -1259,9 +1243,3 @@
   
 }
 
-.loadlater() {
-    body {
-    }
-}
-
-.loadimmediately();

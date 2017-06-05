@@ -13,6 +13,7 @@ version:  7.0.2
 * Twitter: [@paulvanbuuren](https://twitter.com/paulvanbuuren/)
 
 ## Versions
+* 7.1.0 - CSS structuur aangepast.
 * 7.0.3 - Favicon. Tegeldatum.
 * 7.0.2 - Alle tegeltjes tonen.
 * 7.0.1 - CSS bijgewerkt, zoekdata bijgwerkt, zoekmogelijkheid hersteld.

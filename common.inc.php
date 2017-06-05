@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.0.3
-// @desc.   Favicon. Tegeldatum.
+// @version 7.1.0
+// @desc.   CSS structuur aangepast.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -296,13 +296,16 @@ function wbvb_d2e_socialbuttons($thelink = 'thelink', $thetitle = 'thetitle', $s
 
 // ===================================================================================================================
 function htmlheader() {
-    return '
-    <link href="//wbvb.nl/wp-content/themes/wbvb/style.css" rel="stylesheet" type="text/css">
-    <link href="/css/style_v1.css?v=' . TEGELIZR_VERSION . '" rel="stylesheet" type="text/css">
-    <link href="/css/spinner.css?v=' . TEGELIZR_VERSION . '" rel="stylesheet" type="text/css">
-    <link href="/css/print.css?v=' . TEGELIZR_VERSION . '" rel="stylesheet" type="text/css" media="">
-    </head>
-    <body class="nojs">';
+  
+  $endtag = '</head><body class="nojs">';
+
+  if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
+    // nog doen: css inlezen en teruggeven
+    return '<link href="/css/tegelizr.css?v=' . TEGELIZR_VERSION . '" rel="stylesheet" type="text/css" media="">' . $endtag;
+  }
+  else {
+    return '<link href="/css/tegelizr.css?v=' . TEGELIZR_VERSION . '" rel="stylesheet" type="text/css" media="">' . $endtag;
+  }
   
 }
 
