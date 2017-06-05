@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.1.0
-// @desc.   CSS structuur aangepast.
+// @version 7.1.1
+// @desc.   Inline css voor performance.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -295,16 +295,19 @@ function wbvb_d2e_socialbuttons($thelink = 'thelink', $thetitle = 'thetitle', $s
 
 
 // ===================================================================================================================
-function htmlheader() {
+function get_end_htmlheader() {
   
   $endtag = '</head><body class="nojs">';
 
-  if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
+  if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl'  || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
     // nog doen: css inlezen en teruggeven
-    return '<link href="/css/tegelizr.css?v=' . TEGELIZR_VERSION . '" rel="stylesheet" type="text/css" media="">' . $endtag;
+    echo '<style type="text/css">';
+    include("css/tegelizr.css");
+    echo '</style>';
+    echo $endtag;
   }
   else {
-    return '<link href="/css/tegelizr.css?v=' . TEGELIZR_VERSION . '" rel="stylesheet" type="text/css" media="">' . $endtag;
+    echo '<link href="/css/tegelizr.css?v=' . TEGELIZR_VERSION . '" rel="stylesheet" type="text/css" media="">' . $endtag;
   }
   
 }

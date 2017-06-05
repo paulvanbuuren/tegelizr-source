@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.0.2
-// @desc.   Alle tegeltjes tonen.
+// @version 7.1.1
+// @desc.   Inline css voor performance.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -81,7 +81,8 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
 <meta property="og:url" content="<?php echo $desturl; ?>" />
 <meta property="article:tag" content="<?php echo TEGELIZR_ALLES; ?>" />
 <meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
-<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
+<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?>
+<?php get_end_htmlheader(); ?>
 <article id="page"  class="resultaat">
   <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><span>Redactie</span></a></h1>
   <p>Ik houd niet bij wie welk tegeltje gemaakt heeft. Als een tegeltje me niet bevalt, haal ik het weg. Zo kan ik niet zo goed tegen enorme spelfouten. En  tegeltjes die neerkomen op hetzelfde haal ik ook weg, zoals alle variaties op: 'Niet zo leuk als een tegel met een spreuk' of: 'Beter dik in de kist dan een feestje gemist'. <em>Been there, done that</em>. Ook tegeltjes met persoonsnamen houden het meestal niet zo lang vol hier.</p>
@@ -163,7 +164,8 @@ function sortByOrder($a, $b) {
 <meta property="og:url" content="<?php echo $desturl; ?>" />
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo $imagesource ?>" />
-<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
+<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?>
+<?php get_end_htmlheader(); ?>
 <article id="page"  class="resultaat">
   <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><span><?php echo returnlogo() . $titel ; ?></span></a></h1>
 
@@ -246,7 +248,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 <meta property="og:url" content="<?php echo $desturl; ?>" />
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo $imagesource ?>" />
-<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php echo htmlheader() ?>
+<?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?>
+<?php get_end_htmlheader(); ?>
 <article id="page"  id="page" class="resultaat" itemscope itemtype="http://schema.org/ImageObject">
     <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><span><?php echo TEGELIZR_TITLE ?></span></a></h1>
 
@@ -754,7 +757,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
 <title><?php echo TEGELIZR_TITLE ?>- WBVB Rotterdam</title>
-<?php echo htmlheader() ?>
+<?php get_end_htmlheader(); ?>
 <article id="page">
   <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><span><?php echo $titel ?></span></a></h1>
   <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], $titel, TEGELIZR_SUMMARY) ?>
@@ -812,7 +815,7 @@ else {
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
 <title><?php echo TEGELIZR_TITLE ?>- WBVB Rotterdam</title>
-<?php echo htmlheader() ?>
+<?php get_end_htmlheader(); ?>
 <article id="page">
   <h1 id="top"><?php echo returnlogo(); ?><span><?php echo TEGELIZR_TITLE ?></span></h1>
   <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], TEGELIZR_TITLE, TEGELIZR_SUMMARY) ?>
