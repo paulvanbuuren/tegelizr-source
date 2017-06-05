@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.0.0
-// @desc.   Filecheck aangepast. Navigatie retour. Wachtanimatie toegevoegd.
+// @version 7.0.1
+// @desc.   CSS bijgewerkt, zoekdata bijgwerkt, zoekmogelijkheid hersteld.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -28,7 +28,7 @@ setlocale(LC_TIME, 'NL_nl');
 
 define('PVB_DEBUG', true);
 
-
+define('TEGELIZR_VERSION',          '7.0.1');
 define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
 define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
 define('TEGELIZR_BACK',             'Bak je eigen tegeltje');
@@ -68,10 +68,6 @@ if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsof
   // Report no PHP errors
   error_reporting(0);
   
-  // Same as error_reporting(E_ALL);
-  ini_set('error_reporting', E_ALL);
-
-  
 }
 elseif ( $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl' ) {
   define('TEGELIZR_PROTOCOL',         'https://');
@@ -81,7 +77,7 @@ elseif ( $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl' ) {
   error_reporting(0);
   
   // Same as error_reporting(E_ALL);
-  ini_set('error_reporting', E_ALL);
+//  ini_set('error_reporting', E_ALL);
 
   
 }
@@ -114,11 +110,13 @@ define('TEGELIZR_VORIGE',           'vorige');
 define('TEGELIZR_VORIGE_TITEL',     'vorige_titel');
 
 define('TEGELIZR_JS_START_KEY',         'js_start_key');
-define('TEGELIZR_JS_START_MSG',         'Ja, ik ben klaar');
+define('TEGELIZR_JS_START_MSG',         'Klaar!');
 define('TEGELIZR_JS_BUSY_MSG',          'Even geduld nog.<br />Je tegeltje is bijna klaar.');
 define('TEGELIZR_JS_BUSY_MSG_HEADER',   'Momentje');
 define('TEGELIZR_JS_SCRIPTERROR',       'Script fout. Maar dat maakt verder niet uit. Veel plezier met je tegel!');
 define('TEGELIZR_JS_NAV_NEXTKEY',       'navnext');
+
+
 
 
 
@@ -133,6 +131,9 @@ $deletedfiles_tegels    = $path. TEGELIZR_DELETED_FILES . "/" . TEGELIZR_TEGELFO
 $baseimgpath            = $sourcefolder."base.png";
 $zoektegeltje           = '';
 $userip                 = 'IP' . md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
+
+
+define('TEGELIZR_ALL_DB', $path . TEGELIZR_ALLES . "_index.txt");
 
 
 $arr_sort_by = array(
@@ -297,9 +298,9 @@ function wbvb_d2e_socialbuttons($thelink = 'thelink', $thetitle = 'thetitle', $s
 function htmlheader() {
     return '
     <link href="//wbvb.nl/wp-content/themes/wbvb/style.css" rel="stylesheet" type="text/css">
-    <link href="/css/style.css?asdf" rel="stylesheet" type="text/css">
-    <link href="/css/spinner.css?asdf" rel="stylesheet" type="text/css">
-    <link href="/css/print.css" rel="stylesheet" type="text/css" media="">
+    <link href="/css/style_v1.css?v=' . TEGELIZR_VERSION . '" rel="stylesheet" type="text/css">
+    <link href="/css/spinner.css?v=' . TEGELIZR_VERSION . '" rel="stylesheet" type="text/css">
+    <link href="/css/print.css?v=' . TEGELIZR_VERSION . '" rel="stylesheet" type="text/css" media="">
     </head>
     <body class="nojs">';
   
@@ -362,63 +363,67 @@ function spitoutheader() {
 
 function getviews($filelocation, $update = false) {
 
-    global $userip;
+  global $userip;
 
+
+  if (@file_get_contents($filelocation) === false) {
+    return 'woeps. bestand is corrupt: ' . $filelocation;
+    exit;
+  }
+  else {
     $json_data      = file_get_contents($filelocation);
     $archieftekst   = json_decode($json_data, true);
-
+  
     if ( isset( $archieftekst[TEGELIZR_VIEWS] ) ) {
-        $archieftekst[TEGELIZR_VIEWS] = intval( $archieftekst[TEGELIZR_VIEWS] );
+      $archieftekst[TEGELIZR_VIEWS] = intval( $archieftekst[TEGELIZR_VIEWS] );
     }
     else {
-        $archieftekst[TEGELIZR_VIEWS] = 1;
+      $archieftekst[TEGELIZR_VIEWS] = 1;
     }
-
+  
     if ( isset( $archieftekst[TEGELIZR_LASTVISIT] ) ) {
-        // het ietsje moeilijker maken om de views omhoog te krijgen
-        if ( $archieftekst[TEGELIZR_LASTVISIT] == $userip ) {
-            $update = false;
-        }
+      // het ietsje moeilijker maken om de views omhoog te krijgen
+      if ( $archieftekst[TEGELIZR_LASTVISIT] == $userip ) {
+        $update = false;
+      }
     }
-
 
     $archieftekst[$userip . '_comment'] = 'Hoeveel sterren is dit tegeltje waard?';
-
+  
     if ( $update ) {
-        $archieftekst[TEGELIZR_VIEWS] = ( intval( $archieftekst[TEGELIZR_VIEWS] ) + $update);
-        $archieftekst[TEGELIZR_LASTVISIT] = $userip;
-        $newJsonString = json_encode($archieftekst);
-        file_put_contents($filelocation, $newJsonString);
+      $archieftekst[TEGELIZR_VIEWS] = ( intval( $archieftekst[TEGELIZR_VIEWS] ) + $update);
+      $archieftekst[TEGELIZR_LASTVISIT] = $userip;
+      $newJsonString = json_encode($archieftekst);
+      file_put_contents($filelocation, $newJsonString);
     }
-
+  
     if ( ( !isset( $archieftekst[TGLZR_TOTAL_POINTS] ) ) || ( !isset( $archieftekst[TGLZR_NR_VOTES] ) ) ) {
 
-        if ( !isset( $archieftekst[TGLZR_NR_VOTES] ) ){
-            $archieftekst[TGLZR_NR_VOTES] = 0;
-        }
+      if ( !isset( $archieftekst[TGLZR_NR_VOTES] ) ){
+        $archieftekst[TGLZR_NR_VOTES] = 0;
+      }
 
-        if ( !isset( $archieftekst[TGLZR_TOTAL_POINTS] ) ){
-            $archieftekst[TGLZR_TOTAL_POINTS] = 0;
-        }
+      if ( !isset( $archieftekst[TGLZR_TOTAL_POINTS] ) ){
+        $archieftekst[TGLZR_TOTAL_POINTS] = 0;
+      }
 
-        $archieftekst[dec_avg] = ($archieftekst[TGLZR_NR_VOTES] > 0 ) ? ( $archieftekst[TGLZR_TOTAL_POINTS] / $archieftekst[TGLZR_NR_VOTES] ) : 0;
-        $archieftekst[rounded_avg] = round( $archieftekst[dec_avg] ,0);
-        
-        $newJsonString = json_encode($archieftekst);
-        file_put_contents($filelocation, $newJsonString);
+      $archieftekst[dec_avg] = ($archieftekst[TGLZR_NR_VOTES] > 0 ) ? ( $archieftekst[TGLZR_TOTAL_POINTS] / $archieftekst[TGLZR_NR_VOTES] ) : 0;
+      $archieftekst[rounded_avg] = round( $archieftekst[dec_avg] ,0);
+      
+      $newJsonString = json_encode($archieftekst);
+      file_put_contents($filelocation, $newJsonString);
+
     }
-
-
 
     if ( isset( $archieftekst[TEGELIZR_VIEWS] ) ) {
-        return $archieftekst;
+      return $archieftekst;
     }
     else {
-        $dinges = array();
-        $dinges[TEGELIZR_VIEWS] = 1;
-        return $dinges;
+      $dinges = array();
+      $dinges[TEGELIZR_VIEWS] = 1;
+      return $dinges;
     }
-    
+  }
 }
 
 // ===================================================================================================================

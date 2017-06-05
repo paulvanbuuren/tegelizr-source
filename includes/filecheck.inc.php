@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.0.0
-// @desc.   Filecheck aangepast. Navigatie retour. Wachtanimatie toegevoegd.
+// @version 7.0.1
+// @desc.   CSS bijgewerkt, zoekdata bijgwerkt, zoekmogelijkheid hersteld.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -136,6 +136,8 @@ function verbeteralletegelmetadata( $redirect = '' ) {
   $list           = '';
   $tegelcounter   = 0;
   $errorcounter   = 0;
+  $returnarray    = array();
+  $boom           = array();
 
 
   if ( is_dir($sourcefiles_thumbs) && is_dir($sourcefiles_tegels) && is_dir($deletedfiles_thumbs)  && is_dir($deletedfiles_tegels) ) {
@@ -223,12 +225,11 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 
     dodebug('<h1>Vorige en volgende</h1><ul>', $outputyesno );    
 
-$returnfirst_titel  = '';
-$returnfirst_url    = '';
-
+    $returnfirst_titel  = '';
+    $returnfirst_url    = '';
+    
     foreach( $thumbs as $thethumb) {
 
-      
       // door alle thumbs heen lopen
 
       $stack          = explode('/', $thethumb);
@@ -249,6 +250,14 @@ $returnfirst_url    = '';
         $vorige         = ( isset( $thumbs[$vorigenr] ) ) ? $thumbs[$vorigenr] : '';      
         $volgende       = ( isset( $thumbs[$volgendenr] ) ) ? $thumbs[$volgendenr] : '';      
 
+        $boom[$thethumb]                          = '';
+        $boom[$thethumb]['file_thumb']            = $huidige;
+        $boom[$thethumb]['file_date_readable']    = strftime('%e %B %Y',$date);
+        $boom[$thethumb]['txt_tegeltekst']        = $all['txt_tegeltekst'];
+        $boom[$thethumb]['file_name']             = $all['file_name'];
+        $boom[$thethumb]['file_thumb']            = $all['file_thumb'];
+        $boom[$thethumb][TEGELIZR_VIEWS]          = $all[TEGELIZR_VIEWS];
+
         if ( $vorige ) {
           $vorige         = explode('_', $vorige );
           $vorige         = $vorige[1];
@@ -258,9 +267,6 @@ $returnfirst_url    = '';
           $volgende       = explode('_', $volgende );
           $volgende       = $volgende[1];
         }
-
-
-
 
         dodebug('<li><strong>' . $huidige . '</strong> (' . $loopcounter . ')<ul><li>vorige: ' . $vorige . '</li><li>volgende: ' . $volgende . '</ul></li>', $outputyesno );
       
@@ -283,9 +289,9 @@ $returnfirst_url    = '';
           $all['volgende_titel']    = isset($volgende_views['txt_tegeltekst']) ? $volgende_views['txt_tegeltekst'] : $volgende;
         }
 
-        if ( 0 == $loopcounter ) {
-          $returnfirst_titel  = $all['volgende_titel'];
-          $returnfirst_url    = $all['volgende'];
+        if ( 1 == $loopcounter ) {
+          $returnfirst_titel  = $all['vorige_titel'];
+          $returnfirst_url    = $all['vorige'];
         }
 
         $all['laatst_bijgewerkt']   = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
@@ -303,15 +309,16 @@ $returnfirst_url    = '';
     
     dodebug('</ul>', $outputyesno );    
 
-    $returnarray = array();
     
+    if ( $returnfirst_titel && $returnfirst_titel ) {
+      $returnarray[TEGELIZR_JS_NAV_NEXTKEY]   = '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $returnfirst_url . '" title="Bekijk \'' . $returnfirst_titel . '\'">' . $returnfirst_titel . '<span class="pijl">&#10157;</span></a>';
+    }
 
-    $returnarray[TEGELIZR_JS_NAV_NEXTKEY]   = '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $returnfirst_url . '" title="Bekijk \'' . $returnfirst_titel . '\'">' . $returnfirst_titel . '<span class="pijl">&#10157;</span></a>';
-  
+    $fh             = fopen( TEGELIZR_ALL_DB, 'w') or die("can't open file: " . TEGELIZR_ALL_DB);
+    $stringData     = json_encode( $boom );
 
-
-  
-
+    fwrite($fh, $stringData);
+    fclose($fh);
 
     return $returnarray;
     
@@ -319,24 +326,25 @@ $returnfirst_url    = '';
   }
   else {
 
-    dodebug('Een folderprobleem.<br>', $outputyesno );    
+
+
+//    dodebug('Een folderprobleem.<br>', $outputyesno );    
     
     if ( ! is_dir($sourcefiles_thumbs) ) {
       if (!mkdir($sourcefiles_thumbs, 0777, true)) {
-        die('Kon folder niet aanmaken: ' . $sourcefiles_thumbs);
-        return false;
+        $returnarray[TEGELIZR_JS_SCRIPTERROR]   = 'Kan folder niet aanmaken: ' . $sourcefiles_thumbs;
       }
       else {
+        $returnarray[TEGELIZR_JS_SCRIPTERROR]   = 'Folder bestond niet, maar is nu aangemaakt: ' . $sourcefiles_thumbs;
       }
-    }
-    else {
     }
     
     if ( ! is_dir($sourcefiles_tegels) ) {
       if (!mkdir($sourcefiles_tegels, 0777, true)) {
-        die('Kon folder niet aanmaken: ' . $sourcefiles_tegels);
+        $returnarray[TEGELIZR_JS_SCRIPTERROR]   = 'Kan folder niet aanmaken: ' . $sourcefiles_tegels;
       }
       else {
+        $returnarray[TEGELIZR_JS_SCRIPTERROR]   = 'Folder bestond niet, maar is nu aangemaakt: ' . $sourcefiles_tegels;
       }
     }
     else {
@@ -344,26 +352,26 @@ $returnfirst_url    = '';
     
     if ( ! is_dir($deletedfiles_thumbs) ) {
       if (!mkdir($deletedfiles_thumbs, 0777, true)) {
-        die('Kon folder niet aanmaken: ' . $deletedfiles_thumbs);
+        $returnarray[TEGELIZR_JS_SCRIPTERROR]   = 'Kan folder niet aanmaken: ' . $deletedfiles_thumbs;
       }
       else {
+        $returnarray[TEGELIZR_JS_SCRIPTERROR]   = 'Folder bestond niet, maar is nu aangemaakt: ' . $deletedfiles_thumbs;
       }
     }
-    else {
-    }
+
     
     if ( ! is_dir($deletedfiles_tegels) ) {
       if (!mkdir($deletedfiles_tegels, 0777, true)) {
-        die('Kon folder niet aanmaken: ' . $deletedfiles_tegels);
+        $returnarray[TEGELIZR_JS_SCRIPTERROR]   = 'Kan folder niet aanmaken: ' . $deletedfiles_tegels;
       }
       else {
+        $returnarray[TEGELIZR_JS_SCRIPTERROR]   = 'Folder bestond niet, maar is nu aangemaakt: ' . $deletedfiles_thumbs;
       }
-    }
-    else {
     }
     
 
-    return false;
+    return $returnarray;
+
   }
 
   

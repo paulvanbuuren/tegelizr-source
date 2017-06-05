@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.0.0
-// @desc.   Filecheck aangepast. Navigatie retour. Wachtanimatie toegevoegd.
+// @version 7.0.1
+// @desc.   CSS bijgewerkt, zoekdata bijgwerkt, zoekmogelijkheid hersteld.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -113,27 +113,27 @@ elseif (
     $titeltw  = '';
     $results  = array();
 
-if ( 22 == 22 ) {
-  echo '<h1 style="background: red; color: white; padding: .2em;">' . $titel . '</h1>';
-} 
-else {
-
-    $zoektegeltje = filtertext($_GET[TEGELIZR_ZOEKTERMKEY], false);
+    if ( $afgevangenzoekstring ) {
+      $zoektegeltje = filtertext( $afgevangenzoekstring, false);
+    }
+    else {
+      $zoektegeltje = filtertext($_GET[TEGELIZR_ZOEKTERMKEY], false);
+    }
 
     $titeltw    = 'Zoek tegeltjes met ' . $zoektegeltje;
     $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_ZOEKURL . '/?' . TEGELIZR_ZOEKTERMKEY . '=' . $zoektegeltje;
     
   
-    $obj        = json_decode(file_get_contents($path . TEGELIZR_ALLES . "/index.txt"), true);
+    $obj        = json_decode(file_get_contents( TEGELIZR_ALL_DB ), true);
     
     $terms      = explode(" ", $zoektegeltje);
     $results    = array_filter($obj, function ($x) use ($terms){
-        foreach($terms as $term){
-            if ( isset($x["txt_tegeltekst"]) && stripos("-" . filtertext(strtolower($x["txt_tegeltekst"]), false ), strtolower($term)) ) {
-                return true;
-            }
+      foreach($terms as $term){
+        if ( isset($x["txt_tegeltekst"]) && stripos("-" . filtertext(strtolower($x["txt_tegeltekst"]), false ), strtolower($term)) ) {
+          return true;
         }
-        return false;
+      }
+      return false;
     });
     
     if ( count($results) ) {
@@ -148,7 +148,7 @@ else {
         $titel   = "Niets gevonden voor '" . $zoektegeltje . "'";
     }
 
-}  
+
     
 
 function sortByOrder($a, $b) {
@@ -516,6 +516,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
               ToggleHide(true);
           }
           else {
+              ToggleHide(true);
               $('#progress_now').html( '<?php echo TEGELIZR_JS_SCRIPTERROR ?> ' );
           }
           
