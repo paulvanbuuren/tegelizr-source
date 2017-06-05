@@ -78,10 +78,11 @@ version:  7.4.3
 ## To do:
 * Mogelijkheid een tegeltje te verwijderen als mislukt. Deze keuze direct na genereren
 * Zoeken vanuit de adresbalk foutloos. Niet laten doorschieten naar genereren van een tegeltje
-* paging voor thumbnailoverzicht
+* ~~paging voor thumbnailoverzicht~~ Begin mee gemaakt. Dit nog doen verbeteren met javascript. En voor de alle-tegeltjespagina mogelijkheid om aantal tegels per pagina te kiezen. 
 * paging voor ALLE tegeltjes-pagina?
 * Zou het niet handiger zijn om een folder /tegeltjes/ te hebben?
 * Vertaal de strings voor wordsofwisdomtile.com / tegelizr.nl
 * mogelijkheid om breaks te gebruiken
 * automatische compressie van de PNGs op de server
-
+* RSS-feed aanmaken.
+* sitemap laten genereren en submitten.
