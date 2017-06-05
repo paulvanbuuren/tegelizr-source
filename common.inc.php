@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.0.1
-// @desc.   CSS bijgewerkt, zoekdata bijgwerkt, zoekmogelijkheid hersteld.
+// @version 7.0.3
+// @desc.   Favicon. Tegeldatum.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -356,7 +356,7 @@ function returnlogo() {
 
 
 function spitoutheader() {
-    return '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" href="//wbvb.nl/images/favicon.ico" type="image/x-icon" /><link rel="publisher" href="https://plus.google.com/u/0/+PaulvanBuuren"/><meta name="twitter:card" content="summary"/><meta name="twitter:site" content="@paulvanbuuren"/><meta name="twitter:domain" content="WBVB"/><meta name="twitter:creator" content="@paulvanbuuren"/><meta property="og:locale" content="nl_NL" /><meta property="og:type" content="article" /><meta property="og:site_name" content="Webbureau Van Buuren Rotterdam" /><meta property="article:publisher" content="https://www.facebook.com/webbureauvanbuuren" /><link rel="apple-touch-icon" href="/img/apple-favicon.png">';
+    return '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /><link rel="publisher" href="https://plus.google.com/u/0/+PaulvanBuuren"/><meta name="twitter:card" content="summary"/><meta name="twitter:site" content="@paulvanbuuren"/><meta name="twitter:domain" content="WBVB"/><meta name="twitter:creator" content="@paulvanbuuren"/><meta property="og:locale" content="nl_NL" /><meta property="og:type" content="article" /><meta property="og:site_name" content="Webbureau Van Buuren Rotterdam" /><meta property="article:publisher" content="https://www.facebook.com/webbureauvanbuuren" /><link rel="apple-touch-icon" href="/img/apple-favicon.png">';
     
 }
 // ===================================================================================================================
