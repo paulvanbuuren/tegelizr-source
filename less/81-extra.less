@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.1.0
-// @desc.   CSS structuur aangepast.
+// @version 7.2.2
+// @desc.   Form elements, list items with images.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -16,6 +16,134 @@
 
 .extrastyle() {
 }    
+
+.socialmedia() {
+  
+  .social-media {
+    display: block;
+    overflow: hidden;
+    list-style: none;
+    margin: 0 0 .5em 1em;
+    padding: 0;
+    float: right;
+    
+    li {
+      overflow: hidden;
+      list-style: none;
+      margin: 0 8px 3px 0 !important;
+      padding: 0;
+      font-family: @bodyfontsans;
+    }
+    li {
+      display: block;
+      float: none;
+    }
+    a {
+      padding: 2px 10px 2px 2px;
+      display: block;
+      width: 100%;
+      margin: 2px;
+      color: @wit;
+      border-radius: 3px;
+      font-size: 80%;
+      line-height: 1.8;
+      text-align: left;
+      
+      &:focus, &:hover, &:active {
+        text-decoration: none !important;
+      }
+      span {
+        float: left;
+      }
+    }
+    
+    a:before {
+      font-family: @iconfont;
+      speak: none;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      
+      /* Better Font Rendering =========== */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      
+      content: "\e600";
+      padding: 3px 1px 0 4px;
+      
+      font-size: 1.35em;
+      margin-right: 4px;
+      width: 24px;
+      display: block;
+      float: left;
+      text-align: center;
+      border-style: none;
+    }
+    
+    .facebook {
+      background: @facebook;
+
+      &:before {
+        content: "\e604";
+        padding-left: 2px;
+      }
+
+      &:hover, &:focus {
+        &:before {
+        color: @facebook;
+        background: @wit;
+        }
+      }
+    }
+    .twitter {
+      background: @twitter;
+
+      &:before {
+        content: "\e605";
+      }
+      &:hover, &:focus {
+        &:before {
+          color: @twitter;
+          background: @wit;
+        }
+      }
+    }
+    .linkedin {
+      background: @linkedin;
+
+      &:before {
+//        content: "\e605";
+      }
+      &:hover, &:focus {
+        &:before {
+          color: @linkedin;
+          background: @wit;
+        }
+      }
+    }
+
+  }
+
+  .resultaat .social-media {
+    float: none;
+    clear: both;
+    margin: 1em 0 0 0;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1em;
+    
+    li {
+      flex: 1 100%;
+      margin: 0;
+      a {
+        font-size: 90%;
+        margin: 0;
+      }
+    }
+  }
+}
 
 .deleteme_extrastyle() {
   li:nth-child(n+5) {

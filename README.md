@@ -13,6 +13,7 @@ version:  7.0.2
 * Twitter: [@paulvanbuuren](https://twitter.com/paulvanbuuren/)
 
 ## Versions
+* 7.2.2 - Form elements, list items with images.
 * 7.2.1 - Header fonts en tegelizr-logo
 * 7.1.1 - Inline css voor performance.
 * 7.1.0 - CSS structuur aangepast.

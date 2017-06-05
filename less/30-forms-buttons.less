@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.2.1
-// @desc.   Header fonts en tegelizr-logo
+// @version 7.2.2
+// @desc.   Form elements, list items with images.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -15,6 +15,152 @@
 // ===================================================================================================================
 
 .formsbutton() {
+
+  form {
+    margin: 1em 0;
+    padding: 0;
+    overflow: hidden;
+    float: none;
+    clear: both;
+    width: 100%;
+    
+    input {
+      border: 0 none white;    
+      box-shadow: none;
+    }
+    
+    input[type='text'],
+    input[type='search'],
+    select,
+    button {
+      font-size: 1.2em;
+      border: 2px solid @border-color;
+      border-radius: 0;
+      box-shadow: 1px 1px 3px #eee inset;
+    }
+    
+    select {
+      margin: 0 .7em 0 0;
+    }
+    
+    input[type="search"] {
+      font-size: 80%;
+      width: 70%;
+    }
+    
+    input[type="search"], input[type="submit"] {
+      height: 40px !important;
+
+      &, &:focus {
+        border-width: 1px;
+      }
+    }
+    
+    input[type="search"],
+    input[type="text"] {
+      display: block;
+      float: none;
+      font-size: 150%;
+      height: auto;
+      border-width: 2px;
+      margin: 2px;
+    }
+    input[type="text"] {
+      width: 99%;
+    }
+    input[type="search"] {
+      float: left;
+    }
+    button {
+      background:#DDD;
+      color: #fff;
+      border: 1px solid #DDD;
+      border-radius: 3px;
+      text-shadow: 0 1px 1px white;
+      -webkit-box-shadow: 0 1px 1px #fff;
+      -moz-box-shadow: 0 1px 1px #fff;
+      box-shadow: 0 1px 1px #fff;
+      padding: 6px 10px;
+      white-space: nowrap;
+      vertical-align: middle;
+      color: #666;
+      cursor: pointer;
+      font: bold 1em Sans-Serif;
+      border-color: #999;
+      background: -webkit-linear-gradient(top, white, #E0E0E0);
+      background:    -moz-linear-gradient(top, white, #E0E0E0);
+      background:     -ms-linear-gradient(top, white, #E0E0E0);
+      background:      -o-linear-gradient(top, white, #E0E0E0);
+      -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.25), inset 0 0 3px #fff;
+      -moz-box-shadow:    0 1px 2px rgba(0,0,0,0.25), inset 0 0 3px #fff;
+      box-shadow:         0 1px 2px rgba(0,0,0,0.25), inset 0 0 3px #fff;    
+      
+      font-size: 80%;
+      text-transform: uppercase;
+      font-weight: normal;
+      
+      &:focus,
+      &:active,
+      &:hover {
+        color: #666;
+        background: @wit;
+      }
+    }
+
+    .tekstveld  {
+      position: relative;
+      float: left;
+      display: inline-block;
+      margin: 0 0 2em 0;
+    }
+    
+    label {
+      overflow:hidden;
+      display: block;
+      margin: 0;
+      padding: 0 .5em 0 0;
+      font-size: 80%;
+      text-transform: uppercase;
+      font-weight: normal;
+    }
+    label input {
+      padding: 0;
+      margin: 0 .5em 0 0;
+      height: auto;
+    }
+    
+    .tekstveld input {
+      padding: 4px;
+    }
+    
+    .tekstveld input:focus + [role="tooltip"] {
+      right: 0;
+      width: 99%;
+    }
+    
+  }
+
+  .search-form {
+    margin: 0 0 1em 0;
+    
+    input[type="submit"] {
+      clip: auto;
+      height: auto;
+      position: relative;
+      background-color: #fff;
+      background-image: url('img/vergrootglas.png');
+      background-image: url('img/vergrootglas.svg'), none;
+      background-position: center center;
+      background-repeat: no-repeat;
+      width: 40px;
+      text-indent: -999em;
+    }
+    input[type="submit"]:hover,
+    input[type="submit"]:focus {
+      background-color: #9c9c9c;
+    }
+  }
+    
   @media screen {
     
     input[type='text'],
@@ -167,6 +313,33 @@
   }
 
   @media only screen and (min-width: 600px) {
+
+    form {
+      fieldset {
+        padding: 0;
+        border: 0 none transparent;
+        width: 100%;
+        float:left;
+      }
+      fieldset + button{
+        float:left;
+        width: 19%;
+        overflow:hidden;
+      }
+      button {
+        float: right;
+        clear: right;
+      }
+      button span:after {
+        content: '\A';
+        white-space: pre;
+      }
+      button + p {
+        float:none;
+        clear:both;
+      }
+    }    
+    
     #modal_open {
       width: @buttonwidth;
       height: @buttonwidth;
