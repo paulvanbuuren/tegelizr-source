@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.0.1
-// @desc.   CSS bijgewerkt, zoekdata bijgwerkt, zoekmogelijkheid hersteld.
+// @version 7.0.2
+// @desc.   Alle tegeltjes tonen.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -252,7 +252,6 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 
         $boom[$thethumb]                          = '';
         $boom[$thethumb]['file_thumb']            = $huidige;
-        $boom[$thethumb]['file_date_readable']    = strftime('%e %B %Y',$date);
         $boom[$thethumb]['txt_tegeltekst']        = $all['txt_tegeltekst'];
         $boom[$thethumb]['file_name']             = $all['file_name'];
         $boom[$thethumb]['file_thumb']            = $all['file_thumb'];

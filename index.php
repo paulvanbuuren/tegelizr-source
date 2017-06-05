@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.0.1
-// @desc.   CSS bijgewerkt, zoekdata bijgwerkt, zoekmogelijkheid hersteld.
+// @version 7.0.2
+// @desc.   Alle tegeltjes tonen.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -742,7 +742,9 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 }
 
 elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
-  $titel = 'HIER ALLE TEGELTJES';
+  $results        = json_decode(file_get_contents( TEGELIZR_ALL_DB ), true);
+  
+  $titel = count($results) . ' tegeltjes';
 ?>
 <meta name="description" content="">
 <meta name="author" content="">
@@ -758,16 +760,31 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
   <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], $titel, TEGELIZR_SUMMARY) ?>
   <p class="lead">
     <?php 
-      if (is_dir($sourcefiles_thumbs)) {
-        $images = glob($sourcefiles_thumbs . "*.png");
-        rsort($images);
-        echo 'Er zijn ' . count( $images ) . ' tegeltjes';
-      }        
+
+    $results        = json_decode(file_get_contents( TEGELIZR_ALL_DB ), true);
+      
+    if ( $results ) {
+    
+        echo '<ul class="thumbs results">';
+        
+        foreach($results as $result) {
+
+            echo getSearchResultItem($result, false);
+
+        }    
+
+        echo '</ul></section>';
+
+    }
+    else {
+        echo '<p>Geen tegeltjes gevonden</p>';
+    }
+
     ?>
    </p>
   <?php 
 	  echo TheForm();
-	  echo showthumbs(12); 
+//	  echo showthumbs(12); 
     echo TheModalWindow();
     ?>
 
