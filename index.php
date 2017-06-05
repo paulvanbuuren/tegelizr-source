@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.4.1
-// @desc.   Layout voor alle-tegeltjespagina bijgewerkt.
+// @version 7.4.3
+// @desc.   Zoekresultaat bijgewerkt.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -201,7 +201,7 @@ function sortByOrder($a, $b) {
         
         foreach($results as $result) {
 
-            echo getSearchResultItem($result);
+            echo getSearchResultItem($result, false);
 
         }    
 
