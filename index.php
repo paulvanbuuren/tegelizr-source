@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.4.3
-// @desc.   Zoekresultaat bijgewerkt.
+// @version 7.4.6
+// @desc.   Op alle-tegeltjespagina socialbuttons weggepoetst.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -219,8 +219,6 @@ function sortByOrder($a, $b) {
     <input type="submit" value="Search">
 </form>';        
 
-    
-    
 	echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY); 
   echo showthumbs( DEFAULT_AANTAL_TEGELS, $zinnen[2], $pagenumber);
 	echo TheModalWindow();
@@ -646,8 +644,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
 <?php get_end_htmlheader(); ?>
 <article id="page">
   <h1 id="top"><a href="/"><span><?php echo $titel ?></span></a></h1>
-  <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], $titel, TEGELIZR_SUMMARY) ?>
-  <p class="lead">
+  <p class="lead">Dit zijn <?php echo count($results) ?> tegeltjes die sinds 16 juni 2015 gemaakt zijn via deze site.</p>
     <?php 
 
     $results        = json_decode(file_get_contents( TEGELIZR_ALL_DB ), true);
@@ -672,8 +669,6 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
     ?>
    </p>
   <?php 
-	  echo TheForm();
-//    echo showthumbs( DEFAULT_AANTAL_TEGELS, '', $pagenumber);
     echo TheModalWindow();
     ?>
 
@@ -714,7 +709,6 @@ else {
   <p class="lead"> <?php echo TEGELIZR_FORM ?> </p>
   <aside>(maar Paul, <a href="//wbvb.nl/tegeltjes-maken-is-een-keuze/">wat heb je toch met die tegeltjes</a>?)</aside>
   <?php 
-	  echo TheForm();
     echo showthumbs( DEFAULT_AANTAL_TEGELS, '', $pagenumber);
     echo TheModalWindow();
     ?>
