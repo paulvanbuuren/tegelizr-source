@@ -87,6 +87,40 @@
 		"oAP": "\/favicon.ico",
 		"oF": 0
 		},
+	"\/fonts\/AbbeyRoadNF.eot": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/fonts\/AbbeyRoadNF.eot",
+		"oF": 0
+		},
+	"\/fonts\/AbbeyRoadNF.otf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/fonts\/AbbeyRoadNF.otf",
+		"oF": 0
+		},
+	"\/fonts\/AbbeyRoadNF.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/fonts\/AbbeyRoadNF.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"\/fonts\/AbbeyRoadNF.ttf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/fonts\/AbbeyRoadNF.ttf",
+		"oF": 0
+		},
+	"\/fonts\/AbbeyRoadNF.woff": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/fonts\/AbbeyRoadNF.woff",
+		"oF": 0
+		},
 	"\/fonts\/d2eicons.eot": {
 		"ft": 8192,
 		"oA": 2,
@@ -251,17 +285,6 @@
 		"oAP": "\/img\/index.php",
 		"oF": 0
 		},
-	"\/img\/jagpoint-logo.png": {
-		"ft": 32768,
-		"iS": 129840,
-		"oA": 0,
-		"oAP": "\/img\/jagpoint-logo.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
 	"\/img\/momentje.jpg": {
 		"ft": 16384,
 		"iS": 13167,
@@ -280,6 +303,17 @@
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/img\/tegelizr-logo.png": {
+		"ft": 32768,
+		"iS": 6053,
+		"oA": 0,
+		"oAP": "\/img\/tegelizr-logo.png",
+		"oF": 0,
+		"oIPL": 1,
+		"opt": 1,
 		"oT": 1,
 		"q": 100
 		},
@@ -305,16 +339,26 @@
 		"oT": 1,
 		"q": 100
 		},
-	"\/img\/wbvb-logo-transparant.png": {
+	"\/img\/vergrootglas.png": {
 		"ft": 32768,
-		"iS": 63893,
+		"iS": 291,
 		"oA": 0,
-		"oAP": "\/img\/wbvb-logo-transparant.png",
+		"oAP": "\/img\/.vergrootglas~imageoptim.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
+		},
+	"\/img\/vergrootglas.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/img\/vergrootglas.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
 		},
 	"\/includes\/blur.inc.php": {
 		"ft": 8192,
@@ -455,6 +499,23 @@
 		"sM": 0,
 		"sU": 0
 		},
+	"\/less\/10-textstyles.less": {
+		"aP": 0,
+		"bl": 0,
+		"dJ": 0,
+		"ft": 1,
+		"ie": 1,
+		"iI": 0,
+		"ma": 0,
+		"oA": 1,
+		"oAP": "\/css\/10-textstyles.css",
+		"oF": 0,
+		"oS": 0,
+		"rU": 0,
+		"sI": 0,
+		"sM": 0,
+		"sU": 0
+		},
 	"\/less\/10-wbvb.less": {
 		"aP": 0,
 		"bl": 0,
@@ -482,6 +543,40 @@
 		"ma": 0,
 		"oA": 1,
 		"oAP": "\/css\/20-teglizrstyle.css",
+		"oF": 0,
+		"oS": 0,
+		"rU": 0,
+		"sI": 0,
+		"sM": 0,
+		"sU": 0
+		},
+	"\/less\/30-forms-buttons.less": {
+		"aP": 0,
+		"bl": 0,
+		"dJ": 0,
+		"ft": 1,
+		"ie": 1,
+		"iI": 0,
+		"ma": 0,
+		"oA": 1,
+		"oAP": "\/css\/30-forms-buttons.css",
+		"oF": 0,
+		"oS": 0,
+		"rU": 0,
+		"sI": 0,
+		"sM": 0,
+		"sU": 0
+		},
+	"\/less\/40-navigation-menus.less": {
+		"aP": 0,
+		"bl": 0,
+		"dJ": 0,
+		"ft": 1,
+		"ie": 1,
+		"iI": 0,
+		"ma": 0,
+		"oA": 1,
+		"oAP": "\/css\/40-navigation-menus.css",
 		"oF": 0,
 		"oS": 0,
 		"rU": 0,

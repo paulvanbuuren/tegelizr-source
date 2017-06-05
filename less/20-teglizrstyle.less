@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.1.0
-// @desc.   CSS structuur aangepast.
+// @version 7.2.1
+// @desc.   Header fonts en tegelizr-logo
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -16,10 +16,6 @@
 
 .tegelizrstyling() {
       
-  html {
-      font-family: @bodyfont;
-      font-size: 62.5%;
-  }
   
   *, input[type="search"] {
       -webkit-box-sizing: border-box;
@@ -28,25 +24,30 @@
   }
   
   body {
-      background-color: #737371;
-      background-image: url('//cdn.voorwatjes.nl/tegelwand.jpg');
-      background-attachment: fixed;
-      background-position:center center;
-      background-repeat:repeat;
-      color: #333333;
-      font-size: 14px;
-      line-height: 1.5625;
-      padding-bottom: 90px;
-      min-height:100%;
+    background-color: #737371;
+    background-image: url('//cdn.voorwatjes.nl/tegelwand.jpg');
+    background-attachment: fixed;
+    background-position:center center;
+    background-repeat:repeat;
+    padding-bottom: 90px;
+    min-height:100%;
   }
-  article, section#andere, footer {
-      background: white;
-      padding: 1em;
-      margin: 0 auto;
   
-      box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
+  article, section#andere, footer {
+    background: white;
+    padding: 1em;
+    margin: 0 auto;
+
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
       
   }
+
+  #top {
+    min-height: 36px;
+    background: url('/img/tegelizr-logo.png') no-repeat left 6px;
+    background-size: 36px 36px;
+    padding-left: 48px;
+  }  
   
   footer {
       
@@ -259,52 +260,7 @@
       }
   }
   
-  
-  
-  h1, h2 {
-  
-      line-height:1.4;
-      word-break:normal;
-      overflow:hidden;
-      font-weight: normal;
-      padding: 0;
-      margin: 0 0 .3em 0;
-      display: block;
-      float: none;
-      clear: both;
-  }
-  h1 {
-      font-size: 180%;
-      line-height: 2;
-      text-transform: uppercase;
-      
-      svg {
-          display: table-cell;
-          float: left;
-          vertical-align: middle;
-          margin-right: .2em;
-      }
-      
-      a {
-          text-decoration: none;
-          color: @titelkleur;
-  //        display: block;
-          line-height: 1.2;
-          
-          &:hover,
-          &:focus,
-          &:active {
-              text-decoration: underline;
-          }
-      }
-  }
-  h2 {
-      font-size: 120%;
-  }
-  h1::first-letter {
-      text-transform:capitalize;
-  }
-  .wbvb {
+    .wbvb {
       position: fixed;
       right: 1em;
       bottom: 1em;
@@ -903,13 +859,7 @@
   
   @media only screen and (max-width: 550px) {
   
-      body {
-          font-size: 12px;
-      }
-      h1 {
-          font-size: 140%;
-          text-transform: none;
-      }    
+
       .social-media {
           float: none;
           clear: both;
@@ -1009,6 +959,144 @@
   // ===================================================================================================================
   
   
+  @media only screen and (min-width: 600px) {
+    
+    body {
+      padding-top: 1em;
+    }
+    article, footer {
+      width: @fullwidth;
+    }
+
+      form {
+          fieldset {
+              padding: 0;
+              border: 0 none transparent;
+              width: 100%;
+              float:left;
+              
+          }
+          fieldset + button{
+              float:left;
+              width: 19%;
+              overflow:hidden;
+          }
+          button {
+              float: right;
+              clear: right;
+          }
+          button span:after {
+              content: '\A';
+              white-space: pre;
+          }
+          button + p {
+              float:none;
+              clear:both;
+          }
+      }
+      .uitleg {
+          width: 100%;
+          text-align:right;
+          display:block;
+          clear: both;        
+          padding-top: .5em;
+          font-size: 1.4em;
+      }
+      .wbvb {
+          position:absolute;
+          right: 2em;
+          top: 1em;
+          font-size: .55em;
+          
+      }
+      .wbvb a {
+         width: 120px;
+      }
+      .wbvb a:hover, .wbvb a:active, .wbvb a:focus {
+          -webkit-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, .5);
+          -moz-box-shadow:    7px 7px 5px 0px rgba(50, 50, 50, .5);
+          box-shadow:         7px 7px 5px 0px rgba(50, 50, 50, .5);
+      }
+      .wbvb svg {
+         width: 100px;
+         height:55px;
+      }
+      footer {
+          #tomenu {
+              display: block;
+          }
+      }
+  }
+  
+  
+  // ===================================================================================================================
+  
+  .controls {
+      display: inline-block;
+      clear: both;
+      overflow: hidden;
+      
+      input, button, select, option {
+        font-size: 90%;
+        padding: 0;        
+        margin: 2px;
+      }
+      select, button {
+          margin-right: 3px;
+          border: 1px solid @border-color;
+      }
+      select, option, button {
+          width: auto;
+          font-size: 80%;
+          line-height: 2;
+          height: 2em;
+      }
+      select {
+          float: left;
+          &, option {
+              padding: 5px;
+          }
+      }
+      button {
+          float: left;
+          padding: 0 .5em;
+          &.get_previous {
+  
+          }
+          &.get_next {
+  
+          }
+      }
+  }
+  #prefix {
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      word-break: break-all;
+  }
+  
+  aside {
+      border-bottom-style: none;
+  }
+  
+  .dojs .jsinvisible {
+      display: none;
+      visibility: hidden;
+  }
+  
+      
+  .dojs .jsvisible {
+      display: block;
+      visibility: visible;
+  }
+
+  
+}
+
+// ===================================================================================================================
+
+.tegelizrstyling_notused() {
+
   @media only screen and (min-width: 600px) {
   
       body {
@@ -1120,7 +1208,8 @@
       }
   }
   
-  
+
+
   @media only screen and (min-width: 1000px) {
       @arrowwidth: 140px;    
       @arrowheight: ( @arrowwidth / 2);    
@@ -1179,67 +1268,9 @@
           width: 100%;
       }
   }
-  // ===================================================================================================================
-  
-  .controls {
-      display: inline-block;
-      clear: both;
-      overflow: hidden;
       
-      input, button, select, option {
-        font-size: 90%;
-        padding: 0;        
-        margin: 2px;
-      }
-      select, button {
-          margin-right: 3px;
-          border: 1px solid @border-color;
-      }
-      select, option, button {
-          width: auto;
-          font-size: 80%;
-          line-height: 2;
-          height: 2em;
-      }
-      select {
-          float: left;
-          &, option {
-              padding: 5px;
-          }
-      }
-      button {
-          float: left;
-          padding: 0 .5em;
-          &.get_previous {
-  
-          }
-          &.get_next {
-  
-          }
-      }
-  }
-  #prefix {
-      width: 100%;
-      max-width: 100%;
-      overflow: hidden;
-      word-break: break-all;
-  }
-  
-  aside {
-      border-bottom-style: none;
-  }
-  
-  .dojs .jsinvisible {
-      display: none;
-      visibility: hidden;
-  }
-  
-      
-  .dojs .jsvisible {
-      display: block;
-      visibility: visible;
-  }
-
-  
 }
+
+
+// ===================================================================================================================
 

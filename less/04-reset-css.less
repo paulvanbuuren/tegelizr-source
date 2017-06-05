@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.1.0
-// @desc.   CSS structuur aangepast.
+// @version 7.2.1
+// @desc.   Header fonts en tegelizr-logo
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -48,29 +48,10 @@
   }
   
   body {
-      margin: 0;
-      // zie: maxvoltar.com/archive/-webkit-font-smoothing 
-  //  -webkit-font-smoothing: none;  
-  //    -webkit-font-smoothing: subpixel-antialiased;  
-      -webkit-font-smoothing: antialiased;
-    // even kijken of Hans zit op te letten...
+    margin: 0;
   }
-  body .site-inner {
-      a, input {
-          
-          &:focus {
-  //            outline: @d2e_rood dotted 1px;   
-  //            background-color: lighten(@d2e_rood, 50%);
-              color: @txt !important;
-          }
-      }
-  }
-  a:active, a:focus, a:hover {
-    outline: 0
-  }
-  
+
   h1 {
-    font-size: 2em;
     margin: .67em 0
   }
   
@@ -79,8 +60,7 @@
   }
   
   b, strong {
-      font-weight: normal;
-      .headerfont_schreef();
+    font-weight: normal;
   }
   
   dfn {

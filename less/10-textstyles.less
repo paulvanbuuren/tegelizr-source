@@ -1,0 +1,128 @@
+  
+///
+// Tegelizr - 10-textstyles.less
+// ----------------------------------------------------------------------------------
+// should contain only text styles (headers, tables, lists etc)
+// ----------------------------------------------------------------------------------
+// @author  Paul van Buuren
+// @license GPL-2.0+
+// @version 7.2.1
+// @desc.   Header fonts en tegelizr-logo
+// @link    https://github.com/paulvanbuuren/tegelizr-source
+///
+
+
+// ===================================================================================================================
+
+.textstyles() {
+
+  html {
+    font-family: @bodyfont;
+    font-size: 62.5%;
+  }
+
+  body {
+    // zie: maxvoltar.com/archive/-webkit-font-smoothing 
+    -webkit-font-smoothing: antialiased;
+    color: @txt;
+    line-height: 1.5625;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.4;
+  }
+
+
+  /* Headings
+      --------------------------------------------- */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    clear: both;
+    color: @header-color;
+    display: block;
+    float: none;
+    font-family: @headerfont;
+    font-weight: normal;
+    line-height: 1.2;
+    margin: .5em 0 .3em 0;
+    overflow:hidden;
+    padding: 0;
+    word-break:normal;
+    
+    a {
+      text-decoration: none;
+
+      &:active,
+      &:focus,
+      &:hover {
+        text-decoration: underline;
+      }      
+    }
+  }
+
+
+  
+  h1 {
+    font-size: 2em;
+    color: @header1-color;
+    margin-top: 0;
+   
+    &:first-letter {
+      text-transform:capitalize;
+    }
+
+    a {
+      text-decoration: none;
+      color: @header1-color;
+      
+      &:hover,
+      &:focus,
+      &:active {
+        text-decoration: underline;
+      }
+    }
+  }
+  h2 {
+    font-size: 24px;
+  }
+  h3 {
+    font-size: 21.6px;
+  }
+  h4 {
+    font-size: 19.2px;
+  }
+  h5 {
+    font-size: 15.6px;
+  }
+  h6 {
+    font-size: 14.4px;
+  }
+
+
+  h2 {
+    font-size: 120%;
+  }
+    
+  @media only screen and (max-width: 550px) {
+    
+    body {
+      font-size: 12px;
+    }
+    h1 {
+      font-size: 140%;
+      text-transform: none;
+    }    
+  }
+  @media only screen and (min-width: 600px) {
+    
+    body {
+      font-size: 18px;
+    }
+
+  }
+  
+}
+  

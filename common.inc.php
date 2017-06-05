@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.1.1
-// @desc.   Inline css voor performance.
+// @version 7.2.1
+// @desc.   Header fonts en tegelizr-logo
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -297,10 +297,9 @@ function wbvb_d2e_socialbuttons($thelink = 'thelink', $thetitle = 'thetitle', $s
 // ===================================================================================================================
 function get_end_htmlheader() {
   
-  $endtag = '</head><body class="nojs">';
+  $endtag = '</head><body class="nojs"><!--' . $_SERVER['HTTP_HOST'] .'-->';
 
   if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl'  || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
-    // nog doen: css inlezen en teruggeven
     echo '<style type="text/css">';
     include("css/tegelizr.css");
     echo '</style>';

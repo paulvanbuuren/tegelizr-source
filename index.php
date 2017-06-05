@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.1.1
-// @desc.   Inline css voor performance.
+// @version 7.2.1
+// @desc.   Header fonts en tegelizr-logo
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -84,7 +84,7 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?>
 <?php get_end_htmlheader(); ?>
 <article id="page"  class="resultaat">
-  <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><span>Redactie</span></a></h1>
+  <h1 id="top"><a href="/"><span>Redactie</span></a></h1>
   <p>Ik houd niet bij wie welk tegeltje gemaakt heeft. Als een tegeltje me niet bevalt, haal ik het weg. Zo kan ik niet zo goed tegen enorme spelfouten. En  tegeltjes die neerkomen op hetzelfde haal ik ook weg, zoals alle variaties op: 'Niet zo leuk als een tegel met een spreuk' of: 'Beter dik in de kist dan een feestje gemist'. <em>Been there, done that</em>. Ook tegeltjes met persoonsnamen houden het meestal niet zo lang vol hier.</p>
   <p>Door de tekst op een tegeltje te zetten verandert er niet opeens iets aan het auteursrecht van de tekst. Het auteursrecht erop valt niet  aan mij toe, noch aan degene de tekst invoerde.</p>
   <p>Wie teksten invoert op deze site moet ermee leren leven dat ik de teksten misschien aanpas. Zo wordt 'Facebook' altijd 'het satanische Facebook' op de tegeltjes. Als je dat niet leuk vindt, jammer.</p>
@@ -167,7 +167,7 @@ function sortByOrder($a, $b) {
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?>
 <?php get_end_htmlheader(); ?>
 <article id="page"  class="resultaat">
-  <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><span><?php echo returnlogo() . $titel ; ?></span></a></h1>
+  <h1 id="top"><a href="/"><span><?php echo returnlogo() . $titel ; ?></span></a></h1>
 
 <?php
     if ( $results ) {
@@ -251,7 +251,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 <?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?>
 <?php get_end_htmlheader(); ?>
 <article id="page"  id="page" class="resultaat" itemscope itemtype="http://schema.org/ImageObject">
-    <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><span><?php echo TEGELIZR_TITLE ?></span></a></h1>
+    <h1 id="top"><a href="/"><span><?php echo $txt_tegeltekst ?></span></a></h1>
 
     <a href="<?php echo htmlspecialchars($desturl)?>" class="placeholder"><img src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje"  itemprop="contentUrl" width="584" height="584" /><?php
     if ( ( isset( $_GET[TEGELIZR_TRIGGER_KEY] ) ) && ( $_GET[TEGELIZR_TRIGGER_KEY] == TEGELIZR_TRIGGER_VALUE ) ) {
@@ -259,7 +259,6 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
     }    
 ?></a>
 
-    <h2 itemprop="name"><?php echo $txt_tegeltekst ?></h2>
 
 <?php
   echo '<nav id="navnextprev">';
@@ -366,10 +365,9 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
 
     
-    echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY);
-    echo showthumbs(12, $zinnen[2]);
-
-	echo TheModalWindow();
+  echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY);
+  echo TheModalWindow();
+  echo showthumbs(12, $zinnen[2]);
         
         
     ?>
@@ -759,7 +757,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
 <title><?php echo TEGELIZR_TITLE ?>- WBVB Rotterdam</title>
 <?php get_end_htmlheader(); ?>
 <article id="page">
-  <h1 id="top"><a href="/" title="Maak zelf ook een tegeltje"><?php echo returnlogo(); ?><span><?php echo $titel ?></span></a></h1>
+  <h1 id="top"><a href="/"><span><?php echo $titel ?></span></a></h1>
   <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], $titel, TEGELIZR_SUMMARY) ?>
   <p class="lead">
     <?php 
@@ -817,7 +815,7 @@ else {
 <title><?php echo TEGELIZR_TITLE ?>- WBVB Rotterdam</title>
 <?php get_end_htmlheader(); ?>
 <article id="page">
-  <h1 id="top"><?php echo returnlogo(); ?><span><?php echo TEGELIZR_TITLE ?></span></h1>
+  <h1 id="top"><span><?php echo TEGELIZR_TITLE ?></span></h1>
   <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], TEGELIZR_TITLE, TEGELIZR_SUMMARY) ?>
   <p class="lead"> <?php echo TEGELIZR_FORM ?> </p>
   <aside>(maar Paul, <a href="//wbvb.nl/tegeltjes-maken-is-een-keuze/">wat heb je toch met die tegeltjes</a>?)</aside>

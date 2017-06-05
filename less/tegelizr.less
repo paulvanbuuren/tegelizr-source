@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.1.0
-// @desc.   CSS structuur aangepast.
+// @version 7.2.1
+// @desc.   Header fonts en tegelizr-logo
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -19,8 +19,11 @@
 @import "02-font-includes.less";      
 @import "03-socmed-color-codes.less";      
 @import "04-reset-css.less";      
+@import "10-textstyles.less";          
 @import "10-wbvb.less";          
-@import "20-teglizrstyle.less";          
+@import "20-teglizrstyle.less";  
+@import "30-forms-buttons.less";  
+@import "40-navigation-menus.less";          
 @import "80-spinner.less";          
 @import "81-extra.less";          
 @import "99-print.less";          
@@ -34,6 +37,12 @@
 .wbvbstyle();
 
 .tegelizrstyling();
+
+.textstyles();
+
+.formsbutton();
+
+.navigationmenus();
 
 .spinner();
 

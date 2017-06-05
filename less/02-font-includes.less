@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.1.0
-// @desc.   CSS structuur aangepast.
+// @version 7.2.1
+// @desc.   Header fonts en tegelizr-logo
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -24,6 +24,18 @@
            url('/fonts/torontosubwaybold-webfont.woff') format('woff'),
            url('/fonts/torontosubwaybold-webfont.ttf') format('truetype'),
            url('/fonts/torontosubwaybold-webfont.svg#toronto') format('svg');
+      font-weight: normal;
+      font-style: normal;
+  
+  }
+  
+  @font-face {
+      font-family: 'Tegelfont';
+      src: url('/fonts/AbbeyRoadNF.eot');
+      src: url('/fonts/AbbeyRoadNF.eot?#iefix') format('embedded-opentype'),
+           url('/fonts/AbbeyRoadNF.woff') format('woff'),
+           url('/fonts/AbbeyRoadNF.ttf') format('truetype'),
+           url('/fonts/AbbeyRoadNF.svg#toronto') format('svg');
       font-weight: normal;
       font-style: normal;
   
@@ -47,7 +59,7 @@
 
 @swift_regular:     Georgia,Times,Times New Roman,serif;
 @bodyfont: @swift_regular;
-@headerfont:        'Subway', Helvetica, Arial, serif;
+@headerfont:        'Tegelfont', Helvetica, Arial, serif;
 @monospacefont:     'courier', monospace;
 @iconfont:          'icomoon';
 @bodyfontsans:      @swift_regular;
