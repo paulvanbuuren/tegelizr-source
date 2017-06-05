@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.2.1
-// @desc.   Header fonts en tegelizr-logo
+// @version 7.2.4
+// @desc.   Kleine tekstuele wijzigingen.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -28,10 +28,10 @@ setlocale(LC_TIME, 'NL_nl');
 
 define('PVB_DEBUG', true);
 
-define('TEGELIZR_VERSION',          '7.0.1');
+define('TEGELIZR_VERSION',          '7.2.4');
 define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
 define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
-define('TEGELIZR_BACK',             'Bak je eigen tegeltje');
+define('TEGELIZR_BACK',             'Bak een tegeltje!');
 define('TEGELIZR_SUBMIT',           'bak mijn tegeltje');
 define('TEGELIZR_SUBMIT_RATING',    'geef sterren');
 define('TEGELIZR_TXT_LENGTH',       90);
@@ -47,7 +47,7 @@ define('TEGELIZR_VIEWS',            'views');
 define('TEGELIZR_TEGELFOLDER',      'tegeltjes');
 define('TEGELIZR_ALLES',            'alle-tegeltjes');
 define('TEGELIZR_REDACTIE',         'redactie');
-define('TEGELIZR_DEFAULT_IMAGE',    '//wbvb.nl/images/kiezen-is-een-keuze.jpg');
+define('TEGELIZR_DEFAULT_IMAGE',    '/img/kiezen-is-een-keuze.jpg');
 define('TEGELIZR_ZOEKURL',           'zoeken');
 define('TEGELIZR_ZOEKTERMKEY',       'q');
 define('TEGELIZR_TRIGGER_KEY',      'pasop');
@@ -58,8 +58,10 @@ define('TEGELIZR_LASTVISIT',        'last_visit');
 define('dec_avg',                   'tglzr_dec_avg');
 define('TGLZR_NR_VOTES',            'tglzr_TGLZR_NR_VOTES');
 define('rounded_avg',               'tglzr_rounded_avg');
-
 define('TEGELIZR_ZOEK_KNOP',        'zoek');
+
+define('DEFAULT_AANTAL_TEGELS',     30);
+
 
 if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
   define('TEGELIZR_PROTOCOL',         'https://');
