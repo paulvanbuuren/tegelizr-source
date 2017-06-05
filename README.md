@@ -5,7 +5,7 @@ Correct me if I'm wrong. Copy me if I'm right.
 ## Tegelizr.nl
 author:    Paul van Buuren
 
-version:  7.4.4 
+version:  7.4.5 
 
 ## contact:                    
 * ([paul@wbvb.nl](paul@wbvb.nl))
@@ -13,6 +13,7 @@ version:  7.4.4
 * Twitter: [@paulvanbuuren](https://twitter.com/paulvanbuuren/)
 
 ## Versions
+* 7.4.5 - Code publiek gemaakt op github.
 * 7.4.4 - CSS bugs.
 * 7.4.3 - Zoekresultaat bijgewerkt.
 * 7.4.2 - CSS bugs.
