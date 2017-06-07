@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.4.7
-// @desc.   Autofocus weggehaald. Form voor tegeltjes op juiste plek.
+// @version 7.4.8
+// @desc.   Toegankelijkheidsdingetje. Label toegevoegd. Unieke ID.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -26,7 +26,7 @@ setlocale(LC_TIME, 'NL_nl');
 
 // ===================================================================================================================
 
-define('TEGELIZR_VERSION',          '7.4.7');
+define('TEGELIZR_VERSION',          '7.4.8');
 define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
 define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
 define('TEGELIZR_BACK',             'Bak een tegeltje!');
@@ -47,8 +47,9 @@ define('TEGELIZR_TEGELFOLDER',      'tegeltjes');
 define('TEGELIZR_ALLES',            'alle-tegeltjes');
 define('TEGELIZR_REDACTIE',         'redactie');
 define('TEGELIZR_DEFAULT_IMAGE',    '/img/kiezen-is-een-keuze.jpg');
-define('TEGELIZR_ZOEKURL',           'zoeken');
-define('TEGELIZR_ZOEKTERMKEY',       'q');
+define('TEGELIZR_ZOEKURL',          'zoeken');
+define('TEGELIZR_ZOEKTERMKEY',      'q');
+define('TEGELIZR_ZOEK_LABEL',       'Zoek tegeltje');
 define('TEGELIZR_TRIGGER_KEY',      'pasop');
 define('TEGELIZR_TRIGGER_VALUE',    'heet');
 define('TGLZR_TOTAL_POINTS',        'tglzr_TGLZR_TOTAL_POINTS');
@@ -65,6 +66,7 @@ define('HTML_PIJL_VORIGE',          '<span class="pijl">&#x2039;</span>');
 define('HTML_PIJL_VOLGENDE',        '<span class="pijl">&#x203A;</span>');
 define('TEGELLABEL_PLURAL',         'tegels');
 
+$formelementcounter = 0;
 
 
 if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
@@ -579,7 +581,11 @@ function includejs() {
 }
     
 function spitoutfooter() {
+  
     global $zoektegeltje;
+    global $formelementcounter;
+
+    $formelementcounter++;
     
     $form = '<a href="#top" id="totop">Bovenkant</a><a href="#' . TEGELIZR_ZOEKTERMKEY . '" id="tomenu">Menu</a><form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/" role="search">
     <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/?' . TEGELIZR_ZOEKTERMKEY . '={s}">
@@ -592,7 +598,7 @@ function spitoutfooter() {
     $form = '<a href="#top" id="totop">Bovenkant</a><a href="#' . TEGELIZR_ZOEKTERMKEY . '" id="tomenu">Menu</a><div itemscope itemtype="http://schema.org/WebSite">
   <meta itemprop="url" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/"/>
   <form itemprop="potentialAction" class="search-form" itemscope itemtype="http://schema.org/SearchAction">
-    <meta itemprop="target" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/?q={' . TEGELIZR_ZOEKTERMKEY . '}"/>
+    <meta itemprop="target" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/?q={' . TEGELIZR_ZOEKTERMKEY . '}"/><label for="' . TEGELIZR_ZOEKTERMKEY . '" id="label-' . TEGELIZR_ZOEKTERMKEY . '">' . TEGELIZR_ZOEK_LABEL . '</label>
     <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERMKEY . '"  id="' . TEGELIZR_ZOEKTERMKEY . '" value="' . $zoektegeltje . '" placeholder="zoekterm" required/>
     <input type="submit" value="' . TEGELIZR_ZOEK_KNOP . '">
   </form>
@@ -819,11 +825,18 @@ function TheModalWindow() {
 
 // ===================================================================================================================
 function TheForm() {
-    return  ' <form role="form" id="posterform" name="posterform" action="/includes/generate.php" method="get" enctype="multipart/form-data">
+
+    global $formelementcounter;
+
+    $formelementcounter++;
+
+    $suffix = '-' . $formelementcounter;
+  
+    return  ' <form role="form" id="posterform' . $suffix . '" name="posterform' . $suffix . '" action="/includes/generate.php" method="get" enctype="multipart/form-data">
     <div class="form-group tekstveld">
-      <label for="txt_tegeltekst">Jouw tekst:</label>
-      <input type="text" aria-describedby="tekst-tip" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]{1,' . TEGELIZR_TXT_LENGTH . '}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst" required="required" value="' . TEGELIZR_TXT_VALUE . '" maxlength="' . TEGELIZR_TXT_LENGTH . '" size="' . TEGELIZR_TXT_LENGTH . '" />
-      <div role="tooltip" id="tekst-tip">Alleen letters, cijfers en leestekens. Maximale lengte ' . TEGELIZR_TXT_LENGTH . ' tekens</div>
+      <label for="txt_tegeltekst' . $suffix . '">Jouw tekst:</label>
+      <input type="text" aria-describedby="tekst-tip' . $suffix . '" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]{1,' . TEGELIZR_TXT_LENGTH . '}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst' . $suffix . '" required="required" value="' . TEGELIZR_TXT_VALUE . '" maxlength="' . TEGELIZR_TXT_LENGTH . '" size="' . TEGELIZR_TXT_LENGTH . '" />
+      <div role="tooltip" id="tekst-tip' . $suffix . '">Alleen letters, cijfers en leestekens. Maximale lengte ' . TEGELIZR_TXT_LENGTH . ' tekens</div>
     </div>
     <button type="submit" class="btn-primary">' . TEGELIZR_SUBMIT . '</button>
   </form>';

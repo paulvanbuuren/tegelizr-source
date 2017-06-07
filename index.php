@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.4.7
-// @desc.   Autofocus weggehaald. Form voor tegeltjes op juiste plek.
+// @version 7.4.8
+// @desc.   Toegankelijkheidsdingetje. Label toegevoegd. Unieke ID.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
