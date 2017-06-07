@@ -5,7 +5,7 @@ Correct me if I'm wrong. Copy me if I'm right.
 ## Tegelizr.nl
 author:    Paul van Buuren
 
-version:  7.4.6 
+version:  7.4.7 
 
 ## contact:                    
 * ([paul@wbvb.nl](paul@wbvb.nl))
@@ -13,6 +13,7 @@ version:  7.4.6
 * Twitter: [@paulvanbuuren](https://twitter.com/paulvanbuuren/)
 
 ## Versions
+* 7.4.7 - Autofocus weggehaald. Form voor tegeltjes op juiste plek.
 * 7.4.6 - Op alle-tegeltjespagina socialbuttons weggepoetst.
 * 7.4.5 - Code publiek gemaakt op github.
 * 7.4.4 - CSS bugs.

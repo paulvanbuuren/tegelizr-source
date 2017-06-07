@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.4.6
-// @desc.   Op alle-tegeltjespagina socialbuttons weggepoetst.
+// @version 7.4.7
+// @desc.   Autofocus weggehaald. Form voor tegeltjes op juiste plek.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -26,7 +26,7 @@ setlocale(LC_TIME, 'NL_nl');
 
 // ===================================================================================================================
 
-define('TEGELIZR_VERSION',          '7.4.6');
+define('TEGELIZR_VERSION',          '7.4.7');
 define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
 define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
 define('TEGELIZR_BACK',             'Bak een tegeltje!');
@@ -461,7 +461,12 @@ function getSearchResultItem($result, $showImage = true) {
         }
     }
 
-    $hashname = seoUrl( $result['file_name'] );
+    $hashname = seoUrl( filtertext($result['txt_tegeltekst'], true) );
+
+    if ( $result['file_name'] ) {
+      $hashname = seoUrl( $result['file_name'] );
+    }
+
     $thumb =  $result['file_thumb'];
 
     $return =  '<li>';
@@ -817,7 +822,7 @@ function TheForm() {
     return  ' <form role="form" id="posterform" name="posterform" action="/includes/generate.php" method="get" enctype="multipart/form-data">
     <div class="form-group tekstveld">
       <label for="txt_tegeltekst">Jouw tekst:</label>
-      <input type="text" aria-describedby="tekst-tip" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]{1,' . TEGELIZR_TXT_LENGTH . '}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst" required="required" value="' . TEGELIZR_TXT_VALUE . '" maxlength="' . TEGELIZR_TXT_LENGTH . '" size="' . TEGELIZR_TXT_LENGTH . '" autofocus />
+      <input type="text" aria-describedby="tekst-tip" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]{1,' . TEGELIZR_TXT_LENGTH . '}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst" required="required" value="' . TEGELIZR_TXT_VALUE . '" maxlength="' . TEGELIZR_TXT_LENGTH . '" size="' . TEGELIZR_TXT_LENGTH . '" />
       <div role="tooltip" id="tekst-tip">Alleen letters, cijfers en leestekens. Maximale lengte ' . TEGELIZR_TXT_LENGTH . ' tekens</div>
     </div>
     <button type="submit" class="btn-primary">' . TEGELIZR_SUBMIT . '</button>

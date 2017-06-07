@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.4.2
-// @desc.   CSS bugs.
+// @version 7.4.7
+// @desc.   Autofocus weggehaald. Form voor tegeltjes op juiste plek.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -363,17 +363,16 @@
   }
   
   p {
-      margin: 0;
+    margin: 0;
   }
-  
-  
-
 
   #andere {
     border-top: 3px solid @grijs;
     border-bottom: 3px solid @grijs;
     padding: 1em 0;
     margin-bottom: 1em;
+    clear: both;
+    float: none;
 
     li {
       max-width: 33%;
@@ -385,31 +384,6 @@
   
   
   // rating ==========
-  x.rate_widget {
-      overflow:   visible;
-      padding:    10px;
-      position:   relative;
-      
-      label {
-          float: left;        
-      }
-      
-      .is_klikbaar {
-          background: url('rating/star_empty.png') no-repeat;
-          float:      left;
-          height:     28px;
-          padding:    2px;
-          width:      32px;
-      }
-      .ratings_vote {
-          background: url('rating/star_full.png') no-repeat;
-      }
-      .ratings_over {
-          background: url('rating/star_highlight.png') no-repeat;
-      }
-      .total_votes {
-      } 
-  }
   
   [itemprop="aggregateRating"] {
       margin: 0;
@@ -674,54 +648,60 @@
       background-position: left 22px;
     }
   
-      #home {
-          position: fixed;
-          left: 1em;
-          top: 1em;
+    #home {
+      position: fixed;
+      left: 1em;
+      top: 1em;
   
-          a {
-  
-            font-family: @headerfont;
-              
-              color: @txt;
-              font-size: 180%;
-              text-decoration: none;
-              display: block;
-              padding: 0 .4em;
-              border-radius: .3em;
-  
-              &:before {
-                  content: ' ';
-                  display: block;
-                  width: 0; 
-                  height: 0; 
-                  border-top: @dinges solid transparent;
-                  border-bottom: @dinges solid transparent; 
-                  border-right: ( @dinges * 2 ) solid @wit;     
-                  float: left;
-              }
-  
-  
-              span {
-                  display: inline-block;
-                  background: @wit;
-                  height: ( @dinges * 2 );
-                  padding: 0 .6em 0 .2em;
-                  border-radius: 0 10px 10px 0;
-                  border: 3px solid @wit;
-              }
-              
-              &:hover,
-              &:focus,
-              &:active {
-                  text-decoration: underline;
-                  span {
-                      background: @txt;
-                      color: @wit;
-                  }
-              }
-          }
-      }    
+      #modal_open {
+        width: @buttonwidth;
+        height: @buttonwidth;
+        border-radius: 50%;
+      }
+
+        a {
+
+          font-family: @headerfont;
+            
+            color: @txt;
+            font-size: 180%;
+            text-decoration: none;
+            display: block;
+            padding: 0 .4em;
+            border-radius: .3em;
+
+            &:before {
+                content: ' ';
+                display: block;
+                width: 0; 
+                height: 0; 
+                border-top: @dinges solid transparent;
+                border-bottom: @dinges solid transparent; 
+                border-right: ( @dinges * 2 ) solid @wit;     
+                float: left;
+            }
+
+
+            span {
+                display: inline-block;
+                background: @wit;
+                height: ( @dinges * 2 );
+                padding: 0 .6em 0 .2em;
+                border-radius: 0 10px 10px 0;
+                border: 3px solid @wit;
+            }
+            
+            &:hover,
+            &:focus,
+            &:active {
+                text-decoration: underline;
+                span {
+                    background: @txt;
+                    color: @wit;
+                }
+            }
+        }
+    }    
   }
   
   // ===================================================================================================================

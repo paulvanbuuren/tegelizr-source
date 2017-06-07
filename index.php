@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.4.6
-// @desc.   Op alle-tegeltjespagina socialbuttons weggepoetst.
+// @version 7.4.7
+// @desc.   Autofocus weggehaald. Form voor tegeltjes op juiste plek.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -111,6 +111,7 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
   <p>Maar goed, nu jij. <a href="/">Maak eens een leuk tegeltje</a>.</p>
   <?php echo wbvb_d2e_socialbuttons($desturl, $titel, TEGELIZR_SUMMARY) ?>
   <?php 
+    echo TheForm();
     echo showthumbs( DEFAULT_AANTAL_TEGELS, '', $pagenumber);
     echo TheModalWindow();
   ?>
@@ -220,6 +221,7 @@ function sortByOrder($a, $b) {
 </form>';        
 
 	echo wbvb_d2e_socialbuttons($desturl, $titeltw, TEGELIZR_SUMMARY); 
+  echo TheForm();
   echo showthumbs( DEFAULT_AANTAL_TEGELS, $zinnen[2], $pagenumber);
 	echo TheModalWindow();
 	  
@@ -393,8 +395,9 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
     
   echo wbvb_d2e_socialbuttons($desturl, $txt_tegeltekst, TEGELIZR_SUMMARY);
-  echo TheModalWindow();
+  echo TheForm();
   echo showthumbs( DEFAULT_AANTAL_TEGELS, $zinnen[2], $pagenumber);
+  echo TheModalWindow();
         
         
     ?>
@@ -645,7 +648,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
 <article id="page">
   <h1 id="top"><a href="/"><span><?php echo $titel ?></span></a></h1>
   <p class="lead">Dit zijn <?php echo count($results) ?> tegeltjes die sinds 16 juni 2015 gemaakt zijn via deze site.</p>
-    <?php 
+  <?php 
+    echo TheForm();
 
     $results        = json_decode(file_get_contents( TEGELIZR_ALL_DB ), true);
       
@@ -709,6 +713,7 @@ else {
   <p class="lead"> <?php echo TEGELIZR_FORM ?> </p>
   <aside>(maar Paul, <a href="//wbvb.nl/tegeltjes-maken-is-een-keuze/">wat heb je toch met die tegeltjes</a>?)</aside>
   <?php 
+    echo TheForm();
     echo showthumbs( DEFAULT_AANTAL_TEGELS, '', $pagenumber);
     echo TheModalWindow();
     ?>
