@@ -12,46 +12,63 @@
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
-
-// Report all PHP errors
-//error_reporting(-1);
-
-// Report all PHP errors (see changelog)
-error_reporting(E_ALL);
-
-
-/* Set locale to Dutch */
-setlocale(LC_ALL, 'nl_NL');
-setlocale(LC_TIME, 'NL_nl');
-
 // ===================================================================================================================
 
 define('TEGELIZR_VERSION',          '7.4.8');
-define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
-define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
-define('TEGELIZR_BACK',             'Bak een tegeltje!');
-define('TEGELIZR_SUBMIT',           'bak mijn tegeltje');
-define('TEGELIZR_SUBMIT_RATING',    'geef sterren');
+
+if ( ! defined( '_SITE_TITLE' ) ) {
+  define('_SITE_TITLE',            'TRANSLATE_SITE_TITLE');
+}
+if ( ! defined( '_FORM_DESCRIPTION' ) ) {
+  define('_FORM_DESCRIPTION',            'TRANSLATE__FORM_DESCRIPTION');
+}
+if ( ! defined( '_LINK_BACK' ) ) {
+  define('_LINK_BACK',            'TRANSLATE__LINK_BACK');
+}
+if ( ! defined( 'TEGELIZR_SUBMIT' ) ) {
+  define('TEGELIZR_SUBMIT',            'TRANSLATE_TEGELIZR_SUBMIT');
+}
+if ( ! defined( 'TEGELIZR_SUBMIT_RATING' ) ) {
+  define('TEGELIZR_SUBMIT_RATING',            'TRANSLATE_TEGELIZR_SUBMIT_RATING');
+}
+if ( ! defined( 'TEGELIZR_SUMMARY' ) ) {
+  define('TEGELIZR_SUMMARY',            'TRANSLATE_TEGELIZR_SUMMARY');
+}
+if ( ! defined( 'TEGELIZR_METADESC' ) ) {
+  define('TEGELIZR_METADESC',            'TRANSLATE_TEGELIZR_METADESC');
+}
+if ( ! defined( 'TEGELIZR_REDACTIE' ) ) {
+  define('TEGELIZR_REDACTIE',            'TRANSLATE_TEGELIZR_REDACTIE');
+}
+if ( ! defined( 'TEGELIZR_DEFAULT_IMAGE' ) ) {
+  define('TEGELIZR_DEFAULT_IMAGE',            'TRANSLATE_TEGELIZR_DEFAULT_IMAGE');
+}
+if ( ! defined( 'TEGELIZR_ZOEKURL' ) ) {
+  define('TEGELIZR_ZOEKURL',            'TRANSLATE_TEGELIZR_ZOEKURL');
+}
+if ( ! defined( 'TEGELIZR_ALLES' ) ) {
+  define('TEGELIZR_ALLES',            'TRANSLATE_TEGELIZR_ALLES');
+}
+if ( ! defined( 'TEGELIZR_ZOEK_LABEL' ) ) {
+  define('TEGELIZR_ZOEK_LABEL',            'TRANSLATE_TEGELIZR_ZOEK_LABEL');
+}
+if ( ! defined( 'TEGELIZR_TRIGGER_KEY' ) ) {
+  define('TEGELIZR_TRIGGER_KEY',            'TRANSLATE_TEGELIZR_TRIGGER_KEY');
+}
+if ( ! defined( 'TEGELIZR_TRIGGER_VALUE' ) ) {
+  define('TEGELIZR_TRIGGER_VALUE',            'TRANSLATE_TEGELIZR_TRIGGER_VALUE');
+}
+
 define('TEGELIZR_TXT_LENGTH',       90);
-//define('TEGELIZR_TXT_LENGTH',       300);
 define('TEGELIZR_THUMB_WIDTH',      220);
 define('TEGELIZR_BLUR',             2);
 define('TEGELIZR_TXT_VALUE',        '');
 define('TEGELIZR_SELECTOR',         'tegeltje');
-define('TEGELIZR_SUMMARY',          'Online generator voor plaatjes van tegeltjes. Een geintje van Paul van Buuren, van WBVB Rotterdam.');
-define('TEGELIZR_METADESC',         'Maak zelf online een oud-Hollands tegeltje.');
 define('TEGELIZR_THUMBS',           'thumbs');
 define('TEGELIZR_DELETED_FILES',    'deleted_files');
 define('TEGELIZR_VIEWS',            'views');
 define('TEGELIZR_TEGELFOLDER',      'tegeltjes');
-define('TEGELIZR_ALLES',            'alle-tegeltjes');
-define('TEGELIZR_REDACTIE',         'redactie');
-define('TEGELIZR_DEFAULT_IMAGE',    '/img/kiezen-is-een-keuze.jpg');
-define('TEGELIZR_ZOEKURL',          'zoeken');
 define('TEGELIZR_ZOEKTERMKEY',      'q');
-define('TEGELIZR_ZOEK_LABEL',       'Zoek tegeltje');
-define('TEGELIZR_TRIGGER_KEY',      'pasop');
-define('TEGELIZR_TRIGGER_VALUE',    'heet');
 define('TGLZR_TOTAL_POINTS',        'tglzr_TGLZR_TOTAL_POINTS');
 define('TEGELIZR_LASTVISIT',        'last_visit');
 
@@ -68,40 +85,6 @@ define('TEGELLABEL_PLURAL',         'tegels');
 
 $formelementcounter = 0;
 
-
-if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
-  define('TEGELIZR_PROTOCOL',         'https://');
-  define('TEGELIZR_DEBUG',            false );
-
-  // Report no PHP errors
-  error_reporting(0);
-  
-}
-elseif ( $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl' ) {
-  define('TEGELIZR_PROTOCOL',         'https://');
-  define('TEGELIZR_DEBUG',            false );
-
-  // Report no PHP errors
-  error_reporting(0);
-  
-  // Same as error_reporting(E_ALL);
-//  ini_set('error_reporting', E_ALL);
-
-  
-}
-else {
-  define('TEGELIZR_PROTOCOL',         'http://');
-
-//  define('TEGELIZR_DEBUG',            false );
-  define('TEGELIZR_DEBUG',            true );
-
-  // Report all PHP errors
-  error_reporting(-1);
-  
-  // Same as error_reporting(E_ALL);
-//  ini_set('error_reporting', E_ALL);
-  
-}
 
 //die('debug: ' . TEGELIZR_DEBUG);
 
@@ -801,7 +784,7 @@ function DoPrefix($value = '', $prefixwith = '0', $stringlength = 20, $side = ST
 
 // ===================================================================================================================
 function TheModalWindow() {
-	return '  <p id="home"> <button class="btn" type="button" id="modal_open">' . TEGELIZR_BACK .'</button> </p>
+	return '  <p id="home"> <button class="btn" type="button" id="modal_open">' . _LINK_BACK .'</button> </p>
 
 <div class="modal-overlay" id="modal_window"
              aria-hidden="true" role="dialog"
@@ -809,7 +792,7 @@ function TheModalWindow() {
 
       <div class="modal-content" id="modal_holder" role="document">
 
-          <h1 id="modal_title">' . TEGELIZR_BACK .'</h1>
+          <h1 id="modal_title">' . _LINK_BACK .'</h1>
          ' . TheForm() . '
 
         <button class="btn-close" id="modal_close" type="button" aria-label="close">
@@ -841,5 +824,13 @@ function TheForm() {
     <button type="submit" class="btn-primary">' . TEGELIZR_SUBMIT . '</button>
   </form>';
 }
+
+// ===================================================================================================================
+
+function __( $text, $domain = 'default' ) {
+    return translate( $text, $domain );
+}
+
+// ===================================================================================================================
 
 ?>

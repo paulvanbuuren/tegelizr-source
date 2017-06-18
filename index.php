@@ -12,6 +12,52 @@
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
+// ===================================================================================================================
+
+$language = 'en';
+
+/* Set locale to Dutch */
+setlocale(LC_ALL, 'nl_NL');
+setlocale(LC_TIME, 'NL_nl');
+
+
+// ===================================================================================================================
+
+if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
+  define('TEGELIZR_PROTOCOL',         'https://');
+  define('TEGELIZR_DEBUG',            false );
+
+  // Report no PHP errors
+  error_reporting(0);
+  
+}
+elseif ( $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl' ) {
+  define('TEGELIZR_PROTOCOL',         'https://');
+  define('TEGELIZR_DEBUG',            false );
+
+  // Report no PHP errors
+  error_reporting(0);
+  
+  // Same as error_reporting(E_ALL);
+//  ini_set('error_reporting', E_ALL);
+
+  
+}
+else {
+  define('TEGELIZR_PROTOCOL',         'http://');
+
+//  define('TEGELIZR_DEBUG',            false );
+  define('TEGELIZR_DEBUG',            true );
+
+  // Report all PHP errors
+  error_reporting(-1);
+  
+  // Same as error_reporting(E_ALL);
+//  ini_set('error_reporting', E_ALL);
+  
+}
+
+
 
 wbvb_set_hsts_policy();
 
@@ -39,6 +85,12 @@ function wbvb_set_hsts_policy() {
 }
 
 
+if ( file_exists( 'includes/languages/translation-' . $language . '.inc.php' ) ) {
+  include( 'includes/languages/translation-' . $language . '.inc.php' ); 
+}
+else {
+  die('vertaalbestand niet gevonden: includes/languages/translation-' . $language . '.inc.php');
+}
 include("common.inc.php"); 
 
 // ===================================================================================================================
@@ -87,7 +139,7 @@ echo spitoutheader();
 // ===================================================================================================================
 if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
     
-    $titel      = TEGELIZR_TITLE . ' - redactie';
+    $titel      = _SITE_TITLE . ' - redactie';
     $desturl    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_REDACTIE . '/';
 
 
@@ -210,7 +262,7 @@ function sortByOrder($a, $b) {
 
     }
     else {
-        echo '<p>Geen tegeltjes gevonden</p>';
+        echo '<p>'. __( 'Geen tegeltjes gevonden' ) . '</p>';
     }
 
     echo '<form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/" role="search">
@@ -256,7 +308,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
     $rounded_avg    = isset($views[rounded_avg]) ? $views[rounded_avg] : 0;
     $nr_of_votes    = isset($views[TGLZR_NR_VOTES]) ? $views[TGLZR_NR_VOTES] : 0;
 
-    $titel          = $txt_tegeltekst . ' - ' . TEGELIZR_TITLE;
+    $titel          = $txt_tegeltekst . ' - ' . _SITE_TITLE;
     $canvote        = true;
     $disabled       = '';
     $legend         = 'Hoeveel sterren is dit tegeltje waard?';
@@ -643,7 +695,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
 <meta property="og:url" content="<?php echo $_SERVER['SERVER_NAME']; ?>" />
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
-<title><?php echo TEGELIZR_TITLE ?>- WBVB Rotterdam</title>
+<title><?php echo _SITE_TITLE ?>- WBVB Rotterdam</title>
 <?php get_end_htmlheader(); ?>
 <article id="page">
   <h1 id="top"><a href="/"><span><?php echo $titel ?></span></a></h1>
@@ -694,10 +746,10 @@ else {
 ?>
 <meta name="author" content="">
 <meta name="description" content="Voorpagina van tegelizr.nl - <?php echo TEGELIZR_METADESC ?>">
-<meta property="og:title" content="<?php echo TEGELIZR_TITLE ?>" />
+<meta property="og:title" content="<?php echo _SITE_TITLE ?>" />
 <meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
 
-<meta name="twitter:title" content="<?php echo TEGELIZR_TITLE; ?>" />
+<meta name="twitter:title" content="<?php echo _SITE_TITLE; ?>" />
 <meta name="twitter:description" content="<?php echo TEGELIZR_SUMMARY ?>" />
 <meta name="twitter:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
 
@@ -705,12 +757,12 @@ else {
 <meta property="article:tag" content="<?php echo $tekststring; ?>" />
 <meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" />
 
-<title><?php echo TEGELIZR_TITLE ?>- WBVB Rotterdam</title>
+<title><?php echo _SITE_TITLE ?>- WBVB Rotterdam</title>
 <?php get_end_htmlheader(); ?>
 <article id="page">
-  <h1 id="top"><span><?php echo TEGELIZR_TITLE ?></span></h1>
-  <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], TEGELIZR_TITLE, TEGELIZR_SUMMARY) ?>
-  <p class="lead"> <?php echo TEGELIZR_FORM ?> </p>
+  <h1 id="top"><span><?php echo _SITE_TITLE ?></span></h1>
+  <?php echo wbvb_d2e_socialbuttons(TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], _SITE_TITLE, TEGELIZR_SUMMARY) ?>
+  <p class="lead"> <?php echo _FORM_DESCRIPTION ?> </p>
   <aside>(maar Paul, <a href="//wbvb.nl/tegeltjes-maken-is-een-keuze/">wat heb je toch met die tegeltjes</a>?)</aside>
   <?php 
     echo TheForm();
