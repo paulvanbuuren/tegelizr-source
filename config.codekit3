@@ -410,6 +410,12 @@
 		"oAP": "\/includes\/sterretjes.php",
 		"oF": 0
 		},
+	"\/includes\/style-configuration.inc.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/style-configuration.inc.php",
+		"oF": 0
+		},
 	"\/includes\/tegeltjesoppoetsen.php": {
 		"ft": 8192,
 		"oA": 2,
@@ -857,6 +863,53 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/shellscripts\/update.sh",
+		"oF": 0
+		},
+	"\/tegeltjes\/.png": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/tegeltjes\/.png",
+		"oF": 0
+		},
+	"\/tegeltjes\/.txt": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/tegeltjes\/.txt",
+		"oF": 0
+		},
+	"\/tegeltjes\/404-tegel-not-found.txt": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/tegeltjes\/404-tegel-not-found.txt",
+		"oF": 0
+		},
+	"\/tegeltjes\/404-tegeltje-niet-gevonden.png": {
+		"ft": 32768,
+		"iS": 279768,
+		"oA": 0,
+		"oAP": "\/tegeltjes\/404-tegeltje-niet-gevonden.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/tegeltjes\/404-tegeltje-niet-gevonden.txt": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/tegeltjes\/404-tegeltje-niet-gevonden.txt",
+		"oF": 0
+		},
+	"\/tegeltjes\/index.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/tegeltjes\/index.php",
+		"oF": 0
+		},
+	"\/thumbs\/index.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/thumbs\/index.php",
 		"oF": 0
 		}
 	},
