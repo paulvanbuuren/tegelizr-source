@@ -422,6 +422,17 @@
 		"oAP": "\/includes\/style\/hmd\/BebasNeue-webfont.ttf",
 		"oF": 0
 		},
+	"\/includes\/style\/hmd\/hmd.png": {
+		"ft": 32768,
+		"iS": 322432,
+		"oA": 0,
+		"oAP": "\/includes\/style\/hmd\/hmd.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/includes\/style\/hmd\/style-configuration.inc.php": {
 		"ft": 8192,
 		"oA": 2,
