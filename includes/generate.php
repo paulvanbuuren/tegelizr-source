@@ -83,8 +83,7 @@ if ( !file_exists( $destimagepath ) &&  !file_exists( $desttextpath ) &&  !file_
         }
     }
     
-    // white
-    $textcolor        = imagecolorallocate($img, 56, 98, 170);
+    $textcolor        = imagecolorallocate($img, TXTCOLOR_R, TXTCOLOR_G, TXTCOLOR_B );
 
     $standaard_karaktersperregel = 10;
     
@@ -111,7 +110,7 @@ if ( !file_exists( $destimagepath ) &&  !file_exists( $desttextpath ) &&  !file_
         
             $coordinaten            = calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
             $coordinaten['hoogte']    = $regelhoogte; // $regelhoogte;
-            teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, TEGELIZR_BLUR, $i, $verschuiving);
+            teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, STYLING_BLURSTRENGTH, $i, $verschuiving);
 
             $verschuiving            = ( $verschuiving  + $regelhoogte + $regelafstand );    
         
@@ -123,7 +122,7 @@ if ( !file_exists( $destimagepath ) &&  !file_exists( $desttextpath ) &&  !file_
         // er zijn maar 2 zinnen of minder
 
         // voor grote teksten wil ik een grotere blur
-        $blur = TEGELIZR_BLUR;
+        $blur = STYLING_BLURSTRENGTH;
 
         $text = $zinnen[0];
         
@@ -147,7 +146,6 @@ if ( !file_exists( $destimagepath ) &&  !file_exists( $desttextpath ) &&  !file_
                     break;
                 case 4:
                     $fontsize        = 160;
-                    $blur = 6;
                     break;
                 case 5:
                     $fontsize        = 125;
@@ -172,7 +170,7 @@ if ( !file_exists( $destimagepath ) &&  !file_exists( $desttextpath ) &&  !file_
         
             $coordinaten            = calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
             $coordinaten['hoogte']  = $regelhoogte; // $regelhoogte;
-            teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, TEGELIZR_BLUR, $i, $verschuiving);
+            teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, STYLING_BLURSTRENGTH, $i, $verschuiving);
 
             $verschuiving           = ( $verschuiving  + $regelhoogte + $regelafstand );    
 
@@ -180,7 +178,7 @@ if ( !file_exists( $destimagepath ) &&  !file_exists( $desttextpath ) &&  !file_
         
             $coordinaten            = calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
             $coordinaten['hoogte']  = $regelhoogte; // $regelhoogte;
-            teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, TEGELIZR_BLUR, $i, $verschuiving);
+            teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, STYLING_BLURSTRENGTH, $i, $verschuiving);
 
 
         }
@@ -195,7 +193,7 @@ if ( !file_exists( $destimagepath ) &&  !file_exists( $desttextpath ) &&  !file_
             // voor tegeltjes met 1 zin
             $coordinaten            = calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
             $coordinaten['hoogte']  = $regelhoogte; // $regelhoogte;
-            teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, TEGELIZR_BLUR, $i, $verschuiving);
+            teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, STYLING_BLURSTRENGTH, $i, $verschuiving);
 
         }
         
@@ -235,8 +233,12 @@ if ( !file_exists( $destimagepath ) &&  !file_exists( $desttextpath ) &&  !file_
     $desttextpath2        = linkbakker( $desttextpath, $path );
     $destimagepath_klein2 = linkbakker( $destimagepath_klein, $path );
     
-
-    redirect_naar_verbetermetadatascript( $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE);
+    if ( TEGELIZR_DEBUG_GENERATE && TEGELIZR_DEBUG ) {
+      redirect_naar_verbetermetadatascript( $desturl );
+    }
+    else {
+      redirect_naar_verbetermetadatascript( $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE);
+    }
 
 }
 else {

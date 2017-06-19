@@ -39,7 +39,6 @@ define('TEGELIZR_SUBMIT_RATING',    'geef sterren');
 define('TEGELIZR_TXT_LENGTH',       90);
 //define('TEGELIZR_TXT_LENGTH',       300);
 define('TEGELIZR_THUMB_WIDTH',      220);
-define('TEGELIZR_BLUR',             2);
 define('TEGELIZR_TXT_VALUE',        '');
 define('TEGELIZR_SELECTOR',         'tegeltje');
 define('TEGELIZR_SUMMARY',          'Online generator voor plaatjes van tegeltjes. Een geintje van Paul van Buuren, van WBVB Rotterdam.');
@@ -88,10 +87,25 @@ else {
   die('style file not found: ' . $path . 'includes/style/default/style-configuration.inc.php' );
 }
 
+if ( ! defined('TXTCOLOR_R' ) ) {
+  define('TXTCOLOR_R', 256 );
+}
+if ( ! defined('TXTCOLOR_G' ) ) {
+  define('TXTCOLOR_G', 0 );
+}
+if ( ! defined('TXTCOLOR_B' ) ) {
+  define('TXTCOLOR_B', 0 );
+}
+if ( ! defined('STYLING_BLURSTRENGTH' ) ) {
+  define('STYLING_BLURSTRENGTH', 2 );
+}
+
+
 
 if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
   define('TEGELIZR_PROTOCOL',         'https://');
   define('TEGELIZR_DEBUG',            false );
+  define('TEGELIZR_DEBUG_GENERATE',   false );
 
   // Report no PHP errors
   error_reporting(0);
@@ -100,6 +114,7 @@ if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsof
 elseif ( $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl' ) {
   define('TEGELIZR_PROTOCOL',         'https://');
   define('TEGELIZR_DEBUG',            false );
+  define('TEGELIZR_DEBUG_GENERATE',   false );
 
   // Report no PHP errors
   error_reporting(0);
@@ -114,6 +129,7 @@ else {
 
 //  define('TEGELIZR_DEBUG',            false );
   define('TEGELIZR_DEBUG',            true );
+  define('TEGELIZR_DEBUG_GENERATE',   true );
 
   // Report all PHP errors
   error_reporting(-1);

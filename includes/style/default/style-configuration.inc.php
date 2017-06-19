@@ -15,3 +15,12 @@
   
 define('FONTFILE', "tegeltje.otf");
 define('BASEIMAGE', "base.png");
+
+$thispath                   = dirname(__FILE__)."/";
+define('STYLEFOLDER', $thispath);
+
+define('TXTCOLOR_R', 56 );
+define('TXTCOLOR_G', 98 );
+define('TXTCOLOR_B', 170 );
+
+define('STYLING_BLURSTRENGTH', 0 );

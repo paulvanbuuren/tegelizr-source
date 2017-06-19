@@ -12,11 +12,14 @@
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
-$path                   = dirname(__FILE__)."/";
   
 define('FONTFILE', "BebasNeue-webfont.ttf");
-
 define('BASEIMAGE', "hmd.png");
-define('STYLEFOLDER', $path);
 
+$thispath                   = dirname(__FILE__)."/";
+define('STYLEFOLDER', $thispath);
+
+define('TXTCOLOR_R', 112 );
+define('TXTCOLOR_G', 23 );
+define('TXTCOLOR_B', 36 );
 
