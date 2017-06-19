@@ -15,7 +15,7 @@
 // ===================================================================================================================
 
 define('TEGELIZR_VERSION',          '7.4.8');
-
+// https://phraseapp.com/blog/posts/php-how-to-translate-php-apps/
 if ( ! defined( '_SITE_TITLE' ) ) {
   define('_SITE_TITLE',            'TRANSLATE_SITE_TITLE');
 }
