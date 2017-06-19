@@ -28,12 +28,7 @@ if (empty($_GET['txt_tegeltekst']))
 
 // opschonen
 
-if ( TEGELIZR_DEBUG && ( 22 == 33 ) ) {
-$text                = filtertext( $_GET['txt_tegeltekst'] . ' ' . date("Y") . "-" . date("m") . "-" . date("d") . "-" . date("H") . "-" . date("i") . "-" . date("s") );
-}
-else {
-  $text               = filtertext( $_GET['txt_tegeltekst'] );
-}
+$text               = filtertext( $_GET['txt_tegeltekst'] );
 
 // zorgen dat er per unieke tekst maar 1 uniek plaatje aangemaakt wordt
 $hashname           = seoUrl( $text );
@@ -95,7 +90,7 @@ if ( !file_exists( $destimagepath ) &&  !file_exists( $desttextpath ) &&  !file_
     
     $fontsize        = 100;
     $angle           = 0;
-    $font            = $fontpath."tegeltje.otf";
+    $font            = $fontpath.FONTFILE;
     $regelafstand    = 10;
 
     // beetje tweaken en tunen met font-grootte

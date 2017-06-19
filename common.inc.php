@@ -26,6 +26,10 @@ setlocale(LC_TIME, 'NL_nl');
 
 // ===================================================================================================================
 
+$path                   = dirname(__FILE__)."/";
+
+// ===================================================================================================================
+
 define('TEGELIZR_VERSION',          '7.4.8');
 define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
 define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
@@ -67,6 +71,22 @@ define('HTML_PIJL_VOLGENDE',        '<span class="pijl">&#x203A;</span>');
 define('TEGELLABEL_PLURAL',         'tegels');
 
 $formelementcounter = 0;
+
+$style = 'hmd';
+//$style = 'default';
+
+
+
+if ( file_exists( $path . '/includes/style/' . $style . '/style-configuration.inc.php' ) ) {
+  include( $path . '/includes/style/' . $style . '/style-configuration.inc.php' ); 
+}
+elseif ( file_exists( $path . '/includes/style/default/style-configuration.inc.php' ) ) {
+  include( $path . '/includes/style/default/style-configuration.inc.php' ); 
+  define('STYLEFOLDER', $path . '/includes/style/default/' );
+}
+else {
+  die('style file not found: ' . $path . 'includes/style/default/style-configuration.inc.php' );
+}
 
 
 if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
@@ -128,7 +148,6 @@ define('TEGELIZR_JS_NAV_NEXTKEY',       'navnext');
 
 
 
-$path                   = dirname(__FILE__)."/";
 
 $sourcefolder           = $path."img/";
 $fontpath               = $path."fonts/";
@@ -136,7 +155,10 @@ $sourcefiles_tegels     = $path. TEGELIZR_TEGELFOLDER . "/";
 $sourcefiles_thumbs     = $path. TEGELIZR_THUMBS . "/";
 $deletedfiles_thumbs    = $path. TEGELIZR_DELETED_FILES . "/" . TEGELIZR_THUMBS . "/";
 $deletedfiles_tegels    = $path. TEGELIZR_DELETED_FILES . "/" . TEGELIZR_TEGELFOLDER . "/";
-$baseimgpath            = $sourcefolder."base.png";
+$baseimgpath            = STYLEFOLDER.BASEIMAGE;
+if ( ! file_exists( $baseimgpath ) ) {
+  die( 'source not found: ' . $baseimgpath );
+}
 $zoektegeltje           = '';
 $userip                 = 'IP' . md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
 

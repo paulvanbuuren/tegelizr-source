@@ -183,12 +183,6 @@
 		"oAP": "\/fonts\/index.php",
 		"oF": 0
 		},
-	"\/fonts\/tegeltje.otf": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/fonts\/tegeltje.otf",
-		"oF": 0
-		},
 	"\/fonts\/torontosubwaybold-webfont.eot": {
 		"ft": 8192,
 		"oA": 2,
@@ -262,17 +256,6 @@
 		"iS": 61875,
 		"oA": 0,
 		"oAP": "\/img\/apple-favicon.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/img\/base.png": {
-		"ft": 32768,
-		"iS": 1266010,
-		"oA": 0,
-		"oAP": "\/img\/base.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -361,7 +344,7 @@
 		},
 	"\/img\/vergrootglas.png": {
 		"ft": 32768,
-		"iS": 291,
+		"iS": 376,
 		"oA": 0,
 		"oAP": "\/img\/.vergrootglas~imageoptim.png",
 		"oF": 0,
@@ -410,10 +393,39 @@
 		"oAP": "\/includes\/sterretjes.php",
 		"oF": 0
 		},
-	"\/includes\/style-configuration.inc.php": {
+	"\/includes\/style\/default\/base.png": {
+		"ft": 32768,
+		"iS": 1266010,
+		"oA": 0,
+		"oAP": "\/includes\/style\/default\/base.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/includes\/style\/default\/style-configuration.inc.php": {
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/includes\/style-configuration.inc.php",
+		"oAP": "\/includes\/style\/default\/style-configuration.inc.php",
+		"oF": 0
+		},
+	"\/includes\/style\/default\/tegeltje.otf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/style\/default\/tegeltje.otf",
+		"oF": 0
+		},
+	"\/includes\/style\/hmd\/BebasNeue-webfont.ttf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/style\/hmd\/BebasNeue-webfont.ttf",
+		"oF": 0
+		},
+	"\/includes\/style\/hmd\/style-configuration.inc.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/style\/hmd\/style-configuration.inc.php",
 		"oF": 0
 		},
 	"\/includes\/tegeltjesoppoetsen.php": {

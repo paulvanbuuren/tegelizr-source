@@ -12,6 +12,7 @@
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
+$style = 'hmd';
 
 wbvb_set_hsts_policy();
 
@@ -40,6 +41,7 @@ function wbvb_set_hsts_policy() {
 
 
 include("common.inc.php"); 
+
 
 // ===================================================================================================================
 
