@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.0.1
-// @desc.   CSS bijgewerkt, zoekdata bijgwerkt, zoekmogelijkheid hersteld.
+// @version 7.5.1
+// @desc.   Styling in een apart bestand, zodat meerdere websites eigen stijl kunnen krijgen
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 

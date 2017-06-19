@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.0.1
-// @desc.   CSS bijgewerkt, zoekdata bijgwerkt, zoekmogelijkheid hersteld.
+// @version 7.5.1
+// @desc.   Styling in een apart bestand, zodat meerdere websites eigen stijl kunnen krijgen
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -128,20 +128,21 @@ if ( !file_exists( $destimagepath ) &&  !file_exists( $desttextpath ) &&  !file_
         
         if ( $maximale_text_lengte < 8 ) {
 
-            $blur = 4;
+// to do: dynamic blur
+//            $blur = 4;
 
             // per max. regellengte bepalen welke font-grootte gebruikt moet worden
             switch ($maximale_text_lengte) {
                 case 1:
-                    $blur = 8;
+//                    $blur = 8;
                     $fontsize        = 350;
                     break;
                 case 2:
-                    $blur = 8;
+//                    $blur = 8;
                     $fontsize        = 230;
                     break;
                 case 3:
-                    $blur = 6;
+//                    $blur = 6;
                     $fontsize        = 180;
                     break;
                 case 4:

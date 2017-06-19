@@ -5,7 +5,7 @@ Correct me if I'm wrong. Copy me if I'm right.
 ## Tegelizr.nl
 author:    Paul van Buuren
 
-version:  7.4.8 
+version:  7.5.1 
 
 ## contact:                    
 * ([paul@wbvb.nl](paul@wbvb.nl))
@@ -13,6 +13,7 @@ version:  7.4.8
 * Twitter: [@paulvanbuuren](https://twitter.com/paulvanbuuren/)
 
 ## Versions
+* 7.5.1 - Styling in een apart bestand, zodat meerdere websites eigen stijl kunnen krijgen
 * 7.4.8 - Toegankelijkheidsdingetje. Label toegevoegd. Unieke ID.
 * 7.4.7 - Autofocus weggehaald. Form voor tegeltjes op juiste plek.
 * 7.4.6 - Op alle-tegeltjespagina socialbuttons weggepoetst.
@@ -92,3 +93,4 @@ version:  7.4.8
 * RSS-feed aanmaken.
 * sitemap laten genereren en submitten.
 * Site kloonbaar maken voor bijvoorbeeld een HMD-plaatjesgenerator.
+* Dynamic blur: meer tekst = minder blur.
