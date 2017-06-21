@@ -37,7 +37,7 @@ function checkthreefiles( $type = '', $keyfilename = '',  $thumbfilename = '' ) 
   $thumb_image    = $sourcefiles_thumbs . $thumbfilename . '.png';
 
   if ( $thumbfilename ) {
-
+    // heuh, wat was je denkende?
     
   }
   else {
@@ -68,7 +68,7 @@ function checkthreefiles( $type = '', $keyfilename = '',  $thumbfilename = '' ) 
   }
   
 
-  // als de grote plaat bestaat en het txt-bestand, niks doen
+  // als de grote plaat bestaat en het txt-bestand en de thumbnail, niks doen
   if ( file_exists( $groot_image ) && file_exists( $groot_txt )  && file_exists( $thumb_image ) ) {
     return true;
   }
@@ -217,6 +217,32 @@ function verbeteralletegelmetadata( $redirect = '' ) {
       $info           = explode('_', $thumb_filename );
 
       checkthreefiles( 'echte tegeltjes', $tegeltje );
+
+    }
+
+
+    // dan de tekstbestanden opruimen
+    $textfiles      = glob($sourcefiles_tegels . "*.txt");
+    $replace        = $sourcefiles_tegels;
+    $with           = '';
+    $pattern        = '|' . $replace . '|i';
+    $textfiles      = preg_replace($pattern, $with, $textfiles);
+    
+    $with           = '';
+    $pattern        = '|(\.txt)|i';
+    $textfiles      = preg_replace($pattern, $with, $textfiles);
+    
+    rsort($textfiles);
+
+    
+    foreach($textfiles as $textfile) {
+
+      // door alle textbestanden heen lopen
+      $stack          = explode('/', $textfile);
+      $thumb_filename = array_pop($stack);
+      $info           = explode('_', $thumb_filename );
+
+      checkthreefiles( 'echte textfiles', $textfile );
 
     }
 
