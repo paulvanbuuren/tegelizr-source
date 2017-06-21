@@ -263,14 +263,14 @@ function verbeteralletegelmetadata( $redirect = '' ) {
       $info           = explode('_', $thumb_filename );
 
       $vorigenr       = ( $loopcounter - 1);
-      $volgendenr     = ( $loopcounter + 2);
+      $volgendenr     = ( $loopcounter + 1);
       
       $groot_txt      = $sourcefiles_tegels . $info[1] . '.txt';
 
       $json_data      = file_get_contents( $groot_txt );
       $all            = json_decode($json_data, true);
 
-      if($all) {
+      if( $all ) {
 
         $huidige        = $thumbs[$loopcounter] . '.png';      
         $vorige         = ( isset( $thumbs[$vorigenr] ) ) ? $thumbs[$vorigenr] : '';      
