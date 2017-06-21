@@ -14,14 +14,30 @@
 
 
 define('FONTFILE', "BebasNeue-webfont.ttf");
-define('BASEIMAGE', "hmd.png");
 
 $thispath                   = dirname(__FILE__)."/";
 define('STYLEFOLDER', $thispath);
 
-define('TXTCOLOR_R', 112 );
-define('TXTCOLOR_G', 23 );
-define('TXTCOLOR_B', 36 );
+$rand = rand ( 1 , 2 );
+
+if ( $rand > 1 ) {
+
+  // wit: 
+  define('TXTCOLOR_R', 255 );
+  define('TXTCOLOR_G', 255 );
+  define('TXTCOLOR_B', 255 );
+  define('BASEIMAGE', "hmd-base.png");
+  
+}
+else {
+
+    // HMD rood: 
+  define('TXTCOLOR_R', 112 );
+  define('TXTCOLOR_G', 23 );
+  define('TXTCOLOR_B', 36 );
+  define('BASEIMAGE', "hmd-base-grijs.png");
+  
+}
 
 define('STYLING_BLURSTRENGTH', 0 );
 define('STYLING_STYLESHEET', 'includes/style/hmd/hmd.css' );

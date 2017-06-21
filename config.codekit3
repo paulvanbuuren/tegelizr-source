@@ -404,6 +404,16 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/includes\/style\/default\/default.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/includes\/style\/default\/default-min.css",
+		"oF": 0,
+		"oS": 3
+		},
 	"\/includes\/style\/default\/style-configuration.inc.php": {
 		"ft": 8192,
 		"oA": 2,
@@ -416,11 +426,77 @@
 		"oAP": "\/includes\/style\/default\/tegeltje.otf",
 		"oF": 0
 		},
+	"\/includes\/style\/hmd\/BebasNeue-webfont.eot": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/style\/hmd\/BebasNeue-webfont.eot",
+		"oF": 0
+		},
+	"\/includes\/style\/hmd\/BebasNeue-webfont.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/includes\/style\/hmd\/BebasNeue-webfont.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
 	"\/includes\/style\/hmd\/BebasNeue-webfont.ttf": {
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/hmd\/BebasNeue-webfont.ttf",
 		"oF": 0
+		},
+	"\/includes\/style\/hmd\/BebasNeue-webfont.woff": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/style\/hmd\/BebasNeue-webfont.woff",
+		"oF": 0
+		},
+	"\/includes\/style\/hmd\/hmd-base-grijs.png": {
+		"ft": 32768,
+		"iS": 7005,
+		"oA": 0,
+		"oAP": "\/includes\/style\/hmd\/hmd-base-grijs.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/includes\/style\/hmd\/hmd-base.png": {
+		"ft": 32768,
+		"iS": 7005,
+		"oA": 0,
+		"oAP": "\/includes\/style\/hmd\/hmd-base.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/includes\/style\/hmd\/hmd-beeldmerk.png": {
+		"ft": 32768,
+		"iS": 7738,
+		"oA": 0,
+		"oAP": "\/includes\/style\/hmd\/hmd-beeldmerk.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/includes\/style\/hmd\/hmd-beeldmerk@2x.png": {
+		"ft": 32768,
+		"iS": 36709,
+		"oA": 0,
+		"oAP": "\/includes\/style\/hmd\/hmd-beeldmerk@2x.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
 		},
 	"\/includes\/style\/hmd\/hmd-new.png": {
 		"ft": 32768,
@@ -433,16 +509,37 @@
 		"oT": 1,
 		"q": 100
 		},
-	"\/includes\/style\/hmd\/hmd.png": {
+	"\/includes\/style\/hmd\/hmd-source-grijs.png": {
 		"ft": 32768,
-		"iS": 322432,
+		"iS": 101478,
 		"oA": 0,
-		"oAP": "\/includes\/style\/hmd\/hmd.png",
-		"oF": 0,
-		"oIPL": 1,
+		"oAP": "\/includes\/style\/hmd\/hmd-base-grijs.png",
+		"oF": 2,
+		"oIPL": 0,
 		"opt": 1,
 		"oT": 1,
 		"q": 100
+		},
+	"\/includes\/style\/hmd\/hmd-source.png": {
+		"ft": 32768,
+		"iS": 95324,
+		"oA": 0,
+		"oAP": "\/includes\/style\/hmd\/hmd-base.png",
+		"oF": 2,
+		"oIPL": 0,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
+	"\/includes\/style\/hmd\/hmd.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/includes\/style\/hmd\/hmd-min.css",
+		"oF": 0,
+		"oS": 3
 		},
 	"\/includes\/style\/hmd\/style-configuration.inc.php": {
 		"ft": 8192,
@@ -525,6 +622,23 @@
 		"sM": 0,
 		"sU": 0
 		},
+	"\/less\/02-hmd-font-includes.less": {
+		"aP": 0,
+		"bl": 0,
+		"dJ": 0,
+		"ft": 1,
+		"ie": 1,
+		"iI": 0,
+		"ma": 0,
+		"oA": 1,
+		"oAP": "\/css\/02-hmd-font-includes.css",
+		"oF": 0,
+		"oS": 0,
+		"rU": 0,
+		"sI": 0,
+		"sM": 0,
+		"sU": 0
+		},
 	"\/less\/03-socmed-color-codes.less": {
 		"aP": 0,
 		"bl": 0,
@@ -586,6 +700,23 @@
 		"ma": 0,
 		"oA": 1,
 		"oAP": "\/css\/10-wbvb.css",
+		"oF": 0,
+		"oS": 0,
+		"rU": 0,
+		"sI": 0,
+		"sM": 0,
+		"sU": 0
+		},
+	"\/less\/20-hmd-style.less": {
+		"aP": 0,
+		"bl": 0,
+		"dJ": 0,
+		"ft": 1,
+		"ie": 1,
+		"iI": 0,
+		"ma": 0,
+		"oA": 1,
+		"oAP": "\/css\/20-hmd-style.css",
 		"oF": 0,
 		"oS": 0,
 		"rU": 0,
@@ -713,8 +844,8 @@
 		"sU": 0
 		},
 	"\/less\/default.less": {
-		"aP": 0,
-		"bl": 0,
+		"aP": 1,
+		"bl": 1,
 		"dJ": 0,
 		"ft": 1,
 		"ie": 1,
@@ -723,15 +854,15 @@
 		"oA": 0,
 		"oAP": "\/includes\/style\/default\/default.css",
 		"oF": 2,
-		"oS": 0,
+		"oS": 1,
 		"rU": 0,
 		"sI": 0,
 		"sM": 0,
 		"sU": 0
 		},
 	"\/less\/hmd.less": {
-		"aP": 0,
-		"bl": 0,
+		"aP": 1,
+		"bl": 1,
 		"dJ": 0,
 		"ft": 1,
 		"ie": 1,
@@ -740,7 +871,7 @@
 		"oA": 0,
 		"oAP": "\/includes\/style\/hmd\/hmd.css",
 		"oF": 2,
-		"oS": 0,
+		"oS": 1,
 		"rU": 0,
 		"sI": 0,
 		"sM": 0,
