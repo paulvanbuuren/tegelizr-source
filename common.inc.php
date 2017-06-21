@@ -132,7 +132,7 @@ else {
 
 //  define('TEGELIZR_DEBUG',            false );
   define('TEGELIZR_DEBUG',            true );
-  define('TEGELIZR_DEBUG_GENERATE',   true );
+  define('TEGELIZR_DEBUG_GENERATE',   false );
 
   // Report all PHP errors
   error_reporting(-1);
@@ -627,8 +627,9 @@ function spitoutfooter() {
     global $formelementcounter;
 
     $formelementcounter++;
+    $suffix = '-' . $formelementcounter;
     
-    $form = '<a href="#top" id="totop">Bovenkant</a><a href="#' . TEGELIZR_ZOEKTERMKEY . '" id="tomenu">Menu</a><form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/" role="search">
+    $form = '<a href="#top" id="totop">Bovenkant</a><a href="#totop" id="tomenu">Menu</a><form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/" role="search">
     <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/?' . TEGELIZR_ZOEKTERMKEY . '={s}">
     <label for="' . TEGELIZR_ZOEKTERMKEY . '">Zoek een tegel</label>
     <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERMKEY . '" id="' . TEGELIZR_ZOEKTERMKEY . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
@@ -636,11 +637,11 @@ function spitoutfooter() {
 </form>';
 
 
-    $form = '<a href="#top" id="totop">Bovenkant</a><a href="#' . TEGELIZR_ZOEKTERMKEY . '" id="tomenu">Menu</a><div itemscope itemtype="http://schema.org/WebSite">
+    $form = '<a href="#top" id="totop">Bovenkant</a><a href="#totop" id="tomenu">Menu</a><div itemscope itemtype="http://schema.org/WebSite">
   <meta itemprop="url" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/"/>
-  <form itemprop="potentialAction" class="search-form" itemscope itemtype="http://schema.org/SearchAction">
-    <meta itemprop="target" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/?q={' . TEGELIZR_ZOEKTERMKEY . '}"/><label for="' . TEGELIZR_ZOEKTERMKEY . '" id="label-' . TEGELIZR_ZOEKTERMKEY . '">' . TEGELIZR_ZOEK_LABEL . '</label>
-    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERMKEY . '"  id="' . TEGELIZR_ZOEKTERMKEY . '" value="' . $zoektegeltje . '" placeholder="zoekterm" required/>
+  <form itemprop="potentialAction" class="search-form" itemscope itemtype="http://schema.org/SearchAction" method="get" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/" role="search">
+    <meta itemprop="target" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/?q={' . TEGELIZR_ZOEKTERMKEY . '}"/><label for="' . TEGELIZR_ZOEKTERMKEY . $suffix . '" id="label-' . TEGELIZR_ZOEKTERMKEY . '">' . TEGELIZR_ZOEK_LABEL . '</label>
+    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERMKEY . '"  id="' . TEGELIZR_ZOEKTERMKEY . $suffix . '" value="' . $zoektegeltje . '" placeholder="zoekterm" required/>
     <input type="submit" value="' . TEGELIZR_ZOEK_KNOP . '">
   </form>
 </div>';
@@ -870,7 +871,6 @@ function TheForm() {
     global $formelementcounter;
 
     $formelementcounter++;
-
     $suffix = '-' . $formelementcounter;
   
     return  ' <form role="form" id="posterform' . $suffix . '" name="posterform' . $suffix . '" action="/includes/generate.php" method="get" enctype="multipart/form-data">

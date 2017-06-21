@@ -197,6 +197,12 @@ function sortByOrder($a, $b) {
   <h1 id="top"><a href="/"><span><?php echo $titel ; ?></span></a></h1>
 
 <?php
+
+    global $formelementcounter;
+
+    $formelementcounter++;
+    $suffix = '-' . $formelementcounter;
+  
     if ( $results ) {
     
         echo '<section id="zoekresultaten"><h2>Je zocht op \'' . $zoektegeltje . "'</h2>";
@@ -217,8 +223,8 @@ function sortByOrder($a, $b) {
 
     echo '<form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/" role="search">
     <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/?zoektegeltje={s}">
-    <label for="' . TEGELIZR_ZOEKTERMKEY . '">Zoek opnieuw</label>
-    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERMKEY . '" id="' . TEGELIZR_ZOEKTERMKEY . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
+    <label for="' . TEGELIZR_ZOEKTERMKEY . $suffix . '">Zoek opnieuw</label>
+    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERMKEY . '" id="' . TEGELIZR_ZOEKTERMKEY . $suffix . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
     <input type="submit" value="Search">
 </form>';        
 
