@@ -7,7 +7,7 @@
 		"uuidString": "9F85D8A5-C5D7-4F2A-AFD3-8C5B558EAC0C"
 		}
 	],
-"creatorBuild": "25813",
+"creatorBuild": "25849",
 "files": {
 	"\/.gitignore": {
 		"ft": 8192,
@@ -344,7 +344,7 @@
 		},
 	"\/img\/vergrootglas.png": {
 		"ft": 32768,
-		"iS": 376,
+		"iS": 291,
 		"oA": 0,
 		"oAP": "\/img\/.vergrootglas~imageoptim.png",
 		"oF": 0,
@@ -422,14 +422,25 @@
 		"oAP": "\/includes\/style\/hmd\/BebasNeue-webfont.ttf",
 		"oF": 0
 		},
+	"\/includes\/style\/hmd\/hmd-new.png": {
+		"ft": 32768,
+		"iS": 119523,
+		"oA": 0,
+		"oAP": "\/includes\/style\/hmd\/hmd-new.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/includes\/style\/hmd\/hmd.png": {
 		"ft": 32768,
 		"iS": 322432,
 		"oA": 0,
 		"oAP": "\/includes\/style\/hmd\/hmd.png",
 		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
+		"oIPL": 1,
+		"opt": 1,
 		"oT": 1,
 		"q": 100
 		},
@@ -695,6 +706,40 @@
 		"oA": 1,
 		"oAP": "\/css\/99-print.css",
 		"oF": 0,
+		"oS": 0,
+		"rU": 0,
+		"sI": 0,
+		"sM": 0,
+		"sU": 0
+		},
+	"\/less\/default.less": {
+		"aP": 0,
+		"bl": 0,
+		"dJ": 0,
+		"ft": 1,
+		"ie": 1,
+		"iI": 0,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/includes\/style\/default\/default.css",
+		"oF": 2,
+		"oS": 0,
+		"rU": 0,
+		"sI": 0,
+		"sM": 0,
+		"sU": 0
+		},
+	"\/less\/hmd.less": {
+		"aP": 0,
+		"bl": 0,
+		"dJ": 0,
+		"ft": 1,
+		"ie": 1,
+		"iI": 0,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/includes\/style\/hmd\/hmd.css",
+		"oF": 2,
 		"oS": 0,
 		"rU": 0,
 		"sI": 0,
@@ -2889,6 +2934,7 @@
 		},
 	"languageDefaultsUserDefined": [
 		],
+	"overrideExternalServerCSS": 0,
 	"previewPathAddition": "",
 	"skippedFoldersString": "log, _logs, logs, _cache, cache, \/storage\/framework\/sessions, node_modules",
 	"sourceFolderName": "source",

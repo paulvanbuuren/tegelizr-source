@@ -99,6 +99,9 @@ if ( ! defined('TXTCOLOR_B' ) ) {
 if ( ! defined('STYLING_BLURSTRENGTH' ) ) {
   define('STYLING_BLURSTRENGTH', 2 );
 }
+if ( ! defined('STYLING_STYLESHEET' ) ) {
+  define('STYLING_STYLESHEET', 'css/tegelizr.css' );
+}
 
 
 
@@ -474,12 +477,12 @@ function get_end_htmlheader() {
 
   if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl'  || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
     echo '<style type="text/css">';
-    include("css/tegelizr.css");
+    include( STYLING_STYLESHEET );
     echo '</style>';
     echo $endtag;
   }
   else {
-    echo '<link href="/css/tegelizr.css?v=' . TEGELIZR_VERSION . '" rel="stylesheet" type="text/css" media="">' . $endtag;
+    echo '<link href="/' . STYLING_STYLESHEET . '?v=' . TEGELIZR_VERSION . '" rel="stylesheet" type="text/css" media="">' . $endtag;
   }
   
 }
