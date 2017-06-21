@@ -23,4 +23,6 @@ define('TXTCOLOR_R', 56 );
 define('TXTCOLOR_G', 98 );
 define('TXTCOLOR_B', 170 );
 
-define('STYLING_BLURSTRENGTH', 0 );
+define('STYLING_BLURSTRENGTH', 4 );
+
+define('STYLING_STYLESHEET', 'includes/style/default/default.css' );
