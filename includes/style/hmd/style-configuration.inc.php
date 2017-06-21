@@ -12,7 +12,7 @@
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
-  
+
 define('FONTFILE', "BebasNeue-webfont.ttf");
 define('BASEIMAGE', "hmd.png");
 
@@ -22,4 +22,7 @@ define('STYLEFOLDER', $thispath);
 define('TXTCOLOR_R', 112 );
 define('TXTCOLOR_G', 23 );
 define('TXTCOLOR_B', 36 );
+
+define('STYLING_BLURSTRENGTH', 0 );
+define('STYLING_STYLESHEET', 'includes/style/hmd/hmd.css' );
 
