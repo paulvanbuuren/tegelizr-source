@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.2.1
-// @desc.   Header fonts en tegelizr-logo
+// @version 7.6.1
+// @desc.   Accessibility issues met contrast. Documentstructuur aangepast.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -24,6 +24,29 @@
   position: absolute;
   width: 1px;
 }
+
+// ===================================================================================================================
+
+.socmedstyle( @background: red,  @txtcolor: white ) {
+  background: @wit;
+  border: 1px solid @background;
+  color: @txtcolor;
+  font-weight: bold;
+  font-family: @bodyfontsans;
+  
+  &:hover,
+  &:active,
+  &:focus {
+    background: @background;
+    color: @wit;
+    border-color: @background;
+  }
+  &:hover:before,
+  &:active:before,
+  &:focus:before {
+    color: @wit;
+  }
+}   
 
 // ===================================================================================================================
 

@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.5.1
-// @desc.   Styling in een apart bestand, zodat meerdere websites eigen stijl kunnen krijgen
+// @version 7.6.1
+// @desc.   Accessibility issues met contrast. Documentstructuur aangepast.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 

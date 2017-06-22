@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.2.2
-// @desc.   Form elements, list items with images.
+// @version 7.6.1
+// @desc.   Accessibility issues met contrast. Documentstructuur aangepast.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -26,13 +26,13 @@
     margin: 0 0 .5em 1em;
     padding: 0;
     float: right;
+    border: 10px solid red !important;
     
     li {
       overflow: hidden;
       list-style: none;
       margin: 0 8px 3px 0 !important;
       padding: 0;
-      font-family: @bodyfont;
     }
     li {
       display: block;
@@ -41,13 +41,14 @@
     a {
       padding: 2px 10px 2px 2px;
       display: block;
-      width: 100%;
+      width: 98%;
       margin: 2px;
       color: @wit;
       border-radius: 3px;
       font-size: 80%;
       line-height: 1.8;
       text-align: left;
+      font-family: @bodyfontsans;
       
       &:focus, &:hover, &:active {
         text-decoration: none !important;
@@ -69,6 +70,7 @@
       /* Better Font Rendering =========== */
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      color: black;
       
       content: "\e600";
       padding: 3px 1px 0 4px;
@@ -81,46 +83,33 @@
       text-align: center;
       border-style: none;
     }
+
+ 
     
     .facebook {
-      background: @facebook;
 
+      .socmedstyle( @facebook, @txt );
+      
       &:before {
         content: "\e604";
         padding-left: 2px;
-      }
-
-      &:hover, &:focus {
-        &:before {
         color: @facebook;
-        background: @wit;
-        }
       }
     }
     .twitter {
-      background: @twitter;
+      .socmedstyle( @twitter, @txt );
 
       &:before {
         content: "\e605";
-      }
-      &:hover, &:focus {
-        &:before {
-          color: @twitter;
-          background: @wit;
-        }
+        color: @twitter;
       }
     }
     .linkedin {
-      background: @linkedin;
+      .socmedstyle( @linkedin, @txt );
 
       &:before {
-//        content: "\e605";
-      }
-      &:hover, &:focus {
-        &:before {
-          color: @linkedin;
-          background: @wit;
-        }
+        content: "\e601";
+        color: @linkedin;
       }
     }
 

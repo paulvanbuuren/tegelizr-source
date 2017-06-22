@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.5.1
-// @desc.   Styling in een apart bestand, zodat meerdere websites eigen stijl kunnen krijgen
+// @version 7.6.1
+// @desc.   Accessibility issues met contrast. Documentstructuur aangepast.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -30,7 +30,7 @@ $path                   = dirname(__FILE__)."/";
 
 // ===================================================================================================================
 
-define('TEGELIZR_VERSION',          '7.5.1');
+define('TEGELIZR_VERSION',          '7.6.1');
 define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
 define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
 define('TEGELIZR_BACK',             'Bak een tegeltje!');
@@ -102,6 +102,10 @@ if ( ! defined('STYLING_BLURSTRENGTH' ) ) {
 if ( ! defined('STYLING_STYLESHEET' ) ) {
   define('STYLING_STYLESHEET', 'css/tegelizr.css' );
 }
+if ( ! defined('TXT_CLOSE_LABEL' ) ) {
+  define('TXT_CLOSE_LABEL', 'Sluit pop-up' );
+}
+
 
 
 
@@ -704,20 +708,20 @@ ga('send', 'pageview');";
 
 document.body.className = document.body.className.replace('nojs','dojs');
 
-
-
+// ===================================================================================================================
 // helper function to place modal window as the first child
 // of the #page node
 var m = document.getElementById('modal_window'),
     p = document.getElementById('page');
 
 function swap() {
+  // modal window before #page
   p.parentNode.insertBefore(m, p);
 }
 
+// swap();
 
-swap();
-
+// ===================================================================================================================
 
 // modal window
 (function() {
@@ -725,11 +729,11 @@ swap();
   'use strict';
 
   // list out the vars
-  var mOverlay = getId('modal_window'),
-      mOpen = getId('modal_open'),
-      mClose = getId('modal_close'),
-      modal = getId('modal_holder'),
-      allNodes = document.querySelectorAll('*'),
+  var mOverlay  = getId('modal_window'),
+      mOpen     = getId('modal_open'),
+      mClose    = getId('modal_close'),
+      modal     = getId('modal_holder'),
+      allNodes  = document.querySelectorAll('*'),
       modalOpen = false,
       lastFocus,
       i;
@@ -744,7 +748,6 @@ swap();
   // Let's open the modal
   function modalShow () {
     lastFocus = document.activeElement;
-    console.log('mOverlay!');
     mOverlay.setAttribute('aria-hidden', 'false');
     modalOpen = true;
     modal.setAttribute('tabindex', '0');
@@ -800,6 +803,8 @@ swap();
 
 })();
 
+// ===================================================================================================================
+
 $(document).ready(function() {
 
 $('#totop').addClass('jsinvisible');
@@ -843,26 +848,14 @@ function DoPrefix($value = '', $prefixwith = '0', $stringlength = 20, $side = ST
 
 // ===================================================================================================================
 function TheModalWindow() {
-	return '  <p id="home"> <button class="btn" type="button" id="modal_open">' . TEGELIZR_BACK .'</button> </p>
-
-<div class="modal-overlay" id="modal_window"
-             aria-hidden="true" role="dialog"
-             aria-labelledby="modal_title">
-
-      <div class="modal-content" id="modal_holder" role="document">
-
-          <h1 id="modal_title">' . TEGELIZR_BACK .'</h1>
-         ' . TheForm() . '
-
-        <button class="btn-close" id="modal_close" type="button" aria-label="close">
-          &times;
-        </button>
-
-      </div> <!-- end .modal-content -->
-
-    </div> <!-- end .modal-overlay -->	
-	
-';
+	return '
+	<p id="home"> <button class="btn" type="button" id="modal_open">' . TEGELIZR_BACK .'</button> </p>
+<div class="modal-overlay" id="modal_window" aria-hidden="true" role="dialog" aria-labelledby="modal_title">
+<div class="modal-content" id="modal_holder" role="document">
+<h2 id="modal_title">' . TEGELIZR_BACK .'</h2>
+' . TheForm() . '
+<button class="btn-close" id="modal_close" type="button" aria-label="' . TXT_CLOSE_LABEL . '">
+&times;</button></div> <!-- end .modal-content --></div> <!-- end .modal-overlay -->';
 }
 
 // ===================================================================================================================

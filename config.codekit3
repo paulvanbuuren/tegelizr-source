@@ -414,6 +414,12 @@
 		"oF": 0,
 		"oS": 3
 		},
+	"\/includes\/style\/default\/default.css.map": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/style\/default\/default.css.map",
+		"oF": 0
+		},
 	"\/includes\/style\/default\/style-configuration.inc.php": {
 		"ft": 8192,
 		"oA": 2,
@@ -540,6 +546,12 @@
 		"oAP": "\/includes\/style\/hmd\/hmd-min.css",
 		"oF": 0,
 		"oS": 3
+		},
+	"\/includes\/style\/hmd\/hmd.css.map": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/style\/hmd\/hmd.css.map",
+		"oF": 0
 		},
 	"\/includes\/style\/hmd\/style-configuration.inc.php": {
 		"ft": 8192,
@@ -850,7 +862,7 @@
 		"ft": 1,
 		"ie": 1,
 		"iI": 0,
-		"ma": 0,
+		"ma": 1,
 		"oA": 0,
 		"oAP": "\/includes\/style\/default\/default.css",
 		"oF": 2,
@@ -867,7 +879,7 @@
 		"ft": 1,
 		"ie": 1,
 		"iI": 0,
-		"ma": 0,
+		"ma": 1,
 		"oA": 0,
 		"oAP": "\/includes\/style\/hmd\/hmd.css",
 		"oF": 2,
