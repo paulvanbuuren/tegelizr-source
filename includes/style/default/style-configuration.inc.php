@@ -13,7 +13,6 @@
 ///
 
   
-define('FONTFILE', "tegeltje.otf");
 define('BASEIMAGE', "base.png");
 
 $thispath                   = dirname(__FILE__)."/";
@@ -26,3 +25,4 @@ define('TXTCOLOR_B', 170 );
 define('STYLING_BLURSTRENGTH', 4 );
 
 define('STYLING_STYLESHEET', 'includes/style/default/default.css' );
+define('FONTFILE', $thispath . "tegeltje.otf");

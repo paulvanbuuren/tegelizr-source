@@ -89,7 +89,13 @@ if ( !file_exists( $destimagepath ) &&  !file_exists( $desttextpath ) &&  !file_
     
     $fontsize        = 100;
     $angle           = 0;
-    $font            = $fontpath.FONTFILE;
+    $font            = FONTFILE;
+    
+    if ( ! file_exists( FONTFILE ) ) {
+      die('font file not found: ' . FONTFILE );
+    }
+
+    
     $regelafstand    = 10;
 
     // beetje tweaken en tunen met font-grootte
