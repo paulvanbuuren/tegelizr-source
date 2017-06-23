@@ -31,28 +31,18 @@ $path                   = dirname(__FILE__)."/";
 // ===================================================================================================================
 
 define('TEGELIZR_VERSION',          '7.6.1');
-define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
-define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
-define('TEGELIZR_BACK',             'Bak een tegeltje!');
-define('TEGELIZR_SUBMIT',           'bak mijn tegeltje');
-define('TEGELIZR_SUBMIT_RATING',    'geef sterren');
-define('TEGELIZR_TXT_LENGTH',       90);
-//define('TEGELIZR_TXT_LENGTH',       300);
-define('TEGELIZR_THUMB_WIDTH',      220);
+
+// ===================================================================================================================
+
 define('TEGELIZR_TXT_VALUE',        '');
-define('TEGELIZR_SELECTOR',         'tegeltje');
-define('TEGELIZR_SUMMARY',          'Online generator voor plaatjes van tegeltjes. Een geintje van Paul van Buuren, van WBVB Rotterdam.');
-define('TEGELIZR_METADESC',         'Maak zelf online een oud-Hollands tegeltje.');
 define('TEGELIZR_THUMBS',           'thumbs');
 define('TEGELIZR_DELETED_FILES',    'deleted_files');
 define('TEGELIZR_VIEWS',            'views');
-define('TEGELIZR_TEGELFOLDER',      'tegeltjes');
 define('TEGELIZR_ALLES',            'alle-tegeltjes');
 define('TEGELIZR_REDACTIE',         'redactie');
 define('TEGELIZR_DEFAULT_IMAGE',    '/img/kiezen-is-een-keuze.jpg');
 define('TEGELIZR_ZOEKURL',          'zoeken');
 define('TEGELIZR_ZOEKTERMKEY',      'q');
-define('TEGELIZR_ZOEK_LABEL',       'Zoek tegeltje');
 define('TEGELIZR_TRIGGER_KEY',      'pasop');
 define('TEGELIZR_TRIGGER_VALUE',    'heet');
 define('TGLZR_TOTAL_POINTS',        'tglzr_TGLZR_TOTAL_POINTS');
@@ -71,9 +61,22 @@ define('TEGELLABEL_PLURAL',         'tegels');
 
 $formelementcounter = 0;
 
-$style = 'hmd';
-//$style = 'default';
 
+$mystring = $_SERVER['HTTP_HOST'];
+$findme   = 'hmd.plaatjesgenerator';
+
+$pos = strpos($mystring, $findme);
+
+
+
+
+$style = 'default';
+
+if ($pos === false) {
+}
+else {
+  $style = 'hmd';
+}
 
 
 if ( file_exists( $path . '/includes/style/' . $style . '/style-configuration.inc.php' ) ) {
@@ -105,12 +108,57 @@ if ( ! defined('STYLING_STYLESHEET' ) ) {
 if ( ! defined('TXT_CLOSE_LABEL' ) ) {
   define('TXT_CLOSE_LABEL', 'Sluit pop-up' );
 }
+if ( ! defined('TEGELIZR_TITLE' ) ) {
+  define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
+}
+if ( ! defined('TEGELIZR_FORM' ) ) {
+  define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
+}
+if ( ! defined('TEGELIZR_BACK' ) ) {
+  define('TEGELIZR_BACK',             'Bak een tegeltje!');
+}
+if ( ! defined('TEGELIZR_SUBMIT' ) ) {
+  define('TEGELIZR_SUBMIT',           'bak mijn tegeltje');
+}
+if ( ! defined('TEGELIZR_SUBMIT_RATING' ) ) {
+  define('TEGELIZR_SUBMIT_RATING',    'geef sterren');
+}
+if ( ! defined('TEGELIZR_TXT_LENGTH' ) ) {
+  define('TEGELIZR_TXT_LENGTH',       90);
+}
+if ( ! defined('TEGELIZR_THUMB_WIDTH' ) ) {
+  define('TEGELIZR_THUMB_WIDTH',      220);
+}
+if ( ! defined('TEGELIZR_SELECTOR' ) ) {
+  define('TEGELIZR_SELECTOR',         'tegeltje');
+}
+if ( ! defined('TEGELIZR_SUMMARY' ) ) {
+  define('TEGELIZR_SUMMARY',          'Online generator voor plaatjes van tegeltjes. Een geintje van Paul van Buuren, van WBVB Rotterdam.');
+}
+if ( ! defined('TEGELIZR_METADESC' ) ) {
+  define('TEGELIZR_METADESC',         'Maak zelf online een oud-Hollands tegeltje.');
+}
+if ( ! defined('TEGELIZR_TEGELFOLDER' ) ) {
+  define('TEGELIZR_TEGELFOLDER',      'tegeltjes');
+}
+if ( ! defined('TEGELIZR_ZOEK_LABEL' ) ) {
+  define('TEGELIZR_ZOEK_LABEL',       'Zoek tegeltje');
+}
 
 
 
 
 if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
   define('TEGELIZR_PROTOCOL',         'https://');
+  define('TEGELIZR_DEBUG',            false );
+  define('TEGELIZR_DEBUG_GENERATE',   false );
+
+  // Report no PHP errors
+  error_reporting(0);
+  
+}
+elseif ( $_SERVER['HTTP_HOST'] == 'hmd.plaatjesgenerator.nl' || $_SERVER['HTTP_HOST'] == 'hvd.plaatjesgenerator.nl' ) {
+  define('TEGELIZR_PROTOCOL',         'http://');
   define('TEGELIZR_DEBUG',            false );
   define('TEGELIZR_DEBUG_GENERATE',   false );
 
@@ -173,7 +221,12 @@ define('TEGELIZR_JS_NAV_NEXTKEY',       'navnext');
 
 
 $sourcefolder           = $path."img/";
-$fontpath               = $path."fonts/";
+
+if ( ! defined('FONTFILE' ) ) {
+  define('FONTFILE', $path."fonts/AbbeyRoadNF.ttf" );
+}
+
+
 $sourcefiles_tegels     = $path. TEGELIZR_TEGELFOLDER . "/";
 $sourcefiles_thumbs     = $path. TEGELIZR_THUMBS . "/";
 $deletedfiles_thumbs    = $path. TEGELIZR_DELETED_FILES . "/" . TEGELIZR_THUMBS . "/";
