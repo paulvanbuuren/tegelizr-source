@@ -7,11 +7,12 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.4.8
-// @desc.   Toegankelijkheidsdingetje. Label toegevoegd. Unieke ID.
+// @version 7.6.1
+// @desc.   Accessibility issues met contrast. Documentstructuur aangepast.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
+$style = 'hmd';
 
 wbvb_set_hsts_policy();
 
@@ -22,7 +23,7 @@ wbvb_set_hsts_policy();
  */
 function wbvb_set_hsts_policy() {
 
-  if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
+  if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'www.tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
 
     if($_SERVER["HTTPS"] != "on") {
         header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
@@ -40,6 +41,7 @@ function wbvb_set_hsts_policy() {
 
 
 include("common.inc.php"); 
+
 
 // ===================================================================================================================
 
@@ -195,6 +197,12 @@ function sortByOrder($a, $b) {
   <h1 id="top"><a href="/"><span><?php echo $titel ; ?></span></a></h1>
 
 <?php
+
+    global $formelementcounter;
+
+    $formelementcounter++;
+    $suffix = '-' . $formelementcounter;
+  
     if ( $results ) {
     
         echo '<section id="zoekresultaten"><h2>Je zocht op \'' . $zoektegeltje . "'</h2>";
@@ -215,8 +223,8 @@ function sortByOrder($a, $b) {
 
     echo '<form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/" role="search">
     <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/?zoektegeltje={s}">
-    <label for="' . TEGELIZR_ZOEKTERMKEY . '">Zoek opnieuw</label>
-    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERMKEY . '" id="' . TEGELIZR_ZOEKTERMKEY . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
+    <label for="' . TEGELIZR_ZOEKTERMKEY . $suffix . '">Zoek opnieuw</label>
+    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERMKEY . '" id="' . TEGELIZR_ZOEKTERMKEY . $suffix . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
     <input type="submit" value="Search">
 </form>';        
 

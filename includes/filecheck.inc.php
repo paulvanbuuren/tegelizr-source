@@ -37,7 +37,7 @@ function checkthreefiles( $type = '', $keyfilename = '',  $thumbfilename = '' ) 
   $thumb_image    = $sourcefiles_thumbs . $thumbfilename . '.png';
 
   if ( $thumbfilename ) {
-
+    // heuh, wat was je denkende?
     
   }
   else {
@@ -68,7 +68,7 @@ function checkthreefiles( $type = '', $keyfilename = '',  $thumbfilename = '' ) 
   }
   
 
-  // als de grote plaat bestaat en het txt-bestand, niks doen
+  // als de grote plaat bestaat en het txt-bestand en de thumbnail, niks doen
   if ( file_exists( $groot_image ) && file_exists( $groot_txt )  && file_exists( $thumb_image ) ) {
     return true;
   }
@@ -220,6 +220,32 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 
     }
 
+
+    // dan de tekstbestanden opruimen
+    $textfiles      = glob($sourcefiles_tegels . "*.txt");
+    $replace        = $sourcefiles_tegels;
+    $with           = '';
+    $pattern        = '|' . $replace . '|i';
+    $textfiles      = preg_replace($pattern, $with, $textfiles);
+    
+    $with           = '';
+    $pattern        = '|(\.txt)|i';
+    $textfiles      = preg_replace($pattern, $with, $textfiles);
+    
+    rsort($textfiles);
+
+    
+    foreach($textfiles as $textfile) {
+
+      // door alle textbestanden heen lopen
+      $stack          = explode('/', $textfile);
+      $thumb_filename = array_pop($stack);
+      $info           = explode('_', $thumb_filename );
+
+      checkthreefiles( 'echte textfiles', $textfile );
+
+    }
+
     // na het opruimen gaan we alle tegeltjes voorzien van de juiste links naar de tegels VOOR en NA de thumbnail
     $loopcounter = 0;
 
@@ -237,14 +263,14 @@ function verbeteralletegelmetadata( $redirect = '' ) {
       $info           = explode('_', $thumb_filename );
 
       $vorigenr       = ( $loopcounter - 1);
-      $volgendenr     = ( $loopcounter + 2);
+      $volgendenr     = ( $loopcounter + 1);
       
       $groot_txt      = $sourcefiles_tegels . $info[1] . '.txt';
 
       $json_data      = file_get_contents( $groot_txt );
       $all            = json_decode($json_data, true);
 
-      if($all) {
+      if( $all ) {
 
         $huidige        = $thumbs[$loopcounter] . '.png';      
         $vorige         = ( isset( $thumbs[$vorigenr] ) ) ? $thumbs[$vorigenr] : '';      

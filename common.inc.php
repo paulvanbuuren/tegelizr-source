@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.4.8
-// @desc.   Toegankelijkheidsdingetje. Label toegevoegd. Unieke ID.
+// @version 7.6.1
+// @desc.   Accessibility issues met contrast. Documentstructuur aangepast.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -26,30 +26,23 @@ setlocale(LC_TIME, 'NL_nl');
 
 // ===================================================================================================================
 
-define('TEGELIZR_VERSION',          '7.4.8');
-define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
-define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
-define('TEGELIZR_BACK',             'Bak een tegeltje!');
-define('TEGELIZR_SUBMIT',           'bak mijn tegeltje');
-define('TEGELIZR_SUBMIT_RATING',    'geef sterren');
-define('TEGELIZR_TXT_LENGTH',       90);
-//define('TEGELIZR_TXT_LENGTH',       300);
-define('TEGELIZR_THUMB_WIDTH',      220);
-define('TEGELIZR_BLUR',             2);
+$path                   = dirname(__FILE__)."/";
+
+// ===================================================================================================================
+
+define('TEGELIZR_VERSION',          '7.6.1');
+
+// ===================================================================================================================
+
 define('TEGELIZR_TXT_VALUE',        '');
-define('TEGELIZR_SELECTOR',         'tegeltje');
-define('TEGELIZR_SUMMARY',          'Online generator voor plaatjes van tegeltjes. Een geintje van Paul van Buuren, van WBVB Rotterdam.');
-define('TEGELIZR_METADESC',         'Maak zelf online een oud-Hollands tegeltje.');
 define('TEGELIZR_THUMBS',           'thumbs');
 define('TEGELIZR_DELETED_FILES',    'deleted_files');
 define('TEGELIZR_VIEWS',            'views');
-define('TEGELIZR_TEGELFOLDER',      'tegeltjes');
 define('TEGELIZR_ALLES',            'alle-tegeltjes');
 define('TEGELIZR_REDACTIE',         'redactie');
 define('TEGELIZR_DEFAULT_IMAGE',    '/img/kiezen-is-een-keuze.jpg');
 define('TEGELIZR_ZOEKURL',          'zoeken');
 define('TEGELIZR_ZOEKTERMKEY',      'q');
-define('TEGELIZR_ZOEK_LABEL',       'Zoek tegeltje');
 define('TEGELIZR_TRIGGER_KEY',      'pasop');
 define('TEGELIZR_TRIGGER_VALUE',    'heet');
 define('TGLZR_TOTAL_POINTS',        'tglzr_TGLZR_TOTAL_POINTS');
@@ -69,9 +62,105 @@ define('TEGELLABEL_PLURAL',         'tegels');
 $formelementcounter = 0;
 
 
+$mystring = $_SERVER['HTTP_HOST'];
+$findme   = 'hmd.plaatjesgenerator';
+
+$pos = strpos($mystring, $findme);
+
+
+
+
+$style = 'default';
+
+if ($pos === false) {
+}
+else {
+  $style = 'hmd';
+}
+
+
+if ( file_exists( $path . '/includes/style/' . $style . '/style-configuration.inc.php' ) ) {
+  include( $path . '/includes/style/' . $style . '/style-configuration.inc.php' ); 
+}
+elseif ( file_exists( $path . '/includes/style/default/style-configuration.inc.php' ) ) {
+  include( $path . '/includes/style/default/style-configuration.inc.php' ); 
+  define('STYLEFOLDER', $path . '/includes/style/default/' );
+}
+else {
+  die('style file not found: ' . $path . 'includes/style/default/style-configuration.inc.php' );
+}
+
+if ( ! defined('TXTCOLOR_R' ) ) {
+  define('TXTCOLOR_R', 256 );
+}
+if ( ! defined('TXTCOLOR_G' ) ) {
+  define('TXTCOLOR_G', 0 );
+}
+if ( ! defined('TXTCOLOR_B' ) ) {
+  define('TXTCOLOR_B', 0 );
+}
+if ( ! defined('STYLING_BLURSTRENGTH' ) ) {
+  define('STYLING_BLURSTRENGTH', 2 );
+}
+if ( ! defined('STYLING_STYLESHEET' ) ) {
+  define('STYLING_STYLESHEET', 'css/tegelizr.css' );
+}
+if ( ! defined('TXT_CLOSE_LABEL' ) ) {
+  define('TXT_CLOSE_LABEL', 'Sluit pop-up' );
+}
+if ( ! defined('TEGELIZR_TITLE' ) ) {
+  define('TEGELIZR_TITLE',            'Online tegeltjes bakken');
+}
+if ( ! defined('TEGELIZR_FORM' ) ) {
+  define('TEGELIZR_FORM',             'Wat is jouw tegeltjeswijsheid? Voer hier je tekst in. Een dag geen tegeltjes gemaakt is een dag niet geleefd!');
+}
+if ( ! defined('TEGELIZR_BACK' ) ) {
+  define('TEGELIZR_BACK',             'Bak een tegeltje!');
+}
+if ( ! defined('TEGELIZR_SUBMIT' ) ) {
+  define('TEGELIZR_SUBMIT',           'bak mijn tegeltje');
+}
+if ( ! defined('TEGELIZR_SUBMIT_RATING' ) ) {
+  define('TEGELIZR_SUBMIT_RATING',    'geef sterren');
+}
+if ( ! defined('TEGELIZR_TXT_LENGTH' ) ) {
+  define('TEGELIZR_TXT_LENGTH',       90);
+}
+if ( ! defined('TEGELIZR_THUMB_WIDTH' ) ) {
+  define('TEGELIZR_THUMB_WIDTH',      220);
+}
+if ( ! defined('TEGELIZR_SELECTOR' ) ) {
+  define('TEGELIZR_SELECTOR',         'tegeltje');
+}
+if ( ! defined('TEGELIZR_SUMMARY' ) ) {
+  define('TEGELIZR_SUMMARY',          'Online generator voor plaatjes van tegeltjes. Een geintje van Paul van Buuren, van WBVB Rotterdam.');
+}
+if ( ! defined('TEGELIZR_METADESC' ) ) {
+  define('TEGELIZR_METADESC',         'Maak zelf online een oud-Hollands tegeltje.');
+}
+if ( ! defined('TEGELIZR_TEGELFOLDER' ) ) {
+  define('TEGELIZR_TEGELFOLDER',      'tegeltjes');
+}
+if ( ! defined('TEGELIZR_ZOEK_LABEL' ) ) {
+  define('TEGELIZR_ZOEK_LABEL',       'Zoek tegeltje');
+}
+
+
+
+
 if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
   define('TEGELIZR_PROTOCOL',         'https://');
   define('TEGELIZR_DEBUG',            false );
+  define('TEGELIZR_DEBUG_GENERATE',   false );
+
+  // Report no PHP errors
+  error_reporting(0);
+  
+}
+elseif ( $_SERVER['HTTP_HOST'] == 'hmd.plaatjesgenerator.nl' || $_SERVER['HTTP_HOST'] == 'hvd.plaatjesgenerator.nl' ) {
+  define('TEGELIZR_PROTOCOL',         'http://');
+  define('TEGELIZR_DEBUG',            false );
+  define('TEGELIZR_DEBUG_GENERATE',   false );
 
   // Report no PHP errors
   error_reporting(0);
@@ -80,6 +169,7 @@ if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsof
 elseif ( $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl' ) {
   define('TEGELIZR_PROTOCOL',         'https://');
   define('TEGELIZR_DEBUG',            false );
+  define('TEGELIZR_DEBUG_GENERATE',   false );
 
   // Report no PHP errors
   error_reporting(0);
@@ -94,6 +184,7 @@ else {
 
 //  define('TEGELIZR_DEBUG',            false );
   define('TEGELIZR_DEBUG',            true );
+  define('TEGELIZR_DEBUG_GENERATE',   false );
 
   // Report all PHP errors
   error_reporting(-1);
@@ -128,15 +219,22 @@ define('TEGELIZR_JS_NAV_NEXTKEY',       'navnext');
 
 
 
-$path                   = dirname(__FILE__)."/";
 
 $sourcefolder           = $path."img/";
-$fontpath               = $path."fonts/";
+
+if ( ! defined('FONTFILE' ) ) {
+  define('FONTFILE', $path."fonts/AbbeyRoadNF.ttf" );
+}
+
+
 $sourcefiles_tegels     = $path. TEGELIZR_TEGELFOLDER . "/";
 $sourcefiles_thumbs     = $path. TEGELIZR_THUMBS . "/";
 $deletedfiles_thumbs    = $path. TEGELIZR_DELETED_FILES . "/" . TEGELIZR_THUMBS . "/";
 $deletedfiles_tegels    = $path. TEGELIZR_DELETED_FILES . "/" . TEGELIZR_TEGELFOLDER . "/";
-$baseimgpath            = $sourcefolder."base.png";
+$baseimgpath            = STYLEFOLDER.BASEIMAGE;
+if ( ! file_exists( $baseimgpath ) ) {
+  die( 'source not found: ' . $baseimgpath );
+}
 $zoektegeltje           = '';
 $userip                 = 'IP' . md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
 
@@ -436,12 +534,12 @@ function get_end_htmlheader() {
 
   if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl'  || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
     echo '<style type="text/css">';
-    include("css/tegelizr.css");
+    include( STYLING_STYLESHEET );
     echo '</style>';
     echo $endtag;
   }
   else {
-    echo '<link href="/css/tegelizr.css?v=' . TEGELIZR_VERSION . '" rel="stylesheet" type="text/css" media="">' . $endtag;
+    echo '<link href="/' . STYLING_STYLESHEET . '?v=' . TEGELIZR_VERSION . '" rel="stylesheet" type="text/css" media="">' . $endtag;
   }
   
 }
@@ -586,8 +684,9 @@ function spitoutfooter() {
     global $formelementcounter;
 
     $formelementcounter++;
+    $suffix = '-' . $formelementcounter;
     
-    $form = '<a href="#top" id="totop">Bovenkant</a><a href="#' . TEGELIZR_ZOEKTERMKEY . '" id="tomenu">Menu</a><form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/" role="search">
+    $form = '<a href="#top" id="totop">Bovenkant</a><a href="#totop" id="tomenu">Menu</a><form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/" role="search">
     <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/?' . TEGELIZR_ZOEKTERMKEY . '={s}">
     <label for="' . TEGELIZR_ZOEKTERMKEY . '">Zoek een tegel</label>
     <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERMKEY . '" id="' . TEGELIZR_ZOEKTERMKEY . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
@@ -595,11 +694,11 @@ function spitoutfooter() {
 </form>';
 
 
-    $form = '<a href="#top" id="totop">Bovenkant</a><a href="#' . TEGELIZR_ZOEKTERMKEY . '" id="tomenu">Menu</a><div itemscope itemtype="http://schema.org/WebSite">
+    $form = '<a href="#top" id="totop">Bovenkant</a><a href="#totop" id="tomenu">Menu</a><div itemscope itemtype="http://schema.org/WebSite">
   <meta itemprop="url" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/"/>
-  <form itemprop="potentialAction" class="search-form" itemscope itemtype="http://schema.org/SearchAction">
-    <meta itemprop="target" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/?q={' . TEGELIZR_ZOEKTERMKEY . '}"/><label for="' . TEGELIZR_ZOEKTERMKEY . '" id="label-' . TEGELIZR_ZOEKTERMKEY . '">' . TEGELIZR_ZOEK_LABEL . '</label>
-    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERMKEY . '"  id="' . TEGELIZR_ZOEKTERMKEY . '" value="' . $zoektegeltje . '" placeholder="zoekterm" required/>
+  <form itemprop="potentialAction" class="search-form" itemscope itemtype="http://schema.org/SearchAction" method="get" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/" role="search">
+    <meta itemprop="target" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/?q={' . TEGELIZR_ZOEKTERMKEY . '}"/><label for="' . TEGELIZR_ZOEKTERMKEY . $suffix . '" id="label-' . TEGELIZR_ZOEKTERMKEY . '">' . TEGELIZR_ZOEK_LABEL . '</label>
+    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERMKEY . '"  id="' . TEGELIZR_ZOEKTERMKEY . $suffix . '" value="' . $zoektegeltje . '" placeholder="zoekterm" required/>
     <input type="submit" value="' . TEGELIZR_ZOEK_KNOP . '">
   </form>
 </div>';
@@ -662,20 +761,20 @@ ga('send', 'pageview');";
 
 document.body.className = document.body.className.replace('nojs','dojs');
 
-
-
+// ===================================================================================================================
 // helper function to place modal window as the first child
 // of the #page node
 var m = document.getElementById('modal_window'),
     p = document.getElementById('page');
 
 function swap() {
+  // modal window before #page
   p.parentNode.insertBefore(m, p);
 }
 
+// swap();
 
-swap();
-
+// ===================================================================================================================
 
 // modal window
 (function() {
@@ -683,11 +782,11 @@ swap();
   'use strict';
 
   // list out the vars
-  var mOverlay = getId('modal_window'),
-      mOpen = getId('modal_open'),
-      mClose = getId('modal_close'),
-      modal = getId('modal_holder'),
-      allNodes = document.querySelectorAll('*'),
+  var mOverlay  = getId('modal_window'),
+      mOpen     = getId('modal_open'),
+      mClose    = getId('modal_close'),
+      modal     = getId('modal_holder'),
+      allNodes  = document.querySelectorAll('*'),
       modalOpen = false,
       lastFocus,
       i;
@@ -702,7 +801,6 @@ swap();
   // Let's open the modal
   function modalShow () {
     lastFocus = document.activeElement;
-    console.log('mOverlay!');
     mOverlay.setAttribute('aria-hidden', 'false');
     modalOpen = true;
     modal.setAttribute('tabindex', '0');
@@ -758,6 +856,8 @@ swap();
 
 })();
 
+// ===================================================================================================================
+
 $(document).ready(function() {
 
 $('#totop').addClass('jsinvisible');
@@ -801,26 +901,14 @@ function DoPrefix($value = '', $prefixwith = '0', $stringlength = 20, $side = ST
 
 // ===================================================================================================================
 function TheModalWindow() {
-	return '  <p id="home"> <button class="btn" type="button" id="modal_open">' . TEGELIZR_BACK .'</button> </p>
-
-<div class="modal-overlay" id="modal_window"
-             aria-hidden="true" role="dialog"
-             aria-labelledby="modal_title">
-
-      <div class="modal-content" id="modal_holder" role="document">
-
-          <h1 id="modal_title">' . TEGELIZR_BACK .'</h1>
-         ' . TheForm() . '
-
-        <button class="btn-close" id="modal_close" type="button" aria-label="close">
-          &times;
-        </button>
-
-      </div> <!-- end .modal-content -->
-
-    </div> <!-- end .modal-overlay -->	
-	
-';
+	return '
+	<p id="home"> <button class="btn" type="button" id="modal_open">' . TEGELIZR_BACK .'</button> </p>
+<div class="modal-overlay" id="modal_window" aria-hidden="true" role="dialog" aria-labelledby="modal_title">
+<div class="modal-content" id="modal_holder" role="document">
+<h2 id="modal_title">' . TEGELIZR_BACK .'</h2>
+' . TheForm() . '
+<button class="btn-close" id="modal_close" type="button" aria-label="' . TXT_CLOSE_LABEL . '">
+&times;</button></div> <!-- end .modal-content --></div> <!-- end .modal-overlay -->';
 }
 
 // ===================================================================================================================
@@ -829,7 +917,6 @@ function TheForm() {
     global $formelementcounter;
 
     $formelementcounter++;
-
     $suffix = '-' . $formelementcounter;
   
     return  ' <form role="form" id="posterform' . $suffix . '" name="posterform' . $suffix . '" action="/includes/generate.php" method="get" enctype="multipart/form-data">

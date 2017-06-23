@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.4.7
-// @desc.   Autofocus weggehaald. Form voor tegeltjes op juiste plek.
+// @version 7.6.1
+// @desc.   Accessibility issues met contrast. Documentstructuur aangepast.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -70,7 +70,7 @@
     display: none;
   }
   html {
-    font-family: sans-serif;
+    font-family: @bodyfontsans;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
   }
@@ -374,7 +374,7 @@
     line-height: 2;
     margin-bottom: 16px;
     width: 100%;
-    font-family: @bodyfontsans;
+    font-family: @bodyfont;
   }
   tbody {
     border-bottom: 1px solid #999999;
@@ -425,7 +425,7 @@
   .breadcrumb,
   .sidebar .widget .entry-title,
   .sidebar .widget .widget-title {
-    font-family: @bodyfontsans;
+    font-family: @bodyfont;
   }
   .wp-caption-text,
   aside {
@@ -483,20 +483,12 @@
   ::-moz-placeholder {
     opacity: 1;
   }
-  ::-webkit-input-placeholder,
-  ::-moz-placeholder {
-    color: #666666;
-  }
   button,
   input[type="button"],
   input[type="reset"],
   input[type="submit"],
   .button,
   .entry-content .button {
-    background-color: #0f4800;
-    box-shadow: none;
-    color: #fff;
-    cursor: pointer;
     text-transform: uppercase;
     width: auto;
     border-width: 0;
@@ -509,8 +501,6 @@
   input:hover[type="submit"],
   .button:hover,
   .entry-content .button:hover {
-    background-color: #24ae00;
-    color: #fff;
     text-decoration: underline;
   }
   button:focus,
@@ -519,8 +509,6 @@
   input:focus[type="submit"],
   .button:focus,
   .entry-content .button:focus {
-    background-color: #900;
-    color: #fff;
     text-decoration: underline;
   }
   .entry-content .button:hover {
@@ -801,171 +789,6 @@
   }
   input[type="search"] {
     width: 80%;
-  }
-  .social-media {
-    display: block;
-    overflow: hidden;
-    list-style: none;
-  }
-  .social-media li {
-    overflow: hidden;
-    list-style: none;
-    margin: 0 8px 3px 0 !important;
-    padding: 0;
-  }
-  .social-media a,
-  .social-media li {
-    display: block;
-    float: left;
-  }
-  .social-media a {
-    padding: 0;
-    margin: 0;
-    color: #000;
-  }
-  .social-media a:focus,
-  .social-media a:hover,
-  .social-media a:active {
-    text-decoration: none !important;
-  }
-  .social-media a span {
-    float: right;
-  }
-  .social-media a:before {
-    font-family: @iconfont;
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    border: 1px solid #fff;
-    background: #3b5998;
-    color: #fff;
-    content: "\e600";
-    font-size: 1.65em;
-    padding: 2px 0;
-    display: block;
-    float: left;
-    width: 35px;
-    text-align: center;
-  }
-  .social-media .facebook:before {
-    content: "\e604";
-    background: #3b5998;
-    padding-left: 2px;
-  }
-  .social-media .facebook:hover:before,
-  .social-media .facebook:focus:before {
-    border: 1px solid #3b5998;
-    color: #3b5998;
-    background: #fff;
-  }
-  .social-media .twitter:before {
-    content: "\e605";
-    background: #00aced;
-  }
-  .social-media .twitter:hover:before,
-  .social-media .twitter:focus:before {
-    border: 1px solid #00aced;
-    color: #00aced;
-    background: #fff;
-  }
-  .social-media .googleplus:before {
-    content: "\e600";
-    background: #dd4b39;
-  }
-  .social-media .googleplus:hover:before,
-  .social-media .googleplus:focus:before {
-    border: 1px solid #dd4b39;
-    color: #dd4b39;
-    background: #fff;
-  }
-  .social-media .pinterest:before {
-    content: "\e603";
-    background: #cb2027;
-  }
-  .social-media .pinterest:hover:before,
-  .social-media .pinterest:focus:before {
-    border: 1px solid #cb2027;
-    color: #cb2027;
-    background: #fff;
-  }
-  .social-media .youtube:before {
-    content: "\e606";
-    background: #bb0000;
-  }
-  .social-media .youtube:hover:before,
-  .social-media .youtube:focus:before {
-    border: 1px solid #bb0000;
-    color: #bb0000;
-    background: #fff;
-  }
-  .social-media .home:before {
-    content: "\e602";
-  }
-  .social-media .linkedin:before {
-    content: "\e601";
-    background: #007bb6;
-  }
-  .social-media .linkedin:hover:before,
-  .social-media .linkedin:focus:before {
-    border: 1px solid #007bb6;
-    color: #007bb6;
-    background: #fff;
-  }
-  .social-media .mail:before {
-    content: "\ea83";
-    background: #dd4b39;
-  }
-  .social-media .mail:hover:before,
-  .social-media .mail:focus:before {
-    border: 1px solid #dd4b39;
-    color: #dd4b39;
-    background: #fff;
-  }
-  .social-media .rss:before {
-    content: "\e607";
-    background: #FF6600;
-  }
-  .social-media .rss:hover:before,
-  .social-media .rss:focus:before {
-    border: 1px solid #FF6600;
-    color: #FF6600;
-    background: #fff;
-  }
-  .social-media .wordpress:before {
-    content: "\eab6";
-    background: #FF6600;
-  }
-  .social-media .wordpress:hover:before,
-  .social-media .wordpress:focus:before {
-    border: 1px solid #FF6600;
-    color: #FF6600;
-    background: #fff;
-  }
-  .social-media .lastfm:before {
-    content: "\eaca";
-    background: #FF6600;
-  }
-  .social-media .lastfm:hover:before,
-  .social-media .lastfm:focus:before {
-    border: 1px solid #FF6600;
-    color: #FF6600;
-    background: #fff;
-  }
-  .social-media .github:before {
-    content: "\eab4";
-    background: #666666;
-  }
-  .social-media .github:hover:before,
-  .social-media .github:focus:before {
-    border: 1px solid #666666;
-    color: #666666;
-    background: #fff;
   }
   /* speciale homepage */
   .archive .portfolio-item,

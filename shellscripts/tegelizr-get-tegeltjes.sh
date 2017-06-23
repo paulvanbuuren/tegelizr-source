@@ -1,3 +1,4 @@
+# sh '/shared-paul-files/Webs/git-repos/tegelizr-source/shellscripts/tegelizr-get-tegeltjes.sh'
 
 echo 'De tegeltjes!';
 rsync -r -a  --delete  '/shared-paul-files/Backups/webfaction/tegelizr/tegeltjes/' '/shared-paul-files/Webs/git-repos/tegelizr-source/tegeltjes/'

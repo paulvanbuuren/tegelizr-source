@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.4.8
-// @desc.   Toegankelijkheidsdingetje. Label toegevoegd. Unieke ID.
+// @version 7.6.1
+// @desc.   Accessibility issues met contrast. Documentstructuur aangepast.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -53,10 +53,6 @@
     
     input[type="search"], input[type="submit"] {
       height: 40px !important;
-
-      &, &:focus {
-        border-width: 1px;
-      }
     }
     
     input[type="search"],
@@ -73,41 +69,6 @@
     }
     input[type="search"] {
       float: left;
-    }
-    button {
-      background:#DDD;
-      color: #fff;
-      border: 1px solid #DDD;
-      border-radius: 3px;
-      text-shadow: 0 1px 1px white;
-      -webkit-box-shadow: 0 1px 1px #fff;
-      -moz-box-shadow: 0 1px 1px #fff;
-      box-shadow: 0 1px 1px #fff;
-      padding: 6px 10px;
-      white-space: nowrap;
-      vertical-align: middle;
-      color: #666;
-      cursor: pointer;
-      font: bold 1em Sans-Serif;
-      border-color: #999;
-      background: -webkit-linear-gradient(top, white, #E0E0E0);
-      background:    -moz-linear-gradient(top, white, #E0E0E0);
-      background:     -ms-linear-gradient(top, white, #E0E0E0);
-      background:      -o-linear-gradient(top, white, #E0E0E0);
-      -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.25), inset 0 0 3px #fff;
-      -moz-box-shadow:    0 1px 2px rgba(0,0,0,0.25), inset 0 0 3px #fff;
-      box-shadow:         0 1px 2px rgba(0,0,0,0.25), inset 0 0 3px #fff;    
-      
-      font-size: 80%;
-      text-transform: uppercase;
-      font-weight: normal;
-      
-      &:focus,
-      &:active,
-      &:hover {
-        color: #666;
-        background: @wit;
-      }
     }
 
     .tekstveld  {
@@ -152,17 +113,12 @@
       clip: auto;
       height: auto;
       position: relative;
-      background-color: #fff;
       background-image: url('img/vergrootglas.png');
       background-image: url('img/vergrootglas.svg'), none;
       background-position: center center;
       background-repeat: no-repeat;
       width: 40px;
       text-indent: -999em;
-    }
-    input[type="submit"]:hover,
-    input[type="submit"]:focus {
-      background-color: #9c9c9c;
     }
   }
     
@@ -177,41 +133,34 @@
       border-radius: 0;
       box-shadow: 1px 1px 3px #eee inset;
     }
-    
+
     button {
-      background:#DDD;
-      color: #fff;
-      border: 1px solid #DDD;
+      background: @button-bg;
       border-radius: 3px;
-      text-shadow: 0 1px 1px white;
-      -webkit-box-shadow: 0 1px 1px #fff;
-      -moz-box-shadow: 0 1px 1px #fff;
+      border: 1px solid @button-border;
       box-shadow: 0 1px 1px #fff;
-      padding: 6px 10px;
-      white-space: nowrap;
-      vertical-align: middle;
-      color: #666;
+      color: @button-txt-color;
       cursor: pointer;
-      font: bold 1em Sans-Serif;
-      border-color: #999;
-      background: -webkit-linear-gradient(top, white, #E0E0E0);
-      background:    -moz-linear-gradient(top, white, #E0E0E0);
-      background:     -ms-linear-gradient(top, white, #E0E0E0);
-      background:      -o-linear-gradient(top, white, #E0E0E0);
-      -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.25), inset 0 0 3px #fff;
-      -moz-box-shadow:    0 1px 2px rgba(0,0,0,0.25), inset 0 0 3px #fff;
-      box-shadow:         0 1px 2px rgba(0,0,0,0.25), inset 0 0 3px #fff;    
-      
-      //        font-size: 80%;
-      text-transform: uppercase;
+      font-size: 80%;
       font-weight: normal;
+      font: bold 1em @bodyfontsans;
+      padding: 6px 10px;
+      text-transform: uppercase;
+      vertical-align: middle;
+//      white-space: nowrap;
+      white-space: normal;
+      word-wrap: normal;
       
       &:focus,
       &:active,
       &:hover {
-        color: #666;
-        background: @wit;
+        color: @button-txt-color-hover;
+        background: @button-bg-hover;
+        border-color: @button-border-hover;
       }
+    }
+    
+    button {
     }
 
     #controlnavigation {
@@ -252,31 +201,25 @@
         button {
           width: 100%;
           font-size: 80%;
+          font-weight: normal;
           text-transform: lowercase;
-          height: auto;
-          overflow: hidden;
-          white-space: normal;
+          display: table-row;
         }
+      }
+      .pijl {
+        vertical-align: middle;
       }
       .pijl,
       .label {
-        float: left;
-        display: block;
-        overflow: hidden;
-        height: auto;
-        white-space: normal;
-        border: 1px solid transparent;
-      }
-      .pijl {
-        width: 11%;  
-      }
-      .label {
-        width: 89%;  
+        display: table-cell;
       }
       
       .linkerknop {
         width: ( @pagingbuttonwidth );
         margin-right: 16px;
+        .pijl {
+          padding-right: .5em;
+        }
         .label {
           text-align: left;
         }
@@ -284,6 +227,9 @@
       .rechterknop {
         width: @pagingbuttonwidth;
         float: right;
+        .pijl {
+          padding-left: .5em;
+        }
         .label {
           text-align: right;
         }
@@ -443,8 +389,8 @@
         clear: right;
       }
       button span:after {
-        content: '\A';
-        white-space: pre;
+//        content: '\A';
+//        white-space: pre;
       }
       button + p {
         float:none;
