@@ -10,10 +10,30 @@ rm '/shared-paul-files/Webs/webfaction/webapps/hmd_plaatjesgenerator/config.code
 rm '/shared-paul-files/Webs/webfaction/webapps/hmd_plaatjesgenerator/config.codekit3'
 
 
+# ================================================================================================
 rm -rf '/shared-paul-files/Webs/webfaction/webapps/hmd_plaatjesgenerator/thumbs/'
 mkdir '/shared-paul-files/Webs/webfaction/webapps/hmd_plaatjesgenerator/thumbs/'
 
 rm -rf '/shared-paul-files/Webs/webfaction/webapps/hmd_plaatjesgenerator/tegeltjes/'
 mkdir '/shared-paul-files/Webs/webfaction/webapps/hmd_plaatjesgenerator/tegeltjes/'
 
-    
+
+
+rsync -r -a  '/shared-paul-files/Webs/webfaction/webapps/hmd_plaatjesgenerator/' '/shared-paul-files/Webs/webfaction/webapps/hkd_plaatjesgenerator/' 
+rsync -r -a  '/shared-paul-files/Webs/webfaction/webapps/hkd_plaatjesgenerator/' '/shared-paul-files/Webs/webfaction/webapps/hvd_plaatjesgenerator/' 
+
+# ================================================================================================
+rm -rf '/shared-paul-files/Webs/webfaction/webapps/hkd_plaatjesgenerator/thumbs/'
+mkdir '/shared-paul-files/Webs/webfaction/webapps/hkd_plaatjesgenerator/thumbs/'
+
+rm -rf '/shared-paul-files/Webs/webfaction/webapps/hkd_plaatjesgenerator/tegeltjes/'
+mkdir '/shared-paul-files/Webs/webfaction/webapps/hkd_plaatjesgenerator/tegeltjes/'
+
+# ================================================================================================
+rm -rf '/shared-paul-files/Webs/webfaction/webapps/hvd_plaatjesgenerator/thumbs/'
+mkdir '/shared-paul-files/Webs/webfaction/webapps/hvd_plaatjesgenerator/thumbs/'
+
+rm -rf '/shared-paul-files/Webs/webfaction/webapps/hvd_plaatjesgenerator/tegeltjes/'
+mkdir '/shared-paul-files/Webs/webfaction/webapps/hvd_plaatjesgenerator/tegeltjes/'
+
+# ================================================================================================
