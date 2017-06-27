@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.5.1
-// @desc.   Styling in een apart bestand, zodat meerdere websites eigen stijl kunnen krijgen
+// @version 7.6.2
+// @desc.   Minify HTML; extra teksten uit vertaling; minify JS.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -59,3 +59,4 @@ define('TEGELLABEL_PLURAL',         'plaatjes');
 define('IMG_FAVICONICO', '/includes/style/hkd/favicon.ico' );
 define('IMG_FAVICONAPPLE', '/includes/style/hkd/hmd-beeldmerk.png' );
 
+define('MAIL_PREFIX', 'HVD-plaatjes' );

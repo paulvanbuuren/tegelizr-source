@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.5.1
-// @desc.   Styling in een apart bestand, zodat meerdere websites eigen stijl kunnen krijgen
+// @version 7.6.2
+// @desc.   Minify HTML; extra teksten uit vertaling; minify JS.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -53,3 +53,11 @@ define('TEGELIZR_SELECTOR',         'plaatje');
 define('TEGELIZR_SUMMARY',          'Een handige plek om een plaatje te maken voor Hoe Mannen Denken. Een geintje van Paul van Buuren, van WBVB Rotterdam.');
 define('TEGELIZR_METADESC',         'Een handige plek om een plaatje te maken voor Hoe Mannen Denken.');
 define('TEGELIZR_ZOEK_LABEL',       'Zoek plaatje');
+define('TEGELLABEL_PLURAL',         'plaatjes');
+
+
+define('IMG_FAVICONICO', '/includes/style/hmd/favicon.ico' );
+define('IMG_FAVICONAPPLE', '/includes/style/hmd/hmd-beeldmerk.png' );
+
+define('MAIL_PREFIX', 'HMD-plaatjes' );
+

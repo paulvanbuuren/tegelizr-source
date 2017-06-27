@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.6.1
-// @desc.   Accessibility issues met contrast. Documentstructuur aangepast.
+// @version 7.6.2
+// @desc.   Minify HTML; extra teksten uit vertaling; minify JS.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -30,7 +30,7 @@ $path                   = dirname(__FILE__)."/";
 
 // ===================================================================================================================
 
-define('TEGELIZR_VERSION',          '7.6.1');
+define('TEGELIZR_VERSION',          '7.6.2');
 
 // ===================================================================================================================
 
@@ -57,7 +57,6 @@ define('TEGELIZR_ZOEK_KNOP',        'zoek');
 define('DEFAULT_AANTAL_TEGELS',     12);
 define('HTML_PIJL_VORIGE',          '<span class="pijl">&#x2039;</span>');
 define('HTML_PIJL_VOLGENDE',        '<span class="pijl">&#x203A;</span>');
-define('TEGELLABEL_PLURAL',         'tegels');
 
 $formelementcounter = 0;
 
@@ -73,6 +72,30 @@ $pos = strpos($mystring, $findme);
 $style = 'default';
 
 if ($pos === false) {
+
+  $findme   = 'hkd.plaatjesgenerator';
+  
+  $pos = strpos($mystring, $findme);
+  
+  if ($pos === false) {
+
+    $findme   = 'hvd.plaatjesgenerator';
+    
+    $pos = strpos($mystring, $findme);
+
+    if ($pos === false) {
+      // niets
+    }
+    else {
+      $style = 'hvd';
+    }
+    
+
+  
+  }
+  else {
+    $style = 'hkd';
+  }
 }
 else {
   $style = 'hmd';
@@ -144,8 +167,44 @@ if ( ! defined('TEGELIZR_TEGELFOLDER' ) ) {
 if ( ! defined('TEGELIZR_ZOEK_LABEL' ) ) {
   define('TEGELIZR_ZOEK_LABEL',       'Zoek tegeltje');
 }
+if ( ! defined('TXT_WATHEBJETOCH' ) ) {
+  define('TXT_WATHEBJETOCH',       '');
+}
+if ( ! defined('TEGELIZR_ALLES_TXT' ) ) {
+  define('TEGELIZR_ALLES_TXT',       '');
+}
+if ( ! defined('TEGELIZR_WAAROM' ) ) {
+  define('TEGELIZR_WAAROM',       '');
+}
+if ( ! defined('TEGELIZR_ABOUT_THIS_SITE' ) ) {
+  define('TEGELIZR_ABOUT_THIS_SITE',       '');
+}
+if ( ! defined('TEGELIZR_REDACTIE_TXT' ) ) {
+  define('TEGELIZR_REDACTIE_TXT',       '');
+}
+if ( ! defined('DO_SOCMED' ) ) {
+  define('DO_SOCMED', false );
+}
+if ( ! defined('TEGELLABEL_PLURAL' ) ) {
+  define('TEGELLABEL_PLURAL',         'tegels');
+}
+if ( ! defined('DO_RATING' ) ) {
+  define('DO_RATING', false );
+}
+if ( ! defined('TXT_DOBETTER' ) ) {
+  define('TXT_DOBETTER', '' );
+}
 
+if ( ! defined('IMG_FAVICONICO' ) ) {
+  define('IMG_FAVICONICO', '/favicon.ico' );
+}
+if ( ! defined('IMG_FAVICONAPPLE' ) ) {
+  define('IMG_FAVICONAPPLE', '/img/apple-favicon.png' );
+}
 
+if ( ! defined('MAIL_PREFIX' ) ) {
+  define('MAIL_PREFIX', 'Tegelizr' );
+}
 
 
 if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
@@ -157,7 +216,7 @@ if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsof
   error_reporting(0);
   
 }
-elseif ( $_SERVER['HTTP_HOST'] == 'hmd.plaatjesgenerator.nl' || $_SERVER['HTTP_HOST'] == 'hvd.plaatjesgenerator.nl' ) {
+elseif ( $_SERVER['HTTP_HOST'] == 'hmd.plaatjesgenerator.nl' || $_SERVER['HTTP_HOST'] == 'hvd.plaatjesgenerator.nl' || $_SERVER['HTTP_HOST'] == 'hkd.plaatjesgenerator.nl' ) {
   define('TEGELIZR_PROTOCOL',         'http://');
   define('TEGELIZR_DEBUG',            false );
   define('TEGELIZR_DEBUG_GENERATE',   false );
@@ -517,13 +576,18 @@ function seoUrl($string) {
 
 function wbvb_d2e_socialbuttons($thelink = 'thelink', $thetitle = 'thetitle', $summary = 'summmary') {
 
+  if ( DO_SOCMED ) {
     $sitetitle  = urlencode($thetitle);
     $popup      = ' onclick="javascript:window.open(this.href, \'\', \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\');return false;"';
-    
+      
     if ( $thelink ) {
-        return '<ul class="social-media">
-            <li><a href="https://twitter.com/share?url=' . $thelink . '&via=paulvanbuuren&text=' . $thetitle . '" class="twitter" data-url="' . $thelink . '" data-text="' . $thetitle . '" data-via="@paulvanbuuren"' . $popup . '><span>Tweet</span></a></li><li><a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=' . $thelink . '&t=' . $thetitle . '"' . $popup . '><span>Facebook</span></a></li><li><a class="linkedin" href="http://www.linkedin.com/shareArticle?mini=true&url=' . $thelink . '&title=' . $thetitle . '&summary=' . $summary . '&source=' . $sitetitle . '"' . $popup . '><span>LinkedIn</span></a></li></ul>';    
+      return '<ul class="social-media">
+          <li><a href="https://twitter.com/share?url=' . $thelink . '&via=paulvanbuuren&text=' . $thetitle . '" class="twitter" data-url="' . $thelink . '" data-text="' . $thetitle . '" data-via="@paulvanbuuren"' . $popup . '><span>Tweet</span></a></li><li><a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=' . $thelink . '&t=' . $thetitle . '"' . $popup . '><span>Facebook</span></a></li><li><a class="linkedin" href="http://www.linkedin.com/shareArticle?mini=true&url=' . $thelink . '&title=' . $thetitle . '&summary=' . $summary . '&source=' . $sitetitle . '"' . $popup . '><span>LinkedIn</span></a></li></ul>';    
     }
+  }
+  else {
+    return '';
+  }
 }
 
 
@@ -599,7 +663,7 @@ function returnlogo() {
 
 
 function spitoutheader() {
-    return '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /><link rel="publisher" href="https://plus.google.com/u/0/+PaulvanBuuren"/><meta name="twitter:card" content="summary"/><meta name="twitter:site" content="@paulvanbuuren"/><meta name="twitter:domain" content="WBVB"/><meta name="twitter:creator" content="@paulvanbuuren"/><meta property="og:locale" content="nl_NL" /><meta property="og:type" content="article" /><meta property="og:site_name" content="Webbureau Van Buuren Rotterdam" /><meta property="article:publisher" content="https://www.facebook.com/webbureauvanbuuren" /><link rel="apple-touch-icon" href="/img/apple-favicon.png">';
+    return '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" href="' . IMG_FAVICONICO . '" type="image/x-icon" /><link rel="publisher" href="https://plus.google.com/u/0/+PaulvanBuuren"/><meta name="twitter:card" content="summary"/><meta name="twitter:site" content="@paulvanbuuren"/><meta name="twitter:domain" content="WBVB"/><meta name="twitter:creator" content="@paulvanbuuren"/><meta property="og:locale" content="nl_NL" /><meta property="og:type" content="article" /><meta property="og:site_name" content="Webbureau Van Buuren Rotterdam" /><meta property="article:publisher" content="https://www.facebook.com/webbureauvanbuuren" /><link rel="apple-touch-icon" href="' . IMG_FAVICONAPPLE . '">';
     
 }
 // ===================================================================================================================
@@ -753,134 +817,27 @@ ga('set', 'dimension1', '" . $tijdvandedag . "');
 ga('send', 'pageview');";
 
 }
-    
-    return '
-<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div><div id="footer-about"><h3>Over de site</h3><ul><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">redactie</a></li><li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">alle tegeltjes</a></li><li><a href="//wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li></ul></div><div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div></footer>
-
-<scri' . "pt>" . $analytics . "
-
-document.body.className = document.body.className.replace('nojs','dojs');
-
-// ===================================================================================================================
-// helper function to place modal window as the first child
-// of the #page node
-var m = document.getElementById('modal_window'),
-    p = document.getElementById('page');
-
-function swap() {
-  // modal window before #page
-  p.parentNode.insertBefore(m, p);
-}
-
-// swap();
-
-// ===================================================================================================================
-
-// modal window
-(function() {
-
-  'use strict';
-
-  // list out the vars
-  var mOverlay  = getId('modal_window'),
-      mOpen     = getId('modal_open'),
-      mClose    = getId('modal_close'),
-      modal     = getId('modal_holder'),
-      allNodes  = document.querySelectorAll('*'),
-      modalOpen = false,
-      lastFocus,
-      i;
-
-
-  // Let's cut down on what we need to type to get an ID
-  function getId ( id ) {
-    return document.getElementById(id);
+  
+  // get content for all-actions.js
+  $javascriptcontent = file_get_contents('js/min/all-actions-min.js', FILE_USE_INCLUDE_PATH);
+  
+  $about      = '';
+  $aboutlist  = '';
+  
+  if ( TEGELIZR_REDACTIE_TXT ) {
+    $aboutlist  .= '<li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">' . TEGELIZR_REDACTIE_TXT . '</a></li>';
   }
-
-
-  // Let's open the modal
-  function modalShow () {
-    lastFocus = document.activeElement;
-    mOverlay.setAttribute('aria-hidden', 'false');
-    modalOpen = true;
-    modal.setAttribute('tabindex', '0');
-    modal.focus();
+  if ( TEGELIZR_ALLES ) {
+    $aboutlist  .= '<li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">' . TEGELIZR_ALLES_TXT . '</a></li>';
   }
-
-
-  // binds to both the button click and the escape key to close the modal window
-  // but only if modalOpen is set to true
-  function modalClose ( event ) {
-    if (modalOpen && ( !event.keyCode || event.keyCode === 27 ) ) {
-      mOverlay.setAttribute('aria-hidden', 'true');
-      modal.setAttribute('tabindex', '-1');
-      modalOpen = false;
-      lastFocus.focus();
-    }
+  if ( TEGELIZR_WAAROM ) {
+    $aboutlist  .= TEGELIZR_WAAROM;
   }
-
-
-  // Restrict focus to the modal window when it's open.
-  // Tabbing will just loop through the whole modal.
-  // Shift + Tab will allow backup to the top of the modal,
-  // and then stop.
-  function focusRestrict ( event ) {
-    if ( modalOpen && !modal.contains( event.target ) ) {
-      event.stopPropagation();
-      modal.focus();
-    }
+  
+  if ( $aboutlist ) {
+    $about = '<div id="footer-about"><h3>' . TEGELIZR_ABOUT_THIS_SITE . '</h3><ul>' . $aboutlist . '</ul></div>';
   }
-
-
-  // Close modal window by clicking on the overlay
-  mOverlay.addEventListener('click', function( e ) {
-    if (e.target == modal.parentNode) {
-       modalClose( e );
-     }
-  }, false);
-
-
-  // open modal by btn click/hit
-  mOpen.addEventListener('click', modalShow);
-
-  // close modal by btn click/hit
-  mClose.addEventListener('click', modalClose);
-
-  // close modal by keydown, but only if modal is open
-  document.addEventListener('keydown', modalClose);
-
-  // restrict tab focus on elements only inside modal window
-  for (i = 0; i < allNodes.length; i++) {
-    allNodes.item(i).addEventListener('focus', focusRestrict);
-  }
-
-})();
-
-// ===================================================================================================================
-
-$(document).ready(function() {
-
-$('#totop').addClass('jsinvisible');
-//$('#totop').append(' <span id=\"teller\">xxx</span>');
-
-    $(window).scroll(function() {
-
-//        $('#teller').text($(window).scrollTop());
-        
-        if ($(window).scrollTop() > 500) {
-            // > 100px from top - show div
-            $('#totop').removeClass('jsinvisible');
-            $('#totop').addClass('jsvisible');
-        }
-        else {
-            // <= 100px from top - hide div
-            $('#totop').addClass('jsinvisible');
-            $('#totop').removeClass('jsvisible');
-        }
-    });
-});
-
-</scr" . 'ipt></body></html>';
+  return '<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div>' . $about . '<div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div></footer><scri' . "pt>" . $analytics . $javascriptcontent . "</scr" . 'ipt></body></html>';
 
 }
 

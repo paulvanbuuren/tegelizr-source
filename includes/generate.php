@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.5.1
-// @desc.   Styling in een apart bestand, zodat meerdere websites eigen stijl kunnen krijgen
+// @version 7.6.2
+// @desc.   Minify HTML; extra teksten uit vertaling; minify JS.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -234,7 +234,7 @@ if ( !file_exists( $destimagepath ) &&  !file_exists( $desttextpath ) &&  !file_
     $mailcontent .= "URL: \n";
     
     $mailcontent .= $desturl;
-    mail("vanbuuren@gmail.com", "Tegelizr : " . $titel, $mailcontent, "From: paul@wbvb.nl");
+    mail("vanbuuren@gmail.com", MAIL_PREFIX . ": " . $titel, $mailcontent, "From: paul@wbvb.nl");
 
     $destimagepath2       = linkbakker( $destimagepath, $path );
     $desttextpath2        = linkbakker( $desttextpath, $path );
