@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.6.2
-// @desc.   Minify HTML; extra teksten uit vertaling; minify JS.
+// @version 7.6.3
+// @desc.   Poging emoji uit te bannen. Met vuur.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -207,7 +207,7 @@ if ( !file_exists( $destimagepath ) &&  !file_exists( $desttextpath ) &&  !file_
     }
 
     $boom                    = array();
-    $boom['txt_tegeltekst']  = $_GET['txt_tegeltekst'];
+    $boom['txt_tegeltekst']  = filtertext( $_GET['txt_tegeltekst'] );
     $boom['file']            = $filename;
     $boom['file_date']       = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
     $boom['file_thumb']      = $destimagepath_klein;

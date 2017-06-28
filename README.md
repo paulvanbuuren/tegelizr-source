@@ -13,6 +13,7 @@ version:  7.6.1
 * Twitter: [@paulvanbuuren](https://twitter.com/paulvanbuuren/)
 
 ## Versions
+* 7.6.3 - Poging emoji uit te bannen. Met vuur.
 * 7.6.2 - Minify HTML; extra teksten uit vertaling; minify JS.
 * 7.6.1 - Accessibility issues met contrast. Documentstructuur aangepast.
 * 7.5.1 - Styling in een apart bestand, zodat meerdere websites eigen stijl kunnen krijgen

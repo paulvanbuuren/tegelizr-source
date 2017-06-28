@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.6.2
-// @desc.   Minify HTML; extra teksten uit vertaling; minify JS.
+// @version 7.6.3
+// @desc.   Poging emoji uit te bannen. Met vuur.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -30,7 +30,7 @@ $path                   = dirname(__FILE__)."/";
 
 // ===================================================================================================================
 
-define('TEGELIZR_VERSION',          '7.6.2');
+define('TEGELIZR_VERSION',          '7.6.3');
 
 // ===================================================================================================================
 
@@ -341,17 +341,55 @@ function dodebug( $text = '', $doecho = true ) {
 
 // ===================================================================================================================
 
+function removeEmoji($text) {
+
+    $clean_text = "";
+
+    // Match Emoticons
+    $regexEmoticons = '/[\x{1F600}-\x{1F64F}]/u';
+    $clean_text = preg_replace($regexEmoticons, '', $text);
+
+    // Match Miscellaneous Symbols and Pictographs
+    $regexSymbols = '/[\x{1F300}-\x{1F5FF}]/u';
+    $clean_text = preg_replace($regexSymbols, '', $clean_text);
+
+    // Match Transport And Map Symbols
+    $regexTransport = '/[\x{1F680}-\x{1F6FF}]/u';
+    $clean_text = preg_replace($regexTransport, '', $clean_text);
+
+    // Match Miscellaneous Symbols
+    $regexMisc = '/[\x{2600}-\x{26FF}]/u';
+    $clean_text = preg_replace($regexMisc, '', $clean_text);
+
+    // Match Dingbats
+    $regexDingbats = '/[\x{2700}-\x{27BF}]/u';
+    $clean_text = preg_replace($regexDingbats, '', $clean_text);
+
+    return $clean_text;
+}
+
+// ===================================================================================================================
+
 function filtertext($text = '', $dogeintje = true ) {
+
+//    $text                = mb_convert_encoding( $text, "UTF-8" );
+
     $text                = preg_replace("/</", "&lt;", $text);
     $text                = preg_replace("/>/", "&gt;", $text);
     $text                = preg_replace("/script/", "snikkel", $text);
-//    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]+/", "", trim($text));
+    $text                = preg_replace("/created by/", "", $text);
+    $text                = preg_replace("/S.d.B/", "", $text);
+    $text                = preg_replace("/s.d.b/", "", $text);
+    $text                = preg_replace("/sdb/", "", $text);
+    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ™#✂]+/", "", trim($text));
+    $text                = removeEmoji( $text );
+    
+    
     $text                = substr($text,0,TEGELIZR_TXT_LENGTH);
     if ( $dogeintje ) {
 	    $text                = preg_replace("/kanker/i", "frambozenjam", trim($text));
 	    $text                = preg_replace("/Geert Wilders/i", "Zaadslurf", trim($text));
 	    $text                = preg_replace("/Wilders/", "Zaadslurf", trim($text));
-	//    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]+/", "", trim($text));
 	    $text                = preg_replace("/PVV/", "NSB", trim($text));
 	    $text                = preg_replace("/moslima/i", "Tante Truus", trim($text));
 	    $text                = preg_replace("/Tante Truus's/i", "Tante Truusjes", trim($text));
