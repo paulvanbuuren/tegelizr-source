@@ -67,7 +67,12 @@ if ( !file_exists( $destimagepath ) &&  !file_exists( $desttextpath ) &&  !file_
     $delimiter      = "<br />";
     
     // wat een fijne functie, dit wordwrap. Dank u, PHP.
-    $newtext        = wordwrap($text, round( ( $aantal_tekens / $aantal_zinnen  ), 3 ), $delimiter);
+    if ( DO_WORDWRAP ) {
+      $newtext        = wordwrap($text, round( ( $aantal_tekens / $aantal_zinnen  ), 3 ), $delimiter);
+    }
+    else {
+      $newtext        = $text;
+    }
 
     $zinnen         = explode($delimiter, $newtext);
     $aantal_zinnen  = count($zinnen);
