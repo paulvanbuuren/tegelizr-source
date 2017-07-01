@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.6.2
-// @desc.   Minify HTML; extra teksten uit vertaling; minify JS.
+// @version 7.6.4
+// @desc.   Meer vertaalopties. Wordwrap optioneel. Paginering intelligenter.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
