@@ -13,9 +13,6 @@
 ///
 
 
-// Report all PHP errors
-//error_reporting(-1);
-
 // Report all PHP errors (see changelog)
 error_reporting(E_ALL);
 
@@ -85,12 +82,19 @@ if ($pos === false) {
 
     if ($pos === false) {
       // niets
+      $findme   = 'mcboatface';
+      $pos = strpos($mystring, $findme);
+      if ($pos === false) {
+        // niets
+      }
+      else {
+        $style = 'boaty';
+      }
+      
     }
     else {
       $style = 'hvd';
     }
-    
-
   
   }
   else {
@@ -100,6 +104,63 @@ if ($pos === false) {
 else {
   $style = 'hmd';
 }
+
+//$style = 'boaty';
+
+
+
+if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
+  define('TEGELIZR_PROTOCOL',         'https://');
+  define('TEGELIZR_DEBUG',            false );
+  define('TEGELIZR_DEBUG_GENERATE',   false );
+
+  // Report no PHP errors
+  error_reporting(0);
+  
+}
+elseif ( $_SERVER['HTTP_HOST'] == 'hmd.plaatjesgenerator.nl' || $_SERVER['HTTP_HOST'] == 'hvd.plaatjesgenerator.nl' || $_SERVER['HTTP_HOST'] == 'hkd.plaatjesgenerator.nl' ) {
+  define('TEGELIZR_PROTOCOL',         'http://');
+  define('TEGELIZR_DEBUG',            false );
+  define('TEGELIZR_DEBUG_GENERATE',   false );
+
+  // Report no PHP errors
+  error_reporting(0);
+  
+}
+elseif ( $_SERVER['HTTP_HOST'] == 'boaty.mcboatface.plaatjesgenerator.nl' || $_SERVER['HTTP_HOST'] == 'boatymcboatface.plaatjesgenerator.nl' ) {
+  define('TEGELIZR_PROTOCOL',         'http://');
+  define('TEGELIZR_DEBUG',            false );
+  define('TEGELIZR_DEBUG_GENERATE',   false );
+
+  $style = 'boaty';
+
+  // Report no PHP errors
+  error_reporting(0);
+  
+}
+elseif ( $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl' ) {
+  define('TEGELIZR_PROTOCOL',         'https://');
+  define('TEGELIZR_DEBUG',            false );
+  define('TEGELIZR_DEBUG_GENERATE',   false );
+
+  // Report no PHP errors
+  error_reporting(0);
+  
+}
+else {
+  define('TEGELIZR_PROTOCOL',         'http://');
+
+//  define('TEGELIZR_DEBUG',            false );
+  define('TEGELIZR_DEBUG',            true );
+  define('TEGELIZR_DEBUG_GENERATE',   false );
+
+  // Report all PHP errors
+  error_reporting(E_ALL);
+  
+}
+
+$style = 'boaty';
+
 
 
 if ( file_exists( $path . '/includes/style/' . $style . '/style-configuration.inc.php' ) ) {
@@ -206,52 +267,22 @@ if ( ! defined('MAIL_PREFIX' ) ) {
   define('MAIL_PREFIX', 'Tegelizr' );
 }
 
-
-if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
-  define('TEGELIZR_PROTOCOL',         'https://');
-  define('TEGELIZR_DEBUG',            false );
-  define('TEGELIZR_DEBUG_GENERATE',   false );
-
-  // Report no PHP errors
-  error_reporting(0);
-  
+if ( ! defined('DO_WORDWRAP' ) ) {
+  define('DO_WORDWRAP', true );
 }
-elseif ( $_SERVER['HTTP_HOST'] == 'hmd.plaatjesgenerator.nl' || $_SERVER['HTTP_HOST'] == 'hvd.plaatjesgenerator.nl' || $_SERVER['HTTP_HOST'] == 'hkd.plaatjesgenerator.nl' ) {
-  define('TEGELIZR_PROTOCOL',         'http://');
-  define('TEGELIZR_DEBUG',            false );
-  define('TEGELIZR_DEBUG_GENERATE',   false );
-
-  // Report no PHP errors
-  error_reporting(0);
-  
+if ( ! defined('DO_SEARCH' ) ) {
+  define('DO_SEARCH', true );
 }
-elseif ( $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl' ) {
-  define('TEGELIZR_PROTOCOL',         'https://');
-  define('TEGELIZR_DEBUG',            false );
-  define('TEGELIZR_DEBUG_GENERATE',   false );
 
-  // Report no PHP errors
-  error_reporting(0);
-  
-  // Same as error_reporting(E_ALL);
-//  ini_set('error_reporting', E_ALL);
-
-  
+if ( ! defined('TXT_RECENT_ITEMS' ) ) {
+  define('TXT_RECENT_ITEMS', 'Recente tegeltjes' );
 }
-else {
-  define('TEGELIZR_PROTOCOL',         'http://');
-
-//  define('TEGELIZR_DEBUG',            false );
-  define('TEGELIZR_DEBUG',            true );
-  define('TEGELIZR_DEBUG_GENERATE',   false );
-
-  // Report all PHP errors
-  error_reporting(-1);
-  
-  // Same as error_reporting(E_ALL);
-//  ini_set('error_reporting', E_ALL);
-  
+if ( ! defined('TXT_SEARCH_HEADER' ) ) {
+  define('TXT_SEARCH_HEADER', 'Zoeken' );
 }
+
+
+
 
 //die('debug: ' . TEGELIZR_DEBUG);
 
@@ -413,7 +444,7 @@ function filtertext($text = '', $dogeintje = true ) {
 }
 
 // ===================================================================================================================
-function showthumbs($aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage = 1) {
+function showthumbs( $aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage = 1) {
 
   global $sourcefiles_thumbs;
   global $sourcefiles_tegels;
@@ -452,12 +483,23 @@ function showthumbs($aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage = 
         $currentpage = round( ( $totaalaantaltegels / $aantal ), 0);
         $pagenumber = $currentpage;
       }
+      
+      if ( $aantal > $totaalaantaltegels ) {
+        $aantal       = $totaalaantaltegels;
+        $max_counter  = $totaalaantaltegels;
+        $max_items    = $totaalaantaltegels;
+      }
     }
     
     $maxnumberofpages = round( ( $totaalaantaltegels / $aantal ), 0);
     
     $cssvolgende    = '';
     $cssvorige      = '';
+    
+    
+    if ( $startrecs < 0 ) {
+      $startrecs = 0;
+    }
     
     if ( $pagenumber > 1 ) {
       $linkerknop = '<div class="linkerknop"><button type="submit" class="get_previous" name="pagenumber" value="' . ( $pagenumber - 1 ). '">' . HTML_PIJL_VORIGE . '<span class="label">' . TEGELIZR_VORIGE . ' ' . DEFAULT_AANTAL_TEGELS . ' ' . TEGELLABEL_PLURAL . '</span></button></div>';
@@ -466,13 +508,15 @@ function showthumbs($aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage = 
 
     $alletegeltje = '';
     
-    if ( ( $currentpage < $maxnumberofpages ) ) {
+    if ( ( $currentpage < $maxnumberofpages && ( $maxnumberofpages > 1 ) ) ) {
       $rechterknop = '<div class="rechterknop"><button type="submit" class="get_previous" name="pagenumber" value="' . ( $pagenumber + 1 ). '"><span class="label">' . TEGELIZR_VOLGENDE . ' ' . DEFAULT_AANTAL_TEGELS . ' ' . TEGELLABEL_PLURAL . '</span>' . HTML_PIJL_VOLGENDE . '</button></div>';
       $cssvolgende    = ' volgende';
     }
 
+
+
     echo '<section id="andere">';
-    echo '<h2>Recente tegeltjes ' . ( $startrecs + 1 ) . ' tot ' . $max_counter . '</h2>';
+    echo '<h2>' . TXT_RECENT_ITEMS. ' ' . ( $startrecs + 1 ) . ' tot ' . $max_counter . '</h2>';
     echo '<form method="get" id="controlnavigation" class="'. $cssvolgende . $cssvorige . '">';
     echo $linkerknop;
     echo '<div class="middenlijst"><ul class="thumbs">';
@@ -796,14 +840,21 @@ function spitoutfooter() {
 </form>';
 
 
-    $form = '<a href="#top" id="totop">Bovenkant</a><a href="#totop" id="tomenu">Menu</a><div itemscope itemtype="http://schema.org/WebSite">
-  <meta itemprop="url" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/"/>
-  <form itemprop="potentialAction" class="search-form" itemscope itemtype="http://schema.org/SearchAction" method="get" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/" role="search">
-    <meta itemprop="target" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/?q={' . TEGELIZR_ZOEKTERMKEY . '}"/><label for="' . TEGELIZR_ZOEKTERMKEY . $suffix . '" id="label-' . TEGELIZR_ZOEKTERMKEY . '">' . TEGELIZR_ZOEK_LABEL . '</label>
-    <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERMKEY . '"  id="' . TEGELIZR_ZOEKTERMKEY . $suffix . '" value="' . $zoektegeltje . '" placeholder="zoekterm" required/>
-    <input type="submit" value="' . TEGELIZR_ZOEK_KNOP . '">
-  </form>
-</div>';
+    $form = '<a href="#top" id="totop">Bovenkant</a><a href="#totop" id="tomenu">Menu</a>';
+    
+    if ( DO_SEARCH ) {
+
+      $form .= '<div id="footer-zoeken"><h3>' . TXT_SEARCH_HEADER . '</h3><div itemscope itemtype="http://schema.org/WebSite">
+    <meta itemprop="url" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/"/>
+    <form itemprop="potentialAction" class="search-form" itemscope itemtype="http://schema.org/SearchAction" method="get" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/" role="search">
+      <meta itemprop="target" content="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/?q={' . TEGELIZR_ZOEKTERMKEY . '}"/><label for="' . TEGELIZR_ZOEKTERMKEY . $suffix . '" id="label-' . TEGELIZR_ZOEKTERMKEY . '">' . TEGELIZR_ZOEK_LABEL . '</label>
+      <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERMKEY . '"  id="' . TEGELIZR_ZOEKTERMKEY . $suffix . '" value="' . $zoektegeltje . '" placeholder="zoekterm" required/>
+      <input type="submit" value="' . TEGELIZR_ZOEK_KNOP . '">
+    </form>
+  </div></div>';
+  
+      }
+
 
 	$tijdvandedag = 'ledig';
 
@@ -875,7 +926,7 @@ ga('send', 'pageview');";
   if ( $aboutlist ) {
     $about = '<div id="footer-about"><h3>' . TEGELIZR_ABOUT_THIS_SITE . '</h3><ul>' . $aboutlist . '</ul></div>';
   }
-  return '<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div>' . $about . '<div id="footer-zoeken"><h3>Zoeken</h3>'. $form . '</div></footer><scri' . "pt>" . $analytics . $javascriptcontent . "</scr" . 'ipt></body></html>';
+  return '<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div>' . $about . $form . '</footer><scri' . "pt>" . $analytics . $javascriptcontent . "</scr" . 'ipt></body></html>';
 
 }
 

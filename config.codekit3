@@ -403,6 +403,56 @@
 		"oAP": "\/includes\/sterretjes.php",
 		"oF": 0
 		},
+	"\/includes\/style\/boaty\/boaty-source.png": {
+		"ft": 32768,
+		"iS": 12590,
+		"oA": 0,
+		"oAP": "\/includes\/style\/boaty\/boaty-source.png",
+		"oF": 0,
+		"oIPL": 1,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
+	"\/includes\/style\/boaty\/boaty-source2.png": {
+		"ft": 32768,
+		"iS": 26779,
+		"oA": 0,
+		"oAP": "\/includes\/style\/boaty\/boaty-source2.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/includes\/style\/boaty\/boaty.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/includes\/style\/boaty\/boaty-min.css",
+		"oF": 0,
+		"oS": 3
+		},
+	"\/includes\/style\/boaty\/boaty.css.map": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/style\/boaty\/boaty.css.map",
+		"oF": 0
+		},
+	"\/includes\/style\/boaty\/boaty2.ttf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/style\/boaty\/boaty2.ttf",
+		"oF": 0
+		},
+	"\/includes\/style\/boaty\/style-configuration.inc.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/style\/boaty\/style-configuration.inc.php",
+		"oF": 0
+		},
 	"\/includes\/style\/default\/base.png": {
 		"ft": 32768,
 		"iS": 1266010,
@@ -995,6 +1045,23 @@
 		"sM": 0,
 		"sU": 0
 		},
+	"\/less\/20-boaty.less": {
+		"aP": 0,
+		"bl": 0,
+		"dJ": 0,
+		"ft": 1,
+		"ie": 1,
+		"iI": 0,
+		"ma": 0,
+		"oA": 1,
+		"oAP": "\/css\/20-boaty.css",
+		"oF": 0,
+		"oS": 0,
+		"rU": 0,
+		"sI": 0,
+		"sM": 0,
+		"sU": 0
+		},
 	"\/less\/20-hkd-style.less": {
 		"aP": 0,
 		"bl": 0,
@@ -1163,6 +1230,23 @@
 		"rU": 0,
 		"sI": 0,
 		"sM": 0,
+		"sU": 0
+		},
+	"\/less\/boaty.less": {
+		"aP": 1,
+		"bl": 1,
+		"dJ": 0,
+		"ft": 1,
+		"ie": 1,
+		"iI": 0,
+		"ma": 1,
+		"oA": 0,
+		"oAP": "\/includes\/style\/boaty\/boaty.css",
+		"oF": 2,
+		"oS": 1,
+		"rU": 0,
+		"sI": 1,
+		"sM": 1,
 		"sU": 0
 		},
 	"\/less\/default.less": {
