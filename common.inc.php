@@ -399,6 +399,8 @@ function removeEmoji($text) {
     return $clean_text;
 }
 
+Ò
+
 // ===================================================================================================================
 
 function filtertext($text = '', $dogeintje = true ) {
@@ -412,7 +414,7 @@ function filtertext($text = '', $dogeintje = true ) {
     $text                = preg_replace("/S.d.B/", "", $text);
     $text                = preg_replace("/s.d.b/", "", $text);
     $text                = preg_replace("/sdb/", "", $text);
-    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ™#✂]+/", "", trim($text));
+    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôóòœÙÛÜÀÂÆÇÉÈÊËÏÎÔÒÓŒ™#✂]+/", "", trim($text));
     $text                = removeEmoji( $text );
     
     
