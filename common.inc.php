@@ -109,7 +109,25 @@ else {
 
 
 
-if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
+if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'www.tegelizr.nl' ) {
+  define('TEGELIZR_PROTOCOL',         'https://');
+  define('TEGELIZR_DEBUG',            false );
+  define('TEGELIZR_DEBUG_GENERATE',   false );
+
+  // Report no PHP errors
+  error_reporting(0);
+  
+}
+elseif ( $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' || $_SERVER['HTTP_HOST'] == 'www.wordsofwisdomtile.com' ) {
+  define('TEGELIZR_PROTOCOL',         'https://');
+  define('TEGELIZR_DEBUG',            false );
+  define('TEGELIZR_DEBUG_GENERATE',   false );
+
+  // Report no PHP errors
+  error_reporting(0);
+  
+}
+elseif ( $_SERVER['HTTP_HOST'] == 'plaatjesgenerator.nl' || $_SERVER['HTTP_HOST'] == 'www.plaatjesgenerator.nl' ) {
   define('TEGELIZR_PROTOCOL',         'https://');
   define('TEGELIZR_DEBUG',            false );
   define('TEGELIZR_DEBUG_GENERATE',   false );
@@ -156,10 +174,11 @@ else {
 
   // Report all PHP errors
   error_reporting(E_ALL);
+
+  $style = 'english';
   
 }
 
-$style = 'boaty';
 
 
 
@@ -168,21 +187,12 @@ if ( file_exists( $path . '/includes/style/' . $style . '/style-configuration.in
 }
 elseif ( file_exists( $path . '/includes/style/default/style-configuration.inc.php' ) ) {
   include( $path . '/includes/style/default/style-configuration.inc.php' ); 
-  define('STYLEFOLDER', $path . '/includes/style/default/' );
 }
 else {
   die('style file not found: ' . $path . 'includes/style/default/style-configuration.inc.php' );
 }
 
-if ( ! defined('TXTCOLOR_R' ) ) {
-  define('TXTCOLOR_R', 256 );
-}
-if ( ! defined('TXTCOLOR_G' ) ) {
-  define('TXTCOLOR_G', 0 );
-}
-if ( ! defined('TXTCOLOR_B' ) ) {
-  define('TXTCOLOR_B', 0 );
-}
+
 if ( ! defined('STYLING_BLURSTRENGTH' ) ) {
   define('STYLING_BLURSTRENGTH', 2 );
 }
@@ -281,41 +291,85 @@ if ( ! defined('TXT_SEARCH_HEADER' ) ) {
   define('TXT_SEARCH_HEADER', 'Zoeken' );
 }
 
+if ( ! defined('BASEIMAGE' ) ) {
+  define('BASEIMAGE', "base.png");
+}
+if ( ! defined('STYLEFOLDER' ) ) {
+  define('STYLEFOLDER', $path . '/includes/style/default/' );
+}
+
+// default tekstkleur op tegeltje is tegeltjesblauw
+if ( ! defined('TXTCOLOR_R' ) ) {
+  define('TXTCOLOR_R', 56 );
+}
+if ( ! defined('TXTCOLOR_G' ) ) {
+  define('TXTCOLOR_G', 98 );
+}
+if ( ! defined('TXTCOLOR_B' ) ) {
+  define('TXTCOLOR_B', 170 );
+}
 
 
-
-//die('debug: ' . TEGELIZR_DEBUG);
-
+// teksten voor rating
 define('TEGELIZR_AANTAL_STERREN',   5);
 
+if ( ! defined('TEGELIZR_RATING_UNITY_S' ) ) {
+  define('TEGELIZR_RATING_UNITY_S',   'ster');
+}
+if ( ! defined('TEGELIZR_RATING_UNITY' ) ) {
+  define('TEGELIZR_RATING_UNITY',     'sterren');
+}
+if ( ! defined('TEGELIZR_RATING_VOTE' ) ) {
+  define('TEGELIZR_RATING_VOTE',      'waardering');
+}
+if ( ! defined('TEGELIZR_RATING_VOTES' ) ) {
+  define('TEGELIZR_RATING_VOTES',     'waarderingen');
+}
+if ( ! defined('TEGELIZR_VOLGENDE' ) ) {
+  define('TEGELIZR_VOLGENDE',         'volgende');
+}
+if ( ! defined('TEGELIZR_VOLGENDE_TITEL' ) ) {
+  define('TEGELIZR_VOLGENDE_TITEL',   'volgende_titel');
+}
+if ( ! defined('TEGELIZR_VORIGE' ) ) {
+  define('TEGELIZR_VORIGE',           'vorige');
+}
+if ( ! defined('TEGELIZR_VORIGE_TITEL' ) ) {
+  define('TEGELIZR_VORIGE_TITEL',     'vorige_titel');
+}
+if ( ! defined('TEGELIZR_JS_START_KEY' ) ) {
+  define('TEGELIZR_JS_START_KEY',         'js_start_key');
+}
+if ( ! defined('TEGELIZR_JS_START_MSG' ) ) {
+  define('TEGELIZR_JS_START_MSG',         'Klaar!');
+}
+if ( ! defined('TEGELIZR_JS_BUSY_MSG' ) ) {
+  define('TEGELIZR_JS_BUSY_MSG',          'Even geduld nog.<br />Je tegeltje is bijna klaar.');
+}
+if ( ! defined('TEGELIZR_JS_BUSY_MSG_HEADER' ) ) {
+  define('TEGELIZR_JS_BUSY_MSG_HEADER',   'Momentje');
+}
+if ( ! defined('TEGELIZR_JS_SCRIPTERROR' ) ) {
+  define('TEGELIZR_JS_SCRIPTERROR',       'Script fout. Niet jouw fout. De server heeft een kater van vannacht. Maar dat maakt verder niet uit. Veel plezier met je tegel!');
+}
+if ( ! defined('TEGELIZR_JS_NAV_NEXTKEY' ) ) {
+  define('TEGELIZR_JS_NAV_NEXTKEY',       'navnext');
+}
 
-define('TEGELIZR_RATING_UNITY_S',   'ster');
-define('TEGELIZR_RATING_UNITY',     'sterren');
-define('TEGELIZR_RATING_VOTE',      'waardering');
-define('TEGELIZR_RATING_VOTES',     'waarderingen');
-define('TEGELIZR_VOLGENDE',         'volgende');
-define('TEGELIZR_VOLGENDE_TITEL',   'volgende_titel');
-define('TEGELIZR_VORIGE',           'vorige');
-define('TEGELIZR_VORIGE_TITEL',     'vorige_titel');
-
-define('TEGELIZR_JS_START_KEY',         'js_start_key');
-define('TEGELIZR_JS_START_MSG',         'Klaar!');
-define('TEGELIZR_JS_BUSY_MSG',          'Even geduld nog.<br />Je tegeltje is bijna klaar.');
-define('TEGELIZR_JS_BUSY_MSG_HEADER',   'Momentje');
-define('TEGELIZR_JS_SCRIPTERROR',       'Script fout. Maar dat maakt verder niet uit. Veel plezier met je tegel!');
-define('TEGELIZR_JS_NAV_NEXTKEY',       'navnext');
-
-
-
-
-
-
-$sourcefolder           = $path."img/";
+if ( ! defined('TXT_YOUR_TEXT' ) ) {
+  define('TXT_YOUR_TEXT',       'Jouw tekst:');
+}
 
 if ( ! defined('FONTFILE' ) ) {
   define('FONTFILE', $path."fonts/AbbeyRoadNF.ttf" );
 }
 
+
+// ===================================================================================================================
+
+$sourcefolder           = $path."img/";
+
+// ===================================================================================================================
 
 $sourcefiles_tegels     = $path. TEGELIZR_TEGELFOLDER . "/";
 $sourcefiles_thumbs     = $path. TEGELIZR_THUMBS . "/";
@@ -328,9 +382,11 @@ if ( ! file_exists( $baseimgpath ) ) {
 $zoektegeltje           = '';
 $userip                 = 'IP' . md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
 
+// ===================================================================================================================
 
 define('TEGELIZR_ALL_DB', $path . TEGELIZR_ALLES . "_index.txt");
 
+// ===================================================================================================================
 
 $arr_sort_by = array(
     "name"          => "titel",
@@ -959,7 +1015,9 @@ function TheModalWindow() {
 &times;</button></div> <!-- end .modal-content --></div> <!-- end .modal-overlay -->';
 }
 
+
 // ===================================================================================================================
+
 function TheForm() {
 
     global $formelementcounter;
@@ -969,7 +1027,7 @@ function TheForm() {
   
     return  ' <form role="form" id="posterform' . $suffix . '" name="posterform' . $suffix . '" action="/includes/generate.php" method="get" enctype="multipart/form-data">
     <div class="form-group tekstveld">
-      <label for="txt_tegeltekst' . $suffix . '">Jouw tekst:</label>
+      <label for="txt_tegeltekst' . $suffix . '">' . TXT_YOUR_TEXT . '</label>
       <input type="text" aria-describedby="tekst-tip' . $suffix . '" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]{1,' . TEGELIZR_TXT_LENGTH . '}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst' . $suffix . '" required="required" value="' . TEGELIZR_TXT_VALUE . '" maxlength="' . TEGELIZR_TXT_LENGTH . '" size="' . TEGELIZR_TXT_LENGTH . '" />
       <div role="tooltip" id="tekst-tip' . $suffix . '">Alleen letters, cijfers en leestekens. Maximale lengte ' . TEGELIZR_TXT_LENGTH . ' tekens</div>
     </div>

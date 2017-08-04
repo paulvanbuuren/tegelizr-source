@@ -502,6 +502,12 @@
 		"opt": 1,
 		"q": 100
 		},
+	"\/includes\/style\/english\/style-configuration.inc.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/style\/english\/style-configuration.inc.php",
+		"oF": 0
+		},
 	"\/includes\/style\/hkd\/CaveatBrush-Regular.ttf": {
 		"ft": 8192,
 		"oA": 2,
