@@ -48,210 +48,234 @@ $destimagepath_klein= $sourcefiles_thumbs.date("Y") . "-" . date("m") . "-" . da
 $desturl            = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $hashname;
 $imagesource        = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . "/" . TEGELIZR_TEGELFOLDER . "/".$filename;
 
-
 // ===================================================================================================================
 
 // als het bestand niet bestaat
 if ( !file_exists( $destimagepath ) &&  !file_exists( $desttextpath ) &&  !file_exists( $destimagepath_klein ) ) {
 
-    // base image importeren
-    $img            = imagecreatefrompng($baseimgpath);
+  // base image importeren
+  $img            = imagecreatefrompng($baseimgpath);
 
-    // we mikken op een maximum van 4 zinnen en ideaal is 3
-    $aantal_zinnen  = 3;
+  // we mikken op een maximum van 4 zinnen en ideaal is 3
+  $aantal_zinnen  = 3;
 
-    // Get image Width and Height
-    $image_width    = imagesx($img);  
-    $image_height   = imagesy($img);
-    $aantal_tekens  = strlen($text);
-    $delimiter      = "<br />";
+  // Get image Width and Height
+  $image_width    = imagesx($img);  
+  $image_height   = imagesy($img);
+  $aantal_tekens  = strlen($text);
+  $delimiter      = "<br />";
+  
+  // wat een fijne functie, dit wordwrap. Dank u, PHP.
+  if ( DO_WORDWRAP ) {
+    $newtext        = wordwrap($text, round( ( $aantal_tekens / $aantal_zinnen  ), 3 ), $delimiter);
+  }
+  else {
+    $newtext        = $text;
+  }
+
+  $zinnen         = explode($delimiter, $newtext);
+  $aantal_zinnen  = count($zinnen);
+
+  //     tellen van maximum aantal karakters per zin
+  $maximale_text_lengte    = 0;
+  $maximale_text            = $text;
+
+  for($i = 0, $size = $aantal_zinnen; $i < $size; ++$i) {
+      if ( strlen($zinnen[$i]) > $maximale_text_lengte ) {
+          $maximale_text_lengte   = strlen($zinnen[$i]);
+          $maximale_text          = $zinnen[$i];
+      }
+  }
+  
+  $textcolor        = imagecolorallocate($img, TXTCOLOR_R, TXTCOLOR_G, TXTCOLOR_B );
+
+  $standaard_karaktersperregel = 10;
+  
+  $fontsize        = 100;
+  $angle           = 0;
+  $font            = FONTFILE;
+  
+  if ( ! file_exists( FONTFILE ) ) {
+    die('font file not found: ' . FONTFILE );
+  }
+
+  
+  $regelafstand    = 10;
+
+  // beetje tweaken en tunen met font-grootte
+  if ( $maximale_text_lengte > $standaard_karaktersperregel ) {
+      $fontsize        = round( ( $fontsize * ( $standaard_karaktersperregel / $maximale_text_lengte  ) ), 0);
+  }
+
+  if ( $aantal_zinnen > 2 )  {
+  
+      $coordinaten    = calculatetekstdimensie($fontsize,$font,$maximale_text,$image_width,$image_height);
+      $regelhoogte     = $coordinaten['hoogte'];
+      $verschuiving    = ( $image_height / 2 ) - ( ( ( $regelhoogte + $regelafstand ) * ( $aantal_zinnen  ) ) / 2);
+  
+      for($i = 0, $size = $aantal_zinnen; $i < $size; ++$i) {
+          
+          // per zin bepalen waar deze op de image geplaatst moet worden
+          $text = $zinnen[$i];
+      
+          $coordinaten            = calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
+          $coordinaten['hoogte']    = $regelhoogte; // $regelhoogte;
+          teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, STYLING_BLURSTRENGTH, $i, $verschuiving);
+
+          $verschuiving            = ( $verschuiving  + $regelhoogte + $regelafstand );    
+      
+      }
+  
+  }
+  else {
+    // er zijn maar 2 zinnen of minder
+    // voor grote teksten wil ik een grotere blur
+    $blur = STYLING_BLURSTRENGTH;
+  
+    $text = $zinnen[0];
     
-    // wat een fijne functie, dit wordwrap. Dank u, PHP.
-    if ( DO_WORDWRAP ) {
-      $newtext        = wordwrap($text, round( ( $aantal_tekens / $aantal_zinnen  ), 3 ), $delimiter);
+    if ( $maximale_text_lengte < 8 ) {
+      // to do: dynamic blur
+      // per max. regellengte bepalen welke font-grootte gebruikt moet worden
+      switch ($maximale_text_lengte) {
+        //------------------------------------------------------------------------------------------------------------
+        case 1:
+          //                    $blur = 8;
+          $fontsize        = 350;
+          break;
+        //------------------------------------------------------------------------------------------------------------
+        case 2:
+          //                    $blur = 8;
+          $fontsize        = 230;
+          break;
+        //------------------------------------------------------------------------------------------------------------
+        case 3:
+          //                    $blur = 6;
+          $fontsize        = 180;
+          break;
+        //------------------------------------------------------------------------------------------------------------
+        case 4:
+          $fontsize        = 160;
+          break;
+          
+        //------------------------------------------------------------------------------------------------------------
+        case 5:
+          $fontsize        = 125;
+          break;
+          
+        //------------------------------------------------------------------------------------------------------------
+        case 6:
+          $fontsize        = 105;
+          break;
+          
+        //------------------------------------------------------------------------------------------------------------
+        default:
+          $fontsize        = 90;
+          
+          
+        //------------------------------------------------------------------------------------------------------------
+      }
+    }
+
+    if ( $aantal_zinnen == 2 ) {
+      
+      $coordinaten            = calculatetekstdimensie($fontsize,$font,$maximale_text,$image_width,$image_height);
+      $regelhoogte            = $coordinaten['hoogte'];
+      $verschuiving           = ( $image_height / 2 ) - ( ( ( $regelhoogte + $regelafstand ) * ( $aantal_zinnen  ) ) / 2);
+      
+      $text                   = $zinnen[0];
+      
+      $coordinaten            = calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
+      $coordinaten['hoogte']  = $regelhoogte; // $regelhoogte;
+      teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, STYLING_BLURSTRENGTH, $i, $verschuiving);
+      
+      $verschuiving           = ( $verschuiving  + $regelhoogte + $regelafstand );    
+      
+      $text = $zinnen[1];
+      
+      $coordinaten            = calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
+      $coordinaten['hoogte']  = $regelhoogte; // $regelhoogte;
+      teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, STYLING_BLURSTRENGTH, $i, $verschuiving);
+    
     }
     else {
-      $newtext        = $text;
+      
+      $text = $zinnen[0];
+    
+      $coordinaten            = calculatetekstdimensie($fontsize,$font,$maximale_text,$image_width,$image_height);
+      $regelhoogte            = $coordinaten['hoogte'];
+      $verschuiving           = ( $image_height / 2 ) - ( ( ( $regelhoogte + $regelafstand ) * ( $aantal_zinnen  ) ) / 2);
+    
+      // voor tegeltjes met 1 zin
+      $coordinaten            = calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
+      $coordinaten['hoogte']  = $regelhoogte; // $regelhoogte;
+      teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, STYLING_BLURSTRENGTH, $i, $verschuiving);
+    
     }
+  }
 
-    $zinnen         = explode($delimiter, $newtext);
-    $aantal_zinnen  = count($zinnen);
+  $boom                    = array();
+  $boom['txt_tegeltekst']  = filtertext( $_GET['txt_tegeltekst'] );
+  $boom['file']            = $filename;
+  $boom['file_date']       = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
+  $boom['file_thumb']      = $destimagepath_klein;
+  $boom[TEGELIZR_VIEWS]    = 0;
 
-    //     tellen van maximum aantal karakters per zin
-    $maximale_text_lengte    = 0;
-    $maximale_text            = $text;
 
-    for($i = 0, $size = $aantal_zinnen; $i < $size; ++$i) {
-        if ( strlen($zinnen[$i]) > $maximale_text_lengte ) {
-            $maximale_text_lengte   = strlen($zinnen[$i]);
-            $maximale_text          = $zinnen[$i];
-        }
-    }
+  // tijd om op te ruimen
+  // tekst bestand vullen. Deze hebben we nodig om de tekst te lezen. 
+  // Sleutel hiervoor is de bestandsnaam
+  $fh                     = fopen($desttextpath, 'w') or die("can't open file: " . $desttextpath);
+  $stringData             = json_encode($boom);
+  fwrite($fh, $stringData);
+  fclose($fh);
+
+  // save merged image
+  imagepng($img, $destimagepath);
+  imagedestroy($img);
+
+  resize(TEGELIZR_THUMB_WIDTH,$destimagepath_klein,$destimagepath);
+
+// ===================================================================================================================
+
+  $dosendemail = true;
+
+  if ( defined('DO_SEND_MAIL' ) ) {
+    // constante is alleen in speciale gevallen actief, niet op de live sites
     
-    $textcolor        = imagecolorallocate($img, TXTCOLOR_R, TXTCOLOR_G, TXTCOLOR_B );
-
-    $standaard_karaktersperregel = 10;
-    
-    $fontsize        = 100;
-    $angle           = 0;
-    $font            = FONTFILE;
-    
-    if ( ! file_exists( FONTFILE ) ) {
-      die('font file not found: ' . FONTFILE );
-    }
-
-    
-    $regelafstand    = 10;
-
-    // beetje tweaken en tunen met font-grootte
-    if ( $maximale_text_lengte > $standaard_karaktersperregel ) {
-        $fontsize        = round( ( $fontsize * ( $standaard_karaktersperregel / $maximale_text_lengte  ) ), 0);
-    }
-
-    if ( $aantal_zinnen > 2 )  {
-    
-        $coordinaten    = calculatetekstdimensie($fontsize,$font,$maximale_text,$image_width,$image_height);
-        $regelhoogte     = $coordinaten['hoogte'];
-        $verschuiving    = ( $image_height / 2 ) - ( ( ( $regelhoogte + $regelafstand ) * ( $aantal_zinnen  ) ) / 2);
-    
-        for($i = 0, $size = $aantal_zinnen; $i < $size; ++$i) {
-            
-            // per zin bepalen waar deze op de image geplaatst moet worden
-            $text = $zinnen[$i];
-        
-            $coordinaten            = calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
-            $coordinaten['hoogte']    = $regelhoogte; // $regelhoogte;
-            teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, STYLING_BLURSTRENGTH, $i, $verschuiving);
-
-            $verschuiving            = ( $verschuiving  + $regelhoogte + $regelafstand );    
-        
-        }
-    
+    if ( DO_SEND_MAIL ) {
+      // en we mogen ook in speciale gevallen mail sturen
     }
     else {
-        
-        // er zijn maar 2 zinnen of minder
-
-        // voor grote teksten wil ik een grotere blur
-        $blur = STYLING_BLURSTRENGTH;
-
-        $text = $zinnen[0];
-        
-        if ( $maximale_text_lengte < 8 ) {
-
-// to do: dynamic blur
-//            $blur = 4;
-
-            // per max. regellengte bepalen welke font-grootte gebruikt moet worden
-            switch ($maximale_text_lengte) {
-                case 1:
-//                    $blur = 8;
-                    $fontsize        = 350;
-                    break;
-                case 2:
-//                    $blur = 8;
-                    $fontsize        = 230;
-                    break;
-                case 3:
-//                    $blur = 6;
-                    $fontsize        = 180;
-                    break;
-                case 4:
-                    $fontsize        = 160;
-                    break;
-                case 5:
-                    $fontsize        = 125;
-                    break;
-                case 6:
-                    $fontsize        = 105;
-                    break;
-                default:
-                    $fontsize        = 90;
-            }
-            
-        }
-        
-    
-        if ( $aantal_zinnen == 2 ) {
-
-            $coordinaten            = calculatetekstdimensie($fontsize,$font,$maximale_text,$image_width,$image_height);
-            $regelhoogte            = $coordinaten['hoogte'];
-            $verschuiving           = ( $image_height / 2 ) - ( ( ( $regelhoogte + $regelafstand ) * ( $aantal_zinnen  ) ) / 2);
-
-            $text                   = $zinnen[0];
-        
-            $coordinaten            = calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
-            $coordinaten['hoogte']  = $regelhoogte; // $regelhoogte;
-            teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, STYLING_BLURSTRENGTH, $i, $verschuiving);
-
-            $verschuiving           = ( $verschuiving  + $regelhoogte + $regelafstand );    
-
-            $text = $zinnen[1];
-        
-            $coordinaten            = calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
-            $coordinaten['hoogte']  = $regelhoogte; // $regelhoogte;
-            teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, STYLING_BLURSTRENGTH, $i, $verschuiving);
-
-
-        }
-        else {
-            
-            $text = $zinnen[0];
-
-            $coordinaten            = calculatetekstdimensie($fontsize,$font,$maximale_text,$image_width,$image_height);
-            $regelhoogte            = $coordinaten['hoogte'];
-            $verschuiving           = ( $image_height / 2 ) - ( ( ( $regelhoogte + $regelafstand ) * ( $aantal_zinnen  ) ) / 2);
-
-            // voor tegeltjes met 1 zin
-            $coordinaten            = calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height);
-            $coordinaten['hoogte']  = $regelhoogte; // $regelhoogte;
-            teken_tekst($img, $fontsize, $coordinaten, $textcolor, $font, $text, STYLING_BLURSTRENGTH, $i, $verschuiving);
-
-        }
-        
+      // in alle andere gevallen: geen mail
+      $dosendemail = false;
     }
-
-    $boom                    = array();
-    $boom['txt_tegeltekst']  = filtertext( $_GET['txt_tegeltekst'] );
-    $boom['file']            = $filename;
-    $boom['file_date']       = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
-    $boom['file_thumb']      = $destimagepath_klein;
-    $boom[TEGELIZR_VIEWS]    = 0;
-
-
-    // tijd om op te ruimen
-    // tekst bestand vullen. Deze hebben we nodig om de tekst te lezen. 
-    // Sleutel hiervoor is de bestandsnaam
-    $fh                     = fopen($desttextpath, 'w') or die("can't open file: " . $desttextpath);
-    $stringData             = json_encode($boom);
-    fwrite($fh, $stringData);
-    fclose($fh);
-
-    // save merged image
-    imagepng($img, $destimagepath);
-    imagedestroy($img);
-
-    resize(TEGELIZR_THUMB_WIDTH,$destimagepath_klein,$destimagepath);
-
-  	$titel                = filtertext($_GET['txt_tegeltekst']);
-
-    $mailcontent = "Tekst: \n" .  $_GET['txt_tegeltekst'] ."\n";
-    $mailcontent .= "URL: \n";
+  }
+  
+  if ( $dosendemail ) {
     
-    $mailcontent .= $desturl;
+  	$titel        = filtertext($_GET['txt_tegeltekst']);
+  
+    $mailcontent  = "Tekst: \n" .  $_GET['txt_tegeltekst'] ."\n";
+    $mailcontent  .= "URL: \n";
+    
+    $mailcontent  .= $desturl;
     mail("vanbuuren@gmail.com", MAIL_PREFIX . ": " . $titel, $mailcontent, "From: paul@wbvb.nl");
+  
+  }
 
-    $destimagepath2       = linkbakker( $destimagepath, $path );
-    $desttextpath2        = linkbakker( $desttextpath, $path );
-    $destimagepath_klein2 = linkbakker( $destimagepath_klein, $path );
-    
-    if ( TEGELIZR_DEBUG_GENERATE && TEGELIZR_DEBUG ) {
-      redirect_naar_verbetermetadatascript( $desturl );
-    }
-    else {
-      redirect_naar_verbetermetadatascript( $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE);
-    }
+// ===================================================================================================================
 
+  $destimagepath2       = linkbakker( $destimagepath, $path );
+  $desttextpath2        = linkbakker( $desttextpath, $path );
+  $destimagepath_klein2 = linkbakker( $destimagepath_klein, $path );
+  
+  if ( TEGELIZR_DEBUG_GENERATE && TEGELIZR_DEBUG ) {
+    redirect_naar_verbetermetadatascript( $desturl );
+  }
+  else {
+    redirect_naar_verbetermetadatascript( $desturl . '?' . TEGELIZR_TRIGGER_KEY . '=' . TEGELIZR_TRIGGER_VALUE);
+  }
 }
 else {
 
@@ -259,7 +283,7 @@ else {
   
 }
 
-
+// ===================================================================================================================
 
 function linkbakker( $textstring = '',  $filter = ''  ) {
 
