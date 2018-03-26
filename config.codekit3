@@ -7,27 +7,31 @@
 		"uuidString": "9F85D8A5-C5D7-4F2A-AFD3-8C5B558EAC0C"
 		}
 	],
-"creatorBuild": "25900",
+"creatorBuild": "26148",
 "files": {
 	"\/.gitignore": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/.gitignore",
 		"oF": 0
 		},
 	"\/.htaccess": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/.htaccess",
 		"oF": 0
 		},
 	"\/alletegeltjes.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/alletegeltjes.php",
 		"oF": 0
 		},
 	"\/common.inc.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/common.inc.php",
@@ -44,6 +48,7 @@
 		"oS": 0
 		},
 	"\/css\/index.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/css\/index.php",
@@ -70,30 +75,35 @@
 		"oS": 0
 		},
 	"\/css\/tegelizr.css.map": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/css\/tegelizr.css.map",
 		"oF": 0
 		},
 	"\/deleted_files\/index.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/deleted_files\/index.php",
 		"oF": 0
 		},
 	"\/favicon.ico": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/favicon.ico",
 		"oF": 0
 		},
 	"\/fonts\/AbbeyRoadNF.eot": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/AbbeyRoadNF.eot",
 		"oF": 0
 		},
 	"\/fonts\/AbbeyRoadNF.otf": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/AbbeyRoadNF.otf",
@@ -110,18 +120,21 @@
 		"prP": 0
 		},
 	"\/fonts\/AbbeyRoadNF.ttf": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/AbbeyRoadNF.ttf",
 		"oF": 0
 		},
 	"\/fonts\/AbbeyRoadNF.woff": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/AbbeyRoadNF.woff",
 		"oF": 0
 		},
 	"\/fonts\/d2eicons.eot": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/d2eicons.eot",
@@ -138,18 +151,21 @@
 		"prP": 0
 		},
 	"\/fonts\/d2eicons.ttf": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/d2eicons.ttf",
 		"oF": 0
 		},
 	"\/fonts\/d2eicons.woff": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/d2eicons.woff",
 		"oF": 0
 		},
 	"\/fonts\/icons.eot": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/icons.eot",
@@ -166,24 +182,28 @@
 		"prP": 0
 		},
 	"\/fonts\/icons.ttf": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/icons.ttf",
 		"oF": 0
 		},
 	"\/fonts\/icons.woff": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/icons.woff",
 		"oF": 0
 		},
 	"\/fonts\/index.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/index.php",
 		"oF": 0
 		},
 	"\/fonts\/torontosubwaybold-webfont.eot": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/torontosubwaybold-webfont.eot",
@@ -200,24 +220,28 @@
 		"prP": 0
 		},
 	"\/fonts\/torontosubwaybold-webfont.ttf": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/torontosubwaybold-webfont.ttf",
 		"oF": 0
 		},
 	"\/fonts\/torontosubwaybold-webfont.woff": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/torontosubwaybold-webfont.woff",
 		"oF": 0
 		},
 	"\/fonts\/torontosubwaybold-webfont.woff2": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/torontosubwaybold-webfont.woff2",
 		"oF": 0
 		},
 	"\/fonts\/torontosubwayregular-webfont.eot": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/torontosubwayregular-webfont.eot",
@@ -234,18 +258,21 @@
 		"prP": 0
 		},
 	"\/fonts\/torontosubwayregular-webfont.ttf": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/torontosubwayregular-webfont.ttf",
 		"oF": 0
 		},
 	"\/fonts\/torontosubwayregular-webfont.woff": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/fonts\/torontosubwayregular-webfont.woff",
 		"oF": 0
 		},
 	"\/google07c653d0eb7815ba.html": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
 		"oAP": "\/google07c653d0eb7815ba.html",
@@ -263,6 +290,7 @@
 		"q": 100
 		},
 	"\/img\/index.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/img\/index.php",
@@ -374,30 +402,35 @@
 		"prP": 0
 		},
 	"\/includes\/blur.inc.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/blur.inc.php",
 		"oF": 0
 		},
 	"\/includes\/filecheck.inc.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/filecheck.inc.php",
 		"oF": 0
 		},
 	"\/includes\/generate.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/generate.php",
 		"oF": 0
 		},
 	"\/includes\/index.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/index.php",
 		"oF": 0
 		},
 	"\/includes\/sterretjes.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/sterretjes.php",
@@ -436,18 +469,21 @@
 		"oS": 3
 		},
 	"\/includes\/style\/boaty\/boaty.css.map": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/boaty\/boaty.css.map",
 		"oF": 0
 		},
 	"\/includes\/style\/boaty\/boaty2.ttf": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/boaty\/boaty2.ttf",
 		"oF": 0
 		},
 	"\/includes\/style\/boaty\/style-configuration.inc.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/boaty\/style-configuration.inc.php",
@@ -475,18 +511,21 @@
 		"oS": 3
 		},
 	"\/includes\/style\/default\/default.css.map": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/default\/default.css.map",
 		"oF": 0
 		},
 	"\/includes\/style\/default\/style-configuration.inc.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/default\/style-configuration.inc.php",
 		"oF": 0
 		},
 	"\/includes\/style\/default\/tegeltje.otf": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/default\/tegeltje.otf",
@@ -503,18 +542,21 @@
 		"q": 100
 		},
 	"\/includes\/style\/english\/style-configuration.inc.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/english\/style-configuration.inc.php",
 		"oF": 0
 		},
 	"\/includes\/style\/hkd\/CaveatBrush-Regular.ttf": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/hkd\/CaveatBrush-Regular.ttf",
 		"oF": 0
 		},
 	"\/includes\/style\/hkd\/favicon.ico": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/hkd\/favicon.ico",
@@ -597,18 +639,21 @@
 		"oS": 3
 		},
 	"\/includes\/style\/hkd\/hkd.css.map": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/hkd\/hkd.css.map",
 		"oF": 0
 		},
 	"\/includes\/style\/hkd\/style-configuration.inc.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/hkd\/style-configuration.inc.php",
 		"oF": 0
 		},
 	"\/includes\/style\/hmd\/BebasNeue-webfont.eot": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/hmd\/BebasNeue-webfont.eot",
@@ -625,18 +670,21 @@
 		"prP": 0
 		},
 	"\/includes\/style\/hmd\/BebasNeue-webfont.ttf": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/hmd\/BebasNeue-webfont.ttf",
 		"oF": 0
 		},
 	"\/includes\/style\/hmd\/BebasNeue-webfont.woff": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/hmd\/BebasNeue-webfont.woff",
 		"oF": 0
 		},
 	"\/includes\/style\/hmd\/favicon.ico": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/hmd\/favicon.ico",
@@ -719,18 +767,21 @@
 		"oS": 3
 		},
 	"\/includes\/style\/hmd\/hmd.css.map": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/hmd\/hmd.css.map",
 		"oF": 0
 		},
 	"\/includes\/style\/hmd\/style-configuration.inc.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/hmd\/style-configuration.inc.php",
 		"oF": 0
 		},
 	"\/includes\/style\/hvd\/favicon.ico": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/hvd\/favicon.ico",
@@ -812,6 +863,7 @@
 		"prP": 0
 		},
 	"\/includes\/style\/hvd\/hvd-titel-webfont.ttf": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/hvd\/hvd-titel-webfont.ttf",
@@ -828,30 +880,35 @@
 		"oS": 3
 		},
 	"\/includes\/style\/hvd\/hvd.css.map": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/hvd\/hvd.css.map",
 		"oF": 0
 		},
 	"\/includes\/style\/hvd\/style-configuration.inc.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/style\/hvd\/style-configuration.inc.php",
 		"oF": 0
 		},
 	"\/includes\/tegeltjesoppoetsen.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/tegeltjesoppoetsen.php",
 		"oF": 0
 		},
 	"\/index.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/index.php",
 		"oF": 0
 		},
 	"\/js.zip": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/js.zip",
@@ -868,6 +925,7 @@
 		"tS": 0
 		},
 	"\/js\/index.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/js\/index.php",
@@ -1326,6 +1384,7 @@
 		"sU": 0
 		},
 	"\/less\/index.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/less\/index.php",
@@ -1366,6 +1425,7 @@
 		"sU": 0
 		},
 	"\/LICENSE": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/LICENSE",
@@ -1382,6 +1442,7 @@
 		"tS": 0
 		},
 	"\/min\/index.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/min\/index.php",
@@ -1398,36 +1459,42 @@
 		"tS": 0
 		},
 	"\/overzichtspagina.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/overzichtspagina.php",
 		"oF": 0
 		},
 	"\/rating\/index.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/rating\/index.php",
 		"oF": 0
 		},
 	"\/rating\/page.html": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/rating\/page.html",
 		"oF": 0
 		},
 	"\/rating\/rating.zip": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/rating\/rating.zip",
 		"oF": 0
 		},
 	"\/rating\/ratings.data.txt": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/rating\/ratings.data.txt",
 		"oF": 0
 		},
 	"\/rating\/ratings.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/rating\/ratings.php",
@@ -1467,16 +1534,17 @@
 		"q": 100
 		},
 	"\/README.html": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
 		"oAP": "\/README.html",
 		"oF": 0
 		},
 	"\/README.md": {
+		"cB": 0,
 		"cS": 0,
 		"eF": 1,
 		"eL": 1,
-		"eLB": 0,
 		"ema": 1,
 		"eSQ": 1,
 		"ft": 4096,
@@ -1491,24 +1559,28 @@
 		"uCM": 0
 		},
 	"\/shellscripts\/index.php": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/shellscripts\/index.php",
 		"oF": 0
 		},
 	"\/shellscripts\/tegelizr-get-tegeltjes.sh": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/shellscripts\/tegelizr-get-tegeltjes.sh",
 		"oF": 0
 		},
 	"\/shellscripts\/testtegelizr.sh": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/shellscripts\/testtegelizr.sh",
 		"oF": 0
 		},
 	"\/shellscripts\/update.sh": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/shellscripts\/update.sh",
@@ -2068,6 +2140,10 @@
 			"active": 0,
 			"optionString": "'expression'"
 			},
+		"function-paren-newline": {
+			"active": 0,
+			"optionString": "'multiline'"
+			},
 		"generator-star-spacing": {
 			"active": 0,
 			"optionString": "{'before': true, 'after': false}"
@@ -2132,9 +2208,9 @@
 			"active": 0,
 			"optionString": "{'beforeBlockComment': true}"
 			},
-		"lines-around-directive": {
+		"lines-between-class-members": {
 			"active": 0,
-			"optionString": "{'before': 'always', 'after': 'always'}"
+			"optionString": "'always', {exceptAfterSingleLine: false}"
 			},
 		"max-depth": {
 			"active": 0,
@@ -2164,6 +2240,10 @@
 			"active": 0,
 			"optionString": "{'max': 1}"
 			},
+		"multiline-comment-style": {
+			"active": 0,
+			"optionString": "'starred-block'"
+			},
 		"multiline-ternary": {
 			"active": 0,
 			"optionString": "'always'"
@@ -2173,14 +2253,6 @@
 			"optionString": "{'newIsCap': true, 'capIsNew': true, 'newIsCapExceptions': [], 'capIsNewExceptions': ['Array', 'Boolean', 'Date', 'Error', 'Function', 'Number', 'Object', 'RegExp', 'String', 'Symbol'], 'properties': true}"
 			},
 		"new-parens": {
-			"active": 0,
-			"optionString": ""
-			},
-		"newline-after-var": {
-			"active": 0,
-			"optionString": "'always'"
-			},
-		"newline-before-return": {
 			"active": 0,
 			"optionString": ""
 			},
@@ -3284,7 +3356,8 @@
 		"createSourceMap": 0,
 		"minifyOutput": 1,
 		"outputStyle": 0,
-		"syntaxCheckerStyle": 1
+		"syntaxCheckerStyle": 1,
+		"transpilerStyle": 1
 		},
 	"languageDefaultsCSS": {
 		"autoOutputAction": 0,
@@ -3317,6 +3390,7 @@
 		"noEscapeInAttributes": 0,
 		"outputFormat": 2,
 		"outputStyle": 0,
+		"shouldRunCacheBuster": 0,
 		"useCDATA": 0,
 		"useDoubleQuotes": 0,
 		"useUnixNewlines": 0
@@ -3358,7 +3432,8 @@
 		"autoOutputPathRelativePath": "",
 		"autoOutputPathReplace1": "",
 		"autoOutputPathReplace2": "",
-		"autoOutputPathStyle": 0
+		"autoOutputPathStyle": 0,
+		"shouldRunCacheBuster": 0
 		},
 	"languageDefaultsLESS": {
 		"allowInsecureImports": 0,
@@ -3390,13 +3465,13 @@
 		"enableFootnotes": 1,
 		"enableLabels": 1,
 		"enableSmartQuotes": 1,
-		"escapeLineBreaks": 0,
 		"maskEmailAddresses": 1,
 		"outputFormat": 0,
 		"outputStyle": 0,
 		"parseMetadata": 1,
 		"processHTML": 0,
 		"randomFootnoteNumbers": 0,
+		"shouldRunCacheBuster": 0,
 		"useCompatibilityMode": 0
 		},
 	"languageDefaultsOTHER": {
@@ -3405,7 +3480,8 @@
 		"autoOutputPathRelativePath": "",
 		"autoOutputPathReplace1": "",
 		"autoOutputPathReplace2": "",
-		"autoOutputPathStyle": 0
+		"autoOutputPathStyle": 0,
+		"shouldRunCacheBuster": 0
 		},
 	"languageDefaultsPNG": {
 		"autoOutputAction": 0,
@@ -3425,7 +3501,8 @@
 		"autoOutputPathReplace2": "",
 		"autoOutputPathStyle": 0,
 		"compileDebug": 1,
-		"outputStyle": 0
+		"outputStyle": 0,
+		"shouldRunCacheBuster": 0
 		},
 	"languageDefaultsSASS": {
 		"autoOutputAction": 0,
@@ -3453,7 +3530,8 @@
 		"logicless": 0,
 		"outputFormat": 0,
 		"outputStyle": 1,
-		"railsCompatible": 0
+		"railsCompatible": 0,
+		"shouldRunCacheBuster": 0
 		},
 	"languageDefaultsSTYLUS": {
 		"autoOutputAction": 0,

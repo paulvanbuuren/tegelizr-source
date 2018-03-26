@@ -455,8 +455,6 @@ function removeEmoji($text) {
     return $clean_text;
 }
 
-Ò
-
 // ===================================================================================================================
 
 function filtertext($text = '', $dogeintje = true ) {
@@ -465,17 +463,26 @@ function filtertext($text = '', $dogeintje = true ) {
 
     $text                = preg_replace("/</", "&lt;", $text);
     $text                = preg_replace("/>/", "&gt;", $text);
+    $text                = preg_replace("/JAVASCRIPT/", "javascript", $text);
+    $text                = preg_replace("/JavaScript/", "javascript", $text);
     $text                = preg_replace("/script/", "snikkel", $text);
     $text                = preg_replace("/created by/", "", $text);
     $text                = preg_replace("/S.d.B/", "", $text);
     $text                = preg_replace("/s.d.b/", "", $text);
     $text                = preg_replace("/sdb/", "", $text);
-    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôóòœÙÛÜÀÂÆÇÉÈÊËÏÎÔÒÓŒ™#✂]+/", "", trim($text));
+    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ™#✂]+/", "", trim($text));
     $text                = removeEmoji( $text );
     
     
     $text                = substr($text,0,TEGELIZR_TXT_LENGTH);
     if ( $dogeintje ) {
+#	    $text                = preg_replace("/k e c h /i", "kech", trim($text));
+	    $text                = preg_replace("/k e c h/i", "havermoutpap", trim($text));
+#	    $text                = preg_replace("/k*e*c*h*/i", "kech", trim($text));
+#	    $text                = preg_replace("/k*e*c*h/i", "kech", trim($text));
+#	    $text                = preg_replace("/k.e.c.h./i", "kech", trim($text));
+	    $text                = preg_replace("/k.e.c.h/i", "brommer", trim($text));
+	    $text                = preg_replace("/kech/i", "pinguin", trim($text));
 	    $text                = preg_replace("/kanker/i", "frambozenjam", trim($text));
 	    $text                = preg_replace("/Geert Wilders/i", "Zaadslurf", trim($text));
 	    $text                = preg_replace("/Wilders/", "Zaadslurf", trim($text));
@@ -497,6 +504,7 @@ function filtertext($text = '', $dogeintje = true ) {
     $text                = preg_replace("/;DROP /i", " *snurk* ", trim($text));
     $text                = preg_replace("/select /i", " *fart* ", trim($text));
     $text                = preg_replace("/ table /i", " *pfffffrt* ", trim($text));
+    $text                = preg_replace("/javasnikkel/", "ECMAScript", $text);
     
     return $text;
 }
