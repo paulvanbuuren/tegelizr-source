@@ -498,6 +498,10 @@ function filtertext($text = '', $dogeintje = true ) {
 	    $text                = preg_replace("/Pokémon/i", "Pim-Pam-Pet", $text);
 	    $text                = preg_replace("/Pokemon/i", "Pim-Pam-Pet", $text);
 	    $text                = preg_replace("/💩/i", "poepscheetkak (hihi)", $text);
+	    $text                = preg_replace("/Kanye/i", "Henk", $text);
+	    $text                = preg_replace("/Baudet/i", "Pleepapier", $text);
+	    $text                = preg_replace("/Gordon/i", "Coke-hoofd", $text);
+	    $text                = preg_replace("/Joling/i", "Gootsteenontstopper", $text);
     }
     $text                = preg_replace("/username/i", " *zucht* ", trim($text));
     $text                = preg_replace("/password/i", " *gaap* ", trim($text));
