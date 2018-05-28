@@ -6,50 +6,66 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.2.1
-// @desc.   Header fonts en tegelizr-logo
+// @version 7.6.5
+// @desc.   Print-stijl aangepast: alleen het tegeltje™ afdrukken.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
 
 // ===================================================================================================================
 
-.printstyles() {
-    
-  @media print {
-      body {
-          background: none;
-      }
-      article {
-          box-shadow: none;
-      }
-      article.resultaat {
-          nav,
-          #star_rating,
-          #leuk,
-          #andere,
-          #home,
-          h1#top span,
-          ul.social-media,
-          ul[itemprop="aggregateRating"] {
-              display: none;
-          }
-      }
-      footer  {
-          display: none;
-      }    
-      h2 {
-          text-align: center;
-          font-size: 5rem;
-      }
-      #top svg {
-          position: absolute;
-          right: 0;
-          bottom: 0;
-      }
-  
-  }
-  
+.printstyles( @sitestamp: "tegelizr.nl" ) {
+	
+	@media print {
+		body {
+			background: none;
+		}
+		article {
+			box-shadow: none;
+		}
+		article.resultaat {
+			nav,
+			#star_rating,
+			#leuk,
+			#andere,
+			#home,
+			h1#top span,
+			form,
+			p#home,
+			#modal_open,
+			#modal_window,
+			ul.social-media,
+			ul[itemprop="aggregateRating"] {
+				display: none;
+			}
+			.placeholder {
+				border-style: none;
+				background: #fff;
+				border-radius: 0;
+				
+				img {
+					background: #fff;
+				}
+			}
+
+			h1#top:before {
+				content: "@{sitestamp}";
+			}
+			
+		}
+		footer  {
+			display: none;
+		}    
+		h2 {
+			text-align: center;
+			font-size: 5rem;
+		}
+		#top svg {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+		}
+	}
 }
 
 // ===================================================================================================================

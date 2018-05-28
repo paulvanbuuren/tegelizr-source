@@ -7,7 +7,7 @@
 		"uuidString": "9F85D8A5-C5D7-4F2A-AFD3-8C5B558EAC0C"
 		}
 	],
-"creatorBuild": "26148",
+"creatorBuild": "26680",
 "files": {
 	"\/.gitignore": {
 		"cB": 0,
@@ -73,13 +73,6 @@
 		"oAP": "\/css\/tegelizr-min.css",
 		"oF": 0,
 		"oS": 0
-		},
-	"\/css\/tegelizr.css.map": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/css\/tegelizr.css.map",
-		"oF": 0
 		},
 	"\/deleted_files\/index.php": {
 		"cB": 0,
@@ -299,6 +292,7 @@
 	"\/img\/kiezen-is-een-keuze.jpg": {
 		"ft": 16384,
 		"iS": 241917,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/img\/kiezen-is-een-keuze.jpg",
 		"oF": 0,
@@ -309,6 +303,7 @@
 	"\/img\/momentje-tegel.jpg": {
 		"ft": 16384,
 		"iS": 13167,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/img\/momentje-tegel.jpg",
 		"oF": 0,
@@ -319,6 +314,7 @@
 	"\/img\/momentje.jpg": {
 		"ft": 16384,
 		"iS": 20568,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/img\/momentje.jpg",
 		"oF": 0,
@@ -340,6 +336,7 @@
 	"\/img\/neptegel.jpg": {
 		"ft": 16384,
 		"iS": 21116,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/img\/neptegel.jpg",
 		"oF": 0,
@@ -534,6 +531,7 @@
 	"\/includes\/style\/default\/tegelwand.jpg": {
 		"ft": 16384,
 		"iS": 214694,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/includes\/style\/default\/tegelwand.jpg",
 		"oF": 0,
@@ -1414,7 +1412,7 @@
 		"ft": 1,
 		"ie": 1,
 		"iI": 0,
-		"ma": 1,
+		"ma": 0,
 		"oA": 0,
 		"oAP": "\/css\/tegelizr.css",
 		"oF": 0,
@@ -1604,7 +1602,8 @@
 	"creationDate": 511458073,
 	"displayValue": "Tegelizr",
 	"displayValueWasSetByUser": 1,
-	"iconImageName": "\/img\/tegeltje.png"
+	"iconImageName": "\/img\/tegeltje.png",
+	"iconImageWasSetByUser": 0
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
@@ -1612,6 +1611,7 @@
 	"animateCSSInjections": 1,
 	"autoBuildNewItems": 1,
 	"autoprefixerBrowserString": "> 1%, last 2 versions, Firefox ESR, Opera 12.1",
+	"autoprefixerEnableIEGrid": 0,
 	"babelAuxiliaryCommentAfter": "",
 	"babelAuxiliaryCommentBefore": "",
 	"babelConfigFileHandlingType": 0,
@@ -2175,6 +2175,10 @@
 		"id-match": {
 			"active": 0,
 			"optionString": "'^[a-z]+([A-Z][a-z]+)*$', {'properties': false, 'onlyDeclarations': true}"
+			},
+		"implicit-arrow-linebreak": {
+			"active": 0,
+			"optionString": "'beside'"
 			},
 		"indent": {
 			"active": 0,
@@ -3402,6 +3406,7 @@
 		"autoOutputPathReplace1": "",
 		"autoOutputPathReplace2": "",
 		"autoOutputPathStyle": 0,
+		"outputFormat": 0,
 		"quality": 100
 		},
 	"languageDefaultsJS": {

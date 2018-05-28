@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.6.4
-// @desc.   Meer vertaalopties. Wordwrap optioneel. Paginering intelligenter.
+// @version 7.6.5
+// @desc.   Print-stijl aangepast: alleen het tegeltje™ afdrukken.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -27,7 +27,7 @@ $path                   = dirname(__FILE__)."/";
 
 // ===================================================================================================================
 
-define('TEGELIZR_VERSION',          '7.6.4');
+define('TEGELIZR_VERSION',          '7.6.5');
 
 // ===================================================================================================================
 
@@ -466,6 +466,8 @@ function filtertext($text = '', $dogeintje = true ) {
     $text                = preg_replace("/JAVASCRIPT/", "javascript", $text);
     $text                = preg_replace("/JavaScript/", "javascript", $text);
     $text                = preg_replace("/script/", "snikkel", $text);
+    $text                = preg_replace("/,/", ", ", $text);
+    $text                = preg_replace("/,  /", ", ", $text);
     $text                = preg_replace("/created by/", "", $text);
     $text                = preg_replace("/S.d.B/", "", $text);
     $text                = preg_replace("/s.d.b/", "", $text);
@@ -485,6 +487,9 @@ function filtertext($text = '', $dogeintje = true ) {
 	    $text                = preg_replace("/kech/i", "pinguin", trim($text));
 	    $text                = preg_replace("/kanker/i", "frambozenjam", trim($text));
 	    $text                = preg_replace("/Geert Wilders/i", "Zaadslurf", trim($text));
+	    $text                = preg_replace("/baudet/i", "Baudet", trim($text));
+	    $text                = preg_replace("/Thierry Baudet/i", "Hans Worst", trim($text));
+	    $text                = preg_replace("/Baudet/i", "Barbie", trim($text));
 	    $text                = preg_replace("/Wilders/", "Zaadslurf", trim($text));
 	    $text                = preg_replace("/PVV/", "NSB", trim($text));
 	    $text                = preg_replace("/moslima/i", "Tante Truus", trim($text));
