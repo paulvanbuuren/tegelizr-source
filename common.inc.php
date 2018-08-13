@@ -242,16 +242,16 @@ if ( ! defined('TXT_WATHEBJETOCH' ) ) {
   define('TXT_WATHEBJETOCH',       '');
 }
 if ( ! defined('TEGELIZR_ALLES_TXT' ) ) {
-  define('TEGELIZR_ALLES_TXT',       '');
+  define('TEGELIZR_ALLES_TXT',       'Alle tegeltjes');
 }
 if ( ! defined('TEGELIZR_WAAROM' ) ) {
   define('TEGELIZR_WAAROM',       '');
 }
 if ( ! defined('TEGELIZR_ABOUT_THIS_SITE' ) ) {
-  define('TEGELIZR_ABOUT_THIS_SITE',       '');
+  define('TEGELIZR_ABOUT_THIS_SITE',       'Over deze website');
 }
 if ( ! defined('TEGELIZR_REDACTIE_TXT' ) ) {
-  define('TEGELIZR_REDACTIE_TXT',       '');
+  define('TEGELIZR_REDACTIE_TXT',       'Redactie');
 }
 if ( ! defined('DO_SOCMED' ) ) {
   define('DO_SOCMED', false );
@@ -991,7 +991,7 @@ ga('send', 'pageview');";
   if ( TEGELIZR_REDACTIE_TXT ) {
     $aboutlist  .= '<li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_REDACTIE . '/">' . TEGELIZR_REDACTIE_TXT . '</a></li>';
   }
-  if ( TEGELIZR_ALLES ) {
+  if ( TEGELIZR_ALLES_TXT ) {
     $aboutlist  .= '<li><a href="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ALLES . '/">' . TEGELIZR_ALLES_TXT . '</a></li>';
   }
   if ( TEGELIZR_WAAROM ) {

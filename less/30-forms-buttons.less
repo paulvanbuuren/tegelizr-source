@@ -348,7 +348,10 @@
     }
   }
 
-  @media only screen and (max-width: 600px) {
+@lekkerbreedte_voor_knoppen: ( @fullwidth + ( 2 * @pagingbuttonwidth ) );
+
+  @media only screen and ( max-width: @lekkerbreedte_voor_knoppen ) {
+    
     #controlnavigation {
       position: relative;
       padding-bottom: 60px;
@@ -374,8 +377,10 @@
       
     }
   }
+
   
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: @lekkerbreedte_voor_knoppen) {
+
 
     form {
       fieldset {
@@ -406,7 +411,7 @@
     #controlnavigation {
       margin-left: ( -1 * @pagingbuttonwidth - 16px);      
       margin-right: ( -1 * @pagingbuttonwidth );      
-      width: ( @fullwidth + ( 2 * @pagingbuttonwidth ) );
+      width: @lekkerbreedte_voor_knoppen;
       
       h2 {
         width: ( @fullwidth + ( 2 * @pagingbuttonwidth ) );

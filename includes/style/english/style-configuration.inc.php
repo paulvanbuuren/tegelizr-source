@@ -31,5 +31,10 @@ define('TXT_YOUR_TEXT',             'Your text:');
 
 define('MAIL_PREFIX', 'English Wisdom Tile' );
 
+define('TEGELIZR_ABOUT_THIS_SITE',    'About this website');
+define('TEGELIZR_REDACTIE_TXT',       'Moderation');
 
-
+  define('TEGELIZR_VOLGENDE',         'next');
+  define('TEGELIZR_VORIGE',           'previous');
+  define('TEGELLABEL_PLURAL',         'tiles');
+  define('TEGELIZR_ALLES_TXT',        'All ' . TEGELLABEL_PLURAL );
