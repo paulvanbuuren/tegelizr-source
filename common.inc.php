@@ -109,7 +109,7 @@ else {
 
 
 
-if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'www.tegelizr.nl' ) {
+if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'www.tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'www.tegelizer.nl' || $_SERVER['HTTP_HOST'] == 'tegelizer.nl' ) {
   define('TEGELIZR_PROTOCOL',         'https://');
   define('TEGELIZR_DEBUG',            false );
   define('TEGELIZR_DEBUG_GENERATE',   false );
@@ -485,6 +485,8 @@ function filtertext($text = '', $dogeintje = true ) {
 #	    $text                = preg_replace("/k.e.c.h./i", "kech", trim($text));
 	    $text                = preg_replace("/k.e.c.h/i", "brommer", trim($text));
 	    $text                = preg_replace("/kech/i", "pinguin", trim($text));
+	    $text                = preg_replace("/Joden/i", "Smurfen", trim($text));
+	    $text                = preg_replace("/joden/i", "smurfen", trim($text));
 	    $text                = preg_replace("/kanker/i", "frambozenjam", trim($text));
 	    $text                = preg_replace("/Geert Wilders/i", "Zaadslurf", trim($text));
 	    $text                = preg_replace("/baudet/i", "Baudet", trim($text));
@@ -753,7 +755,7 @@ function get_end_htmlheader() {
   
   $endtag = '</head><body class="nojs"><!--' . $_SERVER['HTTP_HOST'] .'-->';
 
-  if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl'  || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
+  if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' ||  $_SERVER['HTTP_HOST'] == 'tegelizer.nl' || $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl'  || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
     echo '<style type="text/css">';
     include( STYLING_STYLESHEET );
     echo '</style>';
@@ -970,7 +972,7 @@ function spitoutfooter() {
 
 $analytics = '';
 
-if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
+if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' ||  $_SERVER['HTTP_HOST'] == 'tegelizer.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
 $analytics = "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();
 a=s.createElement(o),m=s.getElementsByTagName(o)[0];
 a.async=1;
