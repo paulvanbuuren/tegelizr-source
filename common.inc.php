@@ -460,6 +460,10 @@ function removeEmoji($text) {
 function filtertext($text = '', $dogeintje = true ) {
 
 //    $text                = mb_convert_encoding( $text, "UTF-8" );
+   
+    $text                = preg_replace("/“/", '"', $text);
+    $text                = preg_replace("/’/", "'", $text);
+    $text                = preg_replace("/‘/", "'", $text);
 
     $text                = preg_replace("/</", "&lt;", $text);
     $text                = preg_replace("/>/", "&gt;", $text);
@@ -474,7 +478,6 @@ function filtertext($text = '', $dogeintje = true ) {
     $text                = preg_replace("/sdb/", "", $text);
     $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ™#✂]+/", "", trim($text));
     $text                = removeEmoji( $text );
-    
     
     $text                = substr($text,0,TEGELIZR_TXT_LENGTH);
     if ( $dogeintje ) {
@@ -1038,7 +1041,8 @@ function TheModalWindow() {
 // ===================================================================================================================
 
 function TheForm() {
-
+//"dinges ‘trala’ “yo” „hiero” 
+//\“\„"\\‘\’
     global $formelementcounter;
 
     $formelementcounter++;
