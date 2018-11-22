@@ -513,6 +513,7 @@ function filtertext($text = '', $dogeintje = true ) {
 	    $text                = preg_replace("/Baudet/i", "Pleepapier", $text);
 	    $text                = preg_replace("/Gordon/i", "Coke-hoofd", $text);
 	    $text                = preg_replace("/Joling/i", "Gootsteenontstopper", $text);
+	    $text                = preg_replace("/Google/i", "DuckDuckGo", $text); // https://twitter.com/TvGeest/status/1065619705375920128
     }
     $text                = preg_replace("/username/i", " *zucht* ", trim($text));
     $text                = preg_replace("/password/i", " *gaap* ", trim($text));
