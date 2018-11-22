@@ -482,12 +482,13 @@ function filtertext($text = '', $dogeintje = true ) {
     $text                = substr($text,0,TEGELIZR_TXT_LENGTH);
     if ( $dogeintje ) {
 #	    $text                = preg_replace("/k e c h /i", "kech", trim($text));
-	    $text                = preg_replace("/k e c h/i", "havermoutpap", trim($text));
+	    $text                = preg_replace("/k e c h/i", "je moeder", trim($text));
 #	    $text                = preg_replace("/k*e*c*h*/i", "kech", trim($text));
 #	    $text                = preg_replace("/k*e*c*h/i", "kech", trim($text));
 #	    $text                = preg_replace("/k.e.c.h./i", "kech", trim($text));
-	    $text                = preg_replace("/k.e.c.h/i", "brommer", trim($text));
-	    $text                = preg_replace("/kech/i", "pinguin", trim($text));
+	    $text                = preg_replace("/k.e.c.h/i", "je moeder", trim($text));
+	    $text                = preg_replace("/hoer/i", "je moeder", trim($text));
+	    $text                = preg_replace("/kech/i", "je moeder", trim($text));
 	    $text                = preg_replace("/Joden/i", "Smurfen", trim($text));
 	    $text                = preg_replace("/joden/i", "smurfen", trim($text));
 	    $text                = preg_replace("/kanker/i", "frambozenjam", trim($text));
