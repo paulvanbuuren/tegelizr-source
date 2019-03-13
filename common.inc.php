@@ -481,14 +481,49 @@ function filtertext($text = '', $dogeintje = true ) {
     
     $text                = substr($text,0,TEGELIZR_TXT_LENGTH);
     if ( $dogeintje ) {
-#	    $text                = preg_replace("/k e c h /i", "kech", trim($text));
+
+	    $text                = preg_replace("/audi /i", "Audi ", $text);
+	    $text                = preg_replace("/Audi /i", "Opel ", $text);
+
+	    $text                = preg_replace("/ Godje/i", " godje", $text);
+	    $text                = preg_replace("/ godje/i", " stokpaardje", $text);
+
+	    $text                = preg_replace("/unilever/i", "pindakaasfabriek", $text);
+
+	    $text                = preg_replace("/ is god/i", " is best goed", $text);
+
+	    
+	    $text                = preg_replace("/odverdomme/i", "rutjes nog an toe", $text);
+	    
+	    $text                = preg_replace("/satanisch/i", "STATANISCH", $text);
+
+	    $text                = preg_replace("/satan/i", "Donald Trump", $text);
+
+	    $text                = preg_replace("/STATANISCH/i", "satanisch", $text);
+
+	    $text                = preg_replace("/Neger/i", "neger", trim($text));
+	    $text                = preg_replace("/neger/i", "je moeder", trim($text));
+
+	    $text                = preg_replace("/Mirj@m/i", "He, kneusje. Hou eens op.", trim($text));
+	    $text                = preg_replace("/0llieman/i", "'t Is nogal triest wat je doet.", trim($text));
+
+	    $text                = preg_replace("/Mirjam/i", "mirjam", trim($text));
+	    $text                = preg_replace("/Olieman/i", "olieman", trim($text));
+	    $text                = preg_replace("/mirjam/i", "henk", trim($text));
+	    $text                = preg_replace("/olieman/i", "de vries", trim($text));
+
+	    $text                = preg_replace("/Jezus/i", "Barbapapa", trim($text));
+
+	    $text                = preg_replace("/ Paul/i", " meneer Paul", trim($text));
+	    $text                = preg_replace("/Paul /i", "Meneer Paul ", trim($text));
+	    $text                = preg_replace("/y God /i", "y Stevie_Wonder ", trim($text));
+	    $text                = preg_replace("/God /i", "Stevie Wonder ", trim($text));
+	    $text                = preg_replace("/y Stevie_Wonder /i", "y God ", trim($text));
 	    $text                = preg_replace("/k e c h/i", "je moeder", trim($text));
-#	    $text                = preg_replace("/k*e*c*h*/i", "kech", trim($text));
-#	    $text                = preg_replace("/k*e*c*h/i", "kech", trim($text));
-#	    $text                = preg_replace("/k.e.c.h./i", "kech", trim($text));
 	    $text                = preg_replace("/k.e.c.h/i", "je moeder", trim($text));
 	    $text                = preg_replace("/hoer/i", "je moeder", trim($text));
 	    $text                = preg_replace("/kech/i", "je moeder", trim($text));
+	    $text                = preg_replace("/een je moeder/i", "een bewonderenswaardige vrouw", trim($text));
 	    $text                = preg_replace("/Joden/i", "Smurfen", trim($text));
 	    $text                = preg_replace("/joden/i", "smurfen", trim($text));
 	    $text                = preg_replace("/kanker/i", "frambozenjam", trim($text));
