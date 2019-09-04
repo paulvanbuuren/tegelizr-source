@@ -17,17 +17,14 @@
 include("../common.inc.php"); 
 include("filecheck.inc.php"); 
 
-$response = array();
+$response 							= array();
+$response[TEGELIZR_JS_START_KEY]	= TEGELIZR_JS_SCRIPTERROR;
 
-$response[TEGELIZR_JS_START_KEY] = TEGELIZR_JS_SCRIPTERROR;
-
-$response1 = verbeteralletegelmetadata( '' );
+$response1							= verbeteralletegelmetadata( '' );
 
 if ( $response1 ) {
-  $response[TEGELIZR_JS_START_KEY]  = TEGELIZR_JS_START_MSG;
-  $response[TEGELIZR_JS_NAV_NEXTKEY]   = $response1[TEGELIZR_JS_NAV_NEXTKEY];
-  
-
+	$response[TEGELIZR_JS_START_KEY]  = TEGELIZR_JS_START_MSG;
+	$response[TEGELIZR_JS_NAV_NEXTKEY]   = $response1[TEGELIZR_JS_NAV_NEXTKEY];
 }
 
 $newJsonString = json_encode( $response );

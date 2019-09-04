@@ -58,15 +58,10 @@ define('HTML_PIJL_VOLGENDE',        '<span class="pijl">&#x203A;</span>');
 $formelementcounter = 0;
 
 
-$mystring = $_SERVER['HTTP_HOST'];
-$findme   = 'hmd.plaatjesgenerator';
-
-$pos = strpos($mystring, $findme);
-
-
-
-
-$style = 'default';
+$style		= 'default';
+$mystring	= $_SERVER['HTTP_HOST'];
+$findme		= 'hmd.plaatjesgenerator';
+$pos		= strpos($mystring, $findme);
 
 if ($pos === false) {
 
@@ -175,11 +170,9 @@ else {
   // Report all PHP errors
   error_reporting(E_ALL);
 
-  $style = 'english';
+//  $style = 'english';
   
 }
-
-
 
 
 if ( file_exists( $path . '/includes/style/' . $style . '/style-configuration.inc.php' ) ) {
@@ -191,7 +184,6 @@ elseif ( file_exists( $path . '/includes/style/default/style-configuration.inc.p
 else {
   die('style file not found: ' . $path . 'includes/style/default/style-configuration.inc.php' );
 }
-
 
 if ( ! defined('STYLING_BLURSTRENGTH' ) ) {
   define('STYLING_BLURSTRENGTH', 2 );
@@ -362,6 +354,23 @@ if ( ! defined('TXT_YOUR_TEXT' ) ) {
 
 if ( ! defined('FONTFILE' ) ) {
   define('FONTFILE', $path."fonts/AbbeyRoadNF.ttf" );
+}
+
+
+if ( ! defined('TEGELTJES_PER_POETSBEURT' ) ) {
+  define('TEGELTJES_PER_POETSBEURT', 100 );
+}
+if ( ! defined('TEGELIZR_NEXTBATCH' ) ) {
+  define('TEGELIZR_NEXTBATCH', 'donextbatch' );
+}
+if ( ! defined('TEGELIZR_STOPBATCH' ) ) {
+  define('TEGELIZR_STOPBATCH', 'nonextbatch' );
+}
+if ( ! defined('VEILIGHEIDSKLEP' ) ) {
+  define('VEILIGHEIDSKLEP', 4 );
+}
+if ( ! defined('PAGING_KEY' ) ) {
+  define('PAGING_KEY', 'lalanextpage' );
 }
 
 
