@@ -575,7 +575,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_ALLES ) ) {
 <?php get_end_htmlheader(); ?>
 <article id="page">
   <h1 id="top"><a href="/"><span><?php echo $titel ?></span></a></h1>
-  <p class="lead">Dit zijn <?php echo count($results) ?> tegeltjes die sinds 16 juni 2015 gemaakt zijn via deze site.</p>
+  <p class="lead">Dit zijn de laatste <?php echo count($results) ?> tegeltjes die gemaakt zijn via deze site.</p>
   <?php 
     echo TheForm();
 

@@ -14,8 +14,8 @@
 
 
 if ( TEGELIZR_DEBUG ) {
-//  $outputyesno = true;
-	$outputyesno = false;
+	$outputyesno = true;
+//	$outputyesno = false;
 }
 else {
 	$outputyesno = false;
@@ -31,8 +31,7 @@ function checkthreefiles( $type = '', $keyfilename = '',  $thumbfilename = '' ) 
 	global $deletedfiles_tegels;
 	global $path;
 	global $outputyesno;
-	
-	
+
 	$groot_image    = $sourcefiles_tegels . $keyfilename . '.png';
 	$groot_txt      = $sourcefiles_tegels . $keyfilename . '.txt';
 	$thumb_image    = $sourcefiles_thumbs . $thumbfilename . '.png';
@@ -134,7 +133,7 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 		// -----------------------------------------------------------------------------------------------------------
 	
 		// eerst de thumbs opruimen
-		$thumbs         = glob($sourcefiles_thumbs . "*.png");
+		$thumbs         = glob( $sourcefiles_thumbs . "*.png" );
 		$replace        = $sourcefiles_thumbs;
 		$with           = '';
 		$pattern        = '|' . $replace . '|i';
@@ -144,9 +143,18 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 		$pattern        = '|(\.png)|i';
 		$thumbs         = preg_replace($pattern, $with, $thumbs);
 		
+		$loopcounter	= 0;
+		
 		rsort($thumbs);
 		
 		foreach( $thumbs as $thethumb) {
+
+			$loopcounter++;
+
+			if ( $loopcounter > TEGELIZR_LAST_1000_IMAGES ) {
+				dodebug('SKIPPING ' . $thethumb . ' want ' . $loopcounter . ' > ' . TEGELIZR_LAST_1000_IMAGES, $outputyesno );    
+				break;
+			}	
 			
 			// door alle thumbs heen lopen
 			$stack          = explode('/', $thethumb);
@@ -198,9 +206,19 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 		$pattern        = '|(\.png)|i';
 		$tegeltjes      = preg_replace($pattern, $with, $tegeltjes);
 		
+		$loopcounter	= 0;
+		
 		rsort($tegeltjes);
 
 		foreach( $tegeltjes as $tegeltje ) {
+
+			$loopcounter++;
+
+			if ( $loopcounter > TEGELIZR_LAST_1000_IMAGES ) {
+				dodebug('SKIPPING ' . $tegeltje . ' want ' . $loopcounter . ' > ' . TEGELIZR_LAST_1000_IMAGES, $outputyesno );    
+				break;
+			}	
+			
 			
 			// door alle thumbs heen lopen
 			$stack          = explode('/', $tegeltje);
@@ -226,9 +244,17 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 		
 		rsort($textfiles);
 		
+		$loopcounter	= 0;
 		
 		foreach( $textfiles as $textfile ) {
 			
+			$loopcounter++;
+
+			if ( $loopcounter > TEGELIZR_LAST_1000_IMAGES ) {
+				dodebug('SKIPPING ' . $textfile . ' want ' . $loopcounter . ' > ' . TEGELIZR_LAST_1000_IMAGES, $outputyesno );    
+				break;
+			}	
+
 			// door alle textbestanden heen lopen
 			$stack          = explode('/', $textfile);
 			$thumb_filename = array_pop($stack);
@@ -240,11 +266,19 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 		
 		// na het opruimen gaan we alle tegeltjes voorzien van de juiste links naar de tegels VOOR en NA de thumbnail
 		$loopcounter = 0;
+
+		dodebug('<h1>Vorige en volgende</h1>', $outputyesno );    
+
+
+		$startat = ( count( $thumbs ) - TEGELIZR_LAST_1000_IMAGES );
 		
-		dodebug('<h1>Vorige en volgende</h1><ul>', $outputyesno );    
-		
+		dodebug('WE GAAN DE LOOP IN: (' . count( $thumbs ) . ' tegeltjes, start at: ' . $startat . ')', $outputyesno );    
+
 		$returnfirst_titel  = '';
 		$returnfirst_url    = '';
+
+
+		dodebug('<ol>', $outputyesno );    
 		
 		foreach( $thumbs as $thethumb) {
 			// door alle thumbs heen lopen
@@ -255,77 +289,89 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 			
 			$vorigenr       = ( $loopcounter - 1);
 			$volgendenr     = ( $loopcounter + 1);
-			
+
 			$groot_txt      = $sourcefiles_tegels . $info[1] . '.txt';
-			
 			$json_data      = file_get_contents( $groot_txt );
 			$all            = json_decode($json_data, true);
-			
-			if( $all ) {
-				
-				$huidige        = $thumbs[$loopcounter] . '.png';      
-				$vorige         = ( isset( $thumbs[$vorigenr] ) ) ? $thumbs[$vorigenr] : '';      
-				$volgende       = ( isset( $thumbs[$volgendenr] ) ) ? $thumbs[$volgendenr] : '';      
-				
-				$boom[$thethumb]                          = '';
-				$boom[$thethumb]['file_thumb']            = $huidige;
-				$boom[$thethumb]['file_date_readable']    = strftime('%e %B %Y',$date);
-				$boom[$thethumb]['txt_tegeltekst']        = $all['txt_tegeltekst'];
-				$boom[$thethumb]['file_name']             = $all['file_name'];
-				$boom[$thethumb]['file_thumb']            = $all['file_thumb'];
-				$boom[$thethumb][TEGELIZR_VIEWS]          = $all[TEGELIZR_VIEWS];
-				
-				if ( $vorige ) {
-					$vorige         = explode('_', $vorige );
-					$vorige         = $vorige[1];
-				}
-				
-				if ( $volgende ) {
-					$volgende       = explode('_', $volgende );
-					$volgende       = $volgende[1];
-				}
-				
-				dodebug('<li><strong>' . $huidige . '</strong> (' . $loopcounter . ')<ul><li>vorige: ' . $vorige . '</li><li>volgende: ' . $volgende . '</ul></li>', $outputyesno );
-				
-				$all['file_thumb']        = $huidige;
-				
-				unset( $all['vorige'] );
-				unset( $all['vorige_titel'] );
-				unset( $all['volgende'] );
-				unset( $all['volgende_titel'] );
-				unset( $all['laatst_bijgewerkt'] );
-				
-				if ( $vorige ) {
-					$vorige_views             = getviews( $sourcefiles_tegels . $vorige . '.txt',true);
-					$all['vorige']            = $vorige;
-					$all['vorige_titel']      = isset($vorige_views['txt_tegeltekst']) ? $vorige_views['txt_tegeltekst'] : $vorige;
-				}
-				if ( $volgende ) {
-					$volgende_views           = getviews( $sourcefiles_tegels . $volgende . '.txt',true);
-					$all['volgende']          = $volgende;
-					$all['volgende_titel']    = isset($volgende_views['txt_tegeltekst']) ? $volgende_views['txt_tegeltekst'] : $volgende;
-				}
-				
-				if ( 1 == $loopcounter ) {
-					$returnfirst_titel  = $all['vorige_titel'];
-					$returnfirst_url    = $all['vorige'];
-				}
-				
-				$all['laatst_bijgewerkt']   = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
 
-				$newJsonString = json_encode($all);
-				file_put_contents( $groot_txt, $newJsonString);
+			$datearray		= explode('-', $info[0]);
+			$datestring		=  $datearray[1] . '/' . $datearray[2] . '/' . $datearray[0]; // MM / DD / YYYY
+			$date 			= strtotime( $datestring );
+
+
+			if ( $loopcounter > TEGELIZR_LAST_1000_IMAGES ) {
+				dodebug('SKIPPING ' . $thethumb . ' want ' . $loopcounter . ' > ' . TEGELIZR_LAST_1000_IMAGES, $outputyesno );    
+				$loopcounter++;
+				continue;
+			}	
+			else {
+
+				if( $all ) {
+					
+					$huidige        = $thumbs[$loopcounter] . '.png';      
+					$vorige         = ( isset( $thumbs[$vorigenr] ) ) ? $thumbs[$vorigenr] : '';      
+					$volgende       = ( isset( $thumbs[$volgendenr] ) ) ? $thumbs[$volgendenr] : '';      
+
+					$boom[$thethumb] = array(
+				        'file_thumb' 			=> $huidige,
+				        'file_date_readable' 	=> strftime('%e %B %Y', $date),
+				        'txt_tegeltekst' 		=> $all['txt_tegeltekst'],
+				        'file_name' 			=> $all['file_name'],
+				        TEGELIZR_VIEWS 			=> $all[TEGELIZR_VIEWS]
+				    );
+	
+					if ( $vorige ) {
+						$vorige         = explode('_', $vorige );
+						$vorige         = $vorige[1];
+					}
+					
+					if ( $volgende ) {
+						$volgende       = explode('_', $volgende );
+						$volgende       = $volgende[1];
+					}
+					
+					dodebug('<li><strong>' . $huidige . '</strong> (' . $loopcounter . ')<ul><li>vorige: ' . $vorige . '</li><li>volgende: ' . $volgende . '</ul></li>', $outputyesno );
+					
+					$all['file_thumb']        = $huidige;
+					
+					unset( $all['vorige'] );
+					unset( $all['vorige_titel'] );
+					unset( $all['volgende'] );
+					unset( $all['volgende_titel'] );
+					unset( $all['laatst_bijgewerkt'] );
+					
+					if ( $vorige ) {
+						$vorige_views             = getviews( $sourcefiles_tegels . $vorige . '.txt',true);
+						$all['vorige']            = $vorige;
+						$all['vorige_titel']      = isset($vorige_views['txt_tegeltekst']) ? $vorige_views['txt_tegeltekst'] : $vorige;
+					}
+					if ( $volgende ) {
+						$volgende_views           = getviews( $sourcefiles_tegels . $volgende . '.txt',true);
+						$all['volgende']          = $volgende;
+						$all['volgende_titel']    = isset($volgende_views['txt_tegeltekst']) ? $volgende_views['txt_tegeltekst'] : $volgende;
+					}
+					
+					if ( 1 == $loopcounter ) {
+						$returnfirst_titel  = $all['vorige_titel'];
+						$returnfirst_url    = $all['vorige'];
+					}
+					
+					$all['laatst_bijgewerkt']   = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
+	
+					$newJsonString = json_encode($all);
+					file_put_contents( $groot_txt, $newJsonString);
+					
+				}
+	
+				$loopcounter++;
 				
-			}
-			
-			$loopcounter++;
+			}		
 
 		}
 		
-		dodebug('</ul>', $outputyesno );    
-		
-		
-		if ( $returnfirst_titel && $returnfirst_titel ) {
+		dodebug('</ol>', $outputyesno );    
+
+		if ( $returnfirst_titel && $returnfirst_url ) {
 			$returnarray[TEGELIZR_JS_NAV_NEXTKEY]   = '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $returnfirst_url . '" title="Bekijk \'' . $returnfirst_titel . '\'">' . $returnfirst_titel . '<span class="pijl">&#10157;</span></a>';
 		}
 		

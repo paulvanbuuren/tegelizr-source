@@ -55,6 +55,10 @@ define('DEFAULT_AANTAL_TEGELS',     12);
 define('HTML_PIJL_VORIGE',          '<span class="pijl">&#x2039;</span>');
 define('HTML_PIJL_VOLGENDE',        '<span class="pijl">&#x203A;</span>');
 
+
+define('TEGELIZR_LAST_1000_IMAGES',	999 );
+
+
 $formelementcounter = 0;
 
 
@@ -163,8 +167,8 @@ elseif ( $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl' ) {
 else {
   define('TEGELIZR_PROTOCOL',         'http://');
 
-//  define('TEGELIZR_DEBUG',            false );
-  define('TEGELIZR_DEBUG',            true );
+  define('TEGELIZR_DEBUG',            false );
+//  define('TEGELIZR_DEBUG',            true );
   define('TEGELIZR_DEBUG_GENERATE',   false );
 
   // Report all PHP errors
@@ -425,14 +429,16 @@ $arrpaginas = array(
 // ===================================================================================================================
 
 function dodebug( $text = '', $doecho = true ) {
-  if ( TEGELIZR_DEBUG && $text ) {
-    if ( $doecho ) {
-      echo $text;
-    }
-    else {
-      return $text;
-    }
-  }
+
+	if ( TEGELIZR_DEBUG && $text ) {
+		if ( $doecho ) {
+			echo $text . '<br>';
+		}
+		else {
+			return $text;
+		}
+	}
+
 }
 
 // ===================================================================================================================
