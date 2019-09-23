@@ -828,7 +828,7 @@
     position: relative;
     text-decoration: none;
     text-align: center;
-    background-image: url(images/default-portfolio.png);
+    background-image: url('images/default-portfolio.png');
     background-repeat: no-repeat;
     background-position: center -15px;
     background-size: contain;
@@ -1009,10 +1009,9 @@
     }
     .dojs.header-image .site-header .wrap .title-area,
     .dojs.pvb .site-header .wrap .title-area {
-      float: left;
-      width: 90%;
-      width: -webkit-calc(100% - 40px);
-      width: calc(100% - 40px);
+		float: left;
+		width: 90%;
+		width: ~"calc(100% - 40px)";
     }
     .dojs .mobile-menu {
       display: none;
@@ -1079,8 +1078,7 @@
   @media only screen and (min-width: 400px) and (max-width: 649px) {
     .dojs.header-image .site-header .wrap .title-area,
     .dojs.pvb .site-header .wrap .title-area {
-      width: -webkit-calc(100% - 90px);
-      width: calc(100% - 90px);
+		width: ~"calc(100% - 90px)";
     }
     .dojs .menu-button {
       font-size: 16px;

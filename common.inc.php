@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.6.5
-// @desc.   Print-stijl aangepast: alleen het tegeltje™ afdrukken.
+// @version 7.6.6
+// @desc.   CSS: font-swap toegevoegd. Quick fix voor update-script. Socmed-knopjes foetsie.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -27,7 +27,7 @@ $path                   = dirname(__FILE__)."/";
 
 // ===================================================================================================================
 
-define('TEGELIZR_VERSION',          '7.6.5');
+define('TEGELIZR_VERSION',          '7.6.6');
 
 // ===================================================================================================================
 
@@ -56,7 +56,7 @@ define('HTML_PIJL_VORIGE',          '<span class="pijl">&#x2039;</span>');
 define('HTML_PIJL_VOLGENDE',        '<span class="pijl">&#x203A;</span>');
 
 
-define('TEGELIZR_LAST_1000_IMAGES',	999 );
+define('TEGELIZR_LAST_1000_IMAGES',	1999 );
 
 
 $formelementcounter = 0;
