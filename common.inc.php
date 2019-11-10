@@ -8,7 +8,7 @@
 // @author  Paul van Buuren
 // @license GPL-2.0+
 // @version 7.6.6
-// @desc.   CSS: font-swap toegevoegd. Quick fix voor update-script. Socmed-knopjes foetsie.
+// @desc.   CSS: font-swap toegevoegd. Quick fix voor update-script.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -56,7 +56,7 @@ define('HTML_PIJL_VORIGE',          '<span class="pijl">&#x2039;</span>');
 define('HTML_PIJL_VOLGENDE',        '<span class="pijl">&#x203A;</span>');
 
 
-define('TEGELIZR_LAST_1000_IMAGES',	1999 );
+define('TEGELIZR_LAST_1000_IMAGES',	2999 );
 
 
 $formelementcounter = 0;
@@ -488,14 +488,19 @@ function filtertext($text = '', $dogeintje = true ) {
     $text                = preg_replace("/,/", ", ", $text);
     $text                = preg_replace("/,  /", ", ", $text);
     $text                = preg_replace("/created by/", "", $text);
+    $text                = preg_replace("/paulo coelho/", "Paulo Coelho", $text);
+    $text                = preg_replace("/Paulo Coelho/", "Jomanda", $text);
     $text                = preg_replace("/S.d.B/", "", $text);
     $text                = preg_replace("/s.d.b/", "", $text);
     $text                = preg_replace("/sdb/", "", $text);
-    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ™#✂]+/", "", trim($text));
+    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"\/ùûüÿàâæçéèêëïîôöœÙÛÜÀÂÆÇÉÈÊËÏÎÔÖŒ™#✂]+/", "", trim($text));
     $text                = removeEmoji( $text );
     
     $text                = substr($text,0,TEGELIZR_TXT_LENGTH);
     if ( $dogeintje ) {
+
+	    $text                = preg_replace("/sociopaths/i", "dong pickers", $text);
+
 
 	    $text                = preg_replace("/audi /i", "Audi ", $text);
 	    $text                = preg_replace("/Audi /i", "Opel ", $text);
@@ -1111,7 +1116,7 @@ function TheForm() {
     return  ' <form role="form" id="posterform' . $suffix . '" name="posterform' . $suffix . '" action="/includes/generate.php" method="get" enctype="multipart/form-data">
     <div class="form-group tekstveld">
       <label for="txt_tegeltekst' . $suffix . '">' . TXT_YOUR_TEXT . '</label>
-      <input type="text" aria-describedby="tekst-tip' . $suffix . '" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]{1,' . TEGELIZR_TXT_LENGTH . '}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst' . $suffix . '" required="required" value="' . TEGELIZR_TXT_VALUE . '" maxlength="' . TEGELIZR_TXT_LENGTH . '" size="' . TEGELIZR_TXT_LENGTH . '" />
+      <input type="text" aria-describedby="tekst-tip' . $suffix . '" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\/ùûüÿàâæçéèêëïîôöœÙÛÜÀÂÆÇÉÈÊËÏÎÔÖŒ]{1,' . TEGELIZR_TXT_LENGTH . '}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst' . $suffix . '" required="required" value="' . TEGELIZR_TXT_VALUE . '" maxlength="' . TEGELIZR_TXT_LENGTH . '" size="' . TEGELIZR_TXT_LENGTH . '" />
       <div role="tooltip" id="tekst-tip' . $suffix . '">Alleen letters, cijfers en leestekens. Maximale lengte ' . TEGELIZR_TXT_LENGTH . ' tekens</div>
     </div>
     <button type="submit" class="btn-primary">' . TEGELIZR_SUBMIT . '</button>
