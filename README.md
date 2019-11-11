@@ -5,7 +5,7 @@ Correct me if I'm wrong. Copy me if I'm right.
 ## Tegelizr.nl
 author:    Paul van Buuren
 
-version:  7.6.1 
+version:  7.6.6 
 
 ## contact:                    
 * ([paul@wbvb.nl](paul@wbvb.nl))
@@ -13,6 +13,7 @@ version:  7.6.1
 * Twitter: [@paulvanbuuren](https://twitter.com/paulvanbuuren/)
 
 ## Versions
+* 7.6.6 - CSS: font-swap toegevoegd. Quick fix voor update-script. Socmed-knopjes foetsie.
 * 7.6.5 - Print-stijl aangepast: alleen het tegeltje™ afdrukken.
 * 7.6.4 - Meer vertaalopties. Wordwrap optioneel. Paginering intelligenter.
 * 7.6.3 - Poging emoji uit te bannen. Met vuur.

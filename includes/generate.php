@@ -301,6 +301,8 @@ function linkbakker( $textstring = '',  $filter = ''  ) {
 
 }
 
+// ===================================================================================================================
+
 function calculatetekstdimensie($fontsize,$font,$text,$image_width,$image_height) {
     
     $coordinaten  = array();

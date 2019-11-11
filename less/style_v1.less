@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.1.0
-// @desc.   CSS structuur aangepast.
+// @version 7.6.6
+// @desc.   CSS: font-swap toegevoegd. Quick fix voor update-script. Socmed-knopjes foetsie.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -15,30 +15,35 @@
 // ===================================================================================================================
 
 @font-face {
-  font-family: icomoon;
-  src: url(../fonts/d2eicons.eot);
-  src: url(../fonts/d2eicons.eot?#iefix)format('embedded-opentype'), url(../fonts/d2eicons.woff)format('woff'), url(../fonts/d2eicons.ttf)format('truetype'), url(../fonts/d2eicons.svg)format('svg');
-  font-weight: 400;
-  font-style: normal
-}
+	font-family: 'icomoon';
+	src:	url('/fonts/d2eicons.eot');
+	src:	url('/fonts/d2eicons.eot?#iefix') format('embedded-opentype'),
+			url('/fonts/d2eicons.woff') format('woff'),
+			url('/fonts/d2eicons.ttf') format('truetype'),
+			url('/fonts/d2eicons.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	font-display: block;
+} 
+
 html {
-  font-family: sans-serif;
-  font-size: 62.5%
+	font-family: sans-serif;
+	font-size: 62.5%
 }
 *, input[type=search] {
-  box-sizing: border-box
+	box-sizing: border-box
 }
 body {
-  background-color: #737371;
-  background-image: url(//cdn.voorwatjes.nl/tegelwand.jpg);
-  background-attachment: fixed;
-  background-position: center center;
-  background-repeat: repeat;
-  color: #333;
-  font-size: 14px;
-  line-height: 1.5625;
-  padding-bottom: 90px;
-  min-height: 100%
+	background-color: #737371;
+	background-image: url('//cdn.voorwatjes.nl/tegelwand.jpg');
+	background-attachment: fixed;
+	background-position: center center;
+	background-repeat: repeat;
+	color: #333;
+	font-size: 14px;
+	line-height: 1.5625;
+	padding-bottom: 90px;
+	min-height: 100%
 }
 article, footer {
   background: #fff;

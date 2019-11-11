@@ -6,8 +6,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.2.1
-// @desc.   Header fonts en tegelizr-logo
+// @version 7.6.6
+// @desc.   CSS: font-swap toegevoegd. Quick fix voor update-script. Socmed-knopjes foetsie.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -16,28 +16,29 @@
 
 .fontincludes() {
   
-  @font-face {
-      font-family: 'headerfont';
-      src: url('/includes/style/hmd/BebasNeue-webfont.eot');
-      src: url('/includes/style/hmd/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
-           url('/includes/style/hmd/BebasNeue-webfont.woff') format('woff'),
-           url('/includes/style/hmd/BebasNeue-webfont.ttf') format('truetype'),
-           url('/includes/style/hmd/BebasNeue-webfont.svg#toronto') format('svg');
-      font-weight: normal;
-      font-style: normal;
-  
-  }
-  
-  @font-face {
-      font-family: 'icomoon';
-      src: url('/fonts/d2eicons.eot');
-      src: url('/fonts/d2eicons.eot?#iefix') format('embedded-opentype'),
-          url('/fonts/d2eicons.woff') format('woff'),
-          url('/fonts/d2eicons.ttf') format('truetype'),
-          url('/fonts/d2eicons.svg') format('svg');
-      font-weight: normal;
-      font-style: normal;
-  } 
+	@font-face {
+		font-family: 'headerfont';
+		src:	url('/includes/style/hmd/BebasNeue-webfont.eot');
+		src:	url('/includes/style/hmd/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
+				url('/includes/style/hmd/BebasNeue-webfont.woff') format('woff'),
+				url('/includes/style/hmd/BebasNeue-webfont.ttf') format('truetype'),
+				url('/includes/style/hmd/BebasNeue-webfont.svg#toronto') format('svg');
+		font-weight: normal;
+		font-style: normal;
+		font-display: swap;
+	}
+	
+	@font-face {
+		font-family: 'icomoon';
+		src: 	url('/fonts/d2eicons.eot');
+		src:	url('/fonts/d2eicons.eot?#iefix') format('embedded-opentype'),
+				url('/fonts/d2eicons.woff') format('woff'),
+				url('/fonts/d2eicons.ttf') format('truetype'),
+				url('/fonts/d2eicons.svg') format('svg');
+		font-weight: normal;
+		font-style: normal;
+		font-display: block;
+	} 
 
 }
 

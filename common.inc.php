@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.6.5
-// @desc.   Print-stijl aangepast: alleen het tegeltje™ afdrukken.
+// @version 7.6.6
+// @desc.   CSS: font-swap toegevoegd. Quick fix voor update-script.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -27,7 +27,7 @@ $path                   = dirname(__FILE__)."/";
 
 // ===================================================================================================================
 
-define('TEGELIZR_VERSION',          '7.6.5');
+define('TEGELIZR_VERSION',          '7.6.6');
 
 // ===================================================================================================================
 
@@ -55,18 +55,17 @@ define('DEFAULT_AANTAL_TEGELS',     12);
 define('HTML_PIJL_VORIGE',          '<span class="pijl">&#x2039;</span>');
 define('HTML_PIJL_VOLGENDE',        '<span class="pijl">&#x203A;</span>');
 
+
+define('TEGELIZR_LAST_1000_IMAGES',	2999 );
+
+
 $formelementcounter = 0;
 
 
-$mystring = $_SERVER['HTTP_HOST'];
-$findme   = 'hmd.plaatjesgenerator';
-
-$pos = strpos($mystring, $findme);
-
-
-
-
-$style = 'default';
+$style		= 'default';
+$mystring	= $_SERVER['HTTP_HOST'];
+$findme		= 'hmd.plaatjesgenerator';
+$pos		= strpos($mystring, $findme);
 
 if ($pos === false) {
 
@@ -168,18 +167,16 @@ elseif ( $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl' ) {
 else {
   define('TEGELIZR_PROTOCOL',         'http://');
 
-//  define('TEGELIZR_DEBUG',            false );
-  define('TEGELIZR_DEBUG',            true );
+  define('TEGELIZR_DEBUG',            false );
+//  define('TEGELIZR_DEBUG',            true );
   define('TEGELIZR_DEBUG_GENERATE',   false );
 
   // Report all PHP errors
   error_reporting(E_ALL);
 
-  $style = 'english';
+//  $style = 'english';
   
 }
-
-
 
 
 if ( file_exists( $path . '/includes/style/' . $style . '/style-configuration.inc.php' ) ) {
@@ -191,7 +188,6 @@ elseif ( file_exists( $path . '/includes/style/default/style-configuration.inc.p
 else {
   die('style file not found: ' . $path . 'includes/style/default/style-configuration.inc.php' );
 }
-
 
 if ( ! defined('STYLING_BLURSTRENGTH' ) ) {
   define('STYLING_BLURSTRENGTH', 2 );
@@ -365,6 +361,23 @@ if ( ! defined('FONTFILE' ) ) {
 }
 
 
+if ( ! defined('TEGELTJES_PER_POETSBEURT' ) ) {
+  define('TEGELTJES_PER_POETSBEURT', 100 );
+}
+if ( ! defined('TEGELIZR_NEXTBATCH' ) ) {
+  define('TEGELIZR_NEXTBATCH', 'donextbatch' );
+}
+if ( ! defined('TEGELIZR_STOPBATCH' ) ) {
+  define('TEGELIZR_STOPBATCH', 'nonextbatch' );
+}
+if ( ! defined('VEILIGHEIDSKLEP' ) ) {
+  define('VEILIGHEIDSKLEP', 4 );
+}
+if ( ! defined('PAGING_KEY' ) ) {
+  define('PAGING_KEY', 'lalanextpage' );
+}
+
+
 // ===================================================================================================================
 
 $sourcefolder           = $path."img/";
@@ -416,14 +429,16 @@ $arrpaginas = array(
 // ===================================================================================================================
 
 function dodebug( $text = '', $doecho = true ) {
-  if ( TEGELIZR_DEBUG && $text ) {
-    if ( $doecho ) {
-      echo $text;
-    }
-    else {
-      return $text;
-    }
-  }
+
+	if ( TEGELIZR_DEBUG && $text ) {
+		if ( $doecho ) {
+			echo $text . '<br>';
+		}
+		else {
+			return $text;
+		}
+	}
+
 }
 
 // ===================================================================================================================
@@ -473,14 +488,19 @@ function filtertext($text = '', $dogeintje = true ) {
     $text                = preg_replace("/,/", ", ", $text);
     $text                = preg_replace("/,  /", ", ", $text);
     $text                = preg_replace("/created by/", "", $text);
+    $text                = preg_replace("/paulo coelho/", "Paulo Coelho", $text);
+    $text                = preg_replace("/Paulo Coelho/", "Jomanda", $text);
     $text                = preg_replace("/S.d.B/", "", $text);
     $text                = preg_replace("/s.d.b/", "", $text);
     $text                = preg_replace("/sdb/", "", $text);
-    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ™#✂]+/", "", trim($text));
+    $text                = preg_replace("/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"\/ùûüÿàâæçéèêëïîôöœÙÛÜÀÂÆÇÉÈÊËÏÎÔÖŒ™#✂]+/", "", trim($text));
     $text                = removeEmoji( $text );
     
     $text                = substr($text,0,TEGELIZR_TXT_LENGTH);
     if ( $dogeintje ) {
+
+	    $text                = preg_replace("/sociopaths/i", "dong pickers", $text);
+
 
 	    $text                = preg_replace("/audi /i", "Audi ", $text);
 	    $text                = preg_replace("/Audi /i", "Opel ", $text);
@@ -1096,7 +1116,7 @@ function TheForm() {
     return  ' <form role="form" id="posterform' . $suffix . '" name="posterform' . $suffix . '" action="/includes/generate.php" method="get" enctype="multipart/form-data">
     <div class="form-group tekstveld">
       <label for="txt_tegeltekst' . $suffix . '">' . TXT_YOUR_TEXT . '</label>
-      <input type="text" aria-describedby="tekst-tip' . $suffix . '" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'ùûüÿàâæçéèêëïîôœÙÛÜÀÂÆÇÉÈÊËÏÎÔŒ]{1,' . TEGELIZR_TXT_LENGTH . '}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst' . $suffix . '" required="required" value="' . TEGELIZR_TXT_VALUE . '" maxlength="' . TEGELIZR_TXT_LENGTH . '" size="' . TEGELIZR_TXT_LENGTH . '" />
+      <input type="text" aria-describedby="tekst-tip' . $suffix . '" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\/ùûüÿàâæçéèêëïîôöœÙÛÜÀÂÆÇÉÈÊËÏÎÔÖŒ]{1,' . TEGELIZR_TXT_LENGTH . '}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst' . $suffix . '" required="required" value="' . TEGELIZR_TXT_VALUE . '" maxlength="' . TEGELIZR_TXT_LENGTH . '" size="' . TEGELIZR_TXT_LENGTH . '" />
       <div role="tooltip" id="tekst-tip' . $suffix . '">Alleen letters, cijfers en leestekens. Maximale lengte ' . TEGELIZR_TXT_LENGTH . ' tekens</div>
     </div>
     <button type="submit" class="btn-primary">' . TEGELIZR_SUBMIT . '</button>

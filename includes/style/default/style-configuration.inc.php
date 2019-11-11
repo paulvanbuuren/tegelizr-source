@@ -34,7 +34,7 @@ define('TEGELIZR_ALLES_TXT', 'alle tegeltjes' );
 define('TEGELIZR_WAAROM', '<li><a href="//wbvb.nl/tegeltjes-maken-is-een-keuze/">waarom tegeltjes</a></li>' );
 define('TEGELIZR_ABOUT_THIS_SITE', 'Over deze site' );
 define('TEGELIZR_REDACTIE_TXT', 'Redactie' );
-define('DO_SOCMED', true );
+define('DO_SOCMED', false );
 define('DO_RATING', true );
 
 define('TXT_DOBETTER', '<p id="leuk">Leuk? Of kun jij het beter? <a href="/">Maak je eigen tegeltje</a>.</p>' );
