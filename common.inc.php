@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.6.6
-// @desc.   CSS: font-swap toegevoegd. Quick fix voor update-script.
+// @version 7.7.1
+// @desc.   Added TEGELIZR_LAST_1000_IMAGES to limit the nr of images to scan by CRON job. Better text replacements.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
@@ -27,7 +27,7 @@ $path                   = dirname(__FILE__)."/";
 
 // ===================================================================================================================
 
-define('TEGELIZR_VERSION',          '7.6.6');
+define('TEGELIZR_VERSION',          '7.7.1');
 
 // ===================================================================================================================
 

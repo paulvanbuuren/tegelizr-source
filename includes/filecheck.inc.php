@@ -7,8 +7,8 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.0.3
-// @desc.   Favicon. Tegeldatum.
+// @version 7.7.1
+// @desc.   Added TEGELIZR_LAST_1000_IMAGES to limit the nr of images to scan by CRON job. Better text replacements.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
