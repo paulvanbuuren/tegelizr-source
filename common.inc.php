@@ -64,48 +64,53 @@ $formelementcounter = 0;
 
 $style		= 'default';
 $mystring	= $_SERVER['HTTP_HOST'];
-$findme		= 'hmd.plaatjesgenerator';
-$pos		= strpos($mystring, $findme);
 
-if ($pos === false) {
-
-  $findme   = 'hkd.plaatjesgenerator';
-  
-  $pos = strpos($mystring, $findme);
-  
-  if ($pos === false) {
-
-    $findme   = 'hvd.plaatjesgenerator';
-    
-    $pos = strpos($mystring, $findme);
-
-    if ($pos === false) {
-      // niets
-      $findme   = 'mcboatface';
-      $pos = strpos($mystring, $findme);
-      if ($pos === false) {
-        // niets
-      }
-      else {
-        $style = 'boaty';
-      }
-      
-    }
-    else {
-      $style = 'hvd';
-    }
-  
-  }
-  else {
-    $style = 'hkd';
-  }
+if ( $_SERVER['HTTP_HOST'] == 'muppetscentraal.local' || $_SERVER['HTTP_HOST'] == 'www.muppetscentraal.nl' || $_SERVER['HTTP_HOST'] == 'muppetscentraal.nl' ) {
+	$style = 'gebruikercentraal';
+	
 }
-else {
-  $style = 'hmd';
+else{
+
+	$findme		= 'hmd.plaatjesgenerator';
+	$pos		= strpos($mystring, $findme);
+	
+	
+	if ($pos === false) {
+		// het is niet HMD.plaatjesgenerator
+		$findme	= 'hkd.plaatjesgenerator';
+		$pos	= strpos($mystring, $findme);
+		
+		if ($pos === false) {
+			// dit is niet hkd.plaatjesgenerator
+			$findme	= 'hvd.plaatjesgenerator';
+			$pos	= strpos($mystring, $findme);
+			
+			if ($pos === false) {
+				// dit is niet hvd.plaatjesgenerator
+				$findme	= 'mcboatface';
+				$pos	= strpos($mystring, $findme);
+				
+				if ($pos === false) {
+					// dit is niet mcboatface
+				}
+				else {
+					$style = 'boaty';
+				}
+			}
+			else {
+				// dit is wel hvd.plaatjesgenerator
+				$style = 'hvd';
+			}
+			
+		}
+		else {
+			$style = 'hkd';
+		}
+	}
+	else {
+	  $style = 'hmd';
+	}
 }
-
-//$style = 'boaty';
-
 
 
 if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'www.tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'www.tegelizer.nl' || $_SERVER['HTTP_HOST'] == 'tegelizer.nl' ) {
@@ -144,21 +149,37 @@ elseif ( $_SERVER['HTTP_HOST'] == 'hmd.plaatjesgenerator.nl' || $_SERVER['HTTP_H
   error_reporting(0);
   
 }
+
+elseif ( $_SERVER['HTTP_HOST'] == 'gc.plaatjesgenerator.nl'||  $_SERVER['HTTP_HOST'] == 'gebruikercentraal.plaatjesgenerator.nl' ) {
+
+	define('TEGELIZR_PROTOCOL',         'http://');
+	define('TEGELIZR_DEBUG',            false );
+	define('TEGELIZR_DEBUG_GENERATE',   false );
+	
+	$style = 'gebruikercentraal';
+	
+  // Report no PHP errors
+  error_reporting(0);
+  
+}
+elseif ( $_SERVER['HTTP_HOST'] == 'muppetscentraal.local' ) {
+
+	define('TEGELIZR_PROTOCOL',         'http://');
+	define('TEGELIZR_DEBUG',            true );
+	define('TEGELIZR_DEBUG_GENERATE',   true );
+	
+	$style = 'gebruikercentraal';
+	
+	// Report all PHP errors
+	error_reporting(E_ALL);
+  
+}
 elseif ( $_SERVER['HTTP_HOST'] == 'boaty.mcboatface.plaatjesgenerator.nl' || $_SERVER['HTTP_HOST'] == 'boatymcboatface.plaatjesgenerator.nl' ) {
   define('TEGELIZR_PROTOCOL',         'http://');
   define('TEGELIZR_DEBUG',            false );
   define('TEGELIZR_DEBUG_GENERATE',   false );
 
   $style = 'boaty';
-
-  // Report no PHP errors
-  error_reporting(0);
-  
-}
-elseif ( $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl' ) {
-  define('TEGELIZR_PROTOCOL',         'https://');
-  define('TEGELIZR_DEBUG',            false );
-  define('TEGELIZR_DEBUG_GENERATE',   false );
 
   // Report no PHP errors
   error_reporting(0);
@@ -174,8 +195,6 @@ else {
   // Report all PHP errors
   error_reporting(E_ALL);
 
-//  $style = 'english';
-  
 }
 
 
