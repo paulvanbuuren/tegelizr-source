@@ -61,7 +61,7 @@ define('TEGELLABEL_PLURAL',         'plaatjes');
 define('IMG_FAVICONICO', '/404.png' );
 define('IMG_FAVICONAPPLE', '/404.png' );
 
-define('MAIL_PREFIX', 'Gebruiker Centraal' );
+define('MAIL_PREFIX', '[gc-plaatje]' );
 
 define('DO_WORDWRAP', true ); // moeten de woorden op een nieuwe regel gezet worden?
 define('DO_SEARCH', false ); // geen zoekformuliertje
