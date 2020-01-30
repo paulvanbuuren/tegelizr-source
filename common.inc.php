@@ -152,14 +152,14 @@ elseif ( $_SERVER['HTTP_HOST'] == 'hmd.plaatjesgenerator.nl' || $_SERVER['HTTP_H
 
 elseif ( $_SERVER['HTTP_HOST'] == 'gc.plaatjesgenerator.nl'||  $_SERVER['HTTP_HOST'] == 'gebruikercentraal.plaatjesgenerator.nl' ) {
 
-	define('TEGELIZR_PROTOCOL',         'http://');
+	define('TEGELIZR_PROTOCOL',         'https://');
 	define('TEGELIZR_DEBUG',            false );
 	define('TEGELIZR_DEBUG_GENERATE',   false );
 	
 	$style = 'gebruikercentraal';
 	
-  // Report no PHP errors
-  error_reporting(0);
+	// Report no PHP errors
+	error_reporting(0);
   
 }
 elseif ( $_SERVER['HTTP_HOST'] == 'muppetscentraal.local' ) {
@@ -560,6 +560,8 @@ function filtertext($text = '', $dogeintje = true ) {
 	    $text                = preg_replace("/Paul /i", "Meneer Paul ", trim($text));
 	    $text                = preg_replace("/Meneer Meneer Paul/i", "Meneer Paul", trim($text));
 	    $text                = preg_replace("/y God /i", "y Stevie_Wonder ", trim($text));
+	    $text                = preg_replace("/Jahweh /i", "Stevie Wonder ", trim($text));
+	    $text                = preg_replace("/Allah /i", "Stevie Wonder ", trim($text));
 	    $text                = preg_replace("/God /i", "Stevie Wonder ", trim($text));
 	    $text                = preg_replace("/y Stevie_Wonder /i", "y God ", trim($text));
 	    $text                = preg_replace("/k e c h/i", "je moeder", trim($text));
