@@ -56,7 +56,7 @@ define('HTML_PIJL_VORIGE',          '<span class="pijl">&#x2039;</span>');
 define('HTML_PIJL_VOLGENDE',        '<span class="pijl">&#x203A;</span>');
 
 
-define('TEGELIZR_LAST_1000_IMAGES',	2999 );
+define('TEGELIZR_LAST_1000_IMAGES',	2499 );
 
 
 $formelementcounter = 0;
@@ -543,8 +543,16 @@ function filtertext($text = '', $dogeintje = true ) {
 
 	    $text                = preg_replace("/STATANISCH/i", "satanisch", $text);
 
+		// de culture war van februari 2020
+	    $text                = preg_replace("/beter dan chinezen/i", "beter dan elkaar afzeiken", trim($text));
+	    $text                = preg_replace("/Rotterdamse Toon/i", "Haagse Harry", trim($text));
+	    $text                = preg_replace("/Radio 10/i", "Hilversum Drie", trim($text));
+	    $text                = preg_replace("/chinezen/i", "heroïne roken", trim($text));
+
+
 	    $text                = preg_replace("/negeren/i", "n__|__egeren", trim($text));
 	    $text                = preg_replace("/oeren neuken/i", "et milieu een handje helpen", trim($text));
+
 
 	    $text                = preg_replace("/Neger/i", "neger", trim($text));
 	    $text                = preg_replace("/neger/i", "je moeder", trim($text));
