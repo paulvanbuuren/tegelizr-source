@@ -543,6 +543,9 @@ function filtertext($text = '', $dogeintje = true ) {
 
 	    $text                = preg_replace("/STATANISCH/i", "satanisch", $text);
 
+	    $text                = preg_replace("/negeren/i", "n__|__egeren", trim($text));
+	    $text                = preg_replace("/oeren neuken/i", "et milieu een handje helpen", trim($text));
+
 	    $text                = preg_replace("/Neger/i", "neger", trim($text));
 	    $text                = preg_replace("/neger/i", "je moeder", trim($text));
 
@@ -554,6 +557,8 @@ function filtertext($text = '', $dogeintje = true ) {
 	    $text                = preg_replace("/mirjam/i", "henk", trim($text));
 	    $text                = preg_replace("/olieman/i", "de vries", trim($text));
 
+	    $text                = preg_replace("/allerjezus/i", "Barbapapa", trim($text));
+	    $text                = preg_replace("/allejezus/i", "Barbapapa", trim($text));
 	    $text                = preg_replace("/Jezus/i", "Barbapapa", trim($text));
 
 	    $text                = preg_replace("/ Paul/i", " meneer Paul", trim($text));
@@ -599,6 +604,9 @@ function filtertext($text = '', $dogeintje = true ) {
 	    $text                = preg_replace("/Meneer Meneer Paul/i", "Meneer Paul", trim($text));
 	    
     }
+
+    $text                = preg_replace("/__|__/i", "", trim($text));
+    
     $text                = preg_replace("/username/i", " *zucht* ", trim($text));
     $text                = preg_replace("/password/i", " *gaap* ", trim($text));
     $text                = preg_replace("/;DROP /i", " *snurk* ", trim($text));
