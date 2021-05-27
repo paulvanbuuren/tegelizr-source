@@ -501,6 +501,8 @@ function filtertext( $text = '', $dogeintje = true ) {
 	$text = substr( $text, 0, TEGELIZR_TXT_LENGTH );
 	if ( $dogeintje ) {
 
+		$text = preg_replace( "/ylsect/i", "izzelsect", trim( $text ) );
+		$text = preg_replace( "/yslect/i", "ylsect", trim( $text ) );
 
 		$text = preg_replace( "/Farmers Defense Force/i", "kneusjes united", trim( $text ) );
 		$text = preg_replace( "/Farmers Defense/i", "kneusjes united", trim( $text ) );
@@ -571,7 +573,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/c-o-r-o-n-a/i", "corona", trim( $text ) );
 		$text = preg_replace( "/cr0na/i", "corona", trim( $text ) );
 		$text = preg_replace( "/0rona/i", "orona", trim( $text ) );
-		$text = preg_replace( "/corona/i", "je moeder", trim( $text ) );
+		$text = preg_replace( "/corona/i", "prei", trim( $text ) );
 
 		$text = preg_replace( "/negeren/i", "n__|__egeren", trim( $text ) );
 		$text = preg_replace( "/oeren neuken/i", "et milieu een handje helpen", trim( $text ) );
