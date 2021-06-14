@@ -16,5 +16,13 @@ find /home/paulvanb/webapps/tegelizr/ -type f -name "*linkse-ratten*" -exec rm -
 find /home/paulvanb/webapps/tegelizr/ -type f -name "*goud-olie-en-drugs*" -exec rm -vf {} \;
 find /home/paulvanb/webapps/tegelizr/ -type f -name "*landverrader*" -exec rm -vf {} \;
 find /home/paulvanb/webapps/tegelizr/ -type f -name "*appy-birthday*" -exec rm -vf {} \;
+find /home/paulvanb/webapps/tegelizr/ -type f -name "*adolf-befbezem*" -exec rm -vf {} \;
+find /home/paulvanb/webapps/tegelizr/ -type f -name "*marokka*" -exec rm -vf {} \;
+find /home/paulvanb/webapps/tegelizr/ -type f -name "*lavendelnazi*" -exec rm -vf {} \;
+find /home/paulvanb/webapps/tegelizr/ -type f -name "*zuigen*" -exec rm -vf {} \;
+find /home/paulvanb/webapps/tegelizr/ -type f -name "*anaal-is-gewoon-astronomie*" -exec rm -vf {} \;
+find /home/paulvanb/webapps/tegelizr/ -type f -name "*aivd-luistert-mee*" -exec rm -vf {} \;
+find /home/paulvanb/webapps/tegelizr/ -type f -name "*frambozenjam*" -exec rm -vf {} \;
+
 
 echo "Opgeruimd staat netjes"

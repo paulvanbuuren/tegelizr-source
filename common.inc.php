@@ -501,6 +501,27 @@ function filtertext( $text = '', $dogeintje = true ) {
 	$text = substr( $text, 0, TEGELIZR_TXT_LENGTH );
 	if ( $dogeintje ) {
 
+		$text = preg_replace( "/Piet /i", "Henk ", trim( $text ) );
+		$text = preg_replace( "/pepijn/i", "Henk", trim( $text ) );
+		$text = preg_replace( "/janneke/i", "Gerda", trim( $text ) );
+		$text = preg_replace( "/trolld/i", "piept", trim( $text ) );
+		$text = preg_replace( "/trollt/i", "zeikt", trim( $text ) );
+		$text = preg_replace( "/trollen/i", "zeiken", trim( $text ) );
+		$text = preg_replace( "/troll/i", "kneusje met een drankprobleem", trim( $text ) );
+		$text = preg_replace( "/z-w-a-k-b-e-g-a-a-f-d/i", "zwakbegaafd", trim( $text ) );
+		$text = preg_replace( "/zwakbegaafden/i", "je moeder en je cavia", trim( $text ) );
+		$text = preg_replace( "/een zwakbegaafde/i", "je cavia", trim( $text ) );
+		$text = preg_replace( "/zwakbegaafde/i", "je cavia", trim( $text ) );
+		$text = preg_replace( "/zwakbegaafd/i", "je cavia", trim( $text ) );
+		$text = preg_replace( "/ratko mladic/i", "je cavia", trim( $text ) );
+		$text = preg_replace( "/grof geweld/i", "bloemen", trim( $text ) );
+
+		$text = preg_replace( "/1488/i", "sieg heil", trim( $text ) );
+		$text = preg_replace( "/nikker/i", "sieg heil", trim( $text ) );
+		$text = preg_replace( "/uhrer/i", "ührer", trim( $text ) );
+		$text = preg_replace( "/mein führerr/i", "o grote cavia", trim( $text ) );
+		$text = preg_replace( "/sieg heil/i", "adolf befbezem", trim( $text ) );
+
 		$text = preg_replace( "/ylsect/i", "izzelsect", trim( $text ) );
 		$text = preg_replace( "/yslect/i", "ylsect", trim( $text ) );
 
@@ -510,7 +531,9 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Farmers/i", "faaaaaaaaaaarmers", trim( $text ) );
 
 		$text = preg_replace( "/the great reset/i", "je moeder", $text );
-		$text = preg_replace( "/sociopaths/i", "dong pickers", $text );
+
+		$text = preg_replace( "/smart blockchain met mosterd/i", "blockchain", $text );
+		$text = preg_replace( "/blockchain/i", "smart blockchain met mosterd", $text );
 
 		$text = preg_replace( "/A k w a s i/i", "Akwasi", $text );
 		$text = preg_replace( "/Akwasi/i", "Zeeuws Meisje", $text );
@@ -564,14 +587,17 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/k a a g/i", "Kaag", trim( $text ) );
 		$text = preg_replace( "/Kaag/i", "Je moeder", trim( $text ) );
 		$text = preg_replace( "/jol-straat/i", "jolstraat", trim( $text ) );
-		$text = preg_replace( "/d666/i", "Partij voor de Nazi's", trim( $text ) );
+		$text = preg_replace( "/D6666/i", "D66", trim( $text ) );
+		$text = preg_replace( "/D666/", "D66", trim( $text ) );
 		$text = preg_replace( "/jolstraat/i", "Wegisweg", trim( $text ) );
 		$text = preg_replace( "/scheveningen/i", "Nergenshuizen", trim( $text ) );
+		$text = preg_replace( "/c-o-v-i-d/i", "corona", trim( $text ) );
 		$text = preg_replace( "/cojona/i", "corona", trim( $text ) );
 		$text = preg_replace( "/cor ona/i", "corona", trim( $text ) );
 		$text = preg_replace( "/c o r o n a/i", "corona", trim( $text ) );
 		$text = preg_replace( "/c-o-r-o-n-a/i", "corona", trim( $text ) );
 		$text = preg_replace( "/cr0na/i", "corona", trim( $text ) );
+		$text = preg_replace( "/cojhona/i", "corona", trim( $text ) );
 		$text = preg_replace( "/0rona/i", "orona", trim( $text ) );
 		$text = preg_replace( "/corona/i", "prei", trim( $text ) );
 
@@ -582,6 +608,8 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Neger/i", "neger", trim( $text ) );
 		$text = preg_replace( "/neger/i", "je moeder", trim( $text ) );
 
+		$text = preg_replace( "/liveleak/i", "je moeder", trim( $text ) );
+		$text = preg_replace( "/\:\)/i", " De AIVD luistert mee", trim( $text ) );
 
 		$text = preg_replace( "/leppers/i", "sinterklaas", trim( $text ) );
 
@@ -636,6 +664,12 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Pokemon/i", "Pim-Pam-Pet", $text );
 		$text = preg_replace( "/💩/i", "poepscheetkak (hihi)", $text );
 		$text = preg_replace( "/Kanye/i", "Henk", $text );
+
+		$text = preg_replace( "/e t a n y a h/i", "etanyah", $text );
+		$text = preg_replace( "/e-t-a-n-y-a-h/i", "etanyah", $text );
+		$text = preg_replace( "/Netanyahu/i", "Henk de Vries", $text );
+		$text = preg_replace( "/f v d/i", "FvD", $text );
+		$text = preg_replace( "/FvD/i", "Lavendelnazi's", $text );
 		$text = preg_replace( "/Baudet/i", "Lavendelnazi", $text );
 		$text = preg_replace( "/Gordon/i", "Coke-hoofd", $text );
 		$text = preg_replace( "/Joling/i", "Gootsteenontstopper", $text );
