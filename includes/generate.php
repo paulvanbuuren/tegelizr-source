@@ -29,11 +29,89 @@ if ( empty( $_GET['txt_tegeltekst'] ) ) {
 
 // opschonen
 
-$text = filtertext( $_GET['txt_tegeltekst'] );
+function escapeescapers( $sentence = '' ) {
+
+	if ( $sentence ) {
+		$zinnen = explode( ' ', $sentence );
+
+		if ( $zinnen ) {
+
+			$nieuwezin = array();
+			$counter   = 0;
+
+			foreach ( $zinnen as $word ) {
+
+//				echo '<p>' . $counter . ' - ' . $word . ' / volgende: ' . $zinnen[ $counter + 1 ] . ' / ' . count( $zinnen ) . '</p>';
+
+				if ( strlen( $word ) === 1 ) {
+
+					if ( strlen( $zinnen[ $counter + 1 ] ) === 1 ) {
+						$ookvolgendeiskort = true;
+						$spatieteller      = $counter;
+
+						while ( $ookvolgendeiskort ):
+
+							$volgendwoord = $zinnen[ $spatieteller + 1 ];
+
+							if ( strlen( $volgendwoord ) !== 1 ) {
+								$ookvolgendeiskort = false;
+								break;
+							} else {
+
+							}
+
+							$word .= $volgendwoord;
+
+							unset( $zinnen[ $spatieteller ] );
+							unset( $zinnen[ $spatieteller + 1 ] );
+							$spatieteller ++;
+						endwhile;
+
+					} else {
+						$word = null;
+					}
+				} else {
+
+
+					$needle = '.';
+					if ( substr_count( $word, $needle ) > 2 ) {
+						// er komt meer dan 1x een punt in het woord voor
+						$word = preg_replace( '|\.|', '', $word );
+					}
+					$needle = '-';
+					if ( substr_count( $word, $needle ) > 2 ) {
+						// er komt meer dan 1x een streepje in het woord voor
+						$word = preg_replace( '|\-|', '', $word );
+					}
+
+					$word = str_ireplace( 'nikker', 'drek-drek', $word );
+					$word = str_ireplace( 'rifaap', 'drek-drek', $word );
+					$word = str_ireplace( 'neger', 'drek-drek', $word );
+					$word = str_ireplace( 'globalist', 'drek-drek', $word );
+				}
+
+				$counter ++;
+				if ( $word ) {
+					array_push( $nieuwezin, $word );
+				}
+
+
+			}
+
+			$sentence = implode( ' ', $nieuwezin );
+
+		}
+
+	}
+
+	return $sentence;
+}
+
+$esctext = escapeescapers( $_GET['txt_tegeltekst'] );
+$text    = filtertext( $esctext );
 
 // zorgen dat er per unieke tekst maar 1 uniek plaatje aangemaakt wordt
-$hashname = seoUrl( $text );
-//$hashname           = date("Y") . "-" . date("m") . "-" . date("d") . "-" . date("H") . "-" . date("i") . "-" . date("s") . "_" . seoUrl( $text );
+$hashname       = seoUrl( $text );
 $filename       = $hashname . ".png";
 $filename_klein = $hashname . "_thumb.png";
 
@@ -213,7 +291,7 @@ if ( ! file_exists( $destimagepath ) && ! file_exists( $desttextpath ) && ! file
 	}
 
 	$boom                   = array();
-	$boom['txt_tegeltekst'] = filtertext( $_GET['txt_tegeltekst'], true );
+	$boom['txt_tegeltekst'] = filtertext( escapeescapers( $_GET['txt_tegeltekst'] ), true );
 	$boom['file']           = $filename;
 	$boom['file_date']      = mktime( date( "H" ), date( "i" ), date( "s" ), date( "m" ), date( "d" ), date( "Y" ) );
 	$boom['file_thumb']     = $destimagepath_klein;
