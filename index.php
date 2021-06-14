@@ -52,6 +52,7 @@ $filename             = '';
 $desttextpath         = '';
 $tekststring          = 'tegel tegeltje tegeltjeswijsheden';
 $afgevangenzoekstring = '';
+$respond_with_error   = false;
 
 if ( isset( $zinnen[2] ) ) {
 	$filename     = $zinnen[2] . ".png";
@@ -59,10 +60,41 @@ if ( isset( $zinnen[2] ) ) {
 	$desttextpath = $zinnen[2] . ".txt";
 }
 
+
 if ( $zinnen[1] == TEGELIZR_SELECTOR ) {
 	if ( ! file_exists( $sourcefiles_tegels . $filename ) ) {
 		$afgevangenzoekstring = $zinnen[2];
+
+		// De niet-gevonden tegeltjes hoeven niet geindexeerd te worden
+		$respond_with_error = true;
+
 	}
+} else {
+
+
+	if (
+		( $zinnen[1] !== TEGELIZR_REDACTIE ) &&
+		( $zinnen[1] !== TEGELIZR_ALLES ) &&
+		( $zinnen[1] !== TEGELIZR_THUMBS ) &&
+		( $url !== '/' )
+	) {
+
+
+		$respond_with_error = true;
+
+	}
+
+}
+
+if ( $respond_with_error ) {
+	// respond with code 410: 'Gone
+	http_response_code( 410 );
+
+	$titel       = 'Tegel niet gevonden: ' . $url;
+	$mailcontent = 'Tegel niet gevonden: ' . $url;
+
+	mail( "vanbuuren@gmail.com", MAIL_PREFIX_404 . ": " . $titel, $mailcontent, "From: paul@wbvb.nl" );
+
 }
 
 // ===================================================================================================================
@@ -105,22 +137,32 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
     <meta property="article:tag" content="<?php echo TEGELIZR_ALLES; ?>"/>
     <meta property="og:image"
           content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" /><?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php get_end_htmlheader(); ?>
-    <article id="page" class="resultaat"><h1 id="top"><a href="/"><span>Redactie</span></a></h1><p>Deze website is
-        gemaakt door mij, <a href="https://wbvb.nl/">Paul van Buuren.</a></p><p>Ik houd niet bij wie welk tegeltje
-        gemaakt heeft. Als een tegeltje me niet bevalt, haal ik het weg. Zo kan ik niet zo goed tegen enorme spelfouten.
-        En tegeltjes die neerkomen op hetzelfde haal ik ook weg, zoals alle variaties op: 'Niet zo leuk als een tegel
-        met een spreuk' of: 'Beter dik in de kist dan een feestje gemist'. <em>Been there, done that</em>. Ook tegeltjes
-        met persoonsnamen houden het meestal niet zo lang vol hier.</p><p>Door de tekst op een tegeltje te zetten
-        verandert er niet opeens iets aan het auteursrecht van de tekst. Het auteursrecht erop valt niet aan mij toe,
-        noch aan degene de tekst invoerde.</p><p>Wie teksten invoert op deze site moet ermee leren leven dat ik de
-        teksten misschien aanpas. Zo wordt 'Facebook' altijd 'het satanische Facebook' op de tegeltjes. Als je dat niet
-        leuk vindt, jammer.</p><p>Maar goed, nu jij. <a href="/">Maak eens een leuk tegeltje</a>.</p>
-	<?php echo wbvb_d2e_socialbuttons( $desturl, $titel, TEGELIZR_SUMMARY ) ?>
-	<?php
-	echo TheForm();
-	echo showthumbs( DEFAULT_AANTAL_TEGELS, '', $pagenumber );
-	echo TheModalWindow();
-	?>
+    <article id="page" class="resultaat"><h1 id="top"><a href="/"><span>Redactie</span></a></h1>
+        <p>Deze website is
+            gemaakt door mij, <a href="https://wbvb.nl/">Paul van Buuren.</a></p>
+        <p>Ik houd niet bij wie welk tegeltje
+            gemaakt heeft. Als een tegeltje me niet bevalt, haal ik het weg. Zo kan ik niet zo goed tegen enorme
+            spelfouten.
+            En tegeltjes die neerkomen op hetzelfde haal ik ook weg, zoals alle variaties op: 'Niet zo leuk als een
+            tegel
+            met een spreuk' of: 'Beter dik in de kist dan een feestje gemist'. <em>Been there, done that</em>. Ook
+            tegeltjes
+            met persoonsnamen houden het meestal niet zo lang vol hier.</p>
+        <p>Door de tekst op een tegeltje te zetten
+            verandert er niet opeens iets aan het auteursrecht van de tekst. Het auteursrecht erop valt niet aan mij
+            toe,
+            noch aan degene de tekst invoerde.</p>
+        <p>Wie teksten invoert op deze site moet ermee leren leven dat ik de
+            teksten misschien aanpas. Zo wordt 'Facebook' altijd 'het satanische Facebook' op de tegeltjes. Als je dat
+            niet
+            leuk vindt, jammer.</p>
+        <p>Maar goed, nu jij. <a href="/">Maak eens een leuk tegeltje</a>.</p>
+		<?php echo wbvb_d2e_socialbuttons( $desturl, $titel, TEGELIZR_SUMMARY ) ?>
+		<?php
+		echo TheForm();
+		echo showthumbs( DEFAULT_AANTAL_TEGELS, '', $pagenumber );
+		echo TheModalWindow();
+		?>
     </article>
 	<?php
 
@@ -181,7 +223,7 @@ elseif (
 
 
 	?>
-    <meta property="og:title" content="<?php echo $titeltw; ?>" />
+    <meta property="og:title" content="<?php echo $titeltw; ?>"/>
     <meta name="description" content="<?php echo $titeltw . ' -  ' . TEGELIZR_METADESC ?>">
     <meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>"/>
     <meta name="twitter:title" content="<?php echo $titeltw; ?>"/>
