@@ -1,0 +1,2 @@
+User-agent: * 
+Disallow: /tegeltje/mirjam-olieman-je-bent-een-lelijke-slik-heks
