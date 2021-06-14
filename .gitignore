@@ -49,3 +49,6 @@ includes/style/hmd/hmd-new.png
 *.codekit3
 *.codekit3
 config.codekit3
+
+.idea/
+*.iml
