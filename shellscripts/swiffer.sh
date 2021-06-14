@@ -23,6 +23,9 @@ find /home/paulvanb/webapps/tegelizr/ -type f -name "*zuigen*" -exec rm -vf {} \
 find /home/paulvanb/webapps/tegelizr/ -type f -name "*anaal-is-gewoon-astronomie*" -exec rm -vf {} \;
 find /home/paulvanb/webapps/tegelizr/ -type f -name "*aivd-luistert-mee*" -exec rm -vf {} \;
 find /home/paulvanb/webapps/tegelizr/ -type f -name "*frambozenjam*" -exec rm -vf {} \;
+find /home/paulvanb/webapps/tegelizr/ -type f -name "*drek-drek*" -exec rm -vf {} \;
+rm /home/paulvanb/webapps/tegelizr/deleted_files/thumbs/*;
+rm /home/paulvanb/webapps/tegelizr/deleted_files/tegeltjes/*;
 
 
 echo "Opgeruimd staat netjes"
