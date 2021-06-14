@@ -276,6 +276,9 @@ if ( ! defined( 'IMG_FAVICONAPPLE' ) ) {
 if ( ! defined( 'MAIL_PREFIX' ) ) {
 	define( 'MAIL_PREFIX', 'Tegelizr' );
 }
+if ( ! defined( 'MAIL_PREFIX_404' ) ) {
+	define( 'MAIL_PREFIX_404', 'TEGEL_NIET_GEVONDEN' );
+}
 
 if ( ! defined( 'DO_WORDWRAP' ) ) {
 	define( 'DO_WORDWRAP', true );
@@ -498,6 +501,11 @@ function filtertext( $text = '', $dogeintje = true ) {
 	$text = preg_replace( "/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"\/ùûüÿàâæçéèêëïîôöœÙÛÜÀÂÆÇÉÈÊËÏÎÔÖŒ™#✂]+/", "", trim( $text ) );
 	$text = removeEmoji( $text );
 
+//	een v.a.c.c.i.n 1
+
+//	preg_replace
+
+
 	$text = substr( $text, 0, TEGELIZR_TXT_LENGTH );
 	if ( $dogeintje ) {
 
@@ -574,7 +582,8 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/gevaccineerden/i", "wappies", trim( $text ) );
 		$text = preg_replace( "/gevaccineerd/i", "beschermd", trim( $text ) );
 		$text = preg_replace( "/vaccins/i", "musea", trim( $text ) );
-		$text = preg_replace( "/vaccin/i", "je moeder", trim( $text ) );
+		$text = preg_replace( "/een vaccin/i", "vitamine C", trim( $text ) );
+		$text = preg_replace( "/vaccin/i", "vitamine C", trim( $text ) );
 		$text = preg_replace( "/vaccinatie/i", "contemplatie", trim( $text ) );
 		$text = preg_replace( "/vaccineren/i", "boeken lezen", trim( $text ) );
 		$text = preg_replace( "/Covid 19/i", "covid-19", trim( $text ) );
@@ -591,7 +600,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/D666/", "D66", trim( $text ) );
 		$text = preg_replace( "/jolstraat/i", "Wegisweg", trim( $text ) );
 		$text = preg_replace( "/scheveningen/i", "Nergenshuizen", trim( $text ) );
-		$text = preg_replace( "/c-o-v-i-d/i", "corona", trim( $text ) );
+		$text = preg_replace( "/covid-19/i", "corona", trim( $text ) );
 		$text = preg_replace( "/cojona/i", "corona", trim( $text ) );
 		$text = preg_replace( "/cor ona/i", "corona", trim( $text ) );
 		$text = preg_replace( "/c o r o n a/i", "corona", trim( $text ) );
@@ -604,9 +613,8 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/negeren/i", "n__|__egeren", trim( $text ) );
 		$text = preg_replace( "/oeren neuken/i", "et milieu een handje helpen", trim( $text ) );
 
-
-		$text = preg_replace( "/Neger/i", "neger", trim( $text ) );
-		$text = preg_replace( "/neger/i", "je moeder", trim( $text ) );
+		$text = preg_replace( "/dobbernikker/i", "dobberneger", trim( $text ) );
+		$text = preg_replace( "/dobberneger/i", "wie deze tegel maakte is een minderwaardig mens en een racist", trim( $text ) );
 
 		$text = preg_replace( "/liveleak/i", "je moeder", trim( $text ) );
 		$text = preg_replace( "/\:\)/i", " De AIVD luistert mee", trim( $text ) );
@@ -629,10 +637,6 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/allerjezus/i", "Barbapapa", trim( $text ) );
 		$text = preg_replace( "/allejezus/i", "Barbapapa", trim( $text ) );
 		$text = preg_replace( "/Jezus/i", "Barbapapa", trim( $text ) );
-
-//	    $text                = preg_replace("/ Paul/i", " meneer Paul", trim($text));
-//	    $text                = preg_replace("/Paul /i", "Meneer Paul ", trim($text));
-//	    $text                = preg_replace("/Meneer Meneer Paul/i", "Meneer Paul", trim($text));
 		$text = preg_replace( "/y God /i", "y Stevie_Wonder ", trim( $text ) );
 		$text = preg_replace( "/Jahweh /i", "Stevie Wonder ", trim( $text ) );
 		$text = preg_replace( "/Allah /i", "Stevie Wonder ", trim( $text ) );
