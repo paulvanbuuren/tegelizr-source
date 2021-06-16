@@ -90,10 +90,13 @@ if ( $respond_with_error ) {
 	// respond with code 410: 'Gone
 	http_response_code( 410 );
 
-	$titel       = 'Tegel niet gevonden: ' . $url;
-	$mailcontent = 'Tegel niet gevonden: ' . $url;
-
-	mail( "vanbuuren@gmail.com", MAIL_PREFIX_404 . ": " . $titel, $mailcontent, "From: paul@wbvb.nl" );
+	$titel = "\n" . date( "Y-m-d" ) . ' - ' . date( "h:i:sa" ) . ' - 404 tegel niet gevonden: ' . $url;
+//	$mailcontent = 'Tegel niet gevonden: ' . $url;
+//
+//	mail( "vanbuuren@gmail.com", MAIL_PREFIX_404 . ": " . $titel, $mailcontent, "From: paul@wbvb.nl" );
+	$fp = fopen( date( "Y-m-d" ) . '-404.log', 'a' );//opens file in append mode
+	fwrite( $fp, $titel );
+	fclose( $fp );
 
 }
 
