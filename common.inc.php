@@ -586,8 +586,6 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/vaccin/i", "vitamine C", trim( $text ) );
 		$text = preg_replace( "/vaccinatie/i", "contemplatie", trim( $text ) );
 		$text = preg_replace( "/vaccineren/i", "boeken lezen", trim( $text ) );
-		$text = preg_replace( "/Covid 19/i", "covid-19", trim( $text ) );
-		$text = preg_replace( "/covid-19/i", "appeltaart", trim( $text ) );
 		$text = preg_replace( "/Marc Kaptein/i", "Henk de Vries", trim( $text ) );
 		$text = preg_replace( "/EU-Grandeurs/i", "Henk de Vries", trim( $text ) );
 
@@ -600,9 +598,13 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/D666/", "D66", trim( $text ) );
 		$text = preg_replace( "/jolstraat/i", "Wegisweg", trim( $text ) );
 		$text = preg_replace( "/scheveningen/i", "Nergenshuizen", trim( $text ) );
+
+		$text = preg_replace( "/Covid/i", "covid-19", trim( $text ) );
+		$text = preg_replace( "/Covid 19/i", "covid-19", trim( $text ) );
 		$text = preg_replace( "/covid-19/i", "corona", trim( $text ) );
 		$text = preg_replace( "/cojona/i", "corona", trim( $text ) );
 		$text = preg_replace( "/cor ona/i", "corona", trim( $text ) );
+		$text = preg_replace( "/co ro na/i", "corona", trim( $text ) );
 		$text = preg_replace( "/c o r o n a/i", "corona", trim( $text ) );
 		$text = preg_replace( "/c-o-r-o-n-a/i", "corona", trim( $text ) );
 		$text = preg_replace( "/cr0na/i", "corona", trim( $text ) );
