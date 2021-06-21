@@ -27,7 +27,7 @@ $path = dirname( __FILE__ ) . "/";
 
 // ===================================================================================================================
 
-define( 'TEGELIZR_VERSION', '7.7.1' );
+define( 'TEGELIZR_VERSION', '7.7.2' );
 
 // ===================================================================================================================
 
@@ -672,7 +672,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Thierry Baudet/i", "Lavendelnazi", trim( $text ) );
 		$text = preg_replace( "/baudet/i", "Baudet", trim( $text ) );
 		$text = preg_replace( "/Baudet/i", "Lavendelnazi", trim( $text ) );
-		$text = preg_replace( "/Wilders/", "Zaadslurf", trim( $text ) );
+		$text = preg_replace( "/Wilders/i", "Zaadslurf", trim( $text ) );
 		$text = preg_replace( "/PVV/", "NSB", trim( $text ) );
 		$text = preg_replace( "/moslima/i", "Tante Truus", trim( $text ) );
 		$text = preg_replace( "/Tante Truus's/i", "Tante Truusjes", trim( $text ) );
