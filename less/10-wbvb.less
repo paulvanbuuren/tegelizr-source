@@ -1,4 +1,3 @@
-
 ///
 // Tegelizr - 10-wbvb.less
 // ----------------------------------------------------------------------------------
@@ -15,8 +14,8 @@
 // ===================================================================================================================
 
 .wbvbstyle() {
-    
-  
+
+
   /* LESS - http://lesscss.org style sheet */
   /* Palette color codes */
   /* Palette URL: http://paletton.com/#uid=c5z2K0O3C0krxkyjashohp7vNg8HsaM */
@@ -77,7 +76,6 @@
   body {
     margin: 0;
   }
-
 
   abbr[title] {
     border-bottom: 1px dotted;
@@ -282,8 +280,10 @@
     text-decoration: underline;
   }
   p {
-    margin: 0 0 16px 0;
+    hyphens: auto;
     padding: 0;
+    margin: 0 0 1rem 0;
+    margin-bottom: 1rem;
   }
   strong {
     font-weight: 700;
@@ -292,21 +292,21 @@
   ul {
     padding: 0 0 0 16px;
   }
-  blockquote,
-  blockquote::before {
-    color: #000;
-  }
   blockquote {
-    margin: 16px;
+    margin: 1rem;
+    font-style: italic;
+    max-width: 50%;
+    float: right;
+    padding: 0 0 1rem 1rem;
   }
   blockquote::before {
     content: "\201C";
-    display: block;
-    font-size: 30px;
+    display: inline-block;
+    font-size: 4rem;
     height: 0;
-    left: -16px;
+    left: -1rem;
     position: relative;
-    top: -16px;
+    top: 1rem;
   }
   .entry-content code {
     display: block;
@@ -335,13 +335,6 @@
     clear: both;
     text-align: right;
     font-style: normal;
-  }
-  p {
-    -webkit-hyphens: auto;
-    -moz-hyphens: auto;
-    -ms-hyphens: auto;
-    -o-hyphens: auto;
-    hyphens: auto;
   }
   b,
   strong {
@@ -816,7 +809,7 @@
     margin: 0;
     min-height: 0;
     font-size: 12px;
-      font-family: @bodyfont;
+    font-family: @bodyfont;
     color: #000;
   }
   .portfolio-item a,
@@ -930,6 +923,7 @@
       overflow: hidden;
       margin: 16px 0;
     }
+
     .entry-header .social-media,
     .entry-footer .social-media {
       display: inline;
@@ -937,11 +931,13 @@
       margin: 0;
       padding: 0;
     }
+
     .entry-header .social-media a span,
     .entry-footer .social-media a span {
       visibility: hidden;
       display: none;
     }
+
     .entry-header .entry-meta,
     .entry-footer .entry-meta {
       width: auto;
@@ -955,20 +951,24 @@
     .wrap {
       max-width: 960px;
     }
+
     .content-sidebar-sidebar .content-sidebar-wrap,
     .sidebar-content-sidebar .content-sidebar-wrap,
     .sidebar-sidebar-content .content-sidebar-wrap {
       width: 740px;
     }
+
     .content,
     .site-header .widget-area {
       width: 620px;
     }
+
     .sidebar-content-sidebar .content,
     .sidebar-sidebar-content .content,
     .content-sidebar-sidebar .content {
       width: 400px;
     }
+
     .footer-widgets-1,
     .footer-widgets-2,
     .footer-widgets-3,
@@ -976,6 +976,7 @@
     .title-area {
       width: 300px;
     }
+
     .header-image .title-area {
       padding: 0 16px;
     }
@@ -1000,28 +1001,31 @@
     }
   }
 
-  
 
   @media only screen and (max-width: 649px) {
     .dojs.header-image .site-header .wrap,
     .dojs.pvb .site-header .wrap {
       position: relative;
     }
+
     .dojs.header-image .site-header .wrap .title-area,
     .dojs.pvb .site-header .wrap .title-area {
-		float: left;
-		width: 90%;
-		width: ~"calc(100% - 40px)";
+      float: left;
+      width: 90%;
+      width: ~"calc(100% - 40px)";
     }
+
     .dojs .mobile-menu {
       display: none;
     }
+
     .dojs .mobile-menu.active {
       display: block;
       overflow: hidden;
       background: #fff;
       width: 100%;
     }
+
     .dojs .mobile-menu ul {
       list-style-type: none;
       margin: 0;
@@ -1031,12 +1035,14 @@
       box-shadow: 7px 0px 6px black;
       margin-bottom: 10px;
     }
+
     .dojs .mobile-menu li {
       min-width: 49.7%;
       float: left;
       display: inline-block;
       margin: 4px 0;
     }
+
     .dojs .mobile-menu a {
       display: block;
       padding: .5em .5em .5em .8em;
@@ -1046,12 +1052,14 @@
       color: #000;
       background: #fff;
     }
+
     .dojs .mobile-menu a:hover,
     .dojs .mobile-menu a:focus,
     .dojs .mobile-menu a:active {
       text-decoration: underline;
       color: #000;
     }
+
     .dojs .menu-button {
       background-color: transparent;
       border: none;
@@ -1066,11 +1074,13 @@
       height: 40px;
       font-family: @headerfont;
     }
+
     .dojs .menu-button:hover,
     .dojs .menu-button:focus,
     .dojs .menu-button:active {
       text-decoration: none;
     }
+
     .nojs .mobile-menu {
       display: block;
     }
@@ -1078,12 +1088,14 @@
   @media only screen and (min-width: 400px) and (max-width: 649px) {
     .dojs.header-image .site-header .wrap .title-area,
     .dojs.pvb .site-header .wrap .title-area {
-		width: ~"calc(100% - 90px)";
+      width: ~"calc(100% - 90px)";
     }
+
     .dojs .menu-button {
       font-size: 16px;
       width: 90px;
     }
+
     .dojs .menu-button:before {
       content: 'menu ';
     }
