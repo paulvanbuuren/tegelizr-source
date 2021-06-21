@@ -5,7 +5,7 @@ Correct me if I'm wrong. Copy me if I'm right.
 ## Tegelizr.nl
 author:    Paul van Buuren
 
-version:  7.7.1 
+version:  7.7.2 
 
 ## contact:                    
 * ([paul@wbvb.nl](paul@wbvb.nl))
@@ -13,6 +13,7 @@ version:  7.7.1
 * Twitter: [@paulvanbuuren](https://twitter.com/paulvanbuuren/)
 
 ## Versions
+* 7.7.2 - Woordenlijst aangescherpt. Tekst onder redactie aangepast. Styling opgepoetst;
 * 7.7.1 - Added TEGELIZR_LAST_1000_IMAGES to limit the nr of images to scan by CRON job. Better text replacements.
 * 7.6.6 - CSS: font-swap toegevoegd. Quick fix voor update-script. Socmed-knopjes foetsie.
 * 7.6.5 - Print-stijl aangepast: alleen het tegeltje™ afdrukken.
