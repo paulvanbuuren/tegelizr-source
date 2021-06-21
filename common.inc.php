@@ -587,6 +587,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/gevaccineerden/i", "wappies", trim( $text ) );
 		$text = preg_replace( "/gevaccineerd/i", "beschermd", trim( $text ) );
 		$text = preg_replace( "/vaccins/i", "musea", trim( $text ) );
+		$text = preg_replace( "/dat vaccin/i", "vitamine C", trim( $text ) );
 		$text = preg_replace( "/een vaccin/i", "vitamine C", trim( $text ) );
 		$text = preg_replace( "/vaccin/i", "vitamine C", trim( $text ) );
 		$text = preg_replace( "/vaccinatie/i", "contemplatie", trim( $text ) );
