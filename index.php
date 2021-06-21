@@ -150,16 +150,17 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
             met een spreuk' of: 'Beter dik in de kist dan een feestje gemist'. <em>Been there, done that</em>. Ook
             tegeltjes
             met persoonsnamen houden het meestal niet zo lang vol hier.</p>
-        <p>Door de tekst op een tegeltje te zetten
+        <p>        <blockquote>Sorry, als je mijn site gebruikt, heb je mijn nare gevoel voor humor voor lief te nemen.
+            <cite>Paul</cite></blockquote>
+        Door de tekst op een tegeltje te zetten
             verandert er niet opeens iets aan het auteursrecht van de tekst. Het auteursrecht erop valt niet aan mij
             toe,
             noch aan degene de tekst invoerde.</p>
-        <blockquote>Sorry, als je mijn site gebruikt, heb je mijn nare gevoel voor humor voor lief te nemen.
-            <cite>Paul</cite></blockquote>
         <p>Wie teksten invoert op deze site moet ermee leren leven dat ik de
             teksten misschien aanpas. Zo wordt 'Facebook' altijd 'het satanische Facebook' op de tegeltjes. Lees <a
                     href="https://wbvb.nl/tegelizr-nl-en-de-cultuuroorlogen/">wat ik doe om
                 het hier leuk te houden</a> voor jou en mij.</p>
+        <p>Mail je vragen naar <a href="mailto:tegelizr@wbvb.nl">tegelizr@wbvb.nl</a>.</p>
         <p>Maar goed, nu jij. Maak eens een leuk tegeltje.</p>
 		<?php echo wbvb_d2e_socialbuttons( $desturl, $titel, TEGELIZR_SUMMARY ) ?>
 		<?php
