@@ -150,12 +150,13 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
             met een spreuk' of: 'Beter dik in de kist dan een feestje gemist'. <em>Been there, done that</em>. Ook
             tegeltjes
             met persoonsnamen houden het meestal niet zo lang vol hier.</p>
-        <p>        <blockquote>Sorry, als je mijn site gebruikt, heb je mijn nare gevoel voor humor voor lief te nemen.
+        <p>
+        <blockquote>Sorry, als je mijn site gebruikt, heb je mijn nare gevoel voor humor voor lief te nemen.
             <cite>Paul</cite></blockquote>
         Door de tekst op een tegeltje te zetten
-            verandert er niet opeens iets aan het auteursrecht van de tekst. Het auteursrecht erop valt niet aan mij
-            toe,
-            noch aan degene de tekst invoerde.</p>
+        verandert er niet opeens iets aan het auteursrecht van de tekst. Het auteursrecht erop valt niet aan mij
+        toe,
+        noch aan degene de tekst invoerde.</p>
         <p>Wie teksten invoert op deze site moet ermee leren leven dat ik de
             teksten misschien aanpas. Zo wordt 'Facebook' altijd 'het satanische Facebook' op de tegeltjes. Lees <a
                     href="https://wbvb.nl/tegelizr-nl-en-de-cultuuroorlogen/">wat ik doe om
@@ -287,6 +288,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 	global $userip;
 
 	$desturl        = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2];
+	$canonical      = TEGELIZR_PROTOCOL . $PREFERED_DOMAIN . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2];
 	$imagesource    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_TEGELFOLDER . '/' . $filename;
 	$views          = getviews( $sourcefiles_tegels . $desttextpath, true );
 	$txt_tegeltekst = isset( $views['txt_tegeltekst'] ) ? filtertext( $views['txt_tegeltekst'], true ) : '';
@@ -310,6 +312,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
 	?>
     <meta property="og:title" content="<?php echo $titel; ?>"/>
+    <link rel="canonical" href="<?php echo $canonical ?>"/>
     <meta name="description" content="<?php echo $txt_tegeltekst . ' - ' . TEGELIZR_METADESC ?>">
     <meta property="og:description" content="<?php echo TEGELIZR_SUMMARY ?>"/>
     <meta name="twitter:title" content="<?php echo $titel; ?>"/>

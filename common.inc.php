@@ -60,10 +60,9 @@ define( 'TEGELIZR_LAST_1000_IMAGES', 2499 );
 
 
 $formelementcounter = 0;
-
-
-$style    = 'default';
-$mystring = $_SERVER['HTTP_HOST'];
+$style              = 'default';
+$mystring           = $_SERVER['HTTP_HOST'];
+$PREFERED_DOMAIN    = 'tegelizr.nl';
 
 if ( $_SERVER['HTTP_HOST'] == 'muppetscentraal.local' || $_SERVER['HTTP_HOST'] == 'www.muppetscentraal.nl' || $_SERVER['HTTP_HOST'] == 'muppetscentraal.nl' ) {
 	$style = 'gebruikercentraal';
@@ -107,6 +106,8 @@ if ( $_SERVER['HTTP_HOST'] == 'muppetscentraal.local' || $_SERVER['HTTP_HOST'] =
 	}
 }
 
+$PREFERED_DOMAIN = 'tegelizr.nl';
+
 
 if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'www.tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'www.tegelizer.nl' || $_SERVER['HTTP_HOST'] == 'tegelizer.nl' ) {
 	define( 'TEGELIZR_PROTOCOL', 'https://' );
@@ -137,6 +138,8 @@ if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'www.teg
 	define( 'TEGELIZR_DEBUG', false );
 	define( 'TEGELIZR_DEBUG_GENERATE', false );
 
+	$PREFERED_DOMAIN = $_SERVER['HTTP_HOST'];
+
 	// Report no PHP errors
 	error_reporting( 0 );
 
@@ -147,6 +150,8 @@ if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'www.teg
 	define( 'TEGELIZR_DEBUG_GENERATE', false );
 
 	$style = 'gebruikercentraal';
+
+	$PREFERED_DOMAIN = $_SERVER['HTTP_HOST'];
 
 	// Report no PHP errors
 	error_reporting( 0 );
@@ -183,6 +188,8 @@ if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'www.teg
 	error_reporting( E_ALL );
 
 }
+
+define( 'PREFERED_DOMAIN', $PREFERED_DOMAIN );
 
 
 if ( file_exists( $path . '/includes/style/' . $style . '/style-configuration.inc.php' ) ) {
@@ -563,7 +570,9 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 		$text = preg_replace( "/ is god/i", " is best goed", $text );
 
-
+		$text = preg_replace( "/tyfus/i", " (zeg, let eens op je taal)", $text );
+		$text = preg_replace( "/godver/i", "jeetjemegrutjes", $text );
+		$text = preg_replace( "/gvd/i", "grutjes nog an toe", $text );
 		$text = preg_replace( "/odverdomme/i", "rutjes nog an toe", $text );
 
 		$text = preg_replace( "/satanisch/i", "STATANISCH", $text );
@@ -579,9 +588,12 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/chinezen/i", "heroïne roken", trim( $text ) );
 
 		// de culture war van maart 2021
+		$text = preg_replace( "/de msm/i", "msm", trim( $text ) );
+		$text = preg_replace( "/msm/i", "facebook", trim( $text ) );
 		$text = preg_replace( "/moderna/i", "je moeder", trim( $text ) );
 		$text = preg_replace( "/pfizer/i", "je moeder", trim( $text ) );
 		$text = preg_replace( "/door vaccin/i", "door gezanik", trim( $text ) );
+		$text = preg_replace( "/vacci nazi/i", "vaccin", trim( $text ) );
 		$text = preg_replace( "/va ccin/i", "vaccin", trim( $text ) );
 		$text = preg_replace( "/vac cin/i", "vaccin", trim( $text ) );
 		$text = preg_replace( "/gevaccineerden/i", "wappies", trim( $text ) );
@@ -589,19 +601,19 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/vaccins/i", "musea", trim( $text ) );
 		$text = preg_replace( "/dat vaccin/i", "vitamine C", trim( $text ) );
 		$text = preg_replace( "/een vaccin/i", "vitamine C", trim( $text ) );
-		$text = preg_replace( "/vaccin/i", "vitamine C", trim( $text ) );
 		$text = preg_replace( "/vaccinatie/i", "contemplatie", trim( $text ) );
 		$text = preg_replace( "/vaccineren/i", "boeken lezen", trim( $text ) );
+		$text = preg_replace( "/vaccin/i", "vitamine C", trim( $text ) );
+
 		$text = preg_replace( "/Marc Kaptein/i", "Henk de Vries", trim( $text ) );
 		$text = preg_replace( "/EU-Grandeurs/i", "Henk de Vries", trim( $text ) );
 
 		$text = preg_replace( "/Sigrid Kaag/i", "Henk de Vries", trim( $text ) );
-		$text = preg_replace( "/k-a-a-g/i", "Kaag", trim( $text ) );
-		$text = preg_replace( "/k a a g/i", "Kaag", trim( $text ) );
 		$text = preg_replace( "/Kaag/i", "Je moeder", trim( $text ) );
 		$text = preg_replace( "/jol-straat/i", "jolstraat", trim( $text ) );
 		$text = preg_replace( "/D6666/i", "D66", trim( $text ) );
 		$text = preg_replace( "/D666/", "D66", trim( $text ) );
+		$text = preg_replace( "/D66/", "die ene partij, hoe heet 'ie ook alweer", trim( $text ) );
 		$text = preg_replace( "/jolstraat/i", "Wegisweg", trim( $text ) );
 		$text = preg_replace( "/scheveningen/i", "Nergenshuizen", trim( $text ) );
 
@@ -623,7 +635,12 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/oeren neuken/i", "et milieu een handje helpen", trim( $text ) );
 
 
+		$text = preg_replace( "/Turk /i", "Eend ", trim( $text ) );
+		$text = preg_replace( "/Turken/i", "Eenden", trim( $text ) );
+		$text = preg_replace( "/Marokkaan/i", "Hobbit", trim( $text ) );
 		$text = preg_replace( "/Marokkanen/i", "Limburgers", trim( $text ) );
+		$text = preg_replace( "/rifapen/i", "stoeptegels", trim( $text ) );
+		$text = preg_replace( "/rifaap/i", "bifi-worstje", trim( $text ) );
 
 
 		$text = preg_replace( "/dobbernikker/i", "dobberneger", trim( $text ) );
@@ -675,6 +692,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Baudet/i", "Lavendelnazi", trim( $text ) );
 		$text = preg_replace( "/Wilders/i", "Zaadslurf", trim( $text ) );
 		$text = preg_replace( "/PVV/", "NSB", trim( $text ) );
+		$text = preg_replace( "/mos lim/i", "moslim", trim( $text ) );
 		$text = preg_replace( "/moslima/i", "Tante Truus", trim( $text ) );
 		$text = preg_replace( "/Tante Truus's/i", "Tante Truusjes", trim( $text ) );
 		$text = preg_replace( "/moslims/i", "Ajax-supporters en wielrenfans", trim( $text ) );
@@ -714,6 +732,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 	}
 
+	$text = preg_replace( "/  /i", " ", trim( $text ) );
 	$text = preg_replace( "/__|__/i", "", trim( $text ) );
 
 	$text = preg_replace( "/username/i", " *zucht* ", trim( $text ) );

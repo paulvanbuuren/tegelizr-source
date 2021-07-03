@@ -34,14 +34,25 @@ function escapeescapers( $sentence = '' ) {
 	if ( $sentence ) {
 		$zinnen = explode( ' ', $sentence );
 
-		if ( $zinnen ) {
+		if ( ! $zinnen ) {
+
+			$needle = '-';
+			if ( substr_count( $sentence, $needle ) > 1 ) {
+				// meerdere streepjes in 1 woord
+				$sentence = preg_replace( '|-|', '', $sentence );
+			}
+			$needle = '.';
+			if ( substr_count( $sentence, $needle ) > 1 ) {
+				// meerdere streepjes in 1 woord
+				$sentence = preg_replace( '|\.|', '', $sentence );
+			}
+
+		} else {
 
 			$nieuwezin = array();
 			$counter   = 0;
 
 			foreach ( $zinnen as $word ) {
-
-//				echo '<p>' . $counter . ' - ' . $word . ' / volgende: ' . $zinnen[ $counter + 1 ] . ' / ' . count( $zinnen ) . '</p>';
 
 				if ( strlen( $word ) === 1 ) {
 
@@ -68,18 +79,18 @@ function escapeescapers( $sentence = '' ) {
 						endwhile;
 
 					} else {
-						$word = null;
+						// het eerste woord in de zin betaat uit 1 letter (bijv. een Engelse zin)
 					}
 				} else {
 
 
 					$needle = '.';
-					if ( substr_count( $word, $needle ) > 2 ) {
+					if ( substr_count( $word, $needle ) > 1 ) {
 						// er komt meer dan 1x een punt in het woord voor
 						$word = preg_replace( '|\.|', '', $word );
 					}
 					$needle = '-';
-					if ( substr_count( $word, $needle ) > 2 ) {
+					if ( substr_count( $word, $needle ) > 1 ) {
 						// er komt meer dan 1x een streepje in het woord voor
 						$word = preg_replace( '|\-|', '', $word );
 					}
@@ -87,6 +98,7 @@ function escapeescapers( $sentence = '' ) {
 					$word = str_ireplace( 'nikker', 'drek-drek', $word );
 					$word = str_ireplace( 'rifaap', 'drek-drek', $word );
 					$word = str_ireplace( 'neger', 'drek-drek', $word );
+					$word = str_ireplace( 'nazie', 'nazi', $word );
 					$word = str_ireplace( 'globalist', 'drek-drek', $word );
 				}
 
@@ -333,8 +345,10 @@ if ( ! file_exists( $destimagepath ) && ! file_exists( $desttextpath ) && ! file
 
 		$mailcontent = "Tekst: \n" . $_GET['txt_tegeltekst'] . "\n";
 		$mailcontent .= "URL: \n";
+		$mailcontent .= $desturl . "\n";
+		$mailcontent .= "IP: \n";
+		$mailcontent .= getUserIP() . "\n";
 
-		$mailcontent .= $desturl;
 		mail( "vanbuuren@gmail.com", MAIL_PREFIX . ": " . $titel, $mailcontent, "From: paul@wbvb.nl" );
 
 	}
@@ -480,6 +494,30 @@ function resize( $newWidth, $targetFile, $originalFile ) {
 	imagepng( $tmp, $targetFile );
 
 
+}
+
+// ===================================================================================================================
+// function om IP-nummer op te vragen
+// ===================================================================================================================
+function getUserIP() {
+	// Get real visitor IP behind CloudFlare network
+	if ( isset( $_SERVER["HTTP_CF_CONNECTING_IP"] ) ) {
+		$_SERVER['REMOTE_ADDR']    = $_SERVER["HTTP_CF_CONNECTING_IP"];
+		$_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+	}
+	$client  = @$_SERVER['HTTP_CLIENT_IP'];
+	$forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+	$remote  = $_SERVER['REMOTE_ADDR'];
+
+	if ( filter_var( $client, FILTER_VALIDATE_IP ) ) {
+		$ip = $client;
+	} elseif ( filter_var( $forward, FILTER_VALIDATE_IP ) ) {
+		$ip = $forward;
+	} else {
+		$ip = $remote;
+	}
+
+	return $ip;
 }
 
 ?>
