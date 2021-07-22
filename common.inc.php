@@ -54,9 +54,9 @@ define( 'TEGELIZR_ZOEK_KNOP', 'zoek' );
 define( 'DEFAULT_AANTAL_TEGELS', 12 );
 define( 'HTML_PIJL_VORIGE', '<span class="pijl">&#x2039;</span>' );
 define( 'HTML_PIJL_VOLGENDE', '<span class="pijl">&#x203A;</span>' );
-
-
 define( 'TEGELIZR_LAST_1000_IMAGES', 2499 );
+define( 'TEGELIZR_COOKIE_KEY', 'tegelizrcookie3' );
+define( 'COOKIESEPARATOR', '_xXx_' );
 
 
 $formelementcounter = 0;
@@ -641,6 +641,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Marokkanen/i", "Limburgers", trim( $text ) );
 		$text = preg_replace( "/rifapen/i", "stoeptegels", trim( $text ) );
 		$text = preg_replace( "/rifaap/i", "bifi-worstje", trim( $text ) );
+		$text = preg_replace( "/white pride/i", "bifi-worstjes", trim( $text ) );
 
 
 		$text = preg_replace( "/dobbernikker/i", "dobberneger", trim( $text ) );
@@ -681,6 +682,9 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/k e c h/i", "je moeder", trim( $text ) );
 		$text = preg_replace( "/k.e.c.h/i", "je moeder", trim( $text ) );
 		$text = preg_replace( "/kech/i", "je moeder", trim( $text ) );
+		$text = preg_replace( "/kkk/i", "wezeltjes in een witte jurk", trim( $text ) );
+		$text = preg_replace( "/kankur/i", "kanker", trim( $text ) );
+		$text = preg_replace( "/kan-ker/i", "kanker", trim( $text ) );
 		$text = preg_replace( "/kanker/i", "frambozenjam", trim( $text ) );
 		$text = preg_replace( "/een je moeder/i", "een bewonderenswaardige vrouw", trim( $text ) );
 
@@ -875,7 +879,7 @@ function showthumbs( $aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage =
 		echo '</ul>';
 	}
 
-	echo '<p><a href="#top" id="totop">Bovenkant</a></p>
+	echo '<p><a href="#top" id="totop2">Bovenkant</a></p>
   </section>';
 
 
@@ -970,11 +974,59 @@ function wbvb_d2e_socialbuttons( $thelink = 'thelink', $thetitle = 'thetitle', $
 	}
 }
 
+// ===================================================================================================================
+
+function get_cookies() {
+
+}
+
+// ===================================================================================================================
+
+function get_cookies() {
+
+	$cookievalue = $_COOKIE[ TEGELIZR_COOKIE_KEY ];
+
+	if ( $cookievalue ) {
+		$cookievalues = explode( COOKIESEPARATOR, $cookievalue );
+//		echo '<div style="position: absolute; top: 10rem; right: 10rem; padding: 2rem; background: white; color: black; border: 2px solid black; z-index: 900;">';
+//		echo '<p>Value: "' . $cookievalue . '"</p><ul>';
+		json
+		if ( $cookievalues ) {
+			echo '<p>Je maakt hier eerder tegeltjes.</p>';
+			echo '<ul>';
+			foreach ( $cookievalues as $cookie ) {
+				echo '<li>' . $cookie . '</li>';
+			}
+			echo '</ul>';
+		}
+//		echo '</div>';
+	}
+	else {
+		echo '<p>get_cookies: ' . $cookievalue . '</p>';
+	}
+
+}
+$userip
+// ===================================================================================================================
+
+function ip_waarschuwing() {
+
+	$userip = get_user_ip()
+
+		$waarschuwing
+
+	echo '<h1>IP waarschuwing</h1>';
+
+	get_cookies();
+
+
+}
 
 // ===================================================================================================================
 function get_end_htmlheader() {
 
 	$endtag = '</head><body class="nojs"><!--' . $_SERVER['HTTP_HOST'] . '-->';
+
 
 	if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'tegelizer.nl' || $_SERVER['HTTP_HOST'] == 'test.tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
 		echo '<style type="text/css">';

@@ -139,7 +139,9 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
     <meta property="article:tag" content="<?php echo TEGELIZR_ALLES; ?>"/>
     <meta property="og:image"
           content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" /><?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php get_end_htmlheader(); ?>
-    <article id="page" class="resultaat"><h1 id="top"><a href="/"><span>Redactie</span></a></h1>
+    <article id="page" class="resultaat">
+	    <?php ip_waarschuwing(); ?>
+        <h1 id="top"><a href="/"><span>Redactie</span></a></h1>
         <p>Deze website is
             gemaakt door mij, <a href="https://wbvb.nl/">Paul van Buuren.</a></p>
         <p>Ik houd niet bij wie welk tegeltje
@@ -239,7 +241,10 @@ elseif (
     <meta property="article:tag" content="<?php echo $tekststring; ?>"/>
     <meta property="og:image"
           content="<?php echo $imagesource ?>" /><?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php get_end_htmlheader(); ?>
-    <article id="page" class="resultaat"><h1 id="top"><a href="/"><span><?php echo $titel; ?></span></a></h1><?php
+    <article id="page" class="resultaat">
+	<?php ip_waarschuwing(); ?>
+
+    <h1 id="top"><a href="/"><span><?php echo $titel; ?></span></a></h1><?php
 
 	global $formelementcounter;
 
@@ -322,7 +327,10 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
     <meta property="article:tag" content="<?php echo $tekststring; ?>"/>
     <meta property="og:image"
           content="<?php echo $imagesource ?>"/><?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php get_end_htmlheader(); ?>
-    <article id="page" id="page" class="resultaat" itemscope itemtype="http://schema.org/ImageObject"><h1 id="top"><a
+    <article id="page" id="page" class="resultaat" itemscope itemtype="http://schema.org/ImageObject">
+	    <?php ip_waarschuwing(); ?>
+
+        <h1 id="top"><a
                     href="/"><span><?php echo $txt_tegeltekst ?></span></a></h1><a
                 href="<?php echo htmlspecialchars( $desturl ) ?>" class="placeholder"><img
                     src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje" itemprop="contentUrl"
@@ -672,6 +680,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
     <title><?php echo TEGELIZR_TITLE ?>- WBVB Rotterdam</title>
 	<?php get_end_htmlheader(); ?>
     <article id="page">
+	    <?php ip_waarschuwing(); ?>
+
         <h1 id="top"><a href="/"><span><?php echo $titel ?></span></a></h1>
         <p class="lead">Dit zijn de laatste <?php echo count( $results ) ?> tegeltjes die gemaakt zijn via deze
             site.</p>
@@ -727,7 +737,9 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
     <meta property="article:tag" content="<?php echo $tekststring; ?>"/>
     <meta property="og:image" content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>"/><title><?php echo TEGELIZR_TITLE ?>- WBVB
     Rotterdam</title><?php get_end_htmlheader(); ?>
-    <article id="page"><h1 id="top"><span><?php echo TEGELIZR_TITLE ?></span>
+    <article id="page">
+	<?php ip_waarschuwing(); ?>
+    <h1 id="top"><span><?php echo TEGELIZR_TITLE ?></span>
     </h1><?php echo wbvb_d2e_socialbuttons( TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], TEGELIZR_TITLE, TEGELIZR_SUMMARY ) ?>
     <p class="lead"> <?php echo TEGELIZR_FORM ?> </p><?php
 	echo TXT_WATHEBJETOCH;

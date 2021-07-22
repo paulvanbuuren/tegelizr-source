@@ -49,10 +49,15 @@ function escapeescapers( $sentence = '' ) {
 
 		} else {
 
-			$nieuwezin = array();
-			$counter   = 0;
+			$nieuwezin   = array();
+			$wordcounter = 0;
+			$counter     = 0;
 
 			foreach ( $zinnen as $word ) {
+
+				$wordcounter ++;
+
+//				echo $wordcounter . ' - "' . $word;
 
 				if ( strlen( $word ) === 1 ) {
 
@@ -94,13 +99,21 @@ function escapeescapers( $sentence = '' ) {
 						// er komt meer dan 1x een streepje in het woord voor
 						$word = preg_replace( '|\-|', '', $word );
 					}
+					$replacer = '[lala-lala]';
+					$word     = preg_replace( '/\bnouri\b/i', 'Henk de Vries', $word );
+					$word     = preg_replace( '/\brifaap\b/i', $replacer, $word );
+					$word     = preg_replace( '/\bnikker\b/i', $replacer, $word );
+					$word     = preg_replace( '/\bneger\b/i', $replacer, $word );
+					$word     = preg_replace( '/\bnazis\b/i', $replacer, $word );
+					$word     = preg_replace( '/\bnazie\b/i', 'nazi', $word );
+					$word     = preg_replace( '/\bnazi\b/i', $replacer, $word );
+					$word     = preg_replace( '/\bverbalisant\b/i', $replacer, $word );
+					$word     = preg_replace( '/\bglobalist\b/i', $replacer, $word );
+					$word     = preg_replace( '/\b1488\b/', $replacer, $word );
 
-					$word = str_ireplace( 'nikker', 'drek-drek', $word );
-					$word = str_ireplace( 'rifaap', 'drek-drek', $word );
-					$word = str_ireplace( 'neger', 'drek-drek', $word );
-					$word = str_ireplace( 'nazie', 'nazi', $word );
-					$word = str_ireplace( 'globalist', 'drek-drek', $word );
 				}
+
+//				echo '" is nu: ' . $word . '<br>';
 
 				$counter ++;
 				if ( $word ) {
@@ -116,6 +129,7 @@ function escapeescapers( $sentence = '' ) {
 
 	}
 
+//die('aargh');
 	return $sentence;
 }
 
@@ -347,7 +361,7 @@ if ( ! file_exists( $destimagepath ) && ! file_exists( $desttextpath ) && ! file
 		$mailcontent .= "URL: \n";
 		$mailcontent .= $desturl . "\n";
 		$mailcontent .= "IP: \n";
-		$mailcontent .= getUserIP() . "\n";
+		$mailcontent .= get_user_ip() . "\n";
 
 		mail( "vanbuuren@gmail.com", MAIL_PREFIX . ": " . $titel, $mailcontent, "From: paul@wbvb.nl" );
 
@@ -358,6 +372,20 @@ if ( ! file_exists( $destimagepath ) && ! file_exists( $desttextpath ) && ! file
 	$destimagepath2       = linkbakker( $destimagepath, $path );
 	$desttextpath2        = linkbakker( $desttextpath, $path );
 	$destimagepath_klein2 = linkbakker( $destimagepath_klein, $path );
+	$cookievalue          = $_GET['txt_tegeltekst'];
+
+	if ( ! isset( $_COOKIE[ TEGELIZR_COOKIE_KEY ] ) ) {
+		// een nieuwe gebruikert. hoi.
+	} else {
+		$cookievalue = $_COOKIE[ TEGELIZR_COOKIE_KEY ] . COOKIESEPARATOR . $_GET['txt_tegeltekst'];
+	}
+
+	$cookieexpire = strtotime( '+365 days' );
+	$cookiepath = '/';
+	$cookiedomain = '/';
+	$cookiesecure = '/';
+
+	setcookie( TEGELIZR_COOKIE_KEY, $cookievalue, $cookieexpire, $cookiepath );
 
 	if ( TEGELIZR_DEBUG_GENERATE && TEGELIZR_DEBUG ) {
 		redirect_naar_verbetermetadatascript( $desturl );
@@ -499,7 +527,7 @@ function resize( $newWidth, $targetFile, $originalFile ) {
 // ===================================================================================================================
 // function om IP-nummer op te vragen
 // ===================================================================================================================
-function getUserIP() {
+function get_user_ip() {
 	// Get real visitor IP behind CloudFlare network
 	if ( isset( $_SERVER["HTTP_CF_CONNECTING_IP"] ) ) {
 		$_SERVER['REMOTE_ADDR']    = $_SERVER["HTTP_CF_CONNECTING_IP"];
