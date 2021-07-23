@@ -53,3 +53,5 @@ config.codekit3
 .idea/
 *.iml
 *.log
+alle-tegeltjes_index.txt
+*.json

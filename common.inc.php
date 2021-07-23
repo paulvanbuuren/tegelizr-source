@@ -395,6 +395,7 @@ if ( ! defined( 'PAGING_KEY' ) ) {
 // ===================================================================================================================
 
 $sourcefolder = $path . "img/";
+$ipblackbook  = $path . 'ip_blackbook_v1.json';
 
 // ===================================================================================================================
 
@@ -976,49 +977,99 @@ function wbvb_d2e_socialbuttons( $thelink = 'thelink', $thetitle = 'thetitle', $
 
 // ===================================================================================================================
 
-function get_cookies() {
+function append_user_to_badlist() {
 
+	global $ipblackbook;
+
+	$userip        = get_user_ip();
+	$data          = array();
+	$file_contents = file_get_contents( $ipblackbook );
+	$baddies       = json_decode( $file_contents );
+
+	if ( $baddies ) {
+		// OK, no problem
+	} else {
+		// empty list?
+		$baddies          = array();
+		$baddies['start'] = 'start';
+	}
+
+	if ( isset( $baddies->$userip ) ) {
+		// staat al op de lijst...
+	} else {
+		$date             = date( 'Y-m-d h:i:s a', time() );
+		$baddies->$userip = array( 'date' => $date );
+		$jsonData         = json_encode( $baddies );
+		file_put_contents( $ipblackbook, $jsonData );
+	}
+	
+	echo 'genoteerd';
+	return true;
 }
 
 // ===================================================================================================================
 
-function get_cookies() {
+function userip_should_be_warned() {
 
-	$cookievalue = $_COOKIE[ TEGELIZR_COOKIE_KEY ];
+	global $path;
+	global $ipblackbook;
 
-	if ( $cookievalue ) {
-		$cookievalues = explode( COOKIESEPARATOR, $cookievalue );
-//		echo '<div style="position: absolute; top: 10rem; right: 10rem; padding: 2rem; background: white; color: black; border: 2px solid black; z-index: 900;">';
-//		echo '<p>Value: "' . $cookievalue . '"</p><ul>';
-		json
-		if ( $cookievalues ) {
-			echo '<p>Je maakt hier eerder tegeltjes.</p>';
-			echo '<ul>';
-			foreach ( $cookievalues as $cookie ) {
-				echo '<li>' . $cookie . '</li>';
-			}
-			echo '</ul>';
-		}
-//		echo '</div>';
+	$return = false;
+	$userip = get_user_ip();
+
+	//Load the file
+	$baddies2 = file_get_contents( $ipblackbook );
+
+	//Decode the JSON data into a PHP array.
+	$baddies = json_decode( $baddies2, true );
+
+	if ( isset( $baddies->$userip ) ) {
+		$return = true;
+	} else {
+		$return = false;
 	}
-	else {
-		echo '<p>get_cookies: ' . $cookievalue . '</p>';
-	}
+
+	return $return;
 
 }
-$userip
+
 // ===================================================================================================================
 
 function ip_waarschuwing() {
 
-	$userip = get_user_ip()
+//	$userip = get_user_ip();
+//	$userip = 'IP' . md5( $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT'] );
+	$waarschuwing = userip_should_be_warned();
 
-		$waarschuwing
+	if ( $waarschuwing ) {
 
-	echo '<h1>IP waarschuwing</h1>';
+		echo '<h1>IP waarschuwing</h1>';
 
-	get_cookies();
+		append_user_to_badlist();
 
+		$cookievalue = $_COOKIE[ TEGELIZR_COOKIE_KEY ];
+
+		if ( $cookievalue ) {
+			$cookievalues = explode( COOKIESEPARATOR, $cookievalue );
+//		echo '<div style="position: absolute; top: 10rem; right: 10rem; padding: 2rem; background: white; color: black; border: 2px solid black; z-index: 900;">';
+//		echo '<p>Value: "' . $cookievalue . '"</p><ul>';
+
+			if ( $cookievalues ) {
+				echo '<p>Je maakt hier eerder tegeltjes.</p>';
+				echo '<ul>';
+				foreach ( $cookievalues as $cookie ) {
+					echo '<li>' . $cookie . '</li>';
+				}
+				echo '</ul>';
+			}
+//		echo '</div>';
+		}
+
+		echo '<p>Je browser:</p><pre>';
+		echo $_SERVER['HTTP_USER_AGENT'];
+		echo '</pre>';
+
+	}
 
 }
 
@@ -1300,7 +1351,6 @@ function TheModalWindow() {
 &times;</button></div> <!-- end .modal-content --></div> <!-- end .modal-overlay -->';
 }
 
-
 // ===================================================================================================================
 
 function TheForm() {
@@ -1320,5 +1370,34 @@ function TheForm() {
     <button type="submit" class="btn-primary">' . TEGELIZR_SUBMIT . '</button>
   </form>';
 }
+
+
+// ===================================================================================================================
+// function om IP-nummer op te vragen
+// ===================================================================================================================
+function get_user_ip() {
+
+	// Get real visitor IP behind CloudFlare network
+	if ( isset( $_SERVER["HTTP_CF_CONNECTING_IP"] ) ) {
+		$_SERVER['REMOTE_ADDR']    = $_SERVER["HTTP_CF_CONNECTING_IP"];
+		$_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+	}
+	$client  = @$_SERVER['HTTP_CLIENT_IP'];
+	$forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+	$remote  = $_SERVER['REMOTE_ADDR'];
+
+	if ( filter_var( $client, FILTER_VALIDATE_IP ) ) {
+		$ip = $client;
+	} elseif ( filter_var( $forward, FILTER_VALIDATE_IP ) ) {
+		$ip = $forward;
+	} else {
+		$ip = $remote;
+	}
+
+	return $ip;
+}
+
+// ===================================================================================================================
+
 
 ?>
