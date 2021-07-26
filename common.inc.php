@@ -997,17 +997,23 @@ function append_user_to_badlist() {
 	if ( isset( $baddies->$userip ) ) {
 		// staat al op de lijst...
 	} else {
-		$date             = date( 'Y-m-d h:i:s a', time() );
-		$baddies->$userip = array( 'date' => $date );
-		$jsonData         = json_encode( $baddies );
+		$date               = date( 'Y-m-d h:i:s a', time() );
+		$baddies[ $userip ] = array( 'date' => $date );
+		$jsonData           = json_encode( $baddies );
 		file_put_contents( $ipblackbook, $jsonData );
 	}
-	
-	echo 'genoteerd';
+
 	return true;
 }
 
 // ===================================================================================================================
+/*
+ * We gaan een gebruiker verbannen als:
+ * - z'n IP-adres op de zwarte lijst staat
+ * - als er andere omstandigheden zijn:
+ *  - uit de lijst met eerder gemaakte tegeltjes blijkt dat 'ie een eikel is; deze lijst komt uit de cookies van de gebruiker
+ *  - als de fingerprint van z'n browser op de lijst met eikels staat
+ */
 
 function userip_should_be_warned() {
 
@@ -1016,6 +1022,9 @@ function userip_should_be_warned() {
 
 	$return = false;
 	$userip = get_user_ip();
+//	if ( ( '80.101.203.6' === $userip ) || ( '::1' === $userip ) ) {
+//		$userip = '80.101.25.10';
+//	}
 
 	//Load the file
 	$baddies2 = file_get_contents( $ipblackbook );
@@ -1023,7 +1032,7 @@ function userip_should_be_warned() {
 	//Decode the JSON data into a PHP array.
 	$baddies = json_decode( $baddies2, true );
 
-	if ( isset( $baddies->$userip ) ) {
+	if ( isset( $baddies[ $userip ] ) ) {
 		$return = true;
 	} else {
 		$return = false;
@@ -1041,18 +1050,18 @@ function ip_waarschuwing() {
 //	$userip = 'IP' . md5( $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT'] );
 	$waarschuwing = userip_should_be_warned();
 
+//	append_user_to_badlist();
+
 	if ( $waarschuwing ) {
 
-		echo '<h1>IP waarschuwing</h1>';
-
-		append_user_to_badlist();
+		echo '<h1 id="top">Wegwezen</h1>';
+		echo '<p>Niemand wil je hier. En dat heb je aan jezelf te danken.</p>';
+		echo '<img src="/img/insect.gif?" alt="" width="200" height="150" style="margin-left: auto; display: block; margin-right: auto;">';
 
 		$cookievalue = $_COOKIE[ TEGELIZR_COOKIE_KEY ];
 
 		if ( $cookievalue ) {
 			$cookievalues = explode( COOKIESEPARATOR, $cookievalue );
-//		echo '<div style="position: absolute; top: 10rem; right: 10rem; padding: 2rem; background: white; color: black; border: 2px solid black; z-index: 900;">';
-//		echo '<p>Value: "' . $cookievalue . '"</p><ul>';
 
 			if ( $cookievalues ) {
 				echo '<p>Je maakt hier eerder tegeltjes.</p>';
@@ -1065,9 +1074,12 @@ function ip_waarschuwing() {
 //		echo '</div>';
 		}
 
-		echo '<p>Je browser:</p><pre>';
-		echo $_SERVER['HTTP_USER_AGENT'];
-		echo '</pre>';
+
+		die();
+
+//		echo '<p>Je browser:</p><pre>';
+//		echo $_SERVER['HTTP_USER_AGENT'];
+//		echo '</pre>';
 
 	}
 
