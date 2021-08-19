@@ -395,7 +395,7 @@ if ( ! defined( 'PAGING_KEY' ) ) {
 // ===================================================================================================================
 
 $sourcefolder = $path . "img/";
-$ipblackbook  = $path . 'ip_blackbook_v1.json';
+$ipblackbook  = $path . 'ip_blackbook_v1.php';
 
 // ===================================================================================================================
 
@@ -1064,7 +1064,7 @@ function ip_waarschuwing() {
 			$cookievalues = explode( COOKIESEPARATOR, $cookievalue );
 
 			if ( $cookievalues ) {
-				echo '<p>Je maakt hier eerder tegeltjes.</p>';
+				echo '<p>Je maakt hier eerder deze tegeltjes:</p>';
 				echo '<ul>';
 				foreach ( $cookievalues as $cookie ) {
 					echo '<li>' . $cookie . '</li>';
