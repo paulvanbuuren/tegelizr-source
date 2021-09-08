@@ -12,6 +12,9 @@ find /home/paulvanb/webapps/tegelizr/ -type f -name "*gaat-met-pensioen*" -exec 
 find /home/paulvanb/webapps/tegelizr/ -type f -name "*proficiat*" -exec rm -vf {} \;
 find /home/paulvanb/webapps/tegelizr/ -type f -name "*lokwinske*" -exec rm -vf {} \;
 find /home/paulvanb/webapps/tegelizr/ -type f -name "*langkous*" -exec rm -vf {} \;
+find /home/paulvanb/webapps/tegelizr/ -type f -name "*youtube*" -exec rm -vf {} \;
+find /home/paulvanb/webapps/tegelizr/ -type f -name "*2083*" -exec rm -vf {} \;
+
 find /home/paulvanb/webapps/tegelizr/ -type f -name "*linkse-ratten*" -exec rm -vf {} \;
 find /home/paulvanb/webapps/tegelizr/ -type f -name "*goud-olie-en-drugs*" -exec rm -vf {} \;
 find /home/paulvanb/webapps/tegelizr/ -type f -name "*landverrader*" -exec rm -vf {} \;
