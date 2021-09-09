@@ -99,6 +99,11 @@ if ( $respond_with_error ) {
 
 }
 
+append_user_to_badlist();
+delete_tegeltje();
+
+
+
 // ===================================================================================================================
 // paging
 $defaultrecords = DEFAULT_AANTAL_TEGELS;
@@ -341,8 +346,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 		echo '<nav id="navnextprev">';
 
 		if ( ( isset( $views[ TEGELIZR_VORIGE ] ) ) || ( isset( $views[ TEGELIZR_VOLGENDE ] ) ) ) {
-			echo isset( $views[ TEGELIZR_VORIGE ] ) ? '<a class="vorige" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[ TEGELIZR_VORIGE ] . '" title="Bekijk \'' . $views[ TEGELIZR_VORIGE_TITEL ] . '\'"><span class="pijl">&#10158;</span>' . $views[ TEGELIZR_VORIGE_TITEL ] . '</a>' : '';
-			echo isset( $views[ TEGELIZR_VOLGENDE ] ) ? '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[ TEGELIZR_VOLGENDE ] . '" title="Bekijk \'' . $views[ TEGELIZR_VOLGENDE_TITEL ] . '\'">' . $views[ TEGELIZR_VOLGENDE_TITEL ] . '<span class="pijl">&#10157;</span></a>' : '';
+			echo isset( $views[ TEGELIZR_VORIGE ] ) ? '<a class="vorige" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[ TEGELIZR_VORIGE ] . '"><span class="pijl">&#10158;</span>' . $views[ TEGELIZR_VORIGE_TITEL ] . '</a>' : '';
+			echo isset( $views[ TEGELIZR_VOLGENDE ] ) ? '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $views[ TEGELIZR_VOLGENDE ] . '">' . $views[ TEGELIZR_VOLGENDE_TITEL ] . '<span class="pijl">&#10157;</span></a>' : '';
 		}
 		echo '&nbsp;</nav>';
 

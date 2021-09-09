@@ -372,7 +372,7 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 		dodebug('</ol>', $outputyesno );    
 
 		if ( $returnfirst_titel && $returnfirst_url ) {
-			$returnarray[TEGELIZR_JS_NAV_NEXTKEY]   = '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $returnfirst_url . '" title="Bekijk \'' . $returnfirst_titel . '\'">' . $returnfirst_titel . '<span class="pijl">&#10157;</span></a>';
+			$returnarray[TEGELIZR_JS_NAV_NEXTKEY]   = '<a class="volgende" href="' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $returnfirst_url . '">' . $returnfirst_titel . '<span class="pijl">&#10157;</span></a>';
 		}
 		
 		$fh             = fopen( TEGELIZR_ALL_DB, 'w') or die("can't open file: " . TEGELIZR_ALL_DB);
