@@ -378,17 +378,17 @@ if ( ! file_exists( $destimagepath ) && ! file_exists( $desttextpath ) && ! file
 		$mailcontent .= "IP: \n";
 		$mailcontent .= $boom['remoteip'] . "\n\n";
 		$mailcontent .= "Verwijder tegeltje: \n";
-		$mailcontent .= $tralala . "\n";
-		$mailcontent .= $urlblockip . "\n\n";
+		$mailcontent .= $urldeleteme . "\n";
+//		$mailcontent .= $urlblockip . "\n\n";
 
 		$data['remoteip'] = $boom['remoteip'];
 		$data['action']   = 'block';
 		$urlblockip       = $desturl . '/?' . http_build_query( $data );
 		$tralala          = "\n" . '<br><a href="' . $urlblockip . '" style="display: inline-block; text-decoration: none; padding: .25rem .75rem; background: black; color: white;"><span style="font-size: 2rem">&#10013;</span> Block &amp; verwijder \'' . $titel . '\'</a>';
 
-		$mailcontent .= "Block IP en verwijder tegeltje: \n";
-		$mailcontent .= $tralala . "\n";
-		$mailcontent .= $urldeleteme . "\n";
+		$mailcontent .= "\n\nBlock IP en verwijder tegeltje: \n";
+		$mailcontent .= $urlblockip . "\n";
+//		$mailcontent .= $urldeleteme . "\n";
 
 		mail( "vanbuuren@gmail.com", MAIL_PREFIX . ": " . $titel, $mailcontent, "From: paul@wbvb.nl" );
 
