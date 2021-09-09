@@ -1,7 +1,7 @@
 
 
 
-<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|inc|bak)$">
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|inc|bak|json|txt)$">
 Order Allow,Deny
 Deny from all
 </FilesMatch>
