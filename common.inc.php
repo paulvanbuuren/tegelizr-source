@@ -395,7 +395,7 @@ if ( ! defined( 'PAGING_KEY' ) ) {
 // ===================================================================================================================
 
 $sourcefolder = $path . "img/";
-$ipblackbook  = $path . 'ip_blackbook_v2.php';
+$ipblackbook  = $path . 'ip_blackbook_v3.json';
 
 // ===================================================================================================================
 
@@ -404,6 +404,7 @@ $sourcefiles_thumbs  = $path . TEGELIZR_THUMBS . "/";
 $deletedfiles_thumbs = $path . TEGELIZR_DELETED_FILES . "/" . TEGELIZR_THUMBS . "/";
 $deletedfiles_tegels = $path . TEGELIZR_DELETED_FILES . "/" . TEGELIZR_TEGELFOLDER . "/";
 $baseimgpath         = STYLEFOLDER . BASEIMAGE;
+
 if ( ! file_exists( $baseimgpath ) ) {
 	die( 'source not found: ' . $baseimgpath );
 }
@@ -887,62 +888,6 @@ function showthumbs( $aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage =
 }
 
 // ===================================================================================================================
-
-function showthumbs_oud( $aantal = 10, $hide = '', $currentpage = 1 ) {
-	global $sourcefiles_thumbs;
-	global $sourcefiles_tegels;
-
-	echo '<section id="andere"><h2>Wat anderen maakten:</h2>';
-	echo '<ul class="thumbs">';
-
-	$counter = 0;
-
-	if ( is_dir( $sourcefiles_thumbs ) ) {
-
-		$images = glob( $sourcefiles_thumbs . "*.png" );
-
-		rsort( $images );
-
-		foreach ( $images as $image ) {
-
-
-			if ( ( $counter >= $aantal ) && ( $aantal > 0 ) ) {
-				break;
-			}
-
-			$stack    = explode( '/', $image );
-			$filename = array_pop( $stack );
-			$info     = explode( '_', $filename );
-			if ( ( file_exists( $sourcefiles_tegels . $info[1] . '.txt' ) ) && ( file_exists( $sourcefiles_tegels . $info[1] . '.png' ) ) ) {
-
-				$views = getviews( $sourcefiles_tegels . $info[1] . '.txt', false );
-
-				if ( $hide == $info[1] ) {
-					//                break;
-				} else {
-
-					if ( $aantal > 0 ) {
-						$counter ++;
-					}
-
-					$txt_tegeltekst = '';
-					if ( isset( $views['txt_tegeltekst'] ) ) {
-						$txt_tegeltekst = filtertext( $views['txt_tegeltekst'], true );
-					}
-
-					$fruit = '<a href="/' . TEGELIZR_SELECTOR . '/' . $info[1] . '" title="' . $txt_tegeltekst . ' - ' . $views[ TEGELIZR_VIEWS ] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $filename . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . $txt_tegeltekst . '" /></a>';
-					echo '<li>' . $fruit . "</li>";
-				}
-
-			}
-
-		}
-	}
-	echo '</ul></section>';
-
-}
-
-// ===================================================================================================================
 // function to strip out unwanted text characters
 // ===================================================================================================================
 function seoUrl( $string ) {
@@ -977,31 +922,151 @@ function wbvb_d2e_socialbuttons( $thelink = 'thelink', $thetitle = 'thetitle', $
 
 // ===================================================================================================================
 
+function delete_tegeltje( $action = '' ) {
+
+	$sourcefiles_tegels = $path . TEGELIZR_TEGELFOLDER . "/";
+	$sourcefiles_thumbs = $path . TEGELIZR_THUMBS . "/";
+
+	global $filename;
+	global $desttextpath;
+	global $sourcefiles_tegels;
+	global $sourcefiles_thumbs;
+	global $ipblackbook;
+
+	// is de sleutel van het tegeltje aanwezig en klopt het met wat in de .txt staat?
+	// en is de algemene sleutel geldig? Dan:
+	// - verwijder thumbnail
+	// - verwijder txt-bestand
+	// - verwijder plaatje
+
+	//  http://tegelizr.test/tegeltje/llldddksdadddddadkdkdkd-asdfa-slfasdfl-asdf/
+	//  ?tegel=2021-09-09-14-44-50_llldddksdadddddadkdkdkd-asdfa-slfasdfl-asdf_thumb.png
+	//  &action=delete&secrit=613a01c5844ef&sauce=16139185c1bce93.62796818
+
+	if ( $_GET['action'] === 'delete' || $action === 'delete' ) {
+		$secrit = htmlspecialchars( $_GET['secrit'] );
+		$sauce  = htmlspecialchars( $_GET['sauce'] );
+
+		if ( ! file_exists( $sourcefiles_tegels . $desttextpath ) ) {
+			return false;
+		} else {
+
+			// txt bestand van tegeltje lezen
+			$file_contents = file_get_contents( $sourcefiles_tegels . $desttextpath );
+			$data          = json_decode( $file_contents );
+			$thumb         = $data->file_thumb;
+
+			if ( $data->secrit === $secrit ) {
+				// de code uit de query string klopt met de code uit het txt bestand
+				$secretkeyfile = $path . 'forbidden-tegeltjes.json';
+				$file_contents = file_get_contents( $secretkeyfile );
+				$secretkey     = json_decode( $file_contents );
+
+				if ( $sauce === $secretkey->sauce ) {
+					// de algemene sleutel klopt ook met de sleutel uit de querystring
+					// dus we mogen verwijderen.
+
+					if ( file_exists( $thumb ) ) {
+						// thumbnail verwijderen
+						unlink( $thumb );
+					}
+
+					if ( file_exists( $sourcefiles_tegels . $desttextpath ) ) {
+						// txt bestand verwijderen
+						unlink( $sourcefiles_tegels . $desttextpath );
+					}
+
+					if ( file_exists( $sourcefiles_tegels . $filename ) ) {
+						// image bestand verwijderen
+						unlink( $sourcefiles_tegels . $filename );
+					}
+
+					// redirect naar home
+					header( 'Location: ' . TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] );
+
+				} else {
+					return false;
+				}
+
+			} else {
+				return false;
+			}
+		}
+	}
+
+}
+
+// ===================================================================================================================
+
+
 function append_user_to_badlist() {
 
 	global $ipblackbook;
+	global $desttextpath;
+	global $sourcefiles_tegels;
 
-	$userip        = get_user_ip();
-	$data          = array();
-	$file_contents = file_get_contents( $ipblackbook );
-	$baddies       = json_decode( $file_contents );
+	$cookievalue       = $_COOKIE[ TEGELIZR_COOKIE_KEY ];
+	$file_contents     = file_get_contents( $ipblackbook );
+	$baddies           = json_decode( $file_contents );
+	$verbodentegeltjes = $baddies->verbodentegeltjes;
+	$userip            = '';
 
-	if ( $baddies ) {
+	if ( $cookievalue ) {
+		$cookievalues = explode( COOKIESEPARATOR, $cookievalue );
+
+		if ( $cookievalues ) {
+			foreach ( $cookievalues as $cookie ) {
+				// kijken of tegels die bezoeker eerder gemaakt heeft op de zwarte lijst staan
+
+				if ( in_array( $cookie, $verbodentegeltjes ) ) {
+					// bezoeker heeft eerder een tegeltje gemaakt dat we
+					// daarna verwijderd en geblokkeerd hebben
+					$userip = get_user_ip();
+					break;
+				}
+			}
+		}
+	}
+
+	if ( $userip ) {
+		// bezoeker is een recidivist vanachter een nieuw IP-nummer
+	} elseif ( ( $_GET['remoteip'] ) && ( $_GET['action'] === 'block' ) ) {
+		$userip = $_GET['remoteip'];
+	} else {
+		return;
+	}
+
+
+	if ( $baddies && $userip ) {
 		// OK, no problem
 	} else {
 		// empty list?
-		$baddies          = array();
-		$baddies['start'] = 'start';
+		$baddies = array();
 	}
 
 	if ( isset( $baddies->$userip ) ) {
 		// staat al op de lijst...
 	} else {
-		$date               = date( 'Y-m-d h:i:s a', time() );
-		$baddies[ $userip ] = array( 'date' => $date );
-		$jsonData           = json_encode( $baddies );
-		file_put_contents( $ipblackbook, $jsonData );
+
+		// voeg IP-adres aan de lijst toe
+		$date             = date( 'Y-m-d h:i:s a', time() );
+		$baddies->$userip = array( 'date' => $date );
+
+		if ( $desttextpath ) {
+			// txt bestand van tegeltje lezen
+			$file_contents = file_get_contents( $sourcefiles_tegels . $desttextpath );
+			$data          = json_decode( $file_contents );
+
+			// voeg de tegeltekst toe aan de verboden lijst
+			$baddies->verbodentegeltjes[] = $data->txt_tegeltekst;
+			$jsonData                     = json_encode( $baddies );
+			file_put_contents( $ipblackbook, $jsonData );
+		}
+
+
 	}
+
+	delete_tegeltje( 'delete' );
 
 	return true;
 }
@@ -1046,11 +1111,7 @@ function userip_should_be_warned() {
 
 function ip_waarschuwing() {
 
-//	$userip = get_user_ip();
-//	$userip = 'IP' . md5( $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT'] );
 	$waarschuwing = userip_should_be_warned();
-
-//	append_user_to_badlist();
 
 	if ( $waarschuwing ) {
 
@@ -1127,9 +1188,9 @@ function getSearchResultItem( $result, $showImage = true ) {
 
 	$return = '<li>';
 	if ( $showImage ) {
-		$return .= '<a href="/' . TEGELIZR_SELECTOR . '/' . $hashname . '" title="' . filtertext( $result['txt_tegeltekst'], true ) . ' - ' . $result[ TEGELIZR_VIEWS ] . ' keer bekeken"><img src="/' . TEGELIZR_THUMBS . '/' . $thumb . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . filtertext( $result['txt_tegeltekst'], true ) . '" /></a>';
+		$return .= '<a href="/' . TEGELIZR_SELECTOR . '/' . $hashname . '"><img src="/' . TEGELIZR_THUMBS . '/' . $thumb . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . filtertext( $result['txt_tegeltekst'], true ) . '" /></a>';
 	}
-	$return .= '<h3><a href="/' . TEGELIZR_SELECTOR . '/' . $hashname . '" title="' . filtertext( $result['txt_tegeltekst'], true ) . ' - ' . $result[ TEGELIZR_VIEWS ] . ' keer bekeken">' . filtertext( $result['txt_tegeltekst'], true ) . '</a></h3><span class="datum">' . $date . '</span><span class="aantalkeer">' . $result[ TEGELIZR_VIEWS ] . ' keer bekeken</span>';
+	$return .= '<h3><a href="/' . TEGELIZR_SELECTOR . '/' . $hashname . '">' . filtertext( $result['txt_tegeltekst'], true ) . '</a></h3><span class="datum">' . $date . '</span><span class="aantalkeer">' . $result[ TEGELIZR_VIEWS ] . ' keer bekeken</span>';
 	if ( $result[ TGLZR_NR_VOTES ] > 0 ) {
 		$return .= ' - <span class="waardering">waardering: ' . $result[ dec_avg ] . ' ';
 		if ( $result[ rounded_avg ] > 1 ) {

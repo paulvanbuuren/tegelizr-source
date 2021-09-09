@@ -24,9 +24,7 @@ if ( empty( $_GET['txt_tegeltekst'] ) ) {
 	header( 'Location: ' . $desturl );
 }
 
-
 // ===================================================================================================================
-
 // opschonen
 
 function escapeescapers( $sentence = '' ) {
@@ -133,6 +131,9 @@ function escapeescapers( $sentence = '' ) {
 	return $sentence;
 }
 
+
+// ===================================================================================================================
+
 $esctext = escapeescapers( $_GET['txt_tegeltekst'] );
 $text    = filtertext( $esctext );
 
@@ -148,7 +149,8 @@ $destimagepath = $sourcefiles_tegels . $filename;
 $desttextpath = $sourcefiles_tegels . $hashname . ".txt";
 
 // output path voor kleine thumbnail tegel
-$destimagepath_klein = $sourcefiles_thumbs . date( "Y" ) . "-" . date( "m" ) . "-" . date( "d" ) . "-" . date( "H" ) . "-" . date( "i" ) . "-" . date( "s" ) . "_" . $filename_klein;
+$thumbfile           = date( "Y" ) . "-" . date( "m" ) . "-" . date( "d" ) . "-" . date( "H" ) . "-" . date( "i" ) . "-" . date( "s" ) . "_" . $filename_klein;
+$destimagepath_klein = $sourcefiles_thumbs . $thumbfile;
 
 $desturl     = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $hashname;
 $imagesource = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . "/" . TEGELIZR_TEGELFOLDER . "/" . $filename;
@@ -319,6 +321,8 @@ if ( ! file_exists( $destimagepath ) && ! file_exists( $desttextpath ) && ! file
 	$boom                   = array();
 	$boom['txt_tegeltekst'] = filtertext( escapeescapers( $_GET['txt_tegeltekst'] ), true );
 	$boom['file']           = $filename;
+	$boom['secrit']         = uniqid();
+	$boom['remoteip']       = get_user_ip();
 	$boom['file_date']      = mktime( date( "H" ), date( "i" ), date( "s" ), date( "m" ), date( "d" ), date( "Y" ) );
 	$boom['file_thumb']     = $destimagepath_klein;
 	$boom[ TEGELIZR_VIEWS ] = 0;
@@ -355,13 +359,36 @@ if ( ! file_exists( $destimagepath ) && ! file_exists( $desttextpath ) && ! file
 
 	if ( $dosendemail ) {
 
-		$titel = filtertext( $_GET['txt_tegeltekst'] );
+		$titel         = filtertext( $_GET['txt_tegeltekst'] );
+		$secretkeyfile = $path . 'forbidden-tegeltjes.json';
+		$file_contents = file_get_contents( $secretkeyfile );
+		$secretkey     = json_decode( $file_contents );
+		$data          = array(
+			'tegel'  => $thumbfile,
+			'action' => 'delete',
+			'secrit' => $boom['secrit'],
+			'sauce'  => $secretkey->sauce
+		);
+		$urldeleteme   = $desturl . '/?' . http_build_query( $data );
+		$tralala       = "\n" . '<br><a href="' . $urldeleteme . '" style="display: inline-block; text-decoration: none; padding: .25rem .75rem; background: red; color: white;"><span style="font-size: 2rem">&#9888;</span> verwijder \'' . $titel . '\'</a>';
 
 		$mailcontent = "Tekst: \n" . $_GET['txt_tegeltekst'] . "\n";
 		$mailcontent .= "URL: \n";
 		$mailcontent .= $desturl . "\n";
 		$mailcontent .= "IP: \n";
-		$mailcontent .= get_user_ip() . "\n";
+		$mailcontent .= $boom['remoteip'] . "\n\n";
+		$mailcontent .= "Verwijder tegeltje: \n";
+		$mailcontent .= $tralala . "\n";
+		$mailcontent .= $urlblockip . "\n\n";
+
+		$data['remoteip'] = $boom['remoteip'];
+		$data['action']   = 'block';
+		$urlblockip       = $desturl . '/?' . http_build_query( $data );
+		$tralala          = "\n" . '<br><a href="' . $urlblockip . '" style="display: inline-block; text-decoration: none; padding: .25rem .75rem; background: black; color: white;"><span style="font-size: 2rem">&#10013;</span> Block &amp; verwijder \'' . $titel . '\'</a>';
+
+		$mailcontent .= "Block IP en verwijder tegeltje: \n";
+		$mailcontent .= $tralala . "\n";
+		$mailcontent .= $urldeleteme . "\n";
 
 		mail( "vanbuuren@gmail.com", MAIL_PREFIX . ": " . $titel, $mailcontent, "From: paul@wbvb.nl" );
 
@@ -377,11 +404,12 @@ if ( ! file_exists( $destimagepath ) && ! file_exists( $desttextpath ) && ! file
 	if ( ! isset( $_COOKIE[ TEGELIZR_COOKIE_KEY ] ) ) {
 		// een nieuwe gebruikert. hoi.
 	} else {
-		$cookievalue = $_COOKIE[ TEGELIZR_COOKIE_KEY ] . COOKIESEPARATOR . $_GET['txt_tegeltekst'];
+		// een veteraan met meerdere tegels op z'n kerfstok
+		$cookievalue = $_COOKIE[ TEGELIZR_COOKIE_KEY ] . COOKIESEPARATOR . $cookievalue;
 	}
 
 	$cookieexpire = strtotime( '+365 days' );
-	$cookiepath = '/';
+	$cookiepath   = '/';
 	$cookiedomain = '/';
 	$cookiesecure = '/';
 
