@@ -390,7 +390,7 @@ if ( ! file_exists( $destimagepath ) && ! file_exists( $desttextpath ) && ! file
 		$mailcontent .= $urlblockip . "\n";
 //		$mailcontent .= $urldeleteme . "\n";
 
-		mail( "vanbuuren@gmail.com", MAIL_PREFIX . ": " . $titel, $mailcontent, "From: paul@wbvb.nl" );
+		mail( "vanbuuren@gmail.com", MAIL_PREFIX . ": " . $titel, $mailcontent, "From: tegelizr@globaldotcom.nl" );
 
 	}
 
