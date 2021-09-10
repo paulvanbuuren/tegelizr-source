@@ -15,6 +15,9 @@ RewriteRule ^index\.php$ - [L]
 Redirect /MW https://tegelizr.nl/tegeltje/maurits-westerbeek-gebruikt-tegelizrnl-voor-plaatjes-bij-zijn-stukjes
 Redirect /mw https://tegelizr.nl/tegeltje/maurits-westerbeek-gebruikt-tegelizrnl-voor-plaatjes-bij-zijn-stukjes
 Redirect /tegeltje/mirjam-olieman-je-bent-een-lelijke-slik-heks https://tegelizr.nl/tegeltje/sneuneus
+Redirect /tegeltje/mirjam-olieman-ik-heb-jouw-keihard-in-je-bek-geneukt-en-dat-was-bijna-7x-in-de-weekekt https://tegelizr.nl/tegeltje/sneuneus
+
+
 
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
