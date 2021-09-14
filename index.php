@@ -40,9 +40,7 @@ function wbvb_set_hsts_policy() {
 
 }
 
-
 include( "common.inc.php" );
-
 
 // ===================================================================================================================
 
@@ -101,7 +99,7 @@ if ( $respond_with_error ) {
 
 append_user_to_badlist();
 delete_tegeltje();
-
+check_status();
 
 
 // ===================================================================================================================
@@ -145,7 +143,7 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
     <meta property="og:image"
           content="<?php echo TEGELIZR_DEFAULT_IMAGE ?>" /><?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php get_end_htmlheader(); ?>
     <article id="page" class="resultaat">
-	    <?php ip_waarschuwing(); ?>
+		<?php ip_waarschuwing(); ?>
         <h1 id="top"><a href="/"><span>Redactie</span></a></h1>
         <p>Deze website is
             gemaakt door mij, <a href="https://wbvb.nl/">Paul van Buuren.</a></p>
@@ -333,16 +331,13 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
     <meta property="og:image"
           content="<?php echo $imagesource ?>"/><?php echo "<title>" . $titel . " - WBVB Rotterdam</title>"; ?><?php get_end_htmlheader(); ?>
     <article id="page" id="page" class="resultaat" itemscope itemtype="http://schema.org/ImageObject">
-	    <?php ip_waarschuwing(); ?>
+		<?php ip_waarschuwing(); ?>
 
         <h1 id="top"><a
                     href="/"><span><?php echo $txt_tegeltekst ?></span></a></h1><a
                 href="<?php echo htmlspecialchars( $desturl ) ?>" class="placeholder"><img
                     src="<?php echo $imagesource ?>" alt="<?php echo $titel ?>" class="tegeltje" itemprop="contentUrl"
-                    width="584" height="584"/><?php
-			if ( ( isset( $_GET[ TEGELIZR_TRIGGER_KEY ] ) ) && ( $_GET[ TEGELIZR_TRIGGER_KEY ] == TEGELIZR_TRIGGER_VALUE ) ) {
-				echo '<p id="progress_now">&nbsp;</p><div id="progress">&nbsp;</div>';
-			} ?></a><?php
+                    width="584" height="584"/></a><?php
 		echo '<nav id="navnextprev">';
 
 		if ( ( isset( $views[ TEGELIZR_VORIGE ] ) ) || ( isset( $views[ TEGELIZR_VOLGENDE ] ) ) ) {
@@ -685,7 +680,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
     <title><?php echo TEGELIZR_TITLE ?>- WBVB Rotterdam</title>
 	<?php get_end_htmlheader(); ?>
     <article id="page">
-	    <?php ip_waarschuwing(); ?>
+		<?php ip_waarschuwing(); ?>
 
         <h1 id="top"><a href="/"><span><?php echo $titel ?></span></a></h1>
         <p class="lead">Dit zijn de laatste <?php echo count( $results ) ?> tegeltjes die gemaakt zijn via deze

@@ -56,3 +56,5 @@ config.codekit3
 alle-tegeltjes_index.txt
 *.json
 ip_blackbook_v3.json
+includes/generate.php
+includes/tegelizr-status.php

@@ -14,9 +14,15 @@
 
 
 include( "../common.inc.php" );
+
 include( "filecheck.inc.php" );
 include( "blur.inc.php" );
 
+include( "tegelizr-status.php" );
+
+if ( 'off' === TEGELIZR_ALLOW_NEW_FILES ) {
+	header( "Location: " . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_SELECTOR . '/' . TEGELIZR_PAUZE );
+}
 
 // ===================================================================================================================
 // gelijk doorlussen als er geen waarde is

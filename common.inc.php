@@ -1420,7 +1420,11 @@ function DoPrefix( $value = '', $prefixwith = '0', $stringlength = 20, $side = S
 
 // ===================================================================================================================
 function TheModalWindow() {
-	return '
+	if ( 'off' === TEGELIZR_ALLOW_NEW_FILES ) {
+		return '';
+	} else {
+
+		return '
 	<p id="home"> <button class="btn" type="button" id="modal_open">' . TEGELIZR_BACK . '</button> </p>
 <div class="modal-overlay" id="modal_window" aria-hidden="true" role="dialog" aria-labelledby="modal_title">
 <div class="modal-content" id="modal_holder" role="document">
@@ -1428,6 +1432,7 @@ function TheModalWindow() {
 ' . TheForm() . '
 <button class="btn-close" id="modal_close" type="button" aria-label="' . TXT_CLOSE_LABEL . '">
 &times;</button></div> <!-- end .modal-content --></div> <!-- end .modal-overlay -->';
+	}
 }
 
 // ===================================================================================================================
@@ -1440,7 +1445,12 @@ function TheForm() {
 	$formelementcounter ++;
 	$suffix = '-' . $formelementcounter;
 
-	return ' <form role="form" id="posterform' . $suffix . '" name="posterform' . $suffix . '" action="/includes/generate.php" method="get" enctype="multipart/form-data">
+	if ( 'off' === TEGELIZR_ALLOW_NEW_FILES ) {
+		return false;
+	} else {
+
+
+		return ' <form role="form" id="posterform' . $suffix . '" name="posterform' . $suffix . '" action="/includes/generate.php" method="get" enctype="multipart/form-data">
     <div class="form-group tekstveld">
       <label for="txt_tegeltekst' . $suffix . '">' . TXT_YOUR_TEXT . '</label>
       <input type="text" aria-describedby="tekst-tip' . $suffix . '" pattern="^[a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\/ùûüÿàâæçéèêëïîôöœÙÛÜÀÂÆÇÉÈÊËÏÎÔÖŒ]{1,' . TEGELIZR_TXT_LENGTH . '}$" class="form-control" name="txt_tegeltekst" id="txt_tegeltekst' . $suffix . '" required="required" value="' . TEGELIZR_TXT_VALUE . '" maxlength="' . TEGELIZR_TXT_LENGTH . '" size="' . TEGELIZR_TXT_LENGTH . '" />
@@ -1448,6 +1458,7 @@ function TheForm() {
     </div>
     <button type="submit" class="btn-primary">' . TEGELIZR_SUBMIT . '</button>
   </form>';
+	}
 }
 
 
@@ -1477,6 +1488,19 @@ function get_user_ip() {
 }
 
 // ===================================================================================================================
+
+
+function check_status() {
+
+	include( "includes/tegelizr-status.php" );
+
+	if ( 'off' === TEGELIZR_ALLOW_NEW_FILES ) {
+		return false;
+	} else {
+		return true;
+	}
+
+}
 
 
 ?>
