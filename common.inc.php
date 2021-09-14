@@ -225,7 +225,11 @@ if ( ! defined( 'TEGELIZR_SUBMIT_RATING' ) ) {
 	define( 'TEGELIZR_SUBMIT_RATING', 'geef sterren' );
 }
 if ( ! defined( 'TEGELIZR_TXT_LENGTH' ) ) {
-	define( 'TEGELIZR_TXT_LENGTH', 90 );
+	define( 'TEGELIZR_TXT_LENGTH', 120 );
+}
+if ( ! defined( 'TEGELIZR_MAX_SENTENCES' ) ) {
+	// het maximale aantal regels op een tegel
+	define( 'TEGELIZR_MAX_SENTENCES', 5 );
 }
 if ( ! defined( 'TEGELIZR_THUMB_WIDTH' ) ) {
 	define( 'TEGELIZR_THUMB_WIDTH', 220 );
@@ -390,7 +394,9 @@ if ( ! defined( 'VEILIGHEIDSKLEP' ) ) {
 if ( ! defined( 'PAGING_KEY' ) ) {
 	define( 'PAGING_KEY', 'lalanextpage' );
 }
-
+if ( ! defined( 'TEGELIZR_PAUZE' ) ) {
+	define( 'TEGELIZR_PAUZE', 'sssst-even-stil-zijn' );
+}
 
 // ===================================================================================================================
 
