@@ -1122,7 +1122,7 @@ function ip_waarschuwing() {
 	if ( $waarschuwing ) {
 
 		echo '<h1 id="top">Wegwezen</h1>';
-		echo '<p>Niemand wil je hier. En dat heb je aan jezelf te danken.</p>';
+		echo '<p>Hallo plurk. Niemand wil je hier. En dat heb je aan jezelf te danken.</p>';
 		echo '<img src="/img/insect.gif?" alt="" width="200" height="150" style="margin-left: auto; display: block; margin-right: auto;">';
 
 		$cookievalue = $_COOKIE[ TEGELIZR_COOKIE_KEY ];
