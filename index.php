@@ -60,7 +60,7 @@ if ( isset( $zinnen[2] ) ) {
 
 
 if ( $zinnen[1] == TEGELIZR_SELECTOR ) {
-	if ( ! file_exists( $sourcefiles_tegels . $filename ) ) {
+	if ( ! file_exists( $sourcefiles_tegelplaatjes . $filename ) ) {
 		$afgevangenzoekstring = $zinnen[2];
 
 		// De niet-gevonden tegeltjes hoeven niet geindexeerd te worden
@@ -147,13 +147,12 @@ if ( ( $zinnen[1] == TEGELIZR_REDACTIE ) ) {
         <h1 id="top"><a href="/"><span>Redactie</span></a></h1>
         <p>Deze website is
             gemaakt door mij, <a href="https://wbvb.nl/">Paul van Buuren.</a></p>
-        <p>Ik houd niet bij wie welk tegeltje
-            gemaakt heeft. Als een tegeltje me niet bevalt, haal ik het weg. Zo kan ik niet zo goed tegen enorme
-            spelfouten.
+        <p>Per gemaakt tegeltje noteer ik het IP-adres, zodat ik de mogelijkheid heb om na wangedrag plurken en
+            booswichten te weren. Als een tegeltje me niet bevalt, haal ik het weg.
+            Zo kan ik niet zo goed tegen enorme spelfouten.
             En tegeltjes die neerkomen op hetzelfde haal ik ook weg, zoals alle variaties op: 'Niet zo leuk als een
-            tegel
-            met een spreuk' of: 'Beter dik in de kist dan een feestje gemist'. <em>Been there, done that</em>. Ook
-            tegeltjes
+            tegel met een spreuk' of: 'Beter dik in de kist dan een feestje gemist'.
+            <em>Been there, done that</em>. Ook tegeltjes
             met persoonsnamen houden het meestal niet zo lang vol hier.</p>
         <p>
         <blockquote>Sorry, als je mijn site gebruikt, heb je mijn nare gevoel voor humor voor lief te nemen.
@@ -291,14 +290,14 @@ elseif (
 // ===================================================================================================================
 // er wordt gevraagd om een tegeltje en het bestand bestaat ook al op de server
 // ===================================================================================================================
-elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tegels . $filename ) ) && ( file_exists( $sourcefiles_tegels . $desttextpath ) ) ) {
+elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tegelplaatjes . $filename ) ) && ( file_exists( $sourcefiles_tegelplaatjes . $desttextpath ) ) ) {
 
 	global $userip;
 
 	$desturl        = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2];
 	$canonical      = TEGELIZR_PROTOCOL . $PREFERED_DOMAIN . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2];
-	$imagesource    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_TEGELFOLDER . '/' . $filename;
-	$views          = getviews( $sourcefiles_tegels . $desttextpath, true );
+	$imagesource    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_TEGELPLAATJESFOLDER . '/' . $filename;
+	$views          = getviews( $sourcefiles_tegelplaatjes . $desttextpath, true );
 	$txt_tegeltekst = isset( $views['txt_tegeltekst'] ) ? filtertext( $views['txt_tegeltekst'], true ) : '';
 
 
