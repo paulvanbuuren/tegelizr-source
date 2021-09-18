@@ -27,7 +27,8 @@ class sorttegeltjes {
     // ==========================================================================    
     function __construct($wid) {
         global $sourcefiles_thumbs;
-        global $sourcefiles_tegels;
+	    global $sourcefiles_tegelplaatjes;
+	    global $sourcefiles_tegeldb;
         global $path;
         global $arr_sort_by;
         global $arrSteps;

@@ -26,7 +26,8 @@ class documentscan {
     // ==========================================================================    
     function __construct($wid) {
         global $sourcefiles_thumbs;
-        global $sourcefiles_tegels;
+        global $sourcefiles_tegelplaatjes;
+        global $sourcefiles_tegeldb;
         global $path;
         $list = '';
         $tegelcounter = 0;
@@ -62,8 +63,8 @@ class documentscan {
                 $info           = explode('_', $this->huidige );
                 $time           = explode('-', $info[0] );
     
-                $this->pngbestand   = $sourcefiles_tegels . $info[1] . '.png';
-                $this->txtbestand   = $sourcefiles_tegels . $info[1] . '.txt';
+                $this->pngbestand   = $sourcefiles_tegelplaatjes . $info[1] . '.png';
+                $this->txtbestand   = $sourcefiles_tegeldb . $info[1] . '.txt';
 
                 $this->thumb        = $sourcefiles_thumbs . $this->huidige . '.png';
 
@@ -79,8 +80,8 @@ class documentscan {
                         $time           = explode('-', $info[0] );
             
                         if ( isset( $info[1] )) {
-                            $this->VORIGEPNG   = $sourcefiles_tegels . $info[1] . '.png';
-                            $this->VORIGETXT   = $sourcefiles_tegels . $info[1] . '.txt';
+                            $this->VORIGEPNG   = $sourcefiles_tegelplaatjes . $info[1] . '.png';
+                            $this->VORIGETXT   = $sourcefiles_tegeldb . $info[1] . '.txt';
                             
                             if ( file_exists( $this->VORIGEPNG ) &&  file_exists( $this->VORIGETXT ) ) {
                                 $this->data[TEGELIZR_VORIGE]  = $info[1];
@@ -93,8 +94,8 @@ class documentscan {
             
                         if ( isset( $info[1] )) {
                             
-                            $this->VOLGENDEPNG   = $sourcefiles_tegels . $info[1] . '.png';
-                            $this->VOLGENDETXT   = $sourcefiles_tegels . $info[1] . '.txt';
+                            $this->VOLGENDEPNG   = $sourcefiles_tegelplaatjes . $info[1] . '.png';
+                            $this->VOLGENDETXT   = $sourcefiles_tegeldb . $info[1] . '.txt';
                             
                             if ( file_exists( $this->VOLGENDEPNG ) &&  file_exists( $this->VOLGENDETXT ) ) {
                                 $this->data[TEGELIZR_VOLGENDE]  = $info[1];

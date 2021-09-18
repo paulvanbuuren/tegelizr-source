@@ -149,17 +149,17 @@ $filename       = $hashname . ".png";
 $filename_klein = $hashname . "_thumb.png";
 
 // output path voor grote tegel
-$destimagepath = $sourcefiles_tegels . $filename;
+$destimagepath = $sourcefiles_tegelplaatjes . $filename;
 
 // en dat tekstbestand erbij
-$desttextpath = $sourcefiles_tegels . $hashname . ".txt";
+$desttextpath = $sourcefiles_tegeldb . $hashname . ".txt";
 
 // output path voor kleine thumbnail tegel
 $thumbfile           = date( "Y" ) . "-" . date( "m" ) . "-" . date( "d" ) . "-" . date( "H" ) . "-" . date( "i" ) . "-" . date( "s" ) . "_" . $filename_klein;
 $destimagepath_klein = $sourcefiles_thumbs . $thumbfile;
 
 $desturl     = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $hashname;
-$imagesource = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . "/" . TEGELIZR_TEGELFOLDER . "/" . $filename;
+$imagesource = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . "/" . TEGELIZR_TEGELPLAATJESFOLDER . "/" . $filename;
 
 // ===================================================================================================================
 

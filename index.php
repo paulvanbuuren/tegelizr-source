@@ -290,14 +290,14 @@ elseif (
 // ===================================================================================================================
 // er wordt gevraagd om een tegeltje en het bestand bestaat ook al op de server
 // ===================================================================================================================
-elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tegelplaatjes . $filename ) ) && ( file_exists( $sourcefiles_tegelplaatjes . $desttextpath ) ) ) {
+elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tegelplaatjes . $filename ) ) && ( file_exists( $sourcefiles_tegeldb . $desttextpath ) ) ) {
 
 	global $userip;
 
 	$desturl        = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2];
 	$canonical      = TEGELIZR_PROTOCOL . $PREFERED_DOMAIN . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2];
 	$imagesource    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_TEGELPLAATJESFOLDER . '/' . $filename;
-	$views          = getviews( $sourcefiles_tegelplaatjes . $desttextpath, true );
+	$views          = getviews( $sourcefiles_tegeldb . $desttextpath, true );
 	$txt_tegeltekst = isset( $views['txt_tegeltekst'] ) ? filtertext( $views['txt_tegeltekst'], true ) : '';
 
 

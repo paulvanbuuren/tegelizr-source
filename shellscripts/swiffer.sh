@@ -20,6 +20,9 @@ find /var/www/vhosts/plaatjesgenerator.nl/tegelizr/ -type f -name "*goud-olie-en
 find /var/www/vhosts/plaatjesgenerator.nl/tegelizr/ -type f -name "*landverrader*" -exec rm -vf {} \;
 find /var/www/vhosts/plaatjesgenerator.nl/tegelizr/ -type f -name "*appy-birthday*" -exec rm -vf {} \;
 find /var/www/vhosts/plaatjesgenerator.nl/tegelizr/ -type f -name "*adolf-befbezem*" -exec rm -vf {} \;
+find /var/www/vhosts/plaatjesgenerator.nl/tegelizr/ -type f -name "*amoorah*" -exec rm -vf {} \;
+find /var/www/vhosts/plaatjesgenerator.nl/tegelizr/ -type f -name "*berber*" -exec rm -vf {} \;
+find /var/www/vhosts/plaatjesgenerator.nl/tegelizr/ -type f -name "*paul-van-buuren*" -exec rm -vf {} \;
 find /var/www/vhosts/plaatjesgenerator.nl/tegelizr/ -type f -name "*marokka*" -exec rm -vf {} \;
 find /var/www/vhosts/plaatjesgenerator.nl/tegelizr/ -type f -name "*lavendelnazi*" -exec rm -vf {} \;
 find /var/www/vhosts/plaatjesgenerator.nl/tegelizr/ -type f -name "*limburgers*" -exec rm -vf {} \;

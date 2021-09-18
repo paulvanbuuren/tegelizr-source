@@ -26,14 +26,15 @@ else {
 function checkthreefiles( $type = '', $keyfilename = '',  $thumbfilename = '' ) {
 	
 	global $sourcefiles_thumbs;
-	global $sourcefiles_tegels;
+	global $sourcefiles_tegelplaatjes;
+	global $sourcefiles_tegeldb;
 	global $deletedfiles_thumbs;
 	global $deletedfiles_tegels;
 	global $path;
 	global $outputyesno;
 
-	$groot_image    = $sourcefiles_tegels . $keyfilename . '.png';
-	$groot_txt      = $sourcefiles_tegels . $keyfilename . '.txt';
+	$groot_image    = $sourcefiles_tegelplaatjes . $keyfilename . '.png';
+	$groot_txt      = $sourcefiles_tegeldb . $keyfilename . '.txt';
 	$thumb_image    = $sourcefiles_thumbs . $thumbfilename . '.png';
 	
 	if ( $thumbfilename ) {
@@ -115,7 +116,8 @@ function redirect_naar_verbetermetadatascript( $redirect = '' ) {
 function verbeteralletegelmetadata( $redirect = '' ) {
 	
 	global $sourcefiles_thumbs;
-	global $sourcefiles_tegels;
+	global $sourcefiles_tegelplaatjes;
+	global $sourcefiles_tegeldb;
 	global $deletedfiles_thumbs;
 	global $deletedfiles_tegels;
 	global $path;
@@ -128,7 +130,7 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 	$returnarray    = array();
 	$boom           = array();
 
-	if ( is_dir($sourcefiles_thumbs) && is_dir($sourcefiles_tegels) && is_dir($deletedfiles_thumbs)  && is_dir($deletedfiles_tegels) ) {
+	if ( is_dir($sourcefiles_thumbs) && is_dir($sourcefiles_tegelplaatjes) && is_dir($deletedfiles_thumbs)  && is_dir($deletedfiles_tegels) ) {
 
 		// -----------------------------------------------------------------------------------------------------------
 	
@@ -165,7 +167,7 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 			
 			// check of in het .txt bestand wel echt deze thumb als thumb genoteerd staat
 			
-			$groot_txt      = $sourcefiles_tegels . $info[1] . '.txt';
+			$groot_txt      = $sourcefiles_tegeldb . $info[1] . '.txt';
 			$views          = getviews($groot_txt,true);
 			$thumbfilename_x  = isset($views['file_thumb']) ? $views['file_thumb'] : '';
 			
@@ -196,8 +198,8 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 		// -----------------------------------------------------------------------------------------------------------
 
 		// dan de tegeltjes opruimen
-		$tegeltjes      = glob($sourcefiles_tegels . "*.png");
-		$replace        = $sourcefiles_tegels;
+		$tegeltjes      = glob($sourcefiles_tegelplaatjes . "*.png");
+		$replace        = $sourcefiles_tegelplaatjes;
 		$with           = '';
 		$pattern        = '|' . $replace . '|i';
 		$tegeltjes      = preg_replace($pattern, $with, $tegeltjes);
@@ -232,8 +234,8 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 		// -----------------------------------------------------------------------------------------------------------
 
 		// dan de tekstbestanden opruimen
-		$textfiles      = glob($sourcefiles_tegels . "*.txt");
-		$replace        = $sourcefiles_tegels;
+		$textfiles      = glob($sourcefiles_tegeldb . "*.txt");
+		$replace        = $sourcefiles_tegelplaatjes;
 		$with           = '';
 		$pattern        = '|' . $replace . '|i';
 		$textfiles      = preg_replace($pattern, $with, $textfiles);
@@ -290,7 +292,7 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 			$vorigenr       = ( $loopcounter - 1);
 			$volgendenr     = ( $loopcounter + 1);
 
-			$groot_txt      = $sourcefiles_tegels . $info[1] . '.txt';
+			$groot_txt      = $sourcefiles_tegeldb . $info[1] . '.txt';
 			$json_data      = file_get_contents( $groot_txt );
 			$all            = json_decode($json_data, true);
 
@@ -341,12 +343,12 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 					unset( $all['laatst_bijgewerkt'] );
 					
 					if ( $vorige ) {
-						$vorige_views             = getviews( $sourcefiles_tegels . $vorige . '.txt',true);
+						$vorige_views             = getviews( $sourcefiles_tegeldb . $vorige . '.txt',true);
 						$all['vorige']            = $vorige;
 						$all['vorige_titel']      = isset($vorige_views['txt_tegeltekst']) ? $vorige_views['txt_tegeltekst'] : $vorige;
 					}
 					if ( $volgende ) {
-						$volgende_views           = getviews( $sourcefiles_tegels . $volgende . '.txt',true);
+						$volgende_views           = getviews( $sourcefiles_tegeldb . $volgende . '.txt',true);
 						$all['volgende']          = $volgende;
 						$all['volgende_titel']    = isset($volgende_views['txt_tegeltekst']) ? $volgende_views['txt_tegeltekst'] : $volgende;
 					}
@@ -397,12 +399,12 @@ function verbeteralletegelmetadata( $redirect = '' ) {
 			}
 		}
 		
-		if ( ! is_dir($sourcefiles_tegels) ) {
-			if (!mkdir($sourcefiles_tegels, 0777, true)) {
-				$returnarray[TEGELIZR_JS_SCRIPTERROR]   = 'Kan folder niet aanmaken: ' . $sourcefiles_tegels;
+		if ( ! is_dir($sourcefiles_tegelplaatjes) ) {
+			if (!mkdir($sourcefiles_tegelplaatjes, 0777, true)) {
+				$returnarray[TEGELIZR_JS_SCRIPTERROR]   = 'Kan folder niet aanmaken: ' . $sourcefiles_tegelplaatjes;
 			}
 			else {
-				$returnarray[TEGELIZR_JS_SCRIPTERROR]   = 'Folder bestond niet, maar is nu aangemaakt: ' . $sourcefiles_tegels;
+				$returnarray[TEGELIZR_JS_SCRIPTERROR]   = 'Folder bestond niet, maar is nu aangemaakt: ' . $sourcefiles_tegelplaatjes;
 			}
 		}
 		else {

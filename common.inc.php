@@ -243,8 +243,11 @@ if ( ! defined( 'TEGELIZR_SUMMARY' ) ) {
 if ( ! defined( 'TEGELIZR_METADESC' ) ) {
 	define( 'TEGELIZR_METADESC', 'Maak zelf online een oud-Hollands tegeltje.' );
 }
-if ( ! defined( 'TEGELIZR_TEGELFOLDER' ) ) {
-	define( 'TEGELIZR_TEGELFOLDER', 'tegeltjes' );
+if ( ! defined( 'TEGELIZR_TEGELPLAATJESFOLDER' ) ) {
+	define( 'TEGELIZR_TEGELPLAATJESFOLDER', 'tegeltjes' );
+}
+if ( ! defined( 'TEGELIZR_TEGELDBFOLDER' ) ) {
+	define( 'TEGELIZR_TEGELDBFOLDER', 'tegeldb' );
 }
 if ( ! defined( 'TEGELIZR_ZOEK_LABEL' ) ) {
 	define( 'TEGELIZR_ZOEK_LABEL', 'Zoek tegeltje' );
@@ -405,11 +408,12 @@ $ipblackbook  = $path . 'ip_blackbook_v3.json';
 
 // ===================================================================================================================
 
-$sourcefiles_tegels  = $path . TEGELIZR_TEGELFOLDER . "/";
-$sourcefiles_thumbs  = $path . TEGELIZR_THUMBS . "/";
-$deletedfiles_thumbs = $path . TEGELIZR_DELETED_FILES . "/" . TEGELIZR_THUMBS . "/";
-$deletedfiles_tegels = $path . TEGELIZR_DELETED_FILES . "/" . TEGELIZR_TEGELFOLDER . "/";
-$baseimgpath         = STYLEFOLDER . BASEIMAGE;
+$sourcefiles_tegelplaatjes = $path . TEGELIZR_TEGELPLAATJESFOLDER . "/";
+$sourcefiles_tegeldb       = $path . TEGELIZR_TEGELDBFOLDER . "/";
+$sourcefiles_thumbs        = $path . TEGELIZR_THUMBS . "/";
+$deletedfiles_thumbs       = $path . TEGELIZR_DELETED_FILES . "/" . TEGELIZR_THUMBS . "/";
+$deletedfiles_tegels       = $path . TEGELIZR_DELETED_FILES . "/" . TEGELIZR_TEGELPLAATJESFOLDER . "/";
+$baseimgpath               = STYLEFOLDER . BASEIMAGE;
 
 if ( ! file_exists( $baseimgpath ) ) {
 	die( 'source not found: ' . $baseimgpath );
@@ -761,7 +765,8 @@ function filtertext( $text = '', $dogeintje = true ) {
 function showthumbs( $aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage = 1 ) {
 
 	global $sourcefiles_thumbs;
-	global $sourcefiles_tegels;
+	global $sourcefiles_tegelplaatjes;
+	global $sourcefiles_tegeldb;
 	global $startrecs;
 	global $max_items;
 	global $totalcount;
@@ -844,9 +849,9 @@ function showthumbs( $aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage =
 			$filename = array_pop( $stack );
 			$info     = explode( '_', $filename );
 
-			if ( ( file_exists( $sourcefiles_tegels . $info[1] . '.txt' ) ) && ( file_exists( $sourcefiles_tegels . $info[1] . '.png' ) ) ) {
+			if ( ( file_exists( $sourcefiles_tegeldb . $info[1] . '.txt' ) ) && ( file_exists( $sourcefiles_tegelplaatjes . $info[1] . '.png' ) ) ) {
 
-				$views = getviews( $sourcefiles_tegels . $info[1] . '.txt', false );
+				$views = getviews( $sourcefiles_tegeldb . $info[1] . '.txt', false );
 
 				if ( $hide == $info[1] ) {
 					//                break;
@@ -930,12 +935,12 @@ function wbvb_d2e_socialbuttons( $thelink = 'thelink', $thetitle = 'thetitle', $
 
 function delete_tegeltje( $action = '' ) {
 
-	$sourcefiles_tegels = $path . TEGELIZR_TEGELFOLDER . "/";
-	$sourcefiles_thumbs = $path . TEGELIZR_THUMBS . "/";
+	$sourcefiles_tegelplaatjes = $path . TEGELIZR_TEGELPLAATJESFOLDER . "/";
+	$sourcefiles_thumbs        = $path . TEGELIZR_THUMBS . "/";
 
 	global $filename;
 	global $desttextpath;
-	global $sourcefiles_tegels;
+	global $sourcefiles_tegelplaatjes;
 	global $sourcefiles_thumbs;
 	global $ipblackbook;
 
@@ -953,12 +958,12 @@ function delete_tegeltje( $action = '' ) {
 		$secrit = htmlspecialchars( $_GET['secrit'] );
 		$sauce  = htmlspecialchars( $_GET['sauce'] );
 
-		if ( ! file_exists( $sourcefiles_tegels . $desttextpath ) ) {
+		if ( ! file_exists( $sourcefiles_tegelplaatjes . $desttextpath ) ) {
 			return false;
 		} else {
 
 			// txt bestand van tegeltje lezen
-			$file_contents = file_get_contents( $sourcefiles_tegels . $desttextpath );
+			$file_contents = file_get_contents( $sourcefiles_tegelplaatjes . $desttextpath );
 			$data          = json_decode( $file_contents );
 			$thumb         = $data->file_thumb;
 
@@ -977,14 +982,14 @@ function delete_tegeltje( $action = '' ) {
 						unlink( $thumb );
 					}
 
-					if ( file_exists( $sourcefiles_tegels . $desttextpath ) ) {
+					if ( file_exists( $sourcefiles_tegelplaatjes . $desttextpath ) ) {
 						// txt bestand verwijderen
-						unlink( $sourcefiles_tegels . $desttextpath );
+						unlink( $sourcefiles_tegelplaatjes . $desttextpath );
 					}
 
-					if ( file_exists( $sourcefiles_tegels . $filename ) ) {
+					if ( file_exists( $sourcefiles_tegelplaatjes . $filename ) ) {
 						// image bestand verwijderen
-						unlink( $sourcefiles_tegels . $filename );
+						unlink( $sourcefiles_tegelplaatjes . $filename );
 					}
 
 					// redirect naar home
@@ -1009,7 +1014,7 @@ function append_user_to_badlist() {
 
 	global $ipblackbook;
 	global $desttextpath;
-	global $sourcefiles_tegels;
+	global $sourcefiles_tegelplaatjes;
 
 	$cookievalue       = $_COOKIE[ TEGELIZR_COOKIE_KEY ];
 	$file_contents     = file_get_contents( $ipblackbook );
@@ -1060,7 +1065,7 @@ function append_user_to_badlist() {
 
 		if ( $desttextpath ) {
 			// txt bestand van tegeltje lezen
-			$file_contents = file_get_contents( $sourcefiles_tegels . $desttextpath );
+			$file_contents = file_get_contents( $sourcefiles_tegelplaatjes . $desttextpath );
 			$data          = json_decode( $file_contents );
 
 			// voeg de tegeltekst toe aan de verboden lijst
