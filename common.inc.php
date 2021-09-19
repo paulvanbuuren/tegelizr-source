@@ -941,6 +941,7 @@ function delete_tegeltje( $action = '' ) {
 	global $filename;
 	global $desttextpath;
 	global $sourcefiles_tegelplaatjes;
+	global $sourcefiles_tegeldb;
 	global $sourcefiles_thumbs;
 	global $ipblackbook;
 
@@ -958,12 +959,13 @@ function delete_tegeltje( $action = '' ) {
 		$secrit = htmlspecialchars( $_GET['secrit'] );
 		$sauce  = htmlspecialchars( $_GET['sauce'] );
 
-		if ( ! file_exists( $sourcefiles_tegelplaatjes . $desttextpath ) ) {
+
+		if ( ! file_exists( $sourcefiles_tegeldb . $desttextpath ) ) {
 			return false;
 		} else {
 
 			// txt bestand van tegeltje lezen
-			$file_contents = file_get_contents( $sourcefiles_tegelplaatjes . $desttextpath );
+			$file_contents = file_get_contents( $sourcefiles_tegeldb . $desttextpath );
 			$data          = json_decode( $file_contents );
 			$thumb         = $data->file_thumb;
 
