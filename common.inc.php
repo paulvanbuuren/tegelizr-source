@@ -1073,12 +1073,20 @@ function append_user_to_badlist() {
 			$file_contents = file_get_contents( $sourcefiles_tegeldb . $desttextpath );
 			$data          = json_decode( $file_contents );
 
+			echo 'Before<pre>';
+			var_dump( $baddies->verbodentegeltjes );
+			echo '</pre>';
+
 			// voeg de tegeltekst toe aan de verboden lijst
 			$baddies->verbodentegeltjes[] = $data->txt_tegeltekst;
 			$jsonData                     = json_encode( $baddies );
 			file_put_contents( $ipblackbook, $jsonData );
-		}
 
+			echo 'After<pre>';
+			var_dump( $baddies->verbodentegeltjes );
+			echo '</pre>';
+
+		}
 
 	}
 
@@ -1117,7 +1125,7 @@ function userip_should_be_warned() {
 
 		if ( $cookievalues ) {
 			foreach ( $cookievalues as $cookie ) {
-				if (in_array($cookie, $baddies['verbodentegeltjes'])) {
+				if ( in_array( $cookie, $baddies['verbodentegeltjes'] ) ) {
 					// Hee, een plurk. Wegwezen
 					return true;
 				}
