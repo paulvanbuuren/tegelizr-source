@@ -1047,6 +1047,7 @@ function append_user_to_badlist() {
 	if ( $userip ) {
 		// bezoeker is een recidivist vanachter een nieuw IP-nummer
 	} elseif ( ( $_GET['remoteip'] ) && ( $_GET['action'] === 'block' ) ) {
+		// het te blokkeren IP-adres komt uit de querystring
 		$userip = $_GET['remoteip'];
 	} else {
 		return;
@@ -1054,7 +1055,7 @@ function append_user_to_badlist() {
 
 
 	if ( $baddies && $userip ) {
-		// OK, no problem
+		// OK, no problem, beide variabelen zijn geinitialiseerd
 	} else {
 		// empty list?
 		$baddies = array();
@@ -1103,15 +1104,27 @@ function userip_should_be_warned() {
 
 	$return = false;
 	$userip = get_user_ip();
-//	if ( ( '80.101.203.6' === $userip ) || ( '::1' === $userip ) ) {
-//		$userip = '80.101.25.10';
-//	}
+
+	$cookievalue = $_COOKIE[ TEGELIZR_COOKIE_KEY ];
 
 	//Load the file
 	$baddies2 = file_get_contents( $ipblackbook );
 
 	//Decode the JSON data into a PHP array.
 	$baddies = json_decode( $baddies2, true );
+
+	if ( $cookievalue ) {
+		$cookievalues = explode( COOKIESEPARATOR, $cookievalue );
+
+		if ( $cookievalues ) {
+			foreach ( $cookievalues as $cookie ) {
+				if (in_array($cookie, $baddies['verbodentegeltjes'])) {
+					// Hee, een plurk. Wegwezen
+					return true;
+				}
+			}
+		}
+	}
 
 	if ( isset( $baddies[ $userip ] ) ) {
 		$return = true;
@@ -1148,15 +1161,9 @@ function ip_waarschuwing() {
 				}
 				echo '</ul>';
 			}
-//		echo '</div>';
 		}
 
-
 		die();
-
-//		echo '<p>Je browser:</p><pre>';
-//		echo $_SERVER['HTTP_USER_AGENT'];
-//		echo '</pre>';
 
 	}
 

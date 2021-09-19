@@ -377,6 +377,7 @@ if ( ! file_exists( $destimagepath ) && ! file_exists( $desttextpath ) && ! file
 		);
 		$urldeleteme   = $desturl . '/?' . http_build_query( $data );
 		$tralala       = "\n" . '<br><a href="' . $urldeleteme . '" style="display: inline-block; text-decoration: none; padding: .25rem .75rem; background: red; color: white;"><span style="font-size: 2rem">&#9888;</span> verwijder \'' . $titel . '\'</a>';
+//		echo $tralala;
 
 		$mailcontent = "Tekst: \n" . $_GET['txt_tegeltekst'] . "\n";
 		$mailcontent .= "URL: \n";
@@ -391,6 +392,7 @@ if ( ! file_exists( $destimagepath ) && ! file_exists( $desttextpath ) && ! file
 		$data['action']   = 'block';
 		$urlblockip       = $desturl . '/?' . http_build_query( $data );
 		$tralala          = "\n" . '<br><a href="' . $urlblockip . '" style="display: inline-block; text-decoration: none; padding: .25rem .75rem; background: black; color: white;"><span style="font-size: 2rem">&#10013;</span> Block &amp; verwijder \'' . $titel . '\'</a>';
+//		echo $tralala;
 
 		$mailcontent .= "\n\nBlock IP en verwijder tegeltje: \n";
 		$mailcontent .= $urlblockip . "\n";
@@ -420,6 +422,9 @@ if ( ! file_exists( $destimagepath ) && ! file_exists( $desttextpath ) && ! file
 	$cookiesecure = '/';
 
 	setcookie( TEGELIZR_COOKIE_KEY, $cookievalue, $cookieexpire, $cookiepath );
+
+//	echo $mailcontent;
+//	die( 'Wel mail' );
 
 	if ( TEGELIZR_DEBUG_GENERATE && TEGELIZR_DEBUG ) {
 		redirect_naar_verbetermetadatascript( $desturl );
