@@ -498,12 +498,12 @@ function removeEmoji( $text ) {
 
 function filtertext( $text = '', $dogeintje = true ) {
 
-//    $text                = mb_convert_encoding( $text, "UTF-8" );
+	$replacer = '[..]';
+
 
 	$text = preg_replace( "/“/", '"', $text );
 	$text = preg_replace( "/’/", "'", $text );
 	$text = preg_replace( "/‘/", "'", $text );
-
 	$text = preg_replace( "/</", "&lt;", $text );
 	$text = preg_replace( "/>/", "&gt;", $text );
 	$text = preg_replace( "/JAVASCRIPT/", "javascript", $text );
@@ -520,13 +520,46 @@ function filtertext( $text = '', $dogeintje = true ) {
 	$text = preg_replace( "/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"\/ùûüÿàâæçéèêëïîôöœÙÛÜÀÂÆÇÉÈÊËÏÎÔÖŒ™#✂]+/", "", trim( $text ) );
 	$text = removeEmoji( $text );
 
-//	een v.a.c.c.i.n 1
-
-//	preg_replace
-
 
 	$text = substr( $text, 0, TEGELIZR_TXT_LENGTH );
 	if ( $dogeintje ) {
+
+		$text = preg_replace( "/youtu.be/i", 'cnn.com', trim( $text ) );
+		$text = preg_replace( "/youtube/i", 'cnn', trim( $text ) );
+		$text = preg_replace( "/mudslimes/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/mudslime/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/neukgat/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/verkrachting/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/verkrachten/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/verkracht/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/plurk/i", 'Henk', trim( $text ) );
+		$text = preg_replace( "/aarsbeuken/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/aarsje/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/aarsjes/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/amoorahnl/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/amoorahs/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/amoorah/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/h0er/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/dobbernegurs/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/haider/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/heftug/i", 'heftig', trim( $text ) );
+		$text = preg_replace( "/kinderkutje/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/kleutertjes/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/meurkut/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/mladic/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/n0uri/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/negurapen/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/negur/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/nikkur/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/peuterblowjob/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/peuterkutje/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/reich/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/proxyserver/i", $replacer, trim( $text ) );
+		$text = preg_replace( "/tรฎnktรผrk/i", $replacer, trim( $text ) );
+
+
+		$text = preg_replace( "/p0wer/i", 'power', trim( $text ) );
+
 
 		// van dat volk dat URLs komt lopen plakken...
 		$text = preg_replace( "|https://|i", "", trim( $text ) );
@@ -650,10 +683,15 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Turk /i", "Eend ", trim( $text ) );
 		$text = preg_replace( "/Turken/i", "Eenden", trim( $text ) );
 		$text = preg_replace( "/Berber/i", "Klingon", trim( $text ) );
+		$text = preg_replace( "/marokaner/i", "Klingon", trim( $text ) );
+		$text = preg_replace( "/marocan/i", "Klingon", trim( $text ) );
+
 		$text = preg_replace( "/Marokkaan/i", "Hobbit", trim( $text ) );
 		$text = preg_replace( "/Marokkanen/i", "Limburgers", trim( $text ) );
 		$text = preg_replace( "/rifapen/i", "stoeptegels", trim( $text ) );
 		$text = preg_replace( "/rifaap/i", "bifi-worstje", trim( $text ) );
+		$text = preg_replace( "/stormfront/i", "bifi-worstjes", trim( $text ) );
+		$text = preg_replace( "/white power/i", "bifi-worstjes", trim( $text ) );
 		$text = preg_replace( "/white pride/i", "bifi-worstjes", trim( $text ) );
 
 
@@ -701,8 +739,6 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/kanker/i", "frambozenjam", trim( $text ) );
 		$text = preg_replace( "/een je moeder/i", "een bewonderenswaardige vrouw", trim( $text ) );
 
-
-		$text = preg_replace( "/neukgat/i", "[...]", trim( $text ) );
 		$text = preg_replace( "/hoer/i", "je moeder", trim( $text ) );
 		$text = preg_replace( "/joden/i", "smurfen", trim( $text ) );
 		$text = preg_replace( "/Geert Wilders/i", "Zaadslurf", trim( $text ) );
