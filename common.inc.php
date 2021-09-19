@@ -1073,6 +1073,7 @@ function append_user_to_badlist() {
 			$file_contents = file_get_contents( $sourcefiles_tegeldb . $desttextpath );
 			$data          = json_decode( $file_contents );
 
+			echo 'toevoegen: ' . $data->txt_tegeltekst . '<br>';
 			echo 'Before<pre>';
 			var_dump( $baddies->verbodentegeltjes );
 			echo '</pre>';
@@ -1085,6 +1086,7 @@ function append_user_to_badlist() {
 			echo 'After<pre>';
 			var_dump( $baddies->verbodentegeltjes );
 			echo '</pre>';
+			die( 'aargh' );
 
 		}
 
