@@ -1027,14 +1027,16 @@ function append_user_to_badlist() {
 	$verbodentegeltjes = $baddies->verbodentegeltjes;
 	$userip            = '';
 
+echo $desttextpath . '<br>';
+
 	if ( $cookievalue ) {
 		$cookievalues = explode( COOKIESEPARATOR, $cookievalue );
 
 		if ( $cookievalues ) {
-//			echo '<ul>';
+echo '<ul>';
 			foreach ( $cookievalues as $cookie ) {
 				// kijken of tegels die bezoeker eerder gemaakt heeft op de zwarte lijst staan
-//echo '<li>' . $cookie . '</li>';
+echo '<li>' . $cookie . '</li>';
 				if ( in_array( $cookie, $verbodentegeltjes ) ) {
 					// bezoeker heeft eerder een tegeltje gemaakt dat we
 					// daarna verwijderd en geblokkeerd hebben
@@ -1042,7 +1044,7 @@ function append_user_to_badlist() {
 					break;
 				}
 			}
-//			echo '<ul>';
+echo '<ul>';
 		}
 	}
 
