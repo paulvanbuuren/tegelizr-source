@@ -962,7 +962,6 @@ function delete_tegeltje( $action = '' ) {
 		$secrit = htmlspecialchars( $_GET['secrit'] );
 		$sauce  = htmlspecialchars( $_GET['sauce'] );
 
-
 		if ( ! file_exists( $sourcefiles_tegeldb . $desttextpath ) ) {
 			return false;
 		} else {
@@ -1015,6 +1014,13 @@ function delete_tegeltje( $action = '' ) {
 // ===================================================================================================================
 
 
+function append_ipaddress_to_list( $userip ) {
+
+}
+
+// ===================================================================================================================
+
+
 function look_for_bad_guys() {
 
 	global $ipblackbook;
@@ -1047,6 +1053,7 @@ function look_for_bad_guys() {
 		// bezoeker is een recidivist vanachter een nieuw IP-nummer
 	} elseif ( ( $_GET['remoteip'] ) && ( $_GET['action'] === 'block' ) ) {
 		// het te blokkeren IP-adres komt uit de querystring
+		// TODO checken of de sauce	ook klopt, 'sauce'
 		$userip = $_GET['remoteip'];
 	} else {
 		return;

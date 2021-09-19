@@ -143,6 +143,9 @@ function escapeescapers( $sentence = '' ) {
 $esctext = escapeescapers( $_GET['txt_tegeltekst'] );
 $text    = filtertext( $esctext );
 
+// TODO: inbouwen check vooraf of de tegeltekst niet al
+// genoteerd is op de lijst in ip_blackbook_v3.json
+
 // zorgen dat er per unieke tekst maar 1 uniek plaatje aangemaakt wordt
 $hashname       = seoUrl( $text );
 $filename       = $hashname . ".png";
