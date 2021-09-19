@@ -60,3 +60,4 @@ includes/generate.php
 includes/tegelizr-status.php
 tegeldb/*
 
+includes/woordenschat.php
