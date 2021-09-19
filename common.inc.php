@@ -649,6 +649,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 		$text = preg_replace( "/Turk /i", "Eend ", trim( $text ) );
 		$text = preg_replace( "/Turken/i", "Eenden", trim( $text ) );
+		$text = preg_replace( "/Berber/i", "Klingon", trim( $text ) );
 		$text = preg_replace( "/Marokkaan/i", "Hobbit", trim( $text ) );
 		$text = preg_replace( "/Marokkanen/i", "Limburgers", trim( $text ) );
 		$text = preg_replace( "/rifapen/i", "stoeptegels", trim( $text ) );
