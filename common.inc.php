@@ -701,6 +701,8 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/kanker/i", "frambozenjam", trim( $text ) );
 		$text = preg_replace( "/een je moeder/i", "een bewonderenswaardige vrouw", trim( $text ) );
 
+
+		$text = preg_replace( "/neukgat/i", "[...]", trim( $text ) );
 		$text = preg_replace( "/hoer/i", "je moeder", trim( $text ) );
 		$text = preg_replace( "/joden/i", "smurfen", trim( $text ) );
 		$text = preg_replace( "/Geert Wilders/i", "Zaadslurf", trim( $text ) );
