@@ -1019,7 +1019,7 @@ function append_user_to_badlist() {
 
 	global $ipblackbook;
 	global $desttextpath;
-	global $sourcefiles_tegelplaatjes;
+	global $sourcefiles_tegeldb;
 
 	$cookievalue       = $_COOKIE[ TEGELIZR_COOKIE_KEY ];
 	$file_contents     = file_get_contents( $ipblackbook );
@@ -1073,20 +1073,10 @@ function append_user_to_badlist() {
 			$file_contents = file_get_contents( $sourcefiles_tegeldb . $desttextpath );
 			$data          = json_decode( $file_contents );
 
-//			echo 'toevoegen: ' . $data->txt_tegeltekst . '<br>';
-//			echo 'Before<pre>';
-//			var_dump( $baddies->verbodentegeltjes );
-//			echo '</pre>';
-
 			// voeg de tegeltekst toe aan de verboden lijst
 			$baddies->verbodentegeltjes[] = $data->txt_tegeltekst;
 			$jsonData                     = json_encode( $baddies );
 			file_put_contents( $ipblackbook, $jsonData );
-
-//			echo 'After<pre>';
-//			var_dump( $baddies->verbodentegeltjes );
-//			echo '</pre>';
-//			die( 'aargh' );
 
 		}
 
