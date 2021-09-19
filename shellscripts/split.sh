@@ -30,6 +30,11 @@ echo "\n\n-----------------------------------------------------------------\n"
 echo "txt-bestanden verwijderen uit plaatjes-folder";
 find '/Users/paul/shared-paul-files/Webs/git-repos/tegelizr-source/tegeltjes/' -type f -name "*.txt" -exec rm -vf {} \;
 
+
+find '/var/www/vhosts/plaatjesgenerator.nl/tegelizr/tegeltjes/' -type f -name "*.txt" -exec rm -vf {} \;
+
+
+
 #### 
 #### echo "\n\n-----------------------------------------------------------------\n"
 #### echo "deze folders naar tegelizr development";
