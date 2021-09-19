@@ -1031,10 +1031,10 @@ function append_user_to_badlist() {
 		$cookievalues = explode( COOKIESEPARATOR, $cookievalue );
 
 		if ( $cookievalues ) {
-			echo '<ul>';
+//			echo '<ul>';
 			foreach ( $cookievalues as $cookie ) {
 				// kijken of tegels die bezoeker eerder gemaakt heeft op de zwarte lijst staan
-echo '<li>' . $cookie . '</li>';
+//echo '<li>' . $cookie . '</li>';
 				if ( in_array( $cookie, $verbodentegeltjes ) ) {
 					// bezoeker heeft eerder een tegeltje gemaakt dat we
 					// daarna verwijderd en geblokkeerd hebben
@@ -1042,7 +1042,7 @@ echo '<li>' . $cookie . '</li>';
 					break;
 				}
 			}
-			echo '<ul>';
+//			echo '<ul>';
 		}
 	}
 
