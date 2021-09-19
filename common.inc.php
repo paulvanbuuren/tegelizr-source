@@ -1015,7 +1015,7 @@ function delete_tegeltje( $action = '' ) {
 // ===================================================================================================================
 
 
-function append_user_to_badlist() {
+function look_for_bad_guys() {
 
 	global $ipblackbook;
 	global $desttextpath;

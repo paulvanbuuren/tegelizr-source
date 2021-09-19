@@ -97,7 +97,7 @@ if ( $respond_with_error ) {
 
 }
 
-append_user_to_badlist();
+look_for_bad_guys();
 delete_tegeltje();
 check_status();
 
