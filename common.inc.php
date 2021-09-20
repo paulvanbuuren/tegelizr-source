@@ -906,7 +906,7 @@ function showthumbs( $aantal = DEFAULT_AANTAL_TEGELS, $hide = '', $currentpage =
 							$txt_tegeltekst = filtertext( $views['txt_tegeltekst'], true );
 						}
 
-						$fruit = '<a href="/' . TEGELIZR_SELECTOR . '/' . $info[1] . '"><span>' . $txt_tegeltekst . '</span><img src="/' . TEGELIZR_THUMBS . '/' . $filename . '" alt="' . $txt_tegeltekst . ' - ' . $views[ TEGELIZR_VIEWS ] . ' keer bekeken" /></a>';
+						$fruit = '<a href="/' . TEGELIZR_SELECTOR . '/' . $info[1] . '/"><span>' . $txt_tegeltekst . '</span><img src="/' . TEGELIZR_THUMBS . '/' . $filename . '" alt="' . $txt_tegeltekst . ' - ' . $views[ TEGELIZR_VIEWS ] . ' keer bekeken" /></a>';
 
 						echo '<li>' . $fruit . '</li>';
 					}
@@ -1438,7 +1438,7 @@ ga('send', 'pageview');";
 
 	}
 */
-	
+
 	// get content for all-actions.js
 	$javascriptcontent = file_get_contents( 'js/min/all-actions-min.js', FILE_USE_INCLUDE_PATH );
 

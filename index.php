@@ -294,8 +294,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
 	global $userip;
 
-	$desturl        = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2];
-	$canonical      = TEGELIZR_PROTOCOL . $PREFERED_DOMAIN . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2];
+	$desturl        = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2] . '/';
+	$canonical      = TEGELIZR_PROTOCOL . $PREFERED_DOMAIN . '/' . TEGELIZR_SELECTOR . '/' . $zinnen[2] . '/';
 	$imagesource    = TEGELIZR_PROTOCOL . $_SERVER['HTTP_HOST'] . '/' . TEGELIZR_TEGELPLAATJESFOLDER . '/' . $filename;
 	$views          = getviews( $sourcefiles_tegeldb . $desttextpath, true );
 	$txt_tegeltekst = isset( $views['txt_tegeltekst'] ) ? filtertext( $views['txt_tegeltekst'], true ) : '';
