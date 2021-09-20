@@ -7,7 +7,7 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.7.1
+// @version 7.7.3
 // @desc.   Added TEGELIZR_LAST_1000_IMAGES to limit the nr of images to scan by CRON job. Better text replacements.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
@@ -27,7 +27,7 @@ $path = dirname( __FILE__ ) . "/";
 
 // ===================================================================================================================
 
-define( 'TEGELIZR_VERSION', '7.7.2' );
+define( 'TEGELIZR_VERSION', '7.7.3' );
 
 // ===================================================================================================================
 
@@ -498,7 +498,7 @@ function removeEmoji( $text ) {
 
 function filtertext( $text = '', $dogeintje = true ) {
 
-	$replacer = '[..]';
+	$replacer = '--';
 
 
 	$text = preg_replace( "/“/", '"', $text );
@@ -680,16 +680,16 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/oeren neuken/i", "et milieu een handje helpen", trim( $text ) );
 
 
-		$text = preg_replace( "/Turk /i", "Eend ", trim( $text ) );
-		$text = preg_replace( "/Turken/i", "Eenden", trim( $text ) );
-		$text = preg_replace( "/Berber/i", "Klingon", trim( $text ) );
-		$text = preg_replace( "/marokaner/i", "Klingon", trim( $text ) );
-		$text = preg_replace( "/marocan/i", "Klingon", trim( $text ) );
+		$text = preg_replace( "/Turk /i", "Smurf ", trim( $text ) );
+		$text = preg_replace( "/Turken/i", "Smurfen", trim( $text ) );
+		$text = preg_replace( "/Berber/i", "Smurf", trim( $text ) );
+		$text = preg_replace( "/marokaner/i", "Smurf", trim( $text ) );
+		$text = preg_replace( "/marocan/i", "Smurf", trim( $text ) );
 
-		$text = preg_replace( "/Marokkaan/i", "Hobbit", trim( $text ) );
-		$text = preg_replace( "/Marokkanen/i", "Limburgers", trim( $text ) );
-		$text = preg_replace( "/rifapen/i", "stoeptegels", trim( $text ) );
-		$text = preg_replace( "/rifaap/i", "bifi-worstje", trim( $text ) );
+		$text = preg_replace( "/Marokkaan/i", "Smurf", trim( $text ) );
+		$text = preg_replace( "/Marokkanen/i", "Smurfen", trim( $text ) );
+		$text = preg_replace( "/rifapen/i", "peren", trim( $text ) );
+		$text = preg_replace( "/rifaap/i", "appels", trim( $text ) );
 		$text = preg_replace( "/stormfront/i", "bifi-worstjes", trim( $text ) );
 		$text = preg_replace( "/white power/i", "bifi-worstjes", trim( $text ) );
 		$text = preg_replace( "/white pride/i", "bifi-worstjes", trim( $text ) );
@@ -1253,9 +1253,9 @@ function getSearchResultItem( $result, $showImage = true ) {
 
 	$return = '<li>';
 	if ( $showImage ) {
-		$return .= '<a href="/' . TEGELIZR_SELECTOR . '/' . $hashname . '"><img src="/' . TEGELIZR_THUMBS . '/' . $thumb . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . filtertext( $result['txt_tegeltekst'], true ) . '" /></a>';
+		$return .= '<a href="/' . TEGELIZR_SELECTOR . '/' . $hashname . '/"><img src="/' . TEGELIZR_THUMBS . '/' . $thumb . '" height="' . TEGELIZR_THUMB_WIDTH . '" width="' . TEGELIZR_THUMB_WIDTH . '" alt="' . filtertext( $result['txt_tegeltekst'], true ) . '" /></a>';
 	}
-	$return .= '<h3><a href="/' . TEGELIZR_SELECTOR . '/' . $hashname . '">' . filtertext( $result['txt_tegeltekst'], true ) . '</a></h3><span class="datum">' . $date . '</span><span class="aantalkeer">' . $result[ TEGELIZR_VIEWS ] . ' keer bekeken</span>';
+	$return .= '<p class="title"><a href="/' . TEGELIZR_SELECTOR . '/' . $hashname . '/">' . filtertext( $result['txt_tegeltekst'], true ) . '</a></p><span class="datum">' . $date . '</span><span class="aantalkeer">' . $result[ TEGELIZR_VIEWS ] . ' keer bekeken</span>';
 	if ( $result[ TGLZR_NR_VOTES ] > 0 ) {
 		$return .= ' - <span class="waardering">waardering: ' . $result[ dec_avg ] . ' ';
 		if ( $result[ rounded_avg ] > 1 ) {
@@ -1425,7 +1425,7 @@ function spitoutfooter() {
 // ]); 
 
 	$analytics = '';
-
+/*
 	if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'tegelizer.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
 		$analytics = "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();
 a=s.createElement(o),m=s.getElementsByTagName(o)[0];
@@ -1437,7 +1437,8 @@ ga('set', 'dimension1', '" . $tijdvandedag . "');
 ga('send', 'pageview');";
 
 	}
-
+*/
+	
 	// get content for all-actions.js
 	$javascriptcontent = file_get_contents( 'js/min/all-actions-min.js', FILE_USE_INCLUDE_PATH );
 
