@@ -1057,7 +1057,7 @@ function append_ipaddress_to_list( $userip ) {
 // ===================================================================================================================
 
 
-function look_for_bad_guys() {
+function fn_look_for_bad_guys() {
 
 	global $ipblackbook;
 	global $desttextpath;

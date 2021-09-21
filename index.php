@@ -23,7 +23,7 @@ wbvb_set_hsts_policy();
  *
  * @since 1.0.0
  */
-function wbvb_set_hsts_policy() {
+function wbvb_set_hsts_policy() { 
 
 	if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'www.tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
 
@@ -97,7 +97,7 @@ if ( $respond_with_error ) {
 
 }
 
-look_for_bad_guys();
+fn_look_for_bad_guys();
 delete_tegeltje();
 check_status();
 
