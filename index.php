@@ -12,6 +12,8 @@
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
 
+include( "common.inc.php" );
+
 ob_start( "sanitize_output" );
 
 $style = 'hmd';
@@ -23,7 +25,7 @@ wbvb_set_hsts_policy();
  *
  * @since 1.0.0
  */
-function wbvb_set_hsts_policy() { 
+function wbvb_set_hsts_policy() {
 
 	if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'www.tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
 
@@ -40,7 +42,6 @@ function wbvb_set_hsts_policy() {
 
 }
 
-include( "common.inc.php" );
 
 // ===================================================================================================================
 

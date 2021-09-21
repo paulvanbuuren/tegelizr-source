@@ -7,7 +7,7 @@
 // ----------------------------------------------------------------------------------
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 7.7.3
+// @version 7.7.4
 // @desc.   Added TEGELIZR_LAST_1000_IMAGES to limit the nr of images to scan by CRON job. Better text replacements.
 // @link    https://github.com/paulvanbuuren/tegelizr-source
 ///
@@ -27,7 +27,7 @@ $path = dirname( __FILE__ ) . "/";
 
 // ===================================================================================================================
 
-define( 'TEGELIZR_VERSION', '7.7.3' );
+define( 'TEGELIZR_VERSION', '7.7.4' );
 
 // ===================================================================================================================
 
