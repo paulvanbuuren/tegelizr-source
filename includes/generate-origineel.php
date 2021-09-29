@@ -173,7 +173,7 @@ if ( ! file_exists( $destimagepath ) && ! file_exists( $desttextpath ) && ! file
 	$img = imagecreatefrompng( $baseimgpath );
 
 	// we mikken op een maximum van 4 zinnen en ideaal is 3
-	$aantal_zinnen = 3;
+	$aantal_zinnen = TEGELIZR_MAX_SENTENCES;
 
 	// Get image Width and Height
 	$image_width   = imagesx( $img );
