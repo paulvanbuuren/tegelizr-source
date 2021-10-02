@@ -225,7 +225,7 @@ if ( ! defined( 'TEGELIZR_SUBMIT_RATING' ) ) {
 	define( 'TEGELIZR_SUBMIT_RATING', 'geef sterren' );
 }
 if ( ! defined( 'TEGELIZR_TXT_LENGTH' ) ) {
-	define( 'TEGELIZR_TXT_LENGTH', 120 );
+	define( 'TEGELIZR_TXT_LENGTH', 90 );
 }
 if ( ! defined( 'TEGELIZR_MAX_SENTENCES' ) ) {
 	// het maximale aantal regels op een tegel
