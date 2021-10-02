@@ -229,7 +229,7 @@ if ( ! defined( 'TEGELIZR_TXT_LENGTH' ) ) {
 }
 if ( ! defined( 'TEGELIZR_MAX_SENTENCES' ) ) {
 	// het maximale aantal regels op een tegel
-	define( 'TEGELIZR_MAX_SENTENCES', 5 );
+	define( 'TEGELIZR_MAX_SENTENCES', 4 );
 }
 if ( ! defined( 'TEGELIZR_THUMB_WIDTH' ) ) {
 	define( 'TEGELIZR_THUMB_WIDTH', 220 );
