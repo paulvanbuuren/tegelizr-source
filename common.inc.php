@@ -225,11 +225,11 @@ if ( ! defined( 'TEGELIZR_SUBMIT_RATING' ) ) {
 	define( 'TEGELIZR_SUBMIT_RATING', 'geef sterren' );
 }
 if ( ! defined( 'TEGELIZR_TXT_LENGTH' ) ) {
-	define( 'TEGELIZR_TXT_LENGTH', 120 );
+	define( 'TEGELIZR_TXT_LENGTH', 90 );
 }
 if ( ! defined( 'TEGELIZR_MAX_SENTENCES' ) ) {
 	// het maximale aantal regels op een tegel
-	define( 'TEGELIZR_MAX_SENTENCES', 4 );
+	define( 'TEGELIZR_MAX_SENTENCES', 3 );
 }
 if ( ! defined( 'TEGELIZR_THUMB_WIDTH' ) ) {
 	define( 'TEGELIZR_THUMB_WIDTH', 220 );
