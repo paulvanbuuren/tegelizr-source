@@ -708,6 +708,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/\:-p/i", " [humorpantalon]", trim( $text ) );
 
 		$text = preg_replace( "/leppers/i", "sinterklaas", trim( $text ) );
+		$text = preg_replace( "/ ktp/i", "", trim( $text ) );
 
 		$text = preg_replace( "/slikheks/i", "je moeder", trim( $text ) );
 		$text = preg_replace( "/m1rj@m/i", "He, kneusje. Hou eens op.", trim( $text ) );
