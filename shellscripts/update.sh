@@ -1,10 +1,10 @@
 # sh '/Users/paul/shared-paul-files/Webs/git-repos/tegelizr-source/shellscripts/update.sh' &>/dev/null
-
+# /Users/paul/shared-paul-files/Webs/git-repos/tegelizr-source/shellscripts/update.sh
 # https://tegelizr.nl/includes/tegeltjesoppoetsen.php
 # http://tegelizr.local/includes/tegeltjesoppoetsen.php
 
 # rsync -r -a  '/Users/paul/shared-paul-files/Webs/git-repos/tegelizr-source/' '/Users/paul/shared-paul-files/Webs/webfaction/webapps/testtegelizr/' 
-rsync -r -a  '/Users/paul/shared-paul-files/Webs/git-repos/tegelizr-source/' '/Users/paul/shared-paul-files/Webs/webfaction/webapps/tegelizr/' 
+# rsync -r -a  '/Users/paul/shared-paul-files/Webs/git-repos/tegelizr-source/' '/Users/paul/Sites/tegelizr/'
 
 
 # copy to temp dir
@@ -22,8 +22,11 @@ rm '/Users/paul/shared-paul-files/Webs/temp/lintme.js'
 rm '/Users/paul/shared-paul-files/Webs/temp/js.zip'
 
 
+# Gebruiker Centraal: gc.tegelizr.test
+rsync -r -a  '/Users/paul/shared-paul-files/Webs/temp/' '/Users/paul/shared-paul-files/Webs/ICTU/Gebruiker Centraal/plaatjesgenerator-gc/'
 
-rsync -r -a  '/Users/paul/shared-paul-files/Webs/temp/' '/Users/paul/shared-paul-files/Webs/webfaction/webapps/gc_plaatjesgenerator/' 
+# Local tegelizr: tegelizr.test
+rsync -r -a  '/Users/paul/shared-paul-files/Webs/temp/' '/Users/paul/Sites/tegelizr/'
 
 ##	
 # ================================================================================================
