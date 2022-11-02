@@ -90,11 +90,11 @@ if ( $respond_with_error ) {
 	// respond with code 410: 'Gone'
 	http_response_code( 410 );
 
-	// schrijf een regel in een logbestand
-	$titel = "\n" . date( "Y-m-d" ) . ' - ' . date( "h:i:sa" ) . ' - 404 tegel niet gevonden: ' . $url;
-	$fp    = fopen( date( "Y-m-d" ) . '-404.log', 'a' );//opens file in append mode
-	fwrite( $fp, $titel );
-	fclose( $fp );
+//	// schrijf een regel in een logbestand
+//	$titel = "\n" . date( "Y-m-d" ) . ' - ' . date( "h:i:sa" ) . ' - 404 tegel niet gevonden: ' . $url;
+//	$fp    = fopen( date( "Y-m-d" ) . '-404.log', 'a' );//opens file in append mode
+//	fwrite( $fp, $titel );
+//	fclose( $fp );
 
 }
 
