@@ -42,4 +42,5 @@ define('TXT_DOBETTER', '<p id="leuk">Leuk? Of kun jij het beter? <a href="/">Maa
 define('MAIL_PREFIX', 'Tegelizr' );
 
 
+define('MASTODON_ME', 'https://mastodon.social/@paulvanbuuren' );
 

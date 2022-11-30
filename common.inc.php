@@ -143,7 +143,10 @@ if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'www.teg
 	// Report no PHP errors
 	error_reporting( 0 );
 
-} elseif ( $_SERVER['HTTP_HOST'] == 'gc.plaatjesgenerator.nl' || $_SERVER['HTTP_HOST'] == 'gebruikercentraal.plaatjesgenerator.nl' ) {
+} elseif ( $_SERVER['HTTP_HOST'] == 'gc.plaatjesgenerator.nl' ||
+           $_SERVER['HTTP_HOST'] == 'gebruikercentraal.plaatjesgenerator.nl' ||
+           $_SERVER['HTTP_HOST'] == 'gcoud.tegelizr.test' ||
+           $_SERVER['HTTP_HOST'] == 'gc.tegelizr.test' ) {
 
 	define( 'TEGELIZR_PROTOCOL', 'https://' );
 	define( 'TEGELIZR_DEBUG', false );
@@ -325,6 +328,8 @@ if ( ! defined( 'TXTCOLOR_G' ) ) {
 if ( ! defined( 'TXTCOLOR_B' ) ) {
 	define( 'TXTCOLOR_B', 170 );
 }
+
+// die('RGB: ' . TXTCOLOR_R . '/' . TXTCOLOR_G . '/' . TXTCOLOR_B);
 
 
 // teksten voor rating
@@ -653,9 +658,12 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Marc Kaptein/i", "Henk de Vries", trim( $text ) );
 		$text = preg_replace( "/EU-Grandeurs/i", "Henk de Vries", trim( $text ) );
 
+		$text = preg_replace( "/vvd/i", "Grutjes Mark Rutjes-partij", trim( $text ) );
+
 		$text = preg_replace( "/Sigrid Kaag/i", "Henk de Vries", trim( $text ) );
 		$text = preg_replace( "/Kaag/i", "Je moeder", trim( $text ) );
 		$text = preg_replace( "/jol-straat/i", "jolstraat", trim( $text ) );
+		$text = preg_replace( "/D'66/i", "D66", trim( $text ) );
 		$text = preg_replace( "/D6666/i", "D66", trim( $text ) );
 		$text = preg_replace( "/D666/", "D66", trim( $text ) );
 		$text = preg_replace( "/D66/", "die ene partij, hoe heet 'ie ook alweer", trim( $text ) );
@@ -665,6 +673,9 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Covid/i", "covid-19", trim( $text ) );
 		$text = preg_replace( "/Covid 19/i", "covid-19", trim( $text ) );
 		$text = preg_replace( "/covid-19/i", "corona", trim( $text ) );
+		$text = preg_replace( "/carona/i", "corona", trim( $text ) );
+		$text = preg_replace( "/caronja/i", "corona", trim( $text ) );
+		$text = preg_replace( "/coronja/i", "corona", trim( $text ) );
 		$text = preg_replace( "/cojona/i", "corona", trim( $text ) );
 		$text = preg_replace( "/cor ona/i", "corona", trim( $text ) );
 		$text = preg_replace( "/cro na/i", "corona", trim( $text ) );
@@ -974,7 +985,7 @@ function wbvb_d2e_socialbuttons( $thelink = 'thelink', $thetitle = 'thetitle', $
 // ===================================================================================================================
 
 function delete_tegeltje( $action = '' ) {
-
+	global $path;
 	$sourcefiles_tegelplaatjes = $path . TEGELIZR_TEGELPLAATJESFOLDER . "/";
 	$sourcefiles_thumbs        = $path . TEGELIZR_THUMBS . "/";
 
@@ -1064,7 +1075,7 @@ function fn_look_for_bad_guys() {
 	global $desttextpath;
 	global $sourcefiles_tegeldb;
 
-	$cookievalue       = $_COOKIE[ TEGELIZR_COOKIE_KEY ];
+	$cookievalue       = isset( $_COOKIE[ TEGELIZR_COOKIE_KEY ] ) ? $_COOKIE[ TEGELIZR_COOKIE_KEY ] : '';
 	$file_contents     = file_get_contents( $ipblackbook );
 	$baddies           = json_decode( $file_contents );
 	$verbodentegeltjes = $baddies->verbodentegeltjes;
@@ -1088,7 +1099,7 @@ function fn_look_for_bad_guys() {
 
 	if ( $userip ) {
 		// bezoeker is een recidivist vanachter een nieuw IP-nummer
-	} elseif ( ( $_GET['remoteip'] ) && ( $_GET['action'] === 'block' ) ) {
+	} elseif ( ( isset( $_GET['remoteip'] ) ) && ( $_GET['action'] === 'block' ) ) {
 		// het te blokkeren IP-adres komt uit de querystring
 		// TODO checken of de sauce	ook klopt, 'sauce'
 		$userip = $_GET['remoteip'];
@@ -1148,7 +1159,7 @@ function userip_should_be_warned() {
 	$return = false;
 	$userip = get_user_ip();
 
-	$cookievalue = $_COOKIE[ TEGELIZR_COOKIE_KEY ];
+	$cookievalue = isset( $_COOKIE[ TEGELIZR_COOKIE_KEY ] ) ? $_COOKIE[ TEGELIZR_COOKIE_KEY ] : '';
 
 	//Load the file
 	$baddies2 = file_get_contents( $ipblackbook );
@@ -1281,7 +1292,7 @@ function returnlogo() {
 
 
 function spitoutheader() {
-	return '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" href="' . IMG_FAVICONICO . '" type="image/x-icon" /><link rel="publisher" href="https://plus.google.com/u/0/+PaulvanBuuren"/><meta name="twitter:card" content="summary"/><meta name="twitter:site" content="@paulvanbuuren"/><meta name="twitter:domain" content="WBVB"/><meta name="twitter:creator" content="@paulvanbuuren"/><meta property="og:locale" content="nl_NL" /><meta property="og:type" content="article" /><meta property="og:site_name" content="Webbureau Van Buuren Rotterdam" /><meta property="article:publisher" content="https://www.facebook.com/webbureauvanbuuren" /><link rel="apple-touch-icon" href="' . IMG_FAVICONAPPLE . '">';
+	return '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" href="' . IMG_FAVICONICO . '" type="image/x-icon" /><link rel="me" href="' . MASTODON_ME . '"><meta name="twitter:card" content="summary"/><meta name="twitter:site" content="@paulvanbuuren"/><meta name="twitter:domain" content="WBVB"/><meta name="twitter:creator" content="@paulvanbuuren"/><meta property="og:locale" content="nl_NL" /><meta property="og:type" content="article" /><meta property="og:site_name" content="Webbureau Van Buuren Rotterdam" /><meta property="article:publisher" content="https://www.facebook.com/webbureauvanbuuren" /><link rel="apple-touch-icon" href="' . IMG_FAVICONAPPLE . '">';
 
 }
 
@@ -1426,19 +1437,19 @@ function spitoutfooter() {
 // ]); 
 
 	$analytics = '';
-/*
-	if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'tegelizer.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
-		$analytics = "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();
-a=s.createElement(o),m=s.getElementsByTagName(o)[0];
-a.async=1;
-a.src=g;
-m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-1780046-36', 'auto');
-ga('set', 'dimension1', '" . $tijdvandedag . "');
-ga('send', 'pageview');";
+	/*
+		if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'tegelizer.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
+			$analytics = "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();
+	a=s.createElement(o),m=s.getElementsByTagName(o)[0];
+	a.async=1;
+	a.src=g;
+	m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-1780046-36', 'auto');
+	ga('set', 'dimension1', '" . $tijdvandedag . "');
+	ga('send', 'pageview');";
 
-	}
-*/
+		}
+	*/
 
 	// get content for all-actions.js
 	$javascriptcontent = file_get_contents( 'js/min/all-actions-min.js', FILE_USE_INCLUDE_PATH );
