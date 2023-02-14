@@ -5,7 +5,7 @@ echo "Swiffer hiero"
 find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*van-harte-gefeliciteerd*" -exec rm -vf {} \;
 find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*hartelijk-gefeliciteerd*" -exec rm -vf {} \;
 find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*fijne-samenwerking*" -exec rm -vf {} \;
-find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*gefeliciteerd-met-je-verjaardag*" -exec rm -vf {} \;
+find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*gefeliciteerd-met-*" -exec rm -vf {} \;
 find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*woordvoerder-oeleh*" -exec rm -vf {} \;
 find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*woordvoerder-ouleh*" -exec rm -vf {} \;
 find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*gaat-met-pensioen*" -exec rm -vf {} \;
@@ -33,6 +33,22 @@ find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*frambozen
 find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*drek-drek*" -exec rm -vf {} \;
 find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*lala-lala*" -exec rm -vf {} \;
 find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*langkous*" -exec rm -vf {} \;
+find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*out-of-office*" -exec rm -vf {} \;
+find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*happy-b-day*" -exec rm -vf {} \;
+find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*fijne-verjaardag*" -exec rm -vf {} \;
+find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*cumslut*" -exec rm -vf {} \;
+find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*qr-*" -exec rm -vf {} \;
+find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*este-colleg*" -exec rm -vf {} \;
+
+# persoonsnamen
+find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*andrew*" -exec rm -vf {} \;
+find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*rutte*" -exec rm -vf {} \;
+find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*hugo*" -exec rm -vf {} \;
+find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*wendy*" -exec rm -vf {} \;
+find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*nikky*" -exec rm -vf {} \;
+find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*louis*" -exec rm -vf {} \;
+find /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/ -type f -name "*walter*" -exec rm -vf {} \;
+
 rm /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/deleted_files/thumbs/*;
 rm /var/www/vhosts/plaatjesgenerator.nl/tegelizr.nl/deleted_files/tegeltjes/*;
 

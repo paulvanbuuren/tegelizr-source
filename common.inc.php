@@ -1006,7 +1006,12 @@ function delete_tegeltje( $action = '' ) {
 	//  ?tegel=2021-09-09-14-44-50_llldddksdadddddadkdkdkd-asdfa-slfasdfl-asdf_thumb.png
 	//  &action=delete&secrit=613a01c5844ef&sauce=16139185c1bce93.62796818
 
-	if ( $_GET['action'] === 'delete' || $action === 'delete' ) {
+	$action = '';
+	if ( isset( $_GET['action'] ) ) {
+		$action = $_GET['action'];
+	}
+
+	if ( $action === 'delete' ) {
 		$secrit = htmlspecialchars( $_GET['secrit'] );
 		$sauce  = htmlspecialchars( $_GET['sauce'] );
 
@@ -1292,7 +1297,12 @@ function returnlogo() {
 
 
 function spitoutheader() {
-	return '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" href="' . IMG_FAVICONICO . '" type="image/x-icon" /><link rel="me" href="' . MASTODON_ME . '"><meta name="twitter:card" content="summary"/><meta name="twitter:site" content="@paulvanbuuren"/><meta name="twitter:domain" content="WBVB"/><meta name="twitter:creator" content="@paulvanbuuren"/><meta property="og:locale" content="nl_NL" /><meta property="og:type" content="article" /><meta property="og:site_name" content="Webbureau Van Buuren Rotterdam" /><meta property="article:publisher" content="https://www.facebook.com/webbureauvanbuuren" /><link rel="apple-touch-icon" href="' . IMG_FAVICONAPPLE . '">';
+	$mastodon = '';
+	if ( defined( 'MASTODON_ME' ) ) {
+		$mastodon = '<link rel="me" href="' . MASTODON_ME . '">';
+	}
+
+	return '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" href="' . IMG_FAVICONICO . '" type="image/x-icon" />' . $mastodon . '<meta name="twitter:card" content="summary"/><meta name="twitter:site" content="@paulvanbuuren"/><meta name="twitter:domain" content="WBVB"/><meta name="twitter:creator" content="@paulvanbuuren"/><meta property="og:locale" content="nl_NL" /><meta property="og:type" content="article" /><meta property="og:site_name" content="Webbureau Van Buuren Rotterdam" /><meta property="article:publisher" content="https://www.facebook.com/webbureauvanbuuren" /><link rel="apple-touch-icon" href="' . IMG_FAVICONAPPLE . '">';
 
 }
 
