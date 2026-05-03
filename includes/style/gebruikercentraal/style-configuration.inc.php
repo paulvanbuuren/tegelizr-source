@@ -13,104 +13,63 @@
 ///
 
 
-$thispath = dirname( __FILE__ ) . "/";
 
-
-define( 'STYLEFOLDER', $thispath );
+$thispath                   = dirname(__FILE__)."/";
+define('STYLEFOLDER', $thispath);
 
 // wit: 
-//define('TXTCOLOR_R', 0 );
-//define('TXTCOLOR_G', 48 );
-//define('TXTCOLOR_B', 61 );
-/*
-#0086c1
-define( 'TXTCOLOR_R', 0 );
-define( 'TXTCOLOR_G', 134 );
-define( 'TXTCOLOR_B', 193 );
-*/
-/*
-#0075A9
-define( 'TXTCOLOR_R', 0 );
-define( 'TXTCOLOR_G', 117 );
-define( 'TXTCOLOR_B', 169 );
-*/
+define('TXTCOLOR_R', 0 );
+define('TXTCOLOR_G', 48 );
+define('TXTCOLOR_B', 61 );
 
-if ( $_SERVER['HTTP_HOST'] == 'gcoud.tegelizr.test' ) {
-	$images = array(
-		'poppetje-1.png',
-		'poppetje-2.png',
-		'poppetje-3.png',
-		'poppetje-4.png',
-		'poppetje-5.png',
-		'poppetje-6.png',
-		'poppetje-7.png',
-		'poppetje-8.png',
-		'poppetje-9.png',
-		'poppetje-10.png',
-		'poppetje-11.png',
-		'poppetje-12.png',
-		'poppetje-13.png',
-		'poppetje-14.png',
-		'poppetje-15.png'
-	);
-	define( 'FONTFILE', $thispath . "Montserrat-SemiBold.ttf" );
-} else {
-	$images = array(
-		'tegel-1.png',
-	);
-	define( 'FONTFILE', $thispath . "LeagueGothic-Regular.ttf" );
+$images = array(
+	'poppetje-1.png',
+	'poppetje-2.png',
+	'poppetje-3.png',
+	'poppetje-4.png',
+	'poppetje-5.png',
+	'poppetje-6.png',
+	'poppetje-7.png',
+	'poppetje-8.png',
+	'poppetje-9.png',
+	'poppetje-10.png',
+	'poppetje-11.png',
+	'poppetje-12.png',
+	'poppetje-13.png',
+	'poppetje-14.png',
+	'poppetje-15.png' );
 
-	#0087C0
-//	define( 'TXTCOLOR_R', 0 );
-//	define( 'TXTCOLOR_G', 135 );
-//	define( 'TXTCOLOR_B', 192 );
+define('BASEIMAGE', $images[ array_rand( $images ) ] );
 
-	#0086C1
-//	define( 'TXTCOLOR_R', 0 );
-//	define( 'TXTCOLOR_G', 134 );
-//	define( 'TXTCOLOR_B', 193 );
+define('STYLING_BLURSTRENGTH', 0 );
+define('STYLING_STYLESHEET', 'includes/style/gebruikercentraal/gc-style.css' );
 
-	#0070A1
-	define( 'TXTCOLOR_R', 0 );
-	define( 'TXTCOLOR_G', 112 );
-	define( 'TXTCOLOR_B', 161 );
+define('FONTFILE', $thispath . "Montserrat-SemiBold.ttf");
 
 
-}
+define('TEGELIZR_TITLE',            'Noteer een GC-quote');
+define('TEGELIZR_FORM',             "Noteer een GC-quote en leg 'm vast voor later.");
+define('TEGELIZR_BACK',             'Noteer een GC-quote');
+define('TEGELIZR_SUBMIT',           'Citaat invoeren');
+define('TEGELIZR_SELECTOR',         'plaatje');
+define('TEGELIZR_SUMMARY',          "Noteer een GC-quote en leg 'm vast voor later.");
+define('TEGELIZR_METADESC',         "Noteer een GC-quote en leg 'm vast voor later.");
+define('TEGELIZR_ZOEK_LABEL',       'Zoek plaatje');
+define('TEGELLABEL_PLURAL',         'plaatjes');
 
 
-define( 'BASEIMAGE', $images[ array_rand( $images ) ] );
+define('IMG_FAVICONICO', '/404.png' );
+define('IMG_FAVICONAPPLE', '/404.png' );
 
-define( 'STYLING_BLURSTRENGTH', 0 );
-define( 'STYLING_STYLESHEET', 'includes/style/gebruikercentraal/gc-style.css' );
+define('MAIL_PREFIX', '[gc-plaatje]' );
 
-// define('FONTFILE', $thispath . "Montserrat-SemiBold.ttf");
-define( 'FONTFILE', $thispath . "leaguegothic-regular-webfont.ttf" );
-
-
-define( 'TEGELIZR_TITLE', 'Noteer een GC-quote' );
-define( 'TEGELIZR_FORM', "Noteer een GC-quote en leg 'm vast voor later." );
-define( 'TEGELIZR_BACK', 'Noteer een GC-quote' );
-define( 'TEGELIZR_SUBMIT', 'Citaat invoeren' );
-define( 'TEGELIZR_SELECTOR', 'plaatje' );
-define( 'TEGELIZR_SUMMARY', "Noteer een GC-quote en leg 'm vast voor later." );
-define( 'TEGELIZR_METADESC', "Noteer een GC-quote en leg 'm vast voor later." );
-define( 'TEGELIZR_ZOEK_LABEL', 'Zoek plaatje' );
-define( 'TEGELLABEL_PLURAL', 'plaatjes' );
+define('DO_WORDWRAP', true ); // moeten de woorden op een nieuwe regel gezet worden?
+define('DO_SEARCH', false ); // geen zoekformuliertje
 
 
-define( 'IMG_FAVICONICO', '/404.png' );
-define( 'IMG_FAVICONAPPLE', '/404.png' );
+define('TEGELIZR_TXT_LENGTH', 200 ); // moeten de woorden op een nieuwe regel gezet worden?
 
-define( 'MAIL_PREFIX', '[gc-plaatje]' );
-
-define( 'DO_WORDWRAP', true ); // moeten de woorden op een nieuwe regel gezet worden?
-define( 'DO_SEARCH', false ); // geen zoekformuliertje
-
-
-define( 'TEGELIZR_TXT_LENGTH', 200 ); // moeten de woorden op een nieuwe regel gezet worden?
-
-define( 'TXT_RECENT_ITEMS', 'Suggestie' );
+define('TXT_RECENT_ITEMS', 'Suggestie' );
 
 
 
