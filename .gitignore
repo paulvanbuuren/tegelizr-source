@@ -61,3 +61,5 @@ includes/tegelizr-status.php
 tegeldb/*
 
 includes/woordenschat.php
+.DS_Store
+/vendor

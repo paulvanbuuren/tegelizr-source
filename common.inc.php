@@ -572,6 +572,8 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 		$text = preg_replace( "/zwarte piet/i", "racisme", trim( $text ) );
 		$text = preg_replace( "/pepijn/i", "Henk", trim( $text ) );
+		$text = preg_replace( "/lidewij/i", "Nasikippetje", trim( $text ) );
+		$text = preg_replace( "/gideon/i", "Nasikippetje", trim( $text ) );
 		$text = preg_replace( "/janneke/i", "Gerda", trim( $text ) );
 		$text = preg_replace( "/trolld/i", "piept", trim( $text ) );
 		$text = preg_replace( "/trollt/i", "zeikt", trim( $text ) );
@@ -586,7 +588,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/grof geweld/i", "bloemen", trim( $text ) );
 
 		$text = preg_replace( "/1488/i", "sieg heil", trim( $text ) );
-		$text = preg_replace( "/nikker/i", "sieg heil", trim( $text ) );
+//		$text = preg_replace( "/nikker/i", "sieg heil", trim( $text ) );
 		$text = preg_replace( "/uhrer/i", "ührer", trim( $text ) );
 		$text = preg_replace( "/mein führerr/i", "o grote cavia", trim( $text ) );
 		$text = preg_replace( "/sieg heil/i", "adolf befbezem", trim( $text ) );
