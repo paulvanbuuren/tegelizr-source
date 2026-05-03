@@ -63,3 +63,5 @@ tegeldb/*
 includes/woordenschat.php
 .DS_Store
 /vendor
+tegelizr.test.crt
+tegelizr.test.key
