@@ -500,6 +500,35 @@ function removeEmoji( $text ) {
 }
 
 // ===================================================================================================================
+function is_string_all_caps(string $str): bool {
+	return (bool) preg_match('/^\P{Ll}*$/u', $str);
+}
+
+// ===================================================================================================================
+function replaceWithCaseRespect(string $sentence, string $search, string $replace): string {
+	return preg_replace_callback(
+		'/\b' . preg_quote($search, '/') . '\b/i',
+		function (array $matches) use ($replace): string {
+			$matched = $matches[0];
+
+			if ($matched === mb_strtoupper($matched)) {
+				// ALL CAPS
+				return mb_strtoupper($replace);
+			}
+
+			if ($matched === ucfirst(mb_strtolower($matched))) {
+				// Title case (e.g. "Hello")
+				return ucfirst(mb_strtolower($replace));
+			}
+
+			// Lowercase or mixed — return as-is
+			return $replace;
+		},
+		$sentence
+	);
+}
+
+// ===================================================================================================================
 
 function filtertext( $text = '', $dogeintje = true ) {
 
@@ -519,8 +548,8 @@ function filtertext( $text = '', $dogeintje = true ) {
 	$text = preg_replace( "/created by/", "", $text );
 	$text = preg_replace( "/paulo coelho/", "Paulo Coelho", $text );
 	$text = preg_replace( "/Paulo Coelho/", "Jomanda", $text );
-	$text = preg_replace( "/S.d.B/", "", $text );
-	$text = preg_replace( "/s.d.b/", "", $text );
+//	$text = preg_replace( "/S.d.B/", "", $text );
+//	$text = preg_replace( "/s.d.b/", "", $text );
 	$text = preg_replace( "/sdb/", "", $text );
 	$text = preg_replace( "/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"\/ùûüÿàâæçéèêëïîôöœÙÛÜÀÂÆÇÉÈÊËÏÎÔÖŒ™#✂]+/", "", trim( $text ) );
 	$text = removeEmoji( $text );
@@ -753,7 +782,9 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/kanker/i", "frambozenjam", trim( $text ) );
 		$text = preg_replace( "/een je moeder/i", "een bewonderenswaardige vrouw", trim( $text ) );
 
-		$text = preg_replace( "/hoer/i", "je moeder", trim( $text ) );
+		$text = replaceWithCaseRespect($text, "hoer", "je moeder");
+		$text = replaceWithCaseRespect($text, "je je moeder", "je moeder");
+
 		$text = preg_replace( "/joden/i", "smurfen", trim( $text ) );
 		$text = preg_replace( "/Geert Wilders/i", "Zaadslurf", trim( $text ) );
 		$text = preg_replace( "/Thierry Baudet/i", "Lavendelnazi", trim( $text ) );
@@ -1483,7 +1514,7 @@ function spitoutfooter() {
 		$about = '<div id="footer-about"><h3>' . TEGELIZR_ABOUT_THIS_SITE . '</h3><ul>' . $aboutlist . '</ul></div>';
 	}
 
-	return '<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div>' . $about . $form . '</footer><scri' . "pt>" . $analytics . $javascriptcontent . "</scr" . 'ipt></body></html>';
+	return '<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:tegelizr@wbvb.nl">tegelizr@wbvb.nl</a></li><li><a href="https://social.van.buu.re/@paul">Mastodon</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div>' . $about . $form . '</footer><scri' . "pt>" . $analytics . $javascriptcontent . "</scr" . 'ipt></body></html>';
 
 }
 
