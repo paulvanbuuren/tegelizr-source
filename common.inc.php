@@ -500,26 +500,27 @@ function removeEmoji( $text ) {
 }
 
 // ===================================================================================================================
-function is_string_all_caps(string $str): bool {
-	return (bool) preg_match('/^\P{Ll}*$/u', $str);
+function is_string_all_caps( string $str ): bool {
+	return (bool) preg_match( '/^\P{Ll}*$/u', $str );
 }
 
 // ===================================================================================================================
-function replaceWithCaseRespect(string $sentence, string $search, string $replace): string {
+function replaceWithCaseRespect( string $sentence, string $search, string $replace ): string {
 	return preg_replace_callback(
-		'/\b' . preg_quote($search, '/') . '\b/i',
-		function (array $matches) use ($replace): string {
+		'/\b' . preg_quote( $search, '/' ) . '\b/i',
+		function ( array $matches ) use ( $replace ): string {
 			$matched = $matches[0];
 
-			if ($matched === mb_strtoupper($matched)) {
+			if ( $matched === mb_strtoupper( $matched ) ) {
 				// ALL CAPS
-				return mb_strtoupper($replace);
+				return mb_strtoupper( $replace );
 			}
 
-			if ($matched === ucfirst(mb_strtolower($matched))) {
-				// Title case (e.g. "Hello")
-				return ucfirst(mb_strtolower($replace));
-			}
+			// ik wil geen Title Case
+//			if ( $matched === ucfirst( mb_strtolower( $matched ) ) ) {
+//				// Title case (e.g. "Hello")
+//				return ucfirst( mb_strtolower( $replace ) );
+//			}
 
 			// Lowercase or mixed — return as-is
 			return $replace;
@@ -782,8 +783,8 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/kanker/i", "frambozenjam", trim( $text ) );
 		$text = preg_replace( "/een je moeder/i", "een bewonderenswaardige vrouw", trim( $text ) );
 
-		$text = replaceWithCaseRespect($text, "hoer", "je moeder");
-		$text = replaceWithCaseRespect($text, "je je moeder", "je moeder");
+		$text = replaceWithCaseRespect( $text, "hoer", "je moeder" );
+		$text = replaceWithCaseRespect( $text, "je je moeder", "je moeder" );
 
 		$text = preg_replace( "/joden/i", "smurfen", trim( $text ) );
 		$text = preg_replace( "/Geert Wilders/i", "Zaadslurf", trim( $text ) );
