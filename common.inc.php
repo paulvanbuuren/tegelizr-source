@@ -785,6 +785,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 		$text = replaceWithCaseRespect( $text, "hoer", "je moeder" );
 		$text = replaceWithCaseRespect( $text, "je je moeder", "je moeder" );
+		$text = replaceWithCaseRespect( $text, "Mohammed", "Henk de Vries" );
 
 		$text = preg_replace( "/joden/i", "smurfen", trim( $text ) );
 		$text = preg_replace( "/Geert Wilders/i", "Zaadslurf", trim( $text ) );
