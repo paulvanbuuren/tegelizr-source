@@ -143,7 +143,10 @@ if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'www.teg
 	// Report no PHP errors
 	error_reporting( 0 );
 
-} elseif ( $_SERVER['HTTP_HOST'] == 'gc.plaatjesgenerator.nl' || $_SERVER['HTTP_HOST'] == 'gebruikercentraal.plaatjesgenerator.nl' ) {
+} elseif ( $_SERVER['HTTP_HOST'] == 'gc.plaatjesgenerator.nl' ||
+           $_SERVER['HTTP_HOST'] == 'gebruikercentraal.plaatjesgenerator.nl' ||
+           $_SERVER['HTTP_HOST'] == 'gcoud.tegelizr.test' ||
+           $_SERVER['HTTP_HOST'] == 'gc.tegelizr.test' ) {
 
 	define( 'TEGELIZR_PROTOCOL', 'https://' );
 	define( 'TEGELIZR_DEBUG', false );
@@ -326,6 +329,8 @@ if ( ! defined( 'TXTCOLOR_B' ) ) {
 	define( 'TXTCOLOR_B', 170 );
 }
 
+// die('RGB: ' . TXTCOLOR_R . '/' . TXTCOLOR_G . '/' . TXTCOLOR_B);
+
 
 // teksten voor rating
 define( 'TEGELIZR_AANTAL_STERREN', 5 );
@@ -495,6 +500,36 @@ function removeEmoji( $text ) {
 }
 
 // ===================================================================================================================
+function is_string_all_caps( string $str ): bool {
+	return (bool) preg_match( '/^\P{Ll}*$/u', $str );
+}
+
+// ===================================================================================================================
+function replaceWithCaseRespect( string $sentence, string $search, string $replace ): string {
+	return preg_replace_callback(
+		'/\b' . preg_quote( $search, '/' ) . '\b/i',
+		function ( array $matches ) use ( $replace ): string {
+			$matched = $matches[0];
+
+			if ( $matched === mb_strtoupper( $matched ) ) {
+				// ALL CAPS
+				return mb_strtoupper( $replace );
+			}
+
+			// ik wil geen Title Case
+//			if ( $matched === ucfirst( mb_strtolower( $matched ) ) ) {
+//				// Title case (e.g. "Hello")
+//				return ucfirst( mb_strtolower( $replace ) );
+//			}
+
+			// Lowercase or mixed — return as-is
+			return $replace;
+		},
+		$sentence
+	);
+}
+
+// ===================================================================================================================
 
 function filtertext( $text = '', $dogeintje = true ) {
 
@@ -514,8 +549,8 @@ function filtertext( $text = '', $dogeintje = true ) {
 	$text = preg_replace( "/created by/", "", $text );
 	$text = preg_replace( "/paulo coelho/", "Paulo Coelho", $text );
 	$text = preg_replace( "/Paulo Coelho/", "Jomanda", $text );
-	$text = preg_replace( "/S.d.B/", "", $text );
-	$text = preg_replace( "/s.d.b/", "", $text );
+//	$text = preg_replace( "/S.d.B/", "", $text );
+//	$text = preg_replace( "/s.d.b/", "", $text );
 	$text = preg_replace( "/sdb/", "", $text );
 	$text = preg_replace( "/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"\/ùûüÿàâæçéèêëïîôöœÙÛÜÀÂÆÇÉÈÊËÏÎÔÖŒ™#✂]+/", "", trim( $text ) );
 	$text = removeEmoji( $text );
@@ -567,6 +602,8 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 		$text = preg_replace( "/zwarte piet/i", "racisme", trim( $text ) );
 		$text = preg_replace( "/pepijn/i", "Henk", trim( $text ) );
+		$text = preg_replace( "/lidewij/i", "Nasikippetje", trim( $text ) );
+		$text = preg_replace( "/gideon/i", "Nasikippetje", trim( $text ) );
 		$text = preg_replace( "/janneke/i", "Gerda", trim( $text ) );
 		$text = preg_replace( "/trolld/i", "piept", trim( $text ) );
 		$text = preg_replace( "/trollt/i", "zeikt", trim( $text ) );
@@ -581,7 +618,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/grof geweld/i", "bloemen", trim( $text ) );
 
 		$text = preg_replace( "/1488/i", "sieg heil", trim( $text ) );
-		$text = preg_replace( "/nikker/i", "sieg heil", trim( $text ) );
+//		$text = preg_replace( "/nikker/i", "sieg heil", trim( $text ) );
 		$text = preg_replace( "/uhrer/i", "ührer", trim( $text ) );
 		$text = preg_replace( "/mein führerr/i", "o grote cavia", trim( $text ) );
 		$text = preg_replace( "/sieg heil/i", "adolf befbezem", trim( $text ) );
@@ -653,9 +690,12 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Marc Kaptein/i", "Henk de Vries", trim( $text ) );
 		$text = preg_replace( "/EU-Grandeurs/i", "Henk de Vries", trim( $text ) );
 
+		$text = preg_replace( "/vvd/i", "Grutjes Mark Rutjes-partij", trim( $text ) );
+
 		$text = preg_replace( "/Sigrid Kaag/i", "Henk de Vries", trim( $text ) );
 		$text = preg_replace( "/Kaag/i", "Je moeder", trim( $text ) );
 		$text = preg_replace( "/jol-straat/i", "jolstraat", trim( $text ) );
+		$text = preg_replace( "/D'66/i", "D66", trim( $text ) );
 		$text = preg_replace( "/D6666/i", "D66", trim( $text ) );
 		$text = preg_replace( "/D666/", "D66", trim( $text ) );
 		$text = preg_replace( "/D66/", "die ene partij, hoe heet 'ie ook alweer", trim( $text ) );
@@ -665,6 +705,9 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Covid/i", "covid-19", trim( $text ) );
 		$text = preg_replace( "/Covid 19/i", "covid-19", trim( $text ) );
 		$text = preg_replace( "/covid-19/i", "corona", trim( $text ) );
+		$text = preg_replace( "/carona/i", "corona", trim( $text ) );
+		$text = preg_replace( "/caronja/i", "corona", trim( $text ) );
+		$text = preg_replace( "/coronja/i", "corona", trim( $text ) );
 		$text = preg_replace( "/cojona/i", "corona", trim( $text ) );
 		$text = preg_replace( "/cor ona/i", "corona", trim( $text ) );
 		$text = preg_replace( "/cro na/i", "corona", trim( $text ) );
@@ -740,7 +783,9 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/kanker/i", "frambozenjam", trim( $text ) );
 		$text = preg_replace( "/een je moeder/i", "een bewonderenswaardige vrouw", trim( $text ) );
 
-		$text = preg_replace( "/hoer/i", "je moeder", trim( $text ) );
+		$text = replaceWithCaseRespect( $text, "hoer", "je moeder" );
+		$text = replaceWithCaseRespect( $text, "je je moeder", "je moeder" );
+
 		$text = preg_replace( "/joden/i", "smurfen", trim( $text ) );
 		$text = preg_replace( "/Geert Wilders/i", "Zaadslurf", trim( $text ) );
 		$text = preg_replace( "/Thierry Baudet/i", "Lavendelnazi", trim( $text ) );
@@ -974,7 +1019,7 @@ function wbvb_d2e_socialbuttons( $thelink = 'thelink', $thetitle = 'thetitle', $
 // ===================================================================================================================
 
 function delete_tegeltje( $action = '' ) {
-
+	global $path;
 	$sourcefiles_tegelplaatjes = $path . TEGELIZR_TEGELPLAATJESFOLDER . "/";
 	$sourcefiles_thumbs        = $path . TEGELIZR_THUMBS . "/";
 
@@ -995,7 +1040,12 @@ function delete_tegeltje( $action = '' ) {
 	//  ?tegel=2021-09-09-14-44-50_llldddksdadddddadkdkdkd-asdfa-slfasdfl-asdf_thumb.png
 	//  &action=delete&secrit=613a01c5844ef&sauce=16139185c1bce93.62796818
 
-	if ( $_GET['action'] === 'delete' || $action === 'delete' ) {
+	$action = '';
+	if ( isset( $_GET['action'] ) ) {
+		$action = $_GET['action'];
+	}
+
+	if ( $action === 'delete' ) {
 		$secrit = htmlspecialchars( $_GET['secrit'] );
 		$sauce  = htmlspecialchars( $_GET['sauce'] );
 
@@ -1064,7 +1114,7 @@ function fn_look_for_bad_guys() {
 	global $desttextpath;
 	global $sourcefiles_tegeldb;
 
-	$cookievalue       = $_COOKIE[ TEGELIZR_COOKIE_KEY ];
+	$cookievalue       = isset( $_COOKIE[ TEGELIZR_COOKIE_KEY ] ) ? $_COOKIE[ TEGELIZR_COOKIE_KEY ] : '';
 	$file_contents     = file_get_contents( $ipblackbook );
 	$baddies           = json_decode( $file_contents );
 	$verbodentegeltjes = $baddies->verbodentegeltjes;
@@ -1088,7 +1138,7 @@ function fn_look_for_bad_guys() {
 
 	if ( $userip ) {
 		// bezoeker is een recidivist vanachter een nieuw IP-nummer
-	} elseif ( ( $_GET['remoteip'] ) && ( $_GET['action'] === 'block' ) ) {
+	} elseif ( ( isset( $_GET['remoteip'] ) ) && ( $_GET['action'] === 'block' ) ) {
 		// het te blokkeren IP-adres komt uit de querystring
 		// TODO checken of de sauce	ook klopt, 'sauce'
 		$userip = $_GET['remoteip'];
@@ -1148,7 +1198,7 @@ function userip_should_be_warned() {
 	$return = false;
 	$userip = get_user_ip();
 
-	$cookievalue = $_COOKIE[ TEGELIZR_COOKIE_KEY ];
+	$cookievalue = isset( $_COOKIE[ TEGELIZR_COOKIE_KEY ] ) ? $_COOKIE[ TEGELIZR_COOKIE_KEY ] : '';
 
 	//Load the file
 	$baddies2 = file_get_contents( $ipblackbook );
@@ -1281,7 +1331,12 @@ function returnlogo() {
 
 
 function spitoutheader() {
-	return '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" href="' . IMG_FAVICONICO . '" type="image/x-icon" /><link rel="publisher" href="https://plus.google.com/u/0/+PaulvanBuuren"/><meta name="twitter:card" content="summary"/><meta name="twitter:site" content="@paulvanbuuren"/><meta name="twitter:domain" content="WBVB"/><meta name="twitter:creator" content="@paulvanbuuren"/><meta property="og:locale" content="nl_NL" /><meta property="og:type" content="article" /><meta property="og:site_name" content="Webbureau Van Buuren Rotterdam" /><meta property="article:publisher" content="https://www.facebook.com/webbureauvanbuuren" /><link rel="apple-touch-icon" href="' . IMG_FAVICONAPPLE . '">';
+	$mastodon = '';
+	if ( defined( 'MASTODON_ME' ) ) {
+		$mastodon = '<link rel="me" href="' . MASTODON_ME . '">';
+	}
+
+	return '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" href="' . IMG_FAVICONICO . '" type="image/x-icon" />' . $mastodon . '<meta name="twitter:card" content="summary"/><meta name="twitter:site" content="@paulvanbuuren"/><meta name="twitter:domain" content="WBVB"/><meta name="twitter:creator" content="@paulvanbuuren"/><meta property="og:locale" content="nl_NL" /><meta property="og:type" content="article" /><meta property="og:site_name" content="Webbureau Van Buuren Rotterdam" /><meta property="article:publisher" content="https://www.facebook.com/webbureauvanbuuren" /><link rel="apple-touch-icon" href="' . IMG_FAVICONAPPLE . '">';
 
 }
 
@@ -1426,19 +1481,19 @@ function spitoutfooter() {
 // ]); 
 
 	$analytics = '';
-/*
-	if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'tegelizer.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
-		$analytics = "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();
-a=s.createElement(o),m=s.getElementsByTagName(o)[0];
-a.async=1;
-a.src=g;
-m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-1780046-36', 'auto');
-ga('set', 'dimension1', '" . $tijdvandedag . "');
-ga('send', 'pageview');";
+	/*
+		if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'tegelizer.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
+			$analytics = "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();
+	a=s.createElement(o),m=s.getElementsByTagName(o)[0];
+	a.async=1;
+	a.src=g;
+	m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-1780046-36', 'auto');
+	ga('set', 'dimension1', '" . $tijdvandedag . "');
+	ga('send', 'pageview');";
 
-	}
-*/
+		}
+	*/
 
 	// get content for all-actions.js
 	$javascriptcontent = file_get_contents( 'js/min/all-actions-min.js', FILE_USE_INCLUDE_PATH );
@@ -1460,7 +1515,7 @@ ga('send', 'pageview');";
 		$about = '<div id="footer-about"><h3>' . TEGELIZR_ABOUT_THIS_SITE . '</h3><ul>' . $aboutlist . '</ul></div>';
 	}
 
-	return '<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:paul@wbvb.nl">mail</a></li><li><a href="https://twitter.com/paulvanbuuren">twitter</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div>' . $about . $form . '</footer><scri' . "pt>" . $analytics . $javascriptcontent . "</scr" . 'ipt></body></html>';
+	return '<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:tegelizr@wbvb.nl">tegelizr@wbvb.nl</a></li><li><a href="https://social.van.buu.re/@paul">Mastodon</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div>' . $about . $form . '</footer><scri' . "pt>" . $analytics . $javascriptcontent . "</scr" . 'ipt></body></html>';
 
 }
 

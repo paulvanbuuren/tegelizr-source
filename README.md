@@ -10,7 +10,7 @@ version:  7.7.4
 ## contact:                    
 * ([paul@wbvb.nl](paul@wbvb.nl))
 * Contact: [wbvb.nl/contact](https://wbvb.nl/contact/)
-* Twitter: [@paulvanbuuren](https://twitter.com/paulvanbuuren/)
+* Mastodon: [social.van.buu.re/@paul](https://social.van.buu.re/@paul/)
 
 ## Versions
 * 7.7.4 - Code-check. Frisse tegenzin tegen tegeltjes.
