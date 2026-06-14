@@ -1,0 +1,17 @@
+{
+  "name": "paulvanbuuren/tegelizr-source",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "paul",
+      "email": "paul@wbvb.nl"
+    }
+  ],
+  "require": {
+    "php": ">=8.3",
+    "phpmailer/phpmailer": "^6.7",
+    "league/oauth2-client": "^2.6"
+  }
+}
