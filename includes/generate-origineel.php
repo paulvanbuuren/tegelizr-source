@@ -59,10 +59,6 @@ function escapeescapers( $sentence = '' ) {
 
 			foreach ( $zinnen as $word ) {
 
-				$wordcounter ++;
-
-//				echo $wordcounter . ' - "' . $word;
-
 				if ( strlen( $word ) === 1 ) {
 
 					if ( strlen( $zinnen[ $counter + 1 ] ) === 1 ) {

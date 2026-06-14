@@ -91,10 +91,10 @@ if ( $respond_with_error ) {
 	http_response_code( 410 );
 
 	// schrijf een regel in een logbestand
-	$titel = "\n" . date( "Y-m-d" ) . ' - ' . date( "h:i:sa" ) . ' - 404 tegel niet gevonden: ' . $url;
-	$fp    = fopen( date( "Y-m-d" ) . '-404.log', 'a' );//opens file in append mode
-	fwrite( $fp, $titel );
-	fclose( $fp );
+//	$titel = "\n" . date( "Y-m-d" ) . ' - ' . date( "h:i:sa" ) . ' - 404 tegel niet gevonden: ' . $url;
+//	$fp    = fopen( date( "Y-m-d" ) . '-404.log', 'a' );//opens file in append mode
+//	fwrite( $fp, $titel );
+//	fclose( $fp );
 
 }
 
@@ -610,9 +610,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
                 var clicked_data = {
 				<?php echo TEGELIZR_RATING_VOTE ?> :
                 $(this).data('starvalue'),
-                    widget_id
-            :
-                $(star).parent().attr('id')
+                    widget_id: $(star).parent().attr('id')
             }
                 ;
                 $.post(
@@ -753,6 +751,8 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
 
 function sanitize_output( $buffer ) {
+    // sanitize_output WEER UITGEZET WEGENS JS FOUTEN IN DE CONSOLE, VEROORZAAKT DOOR TE GROTE COMPRESSIE (?)
+    // (2026-06-15)
 
 	$search = array(
 		'/\>[^\S ]+/s',     // strip whitespaces after tags, except space
@@ -768,7 +768,7 @@ function sanitize_output( $buffer ) {
 		''
 	);
 
-	$buffer = preg_replace( $search, $replace, $buffer );
+//	$buffer = preg_replace( $search, $replace, $buffer );
 
 	return $buffer;
 }

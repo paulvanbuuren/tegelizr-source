@@ -181,7 +181,7 @@ if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'www.teg
 	error_reporting( 0 );
 
 } else {
-	define( 'TEGELIZR_PROTOCOL', 'http://' );
+	define( 'TEGELIZR_PROTOCOL', 'https://' );
 
 	define( 'TEGELIZR_DEBUG', false );
 //  define('TEGELIZR_DEBUG',            true );
@@ -1423,7 +1423,7 @@ function spitoutfooter() {
 	$formelementcounter ++;
 	$suffix = '-' . $formelementcounter;
 
-	$form = '<a href="#top" id="totop">Bovenkant</a><a href="#totop" id="tomenu">Menu</a><form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/" role="search">
+	$form = '<a href="#top" id="totop">Bovenkant</a><a href="#footer-about" id="tomenu">Menu</a><form method="get" class="search-form" action="' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/" role="search">
     <meta itemprop="target" "' . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_ZOEKURL . '/?' . TEGELIZR_ZOEKTERMKEY . '={s}">
     <label for="' . TEGELIZR_ZOEKTERMKEY . '">Zoek een tegel</label>
     <input itemprop="query-input" type="search" name="' . TEGELIZR_ZOEKTERMKEY . '" id="' . TEGELIZR_ZOEKTERMKEY . '" value="' . $zoektegeltje . '" placeholder="Hier je zoekterm">
@@ -1431,7 +1431,7 @@ function spitoutfooter() {
 </form>';
 
 
-	$form = '<a href="#top" id="totop">Bovenkant</a><a href="#totop" id="tomenu">Menu</a>';
+	$form = '<a href="#top" id="totop">Bovenkant</a><a href="#footer-about" id="tomenu">Menu</a>';
 
 	if ( DO_SEARCH ) {
 
