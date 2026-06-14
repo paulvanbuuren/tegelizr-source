@@ -31,6 +31,7 @@ rating/
 README.html
 sitemap.txt
 
+# ignore actual images of tegeltjes
 tegeldb/*
 tegeltjes/*
 thumbs/*
