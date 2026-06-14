@@ -36,4 +36,5 @@ tegeltjes/*
 thumbs/*
 deleted_files/*
 
+## files for activating / deactivating tegel generation
 includes/tegelizr-status.php
