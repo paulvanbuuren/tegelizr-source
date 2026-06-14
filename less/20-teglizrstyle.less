@@ -1,15 +1,5 @@
 
-///
 // Tegelizr - 20-teglizrstyle.less
-// ----------------------------------------------------------------------------------
-// algemene tegelizr styling
-// ----------------------------------------------------------------------------------
-// @author  Paul van Buuren
-// @license GPL-2.0+
-// @version 7.6.5
-// @desc.   Print-stijl aangepast: alleen het tegeltje™ afdrukken.
-// @link    https://github.com/paulvanbuuren/tegelizr-source
-///
 
 
 // ===================================================================================================================
@@ -48,17 +38,31 @@
     background-size: 36px 36px;
     padding-left: 48px;
     padding-left: 48px;
-  }  
+  }
+
+  // https://www.erikkroes.nl/blog/the-universal-focus-state/
+  :focus {
+    outline: .375rem double black;
+    box-shadow: 0 0 0 .25rem white;
+    border-radius: .125rem;
+  }
+
+  button:focus {
+    background: #9d1626;
+    color: white;
+  }
   
   footer {
-    overflow: hidden;
-    
+
     a {
       color: @txt;
       font-size: 80%;
       text-decoration: none;
     }
     ul {
+      margin-bottom: 1rem;
+      overflow: hidden;
+
       &, li {
         list-style: none;
         margin: 0;
@@ -70,11 +74,13 @@
       }
     }
     div {
+      display: block;
       margin-top: .5em;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
       float: none;
       clear: both;
       padding-right: 1em;
-      overflow: hidden;
     }
     
     #totop, #tomenu {
@@ -443,12 +449,12 @@
       
       &:not(:checked) > label {
           float:right;
-          width:1.3em;
-          padding:0 .2em;
+          width: 4rem;
+          padding: 0;
           overflow:hidden;
           white-space:nowrap;
-          font-size:200%;
-          line-height:1.2;
+          font-size: 250%;
+          line-height:1;
           color:#ddd;
           text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
       }
