@@ -475,7 +475,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
             <?php // ===================================================================================================================
 
 
-            if ( ( isset( $_GET[ TEGELIZR_TRIGGER_KEY ] ) ) && ( $_GET[ TEGELIZR_TRIGGER_KEY ] == TEGELIZR_TRIGGER_VALUE ) ) {
+            if ( ( 22 === 333 ) && ( isset( $_GET[ TEGELIZR_TRIGGER_KEY ] ) ) && ( $_GET[ TEGELIZR_TRIGGER_KEY ] == TEGELIZR_TRIGGER_VALUE ) ) {
 
             ?>
 
