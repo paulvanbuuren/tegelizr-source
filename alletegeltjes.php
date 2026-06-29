@@ -4,7 +4,6 @@
 // 
 //    Tegelizr.nl
 //    author:                     Paul van Buuren
-//    contact:                    paul@wbvb.nl / wbvb.nl / twitter.com/paulvanbuuren
 //    version:                    5.0 - sorteermogelijkheid ingebouwd voor alle-tegeltjes-pagina
 
 // ===================================================================================================================
