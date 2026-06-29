@@ -1341,6 +1341,8 @@ function spitoutheader() {
 	$return .= '<link rel="shortcut icon" href="' . IMG_FAVICONICO . '" type="image/x-icon" />' . $mastodon . "\n";
 	$return .= '<meta property="og:locale" content="nl_NL" /><meta property="og:type" content="article" /><meta property="og:site_name" content="Webbureau Van Buuren Rotterdam" />' . "\n";
 	$return .= '<link rel="apple-touch-icon" href="' . IMG_FAVICONAPPLE . '">' . "\n";
+	$return .= '<meta name="text-scale" content="scale" />' . "\n";
+
 
 	return $return;
 }
