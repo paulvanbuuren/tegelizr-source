@@ -783,10 +783,18 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/kanker/i", "frambozenjam", trim( $text ) );
 		$text = preg_replace( "/een je moeder/i", "een bewonderenswaardige vrouw", trim( $text ) );
 
-		$text = replaceWithCaseRespect( $text, "hoer", "je moeder" );
+		$text = preg_replace( '/\bhoer\b/i', 'je moeder', $text );
 		$text = replaceWithCaseRespect( $text, "je je moeder", "je moeder" );
 		$text = replaceWithCaseRespect( $text, "Mohammed", "Henk de Vries" );
 		$text = replaceWithCaseRespect( $text, "Blanken", "Witjoekels" );
+
+		$text = preg_replace( "/Rob Jetten/i", "Jetten", trim( $text ) );
+		$text = preg_replace( '/\bJetten\b/i', 'Henk de Vries', $text );
+
+		$text = preg_replace( '/\bazc\b/i', 'supermarkt', $text );
+		$text = preg_replace( "/asielzoekers/i", "smurfen", trim( $text ) );
+		$text = preg_replace( "/asielzoeker/i", "smurf", trim( $text ) );
+		$text = preg_replace( "/asiel/i", "vogelopvang", trim( $text ) );
 
 		$text = preg_replace( "/joden/i", "smurfen", trim( $text ) );
 		$text = preg_replace( "/Geert Wilders/i", "Zaadslurf", trim( $text ) );
