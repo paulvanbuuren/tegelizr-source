@@ -549,8 +549,6 @@ function filtertext( $text = '', $dogeintje = true ) {
 	$text = preg_replace( "/created by/", "", $text );
 	$text = preg_replace( "/paulo coelho/", "Paulo Coelho", $text );
 	$text = preg_replace( "/Paulo Coelho/", "Jomanda", $text );
-//	$text = preg_replace( "/S.d.B/", "", $text );
-//	$text = preg_replace( "/s.d.b/", "", $text );
 	$text = preg_replace( "/sdb/", "", $text );
 	$text = preg_replace( "/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"\/ùûüÿàâæçéèêëïîôöœÙÛÜÀÂÆÇÉÈÊËÏÎÔÖŒ™#✂]+/", "", trim( $text ) );
 	$text = removeEmoji( $text );
@@ -618,7 +616,6 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/grof geweld/i", "bloemen", trim( $text ) );
 
 		$text = preg_replace( "/1488/i", "sieg heil", trim( $text ) );
-//		$text = preg_replace( "/nikker/i", "sieg heil", trim( $text ) );
 		$text = preg_replace( "/uhrer/i", "ührer", trim( $text ) );
 		$text = preg_replace( "/mein führerr/i", "o grote cavia", trim( $text ) );
 		$text = preg_replace( "/sieg heil/i", "adolf befbezem", trim( $text ) );
@@ -639,11 +636,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Akwasi/i", "Zeeuws Meisje", $text );
 
 
-		$text = preg_replace( "/audi /i", "Audi ", $text );
-		$text = preg_replace( "/Audi /i", "Opel ", $text );
-
-		$text = preg_replace( "/hoera/i", "ho_era", $text );
-		$text = preg_replace( "/Hoera/i", "Ho_era", $text );
+		$text = preg_replace( '/\bAudi\b/i', 'Opel', $text );
 
 		$text = preg_replace( "/ Godje/i", " godje", $text );
 		$text = preg_replace( "/ godje/i", " stokpaardje", $text );
@@ -653,6 +646,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/ is god/i", " is best goed", $text );
 
 		$text = preg_replace( "/tyfus/i", " (zeg, let eens op je taal)", $text );
+		$text = preg_replace( '/\bgodverdomme\b/i', 'jeetjemegrutjes', $text );
 		$text = preg_replace( "/godver/i", "jeetjemegrutjes", $text );
 		$text = preg_replace( "/gvd/i", "grutjes nog an toe", $text );
 		$text = preg_replace( "/odverdomme/i", "rutjes nog an toe", $text );
