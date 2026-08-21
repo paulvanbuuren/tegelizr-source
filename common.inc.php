@@ -546,6 +546,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 	$text = preg_replace( "/script/", "snikkel", $text );
 	$text = preg_replace( "/,/", ", ", $text );
 	$text = preg_replace( "/,  /", ", ", $text );
+	$text = preg_replace( "/_/", ".", $text );
 	$text = preg_replace( "/created by/", "", $text );
 	$text = preg_replace( "/paulo coelho/", "Paulo Coelho", $text );
 	$text = preg_replace( "/Paulo Coelho/", "Jomanda", $text );
@@ -553,8 +554,27 @@ function filtertext( $text = '', $dogeintje = true ) {
 	$text = preg_replace( "/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"\/ùûüÿàâæçéèêëïîôöœÙÛÜÀÂÆÇÉÈÊËÏÎÔÖŒ™#✂]+/", "", trim( $text ) );
 	$text = removeEmoji( $text );
 
+	if (substr_count($text, '-') > 3) {
+		$text = str_replace('-', '.', $text);
+	}
+	if (substr_count($text, '*') > 3) {
+		$text = str_replace('*', '.', $text);
+	}
+	if (substr_count($text, '.') > 3) {
+		$text = str_replace('.', ' ', $text);
+	}
+	$text = preg_replace_callback(
+		'/\b(?:[A-Za-z]\s){2,}[A-Za-z]\b/',
+		function ($matches) {
+			return str_replace(' ', '', $matches[0]);
+		},
+		$text
+	);
 
+
+	// cut off text
 	$text = substr( $text, 0, TEGELIZR_TXT_LENGTH );
+
 	if ( $dogeintje ) {
 
 		$text = preg_replace( "/youtu.be/i", 'cnn.com', trim( $text ) );
@@ -589,10 +609,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/reich/i", $replacer, trim( $text ) );
 		$text = preg_replace( "/proxyserver/i", $replacer, trim( $text ) );
 		$text = preg_replace( "/tรฎnktรผrk/i", $replacer, trim( $text ) );
-
-
 		$text = preg_replace( "/p0wer/i", 'power', trim( $text ) );
-
 
 		// van dat volk dat URLs komt lopen plakken...
 		$text = preg_replace( "|https://|i", "", trim( $text ) );
@@ -635,6 +652,9 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 		$text = preg_replace( "/Akwasi/i", "Zeeuws Meisje", $text );
 
+		$text = preg_replace( '/\bMona Keizer\b/i', 'Henk de Vries', $text );
+		$text = preg_replace( '/\bMona Keijzer\b/i', 'Henk de Vries', $text );
+		$text = preg_replace( '/\bMonatoetje\b/i', 'Henk de Vries', $text );
 
 		$text = preg_replace( '/\bAudi\b/i', 'Opel', $text );
 
@@ -819,6 +839,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 		$text = preg_replace( "/ja21/i", "partij voor de wezels", $text );
 		$text = preg_replace( "/BBB/i", "bruiden, buiken, baby's", $text );
+		$text = preg_replace( "/f.v.d/i", "FvD", $text );
 		$text = preg_replace( "/f v d/i", "FvD", $text );
 		$text = preg_replace( "/forum voor democratie/i", "FvD", $text );
 		$text = preg_replace( "/FvD/i", "Lavendelnazi's", $text );
