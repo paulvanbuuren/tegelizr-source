@@ -655,11 +655,11 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( '/\bMona Keizer\b/i', 'Henk de Vries', $text );
 		$text = preg_replace( '/\bMona Keijzer\b/i', 'Henk de Vries', $text );
 		$text = preg_replace( '/\bMonatoetje\b/i', 'Henk de Vries', $text );
+		$text = preg_replace( '/\bMona\b/i', 'Henk de Vries', $text );
 
 		$text = preg_replace( '/\bAudi\b/i', 'Opel', $text );
 
-		$text = preg_replace( "/ Godje/i", " godje", $text );
-		$text = preg_replace( "/ godje/i", " stokpaardje", $text );
+		$text = preg_replace( '/\bgodje\b/i', 'Stevie Wonder', $text );
 
 		$text = preg_replace( "/unilever/i", "pindakaasfabriek", $text );
 
@@ -667,12 +667,14 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 		$text = preg_replace( "/tyfus/i", " (zeg, let eens op je taal)", $text );
 		$text = preg_replace( '/\bgodverdomme\b/i', 'jeetjemegrutjes', $text );
-		$text = preg_replace( "/godver/i", "jeetjemegrutjes", $text );
-		$text = preg_replace( "/gvd/i", "grutjes nog an toe", $text );
-		$text = preg_replace( "/odverdomme/i", "rutjes nog an toe", $text );
+		$text = preg_replace( '/\bgodver\b/i', 'jeetjemegrutjes', $text );
+		$text = preg_replace( '/\bgvd\b/i', 'jeetjemegrutjes', $text );
+		$text = preg_replace( '/\bverdomme\b/i', 'jeetjemegrutjes', $text );
 
 		$text = preg_replace( "/satanisch/i", "STATANISCH", $text );
 
+		$text = preg_replace( '/Donald Trump/i', 'bifi worstjes', $text );
+		$text = preg_replace( '/\bTrump\b/i', 'bifi worstjes', $text );
 		$text = preg_replace( "/satan/i", "Donald Trump", $text );
 
 		$text = preg_replace( "/STATANISCH/i", "satanisch", $text );
@@ -704,7 +706,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Marc Kaptein/i", "Henk de Vries", trim( $text ) );
 		$text = preg_replace( "/EU-Grandeurs/i", "Henk de Vries", trim( $text ) );
 
-		$text = preg_replace( "/vvd/i", "Grutjes Mark Rutjes-partij", trim( $text ) );
+		$text = preg_replace( '/\bvvd\b/i', 'PVVD', $text );
 
 		$text = preg_replace( "/Sigrid Kaag/i", "Henk de Vries", trim( $text ) );
 		$text = preg_replace( "/Kaag/i", "Je moeder", trim( $text ) );
