@@ -708,8 +708,15 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 		$text = preg_replace( '/\bvvd\b/i', 'PVVD', $text );
 
+		// PRO
+		$text = preg_replace( "/Dolf Jansen/i", "Henk de Vries", trim( $text ) );
+
+		// D66
 		$text = preg_replace( "/Sigrid Kaag/i", "Henk de Vries", trim( $text ) );
-		$text = preg_replace( "/Kaag/i", "Je moeder", trim( $text ) );
+		$text = preg_replace( "/Jan Paternotte/i", "Henk de Vries", trim( $text ) );
+		$text = preg_replace( "/Bas Paternotte/i", "Je moeder", trim( $text ) );
+		$text = preg_replace( "/Paternotte/i", "De Vries", trim( $text ) );
+		$text = preg_replace('/\bKaag\b/i', 'Je moeder', trim( $text ));
 		$text = preg_replace( "/jol-straat/i", "jolstraat", trim( $text ) );
 		$text = preg_replace( "/D'66/i", "D66", trim( $text ) );
 		$text = preg_replace( "/D6666/i", "D66", trim( $text ) );
