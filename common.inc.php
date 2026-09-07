@@ -710,8 +710,12 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 		// Sletjespartij
 		$text = preg_replace( "/Joost Eerdmans/i", "Henk de Vries", trim( $text ) );
+		$text = preg_replace( "/ja21/i", "partij voor de wezels", $text );
 		$text = preg_replace('/\beerdmans\b/i', 'Henk de Vries', trim( $text ));
 		$text = preg_replace( "/eerd.mans/i", "Henk de Vries", trim( $text ) );
+		// jaja, truus van de sletjespartij
+		$text = preg_replace( "/dobbernikker/i", "dobberneger", trim( $text ) );
+		$text = preg_replace( "/dobberneger/i", "wie deze tegel maakte is een minderwaardig mens en een racist", trim( $text ) );
 
 		// PRO
 		$text = preg_replace( "/Dolf Jansen/i", "Henk de Vries", trim( $text ) );
@@ -729,7 +733,28 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/D66/", "die ene partij, hoe heet 'ie ook alweer", trim( $text ) );
 		$text = preg_replace( "/jolstraat/i", "Wegisweg", trim( $text ) );
 		$text = preg_replace( "/scheveningen/i", "Nergenshuizen", trim( $text ) );
+		$text = preg_replace( "/Rob Jetten/i", "Jetten", trim( $text ) );
+		$text = preg_replace( '/\bJetten\b/i', 'Henk de Vries', $text );
 
+		// pvv
+		$text = preg_replace( "/Geert Wilders/i", "Zaadslurf", trim( $text ) );
+		$text = preg_replace( "/Wilders/i", "Zaadslurf", trim( $text ) );
+		$text = preg_replace( "/PVV/", "NSB", trim( $text ) );
+
+		// Boer'nbedrog brullers
+		$text = preg_replace( "/BBB/i", "bruiden, buiken, baby's", $text );
+
+		// lavendelnazi's
+		$text = preg_replace( "/f.v.d/i", "FvD", $text );
+		$text = preg_replace( "/f v d/i", "FvD", $text );
+		$text = preg_replace( "/forum voor democratie/i", "FvD", $text );
+		$text = preg_replace( "/FvD/i", "Lavendelnazi's", $text );
+		$text = preg_replace( "/baudet/i", "Baudet", trim( $text ) );
+		$text = preg_replace( "/Baudet/i", "Lavendelnazi", trim( $text ) );
+		$text = preg_replace( "/Thierry Baudet/i", "Lavendelnazi", trim( $text ) );
+		$text = preg_replace( "/Baudet/i", "Lavendelnazi", $text );
+
+		// prei
 		$text = preg_replace( "/Covid/i", "covid-19", trim( $text ) );
 		$text = preg_replace( "/Covid 19/i", "covid-19", trim( $text ) );
 		$text = preg_replace( "/covid-19/i", "corona", trim( $text ) );
@@ -750,13 +775,12 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/negeren/i", "n__|__egeren", trim( $text ) );
 		$text = preg_replace( "/oeren neuken/i", "et milieu een handje helpen", trim( $text ) );
 
-
+		// algeheel nederlands wit racisme
 		$text = preg_replace( "/Turk /i", "Smurf ", trim( $text ) );
 		$text = preg_replace( "/Turken/i", "Smurfen", trim( $text ) );
 		$text = preg_replace( "/Berber/i", "Smurf", trim( $text ) );
 		$text = preg_replace( "/marokaner/i", "Smurf", trim( $text ) );
 		$text = preg_replace( "/marocan/i", "Smurf", trim( $text ) );
-
 		$text = preg_replace( "/Marokkaan/i", "Smurf", trim( $text ) );
 		$text = preg_replace( "/Marokkanen/i", "Smurfen", trim( $text ) );
 		$text = preg_replace( "/rifapen/i", "peren", trim( $text ) );
@@ -766,8 +790,6 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/white pride/i", "bifi-worstjes", trim( $text ) );
 
 
-		$text = preg_replace( "/dobbernikker/i", "dobberneger", trim( $text ) );
-		$text = preg_replace( "/dobberneger/i", "wie deze tegel maakte is een minderwaardig mens en een racist", trim( $text ) );
 
 		$text = preg_replace( "/liveleak/i", "je moeder", trim( $text ) );
 		$text = preg_replace( "/\:\)/i", " De AIVD luistert mee", trim( $text ) );
@@ -818,8 +840,6 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = replaceWithCaseRespect( $text, "Rusland", "Marokko" );
 		$text = replaceWithCaseRespect( $text, "Poetin", "Henk de Vries" );
 
-		$text = preg_replace( "/Rob Jetten/i", "Jetten", trim( $text ) );
-		$text = preg_replace( '/\bJetten\b/i', 'Henk de Vries', $text );
 
 		$text = preg_replace( '/\bazc\b/i', 'supermarkt', $text );
 		$text = preg_replace( "/asielzoekers/i", "smurfen", trim( $text ) );
@@ -827,12 +847,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/asiel/i", "vogelopvang", trim( $text ) );
 
 		$text = preg_replace( "/joden/i", "smurfen", trim( $text ) );
-		$text = preg_replace( "/Geert Wilders/i", "Zaadslurf", trim( $text ) );
-		$text = preg_replace( "/Thierry Baudet/i", "Lavendelnazi", trim( $text ) );
-		$text = preg_replace( "/baudet/i", "Baudet", trim( $text ) );
-		$text = preg_replace( "/Baudet/i", "Lavendelnazi", trim( $text ) );
-		$text = preg_replace( "/Wilders/i", "Zaadslurf", trim( $text ) );
-		$text = preg_replace( "/PVV/", "NSB", trim( $text ) );
+
 		$text = preg_replace( "/mos lim/i", "moslim", trim( $text ) );
 		$text = preg_replace( "/moslima/i", "Tante Truus", trim( $text ) );
 		$text = preg_replace( "/Tante Truus's/i", "Tante Truusjes", trim( $text ) );
@@ -851,15 +866,10 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/e-t-a-n-y-a-h/i", "etanyah", $text );
 		$text = preg_replace( "/Netanyahu/i", "Henk de Vries", $text );
 
-		$text = preg_replace( "/ja21/i", "partij voor de wezels", $text );
-		$text = preg_replace( "/BBB/i", "bruiden, buiken, baby's", $text );
-		$text = preg_replace( "/f.v.d/i", "FvD", $text );
-		$text = preg_replace( "/f v d/i", "FvD", $text );
-		$text = preg_replace( "/forum voor democratie/i", "FvD", $text );
-		$text = preg_replace( "/FvD/i", "Lavendelnazi's", $text );
-		$text = preg_replace( "/Baudet/i", "Lavendelnazi", $text );
+		// geborneerde witte ouwe lullen
 		$text = preg_replace( "/Gordon/i", "Coke-hoofd", $text );
 		$text = preg_replace( "/Joling/i", "Gootsteenontstopper", $text );
+
 		$text = preg_replace( "/Google/i", "DuckDuckGo", $text ); // https://twitter.com/TvGeest/status/1065619705375920128
 
 		$text = preg_replace( "/o_era/i", "oera", $text );
