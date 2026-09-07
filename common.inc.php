@@ -554,19 +554,19 @@ function filtertext( $text = '', $dogeintje = true ) {
 	$text = preg_replace( "/[^a-zA-Z0-9-_\.\, \?\!\@\(\)\=\-\:\;\'\"\/ùûüÿàâæçéèêëïîôöœÙÛÜÀÂÆÇÉÈÊËÏÎÔÖŒ™#✂]+/", "", trim( $text ) );
 	$text = removeEmoji( $text );
 
-	if (substr_count($text, '-') > 3) {
-		$text = str_replace('-', '.', $text);
+	if ( substr_count( $text, '-' ) > 3 ) {
+		$text = str_replace( '-', '.', $text );
 	}
-	if (substr_count($text, '*') > 3) {
-		$text = str_replace('*', '.', $text);
+	if ( substr_count( $text, '*' ) > 3 ) {
+		$text = str_replace( '*', '.', $text );
 	}
-	if (substr_count($text, '.') > 3) {
-		$text = str_replace('.', ' ', $text);
+	if ( substr_count( $text, '.' ) > 3 ) {
+		$text = str_replace( '.', ' ', $text );
 	}
 	$text = preg_replace_callback(
 		'/\b(?:[A-Za-z]\s){2,}[A-Za-z]\b/',
-		function ($matches) {
-			return str_replace(' ', '', $matches[0]);
+		function ( $matches ) {
+			return str_replace( ' ', '', $matches[0] );
 		},
 		$text
 	);
@@ -576,6 +576,12 @@ function filtertext( $text = '', $dogeintje = true ) {
 	$text = substr( $text, 0, TEGELIZR_TXT_LENGTH );
 
 	if ( $dogeintje ) {
+
+		// ik haat dingen die alleen maar in bovenkast zijn geschreven
+		if ( ( $text == mb_strtoupper( $text, 'UTF-8' ) ) || ( $text == strtoupper( $text ) ) ) {
+			// uppercase, multibyte-safe
+			$text = ucfirst( strtolower( $text ) );
+		}
 
 		$text = preg_replace( "/youtu.be/i", 'cnn.com', trim( $text ) );
 		$text = preg_replace( "/youtube/i", 'cnn', trim( $text ) );
@@ -711,7 +717,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		// Sletjespartij
 		$text = preg_replace( "/Joost Eerdmans/i", "Henk de Vries", trim( $text ) );
 		$text = preg_replace( "/ja21/i", "partij voor de wezels", $text );
-		$text = preg_replace('/\beerdmans\b/i', 'Henk de Vries', trim( $text ));
+		$text = preg_replace( '/\beerdmans\b/i', 'Henk de Vries', trim( $text ) );
 		$text = preg_replace( "/eerd.mans/i", "Henk de Vries", trim( $text ) );
 		// jaja, truus van de sletjespartij
 		$text = preg_replace( "/dobbernikker/i", "dobberneger", trim( $text ) );
@@ -723,7 +729,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		// D66
 		$text = preg_replace( "/democraten 66/i", "D66", trim( $text ) );
 		$text = preg_replace( "/D6666/i", "D66", trim( $text ) );
-		$text = preg_replace('/D666/i', 'D66', trim( $text ));
+		$text = preg_replace( '/D666/i', 'D66', trim( $text ) );
 		$text = preg_replace( "/D'66/i", "D66", trim( $text ) );
 		$text = preg_replace( "/D666/", "D66", trim( $text ) );
 		$text = preg_replace( "/\bD66\b/i", "die ene partij, hoe heet 'ie ook alweer", trim( $text ) );
@@ -731,7 +737,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Jan Paternotte/i", "Henk de Vries", trim( $text ) );
 		$text = preg_replace( "/Bas Paternotte/i", "Je moeder", trim( $text ) );
 		$text = preg_replace( "/Paternotte/i", "De Vries", trim( $text ) );
-		$text = preg_replace('/\bKaag\b/i', 'Je moeder', trim( $text ));
+		$text = preg_replace( '/\bKaag\b/i', 'Je moeder', trim( $text ) );
 		$text = preg_replace( "/jol-straat/i", "jolstraat", trim( $text ) );
 		$text = preg_replace( "/jolstraat/i", "Wegisweg", trim( $text ) );
 		$text = preg_replace( "/scheveningen/i", "Nergenshuizen", trim( $text ) );
@@ -755,8 +761,8 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Baudet/i", "Lavendelnazi", trim( $text ) );
 		$text = preg_replace( "/Thierry Baudet/i", "Lavendelnazi", trim( $text ) );
 		$text = preg_replace( "/Baudet/i", "Lavendelnazi", $text );
-		$text = preg_replace('/\bkartelliaan\b/i', 'kwartel', trim( $text ));
-		$text = preg_replace('/\bkartel\b/i', 'kwartel', trim( $text ));
+		$text = preg_replace( '/\bkartelliaan\b/i', 'kwartel', trim( $text ) );
+		$text = preg_replace( '/\bkartel\b/i', 'kwartel', trim( $text ) );
 
 		// prei
 		$text = preg_replace( "/Covid/i", "covid-19", trim( $text ) );
@@ -792,7 +798,6 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/stormfront/i", "bifi-worstjes", trim( $text ) );
 		$text = preg_replace( "/white power/i", "bifi-worstjes", trim( $text ) );
 		$text = preg_replace( "/white pride/i", "bifi-worstjes", trim( $text ) );
-
 
 
 		$text = preg_replace( "/liveleak/i", "je moeder", trim( $text ) );
