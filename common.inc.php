@@ -721,16 +721,18 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Dolf Jansen/i", "Henk de Vries", trim( $text ) );
 
 		// D66
+		$text = preg_replace( "/democraten 66/i", "D66", trim( $text ) );
+		$text = preg_replace( "/D6666/i", "D66", trim( $text ) );
+		$text = preg_replace('/D666/i', 'D66', trim( $text ));
+		$text = preg_replace( "/D'66/i", "D66", trim( $text ) );
+		$text = preg_replace( "/D666/", "D66", trim( $text ) );
+		$text = preg_replace( "/\bD66\b/i", "die ene partij, hoe heet 'ie ook alweer", trim( $text ) );
 		$text = preg_replace( "/Sigrid Kaag/i", "Henk de Vries", trim( $text ) );
 		$text = preg_replace( "/Jan Paternotte/i", "Henk de Vries", trim( $text ) );
 		$text = preg_replace( "/Bas Paternotte/i", "Je moeder", trim( $text ) );
 		$text = preg_replace( "/Paternotte/i", "De Vries", trim( $text ) );
 		$text = preg_replace('/\bKaag\b/i', 'Je moeder', trim( $text ));
 		$text = preg_replace( "/jol-straat/i", "jolstraat", trim( $text ) );
-		$text = preg_replace( "/D'66/i", "D66", trim( $text ) );
-		$text = preg_replace( "/D6666/i", "D66", trim( $text ) );
-		$text = preg_replace( "/D666/", "D66", trim( $text ) );
-		$text = preg_replace( "/D66/", "die ene partij, hoe heet 'ie ook alweer", trim( $text ) );
 		$text = preg_replace( "/jolstraat/i", "Wegisweg", trim( $text ) );
 		$text = preg_replace( "/scheveningen/i", "Nergenshuizen", trim( $text ) );
 		$text = preg_replace( "/Rob Jetten/i", "Jetten", trim( $text ) );
@@ -753,6 +755,8 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Baudet/i", "Lavendelnazi", trim( $text ) );
 		$text = preg_replace( "/Thierry Baudet/i", "Lavendelnazi", trim( $text ) );
 		$text = preg_replace( "/Baudet/i", "Lavendelnazi", $text );
+		$text = preg_replace('/\bkartelliaan\b/i', 'kwartel', trim( $text ));
+		$text = preg_replace('/\bkartel\b/i', 'kwartel', trim( $text ));
 
 		// prei
 		$text = preg_replace( "/Covid/i", "covid-19", trim( $text ) );
