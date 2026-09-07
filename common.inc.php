@@ -708,6 +708,11 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 		$text = preg_replace( '/\bvvd\b/i', 'PVVD', $text );
 
+		// Sletjespartij
+		$text = preg_replace( "/Joost Eerdmans/i", "Henk de Vries", trim( $text ) );
+		$text = preg_replace( "/eerdmans/i", "Henk de Vries", trim( $text ) );
+		$text = preg_replace( "/eerd.mans/i", "Henk de Vries", trim( $text ) );
+
 		// PRO
 		$text = preg_replace( "/Dolf Jansen/i", "Henk de Vries", trim( $text ) );
 
