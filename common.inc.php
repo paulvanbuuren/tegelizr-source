@@ -710,7 +710,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 		// Sletjespartij
 		$text = preg_replace( "/Joost Eerdmans/i", "Henk de Vries", trim( $text ) );
-		$text = preg_replace( "/eerdmans/i", "Henk de Vries", trim( $text ) );
+		$text = preg_replace('/\beerdmans\b/i', 'Henk de Vries', trim( $text ));
 		$text = preg_replace( "/eerd.mans/i", "Henk de Vries", trim( $text ) );
 
 		// PRO
