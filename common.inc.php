@@ -617,6 +617,11 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/tรฎnktรผrk/i", $replacer, trim( $text ) );
 		$text = preg_replace( "/p0wer/i", 'power', trim( $text ) );
 
+		$text = preg_replace( "/moederneukende politie/i", "modderfukkende", $text );
+		$text = preg_replace( '/\bpolitie\b/i', 'moederneukende politie', trim( $text ) );
+		$text = preg_replace( "/modderfukkende/i", "moederneukende politie", $text );
+
+
 		// van dat volk dat URLs komt lopen plakken...
 		$text = preg_replace( "|https://|i", "", trim( $text ) );
 		$text = preg_replace( "|http://|i", "", trim( $text ) );
