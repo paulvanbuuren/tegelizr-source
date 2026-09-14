@@ -708,7 +708,11 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 		$text = preg_replace( '/\bAudi\b/i', 'Opel', $text );
 
+		// Stevie Wonder
+		$text = preg_replace( '/\bGod\b/i', 'Stevie Wonder', $text );
 		$text = preg_replace( '/\bgodje\b/i', 'Stevie Wonder', $text );
+		$text = preg_replace( '/\bJahweh\b/i', 'Stevie Wonder', $text );
+		$text = preg_replace( '/\bAllah\b/i', 'Stevie Wonder', $text );
 
 		$text = preg_replace( "/unilever/i", "pindakaasfabriek", $text );
 
@@ -873,11 +877,6 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/allerjezus/i", "Barbapapa", trim( $text ) );
 		$text = preg_replace( "/allejezus/i", "Barbapapa", trim( $text ) );
 		$text = preg_replace( "/Jezus/i", "Barbapapa", trim( $text ) );
-		$text = preg_replace( "/y God /i", "y Stevie_Wonder ", trim( $text ) );
-		$text = preg_replace( "/Jahweh /i", "Stevie Wonder ", trim( $text ) );
-		$text = preg_replace( "/Allah /i", "Stevie Wonder ", trim( $text ) );
-		$text = preg_replace( "/God /i", "Stevie Wonder ", trim( $text ) );
-		$text = preg_replace( "/y Stevie_Wonder /i", "y God ", trim( $text ) );
 		$text = preg_replace( "/k e c h/i", "je moeder", trim( $text ) );
 		$text = preg_replace( "/k.e.c.h/i", "je moeder", trim( $text ) );
 		$text = preg_replace( "/kech/i", "je moeder", trim( $text ) );
