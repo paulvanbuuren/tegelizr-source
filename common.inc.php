@@ -531,6 +531,41 @@ function replaceWithCaseRespect( string $sentence, string $search, string $repla
 
 // ===================================================================================================================
 
+function clean_sentence( string $sentence ): string {
+	$words = preg_split( '/(\s+)/u', $sentence, - 1, PREG_SPLIT_DELIM_CAPTURE );
+
+	foreach ( $words as &$token ) {
+		if ( trim( $token ) === '' ) {
+			continue; // leave whitespace as-is
+		}
+		$token = clean_word( $token );
+	}
+	unset( $token );
+
+	return implode( '', $words );
+}
+
+// ===================================================================================================================
+
+function clean_word( string $word ): string {
+	// Underscores: always stripped
+	$word = str_replace( '_', '', $word );
+
+	// Dots: stripped only if more than one is present
+	if ( substr_count( $word, '.' ) > 1 ) {
+		$word = str_replace( '.', '', $word );
+	}
+
+	// Hyphens: stripped only if more than one is present
+	if ( substr_count( $word, '-' ) > 1 ) {
+		$word = str_replace( '-', '', $word );
+	}
+
+	return $word;
+}
+
+// ===================================================================================================================
+
 function filtertext( $text = '', $dogeintje = true ) {
 
 	$replacer = '--';
@@ -571,6 +606,8 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text
 	);
 
+
+	$text = clean_sentence( $text );
 
 	// cut off text
 	$text = substr( $text, 0, TEGELIZR_TXT_LENGTH );
@@ -720,11 +757,13 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( '/\bvvd\b/i', 'PVVD', $text );
 
 		// Sletjespartij
-		$text = preg_replace( "/Joost Eerdmans/i", "Henk de Vries", trim( $text ) );
+		$text = preg_replace( "/Joost Eerdmans/i", "jorisslettebak", trim( $text ) );
 		$text = preg_replace( "/ja21/i", "partij voor de wezels", $text );
-		$text = preg_replace( '/\beerdmans\b/i', 'Henk de Vries', trim( $text ) );
-		$text = preg_replace( "/eerd.mans/i", "Henk de Vries", trim( $text ) );
-		// jaja, truus van de sletjespartij
+		$text = preg_replace( '/\beerdmans\b/i', 'jorisslettebak', trim( $text ) );
+		$text = preg_replace( "/eerd.mans/i", "jorisslettebak", trim( $text ) );
+		$text = preg_replace( '/\bjorisslettebak\b/i', 'Joris Slettebak', trim( $text ) );
+
+		// jaja, en dan ook truus van de sletjespartij
 		$text = preg_replace( "/dobbernikker/i", "dobberneger", trim( $text ) );
 		$text = preg_replace( "/dobberneger/i", "wie deze tegel maakte is een minderwaardig mens en een racist", trim( $text ) );
 
