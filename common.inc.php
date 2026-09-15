@@ -709,6 +709,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( '/\bAudi\b/i', 'Opel', $text );
 
 		// Stevie Wonder
+		$text = preg_replace( "/ is god/i", " is best goed", $text );
 		$text = preg_replace( '/\bGod\b/i', 'Stevie Wonder', $text );
 		$text = preg_replace( '/\bgodje\b/i', 'Stevie Wonder', $text );
 		$text = preg_replace( '/\bJahweh\b/i', 'Stevie Wonder', $text );
@@ -716,7 +717,6 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 		$text = preg_replace( "/unilever/i", "pindakaasfabriek", $text );
 
-		$text = preg_replace( "/ is god/i", " is best goed", $text );
 
 		$text = preg_replace( "/tyfus/i", " (zeg, let eens op je taal)", $text );
 		$text = preg_replace( '/\bgodverdomme\b/i', 'jeetjemegrutjes', $text );
@@ -792,6 +792,9 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/scheveningen/i", "Nergenshuizen", trim( $text ) );
 		$text = preg_replace( "/Rob Jetten/i", "Jetten", trim( $text ) );
 		$text = preg_replace( '/\bJetten\b/i', 'Henk de Vries', $text );
+		$text = preg_replace( "/Alexander Pechtold/i", "Henk de Vries", trim( $text ) );
+		$text = preg_replace( "/Pechtold/i", "Henk de Vries", trim( $text ) );
+		$text = preg_replace( "/Pechtolt/i", "Henk de Vries", trim( $text ) );
 
 		// pvv
 		$text = preg_replace( "/Geert Wilders/i", "Zaadslurf", trim( $text ) );
