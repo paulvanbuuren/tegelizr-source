@@ -716,6 +716,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( '/\bAllah\b/i', 'Stevie Wonder', $text );
 
 		$text = preg_replace( "/unilever/i", "pindakaasfabriek", $text );
+		$text = preg_replace( '/\bAjax\b/i', 'Sparta', $text );
 
 
 		$text = preg_replace( "/tyfus/i", " (zeg, let eens op je taal)", $text );
