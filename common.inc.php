@@ -816,6 +816,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( "/Baudet/i", "Lavendelnazi", $text );
 		$text = preg_replace( '/\bkartelliaan\b/i', 'kwartel', trim( $text ) );
 		$text = preg_replace( '/\bkartel\b/i', 'kwartel', trim( $text ) );
+		$text = preg_replace( '/\bremigratie\b/i', 'teringracist', trim( $text ) );
 
 		// prei
 		$text = preg_replace( "/Covid/i", "covid-19", trim( $text ) );
