@@ -312,6 +312,17 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
     $disabled = '';
     $legend   = 'Hoeveel sterren is dit tegeltje waard?';
 
+
+    $file_thumb_parts = explode( '/', $views['file_thumb'] );
+    $last = end($file_thumb_parts);
+
+    if ( isset( $last ) ) {
+        $dateparts = explode( '-', $last );
+        $date      = strftime( '%e %B %Y', strtotime( $dateparts[1] . '/' . $dateparts[2] . '/' . $dateparts[0] ) );
+    } else {
+        $date = '';
+    }
+
     if ( isset( $views[ $userip ] ) ) {
         $legend   = 'Gemiddelde waardering';
         $canvote  = false;
@@ -351,7 +362,11 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
             ?>
             <ul itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-            <li class="view-counter"><?php echo $views[ TEGELIZR_VIEWS ] ?> keer bekeken</li><?php
+            <li class="view-counter"><?php echo $views[ TEGELIZR_VIEWS ] ?> keer bekeken</li>
+            <?php if ( $date ) {
+                echo '<li class="view-date">Datum: ' . $date . '</li>';
+                }
+
 // ===================================================            
             if ( intval( $total_points > 0 ) ) {
                 ?>
