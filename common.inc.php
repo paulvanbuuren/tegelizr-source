@@ -759,8 +759,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 		$text = preg_replace( "/Marc Kaptein/i", "Henk de Vries", trim( $text ) );
 		$text = preg_replace( "/EU-Grandeurs/i", "Henk de Vries", trim( $text ) );
-
-		$text = preg_replace( '/\bvvd\b/i', 'PVVD', $text );
+		
 
 		// Sletjespartij
 		$text = preg_replace( "/Joost Eerdmans/i", "jorisslettebak", trim( $text ) );
@@ -782,7 +781,6 @@ function filtertext( $text = '', $dogeintje = true ) {
 		$text = preg_replace( '/D666/i', 'D66', trim( $text ) );
 		$text = preg_replace( "/D'66/i", "D66", trim( $text ) );
 		$text = preg_replace( "/D666/", "D66", trim( $text ) );
-		$text = preg_replace( "/\bD66\b/i", "die ene partij, hoe heet 'ie ook alweer", trim( $text ) );
 		$text = preg_replace( "/Sigrid Kaag/i", "Henk de Vries", trim( $text ) );
 		$text = preg_replace( "/Jan Paternotte/i", "Henk de Vries", trim( $text ) );
 		$text = preg_replace( "/Bas Paternotte/i", "Je moeder", trim( $text ) );
