@@ -1522,7 +1522,7 @@ function getviews( $filelocation, $update = false ) {
 
 function includejs() {
 	return '
-    <scri' . 'pt src="//code.jquery.com/jquery-latest.min.js"></scri' . 'pt>
+    <scri' . 'pt src="/js/jquery.min.js"></scri' . 'pt>
 ';
 
 }
@@ -1558,56 +1558,6 @@ function spitoutfooter() {
 
 	}
 
-
-	$tijdvandedag = 'ledig';
-
-	/* This sets the $time variable to the current hour in the 24 hour clock format */
-	$time = date( "H" );
-	/* Set the $timezone variable to become the current timezone */
-	$timezone = date( "e" );
-	/* If the time is less than 1200 hours, show good morning */
-	if ( $time >= "6" && $time < "12" ) {
-		$tijdvandedag = 'ochtend';
-	} else {
-		/* If the time is grater than or equal to 1200 hours, but less than 1700 hours, so good afternoon */
-		if ( $time >= "12" && $time < "17" ) {
-			$tijdvandedag = 'middag';
-		} else {
-			/* Should the time be between or equal to 1700 and 1900 hours, show good evening */
-			if ( $time >= "17" && $time < "23" ) {
-				$tijdvandedag = 'avond';
-			} else {
-				/* Finally, show good night if the time is greater than or equal to 1900 hours */
-				$tijdvandedag = 'nacht';
-			}
-		}
-	}
-
-//echo '<h1 style="padding: 5px; background: #fff;">' . $tijdvandedag . '</h1>';
-
-//_gaq.push(['_setCustomVar',
-//      1,                // This custom var is set to slot #1.  Required parameter.
-//      'Member Type',    // The name of the custom variable.  Required parameter.
-//      'Premium',        // The value of the custom variable.  Required parameter.
-//                        //  (possible values might be Free, Bronze, Gold, and Platinum)
-//      1                 // Sets the scope to visitor-level.  Optional parameter.
-// ]); 
-
-	$analytics = '';
-	/*
-		if ( $_SERVER['HTTP_HOST'] == 'tegelizr.nl' || $_SERVER['HTTP_HOST'] == 'tegelizer.nl' || $_SERVER['HTTP_HOST'] == 'wordsofwisdomtile.com' ) {
-			$analytics = "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();
-	a=s.createElement(o),m=s.getElementsByTagName(o)[0];
-	a.async=1;
-	a.src=g;
-	m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-1780046-36', 'auto');
-	ga('set', 'dimension1', '" . $tijdvandedag . "');
-	ga('send', 'pageview');";
-
-		}
-	*/
-
 	// get content for all-actions.js
 	$javascriptcontent = file_get_contents( 'js/min/all-actions-min.js', FILE_USE_INCLUDE_PATH );
 
@@ -1628,7 +1578,7 @@ function spitoutfooter() {
 		$about = '<div id="footer-about"><h3>' . TEGELIZR_ABOUT_THIS_SITE . '</h3><ul>' . $aboutlist . '</ul></div>';
 	}
 
-	return '<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:tegelizr@wbvb.nl">tegelizr@wbvb.nl</a></li><li><a href="https://social.van.buu.re/@paul">Mastodon</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div>' . $about . $form . '</footer><scri' . "pt>" . $analytics . $javascriptcontent . "</scr" . 'ipt></body></html>';
+	return '<footer><div id="footer-contact"><h3>Contact</h3><ul><li><a href="mailto:tegelizr@wbvb.nl">tegelizr@wbvb.nl</a></li><li><a href="https://social.van.buu.re/@paul">Mastodon</a></li><li><a href="https://wbvb.nl/">wbvb.nl</a></li></ul></div>' . $about . $form . '</footer><scri' . "pt>" . $javascriptcontent . "</scr" . 'ipt></body></html>';
 
 }
 

@@ -111,24 +111,24 @@ function swap() {
 
 // ===================================================================================================================
 
-$(document).ready(function() {
+jQuery(document).ready(function() {
 
-$('#totop').addClass('jsinvisible');
-//$('#totop').append(' <span id=\"teller\">xxx</span>');
+jQuery('#totop').addClass('jsinvisible');
+//jQuery('#totop').append(' <span id=\"teller\">xxx</span>');
 
-    $(window).scroll(function() {
+    jQuery(window).scroll(function() {
 
-//        $('#teller').text($(window).scrollTop());
+//        jQuery('#teller').text(jQuery(window).scrollTop());
         
-        if ($(window).scrollTop() > 500) {
+        if (jQuery(window).scrollTop() > 500) {
             // > 100px from top - show div
-            $('#totop').removeClass('jsinvisible');
-            $('#totop').addClass('jsvisible');
+            jQuery('#totop').removeClass('jsinvisible');
+            jQuery('#totop').addClass('jsvisible');
         }
         else {
             // <= 100px from top - hide div
-            $('#totop').addClass('jsinvisible');
-            $('#totop').removeClass('jsvisible');
+            jQuery('#totop').addClass('jsinvisible');
+            jQuery('#totop').removeClass('jsvisible');
         }
     });
 });
