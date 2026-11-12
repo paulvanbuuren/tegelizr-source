@@ -314,7 +314,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
 
     $file_thumb_parts = explode( '/', $views['file_thumb'] );
-    $last = end($file_thumb_parts);
+    $last             = end( $file_thumb_parts );
 
     if ( isset( $last ) ) {
         $dateparts = explode( '-', $last );
@@ -365,7 +365,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
             <li class="view-counter"><?php echo $views[ TEGELIZR_VIEWS ] ?> keer bekeken</li>
             <?php if ( $date ) {
                 echo '<li class="view-date">Datum: ' . $date . '</li>';
-                }
+            }
 
 // ===================================================            
             if ( intval( $total_points > 0 ) ) {
@@ -463,21 +463,21 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
     <script>
 
-        $(document).ready(function () {
+        jQuery(document).ready(function () {
 
-            $('.rate_widget').each(function (i) {
+            jQuery('.rate_widget').each(function (i) {
                 var widget = this;
 
                 var out_data = {
-                    widget_id: $(widget).attr('id'),
+                    widget_id: jQuery(widget).attr('id'),
                     fetch: 1
                 };
 
-                $.post(
+                jQuery.post(
                     '/includes/sterretjes.php',
                     out_data,
                     function (INFO) {
-                        $(".result").data('fsr', INFO);
+                        jQuery(".result").data('fsr', INFO);
                         console.log(' 1 Gezet! ');
                         set_votes(widget);
                     },
@@ -494,40 +494,40 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
             ?>
 
-            var theStiekemeURL = $('.placeholder').attr('href');
+            var theStiekemeURL = jQuery('.placeholder').attr('href');
 
             function ToggleHide(showhide) {
-                $('#home').toggle(showhide);
-                $('#andere').toggle(showhide);
-                $('footer').toggle(showhide);
-                $('nav').toggle(showhide);
-                $('#leuk').toggle(showhide);
-                $('#star_rating').toggle(showhide);
-                $('.social-media').toggle(showhide);
-                $('[itemprop="aggregateRating"]').toggle(showhide);
+                jQuery('#home').toggle(showhide);
+                jQuery('#andere').toggle(showhide);
+                jQuery('footer').toggle(showhide);
+                jQuery('nav').toggle(showhide);
+                jQuery('#leuk').toggle(showhide);
+                jQuery('#star_rating').toggle(showhide);
+                jQuery('.social-media').toggle(showhide);
+                jQuery('[itemprop="aggregateRating"]').toggle(showhide);
 
                 if (showhide) {
 
                     // toon de output
-                    $('.placeholder').attr('href', theStiekemeURL);
-                    $('#top a').attr('href', '/');
-                    $('.placeholder img').css('opacity', '1');
-                    $('.placeholder').removeClass('momentje');
-                    $('.placeholder').remove('#momentje');
-                    $('#progress').remove();
-                    $('#progress_now').remove();
-                    $('#momentje').remove();
+                    jQuery('.placeholder').attr('href', theStiekemeURL);
+                    jQuery('#top a').attr('href', '/');
+                    jQuery('.placeholder img').css('opacity', '1');
+                    jQuery('.placeholder').removeClass('momentje');
+                    jQuery('.placeholder').remove('#momentje');
+                    jQuery('#progress').remove();
+                    jQuery('#progress_now').remove();
+                    jQuery('#momentje').remove();
 
                 } else {
 
                     // toon de placeholder
-                    $('.placeholder').removeAttr('href');
-                    $('#top a').removeAttr('href');
-                    $('.placeholder img').css('opacity', '0');
+                    jQuery('.placeholder').removeAttr('href');
+                    jQuery('#top a').removeAttr('href');
+                    jQuery('.placeholder img').css('opacity', '0');
 
-                    $('.placeholder').addClass('momentje');
-                    $('.placeholder').append('<div id="momentje" class="momentje"><h3><?php echo TEGELIZR_JS_BUSY_MSG_HEADER ?></h3><p><?php echo TEGELIZR_JS_BUSY_MSG ?></p></div>');
-                    $('#momentje').append('<div id="progress_spinner"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div><div class="bounce4"></div></div></div>');
+                    jQuery('.placeholder').addClass('momentje');
+                    jQuery('.placeholder').append('<div id="momentje" class="momentje"><h3><?php echo TEGELIZR_JS_BUSY_MSG_HEADER ?></h3><p><?php echo TEGELIZR_JS_BUSY_MSG ?></p></div>');
+                    jQuery('#momentje').append('<div id="progress_spinner"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div><div class="bounce4"></div></div></div>');
 
 
                 }
@@ -535,7 +535,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
             var vorige = '';
             var volgende = '';
-            var widget = $('#progress');
+            var widget = jQuery('#progress');
             var myNumber = undefined;
             var PROGRESSLENGTH = 584;
             var PROGRESSOPACITY = 1;
@@ -545,7 +545,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
             ToggleHide(false);
 
             var oppoetsscript = {
-                widget_id: $('#progress').attr('id'),
+                widget_id: jQuery('#progress').attr('id'),
                 fetch: 1
             };
 
@@ -581,11 +581,11 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
             function TegelIsKlaar(data_in) {
                 if (data_in.<?php echo TEGELIZR_JS_START_KEY ?> == '<?php echo TEGELIZR_JS_START_MSG ?>') {
-                    $('#progress_now').html(data_in.<?php echo TEGELIZR_JS_START_KEY ?> );
-                    $('#navnextprev').html(data_in.<?php echo TEGELIZR_JS_NAV_NEXTKEY ?> );
+                    jQuery('#progress_now').html(data_in.<?php echo TEGELIZR_JS_START_KEY ?> );
+                    jQuery('#navnextprev').html(data_in.<?php echo TEGELIZR_JS_NAV_NEXTKEY ?> );
                     ToggleHide(true);
                 } else {
-                    $('#progress_now').html('<?php echo TEGELIZR_JS_SCRIPTERROR ?> ');
+                    jQuery('#progress_now').html('<?php echo TEGELIZR_JS_SCRIPTERROR ?> ');
                     ToggleHide(true);
                 }
 
@@ -597,37 +597,37 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
 
 
-            $('.rate_widget label.mag_klikbaar').addClass('is_klikbaar');
+            jQuery('.rate_widget label.mag_klikbaar').addClass('is_klikbaar');
 
-            $('.btn.btn-primary').toggle(false);
+            jQuery('.btn.btn-primary').toggle(false);
 
-            $('.is_klikbaar').hover(
+            jQuery('.is_klikbaar').hover(
                 // Handles the mouseover
                 function () {
-                    $(this).prevAll().andSelf().addClass('ratings_over');
-                    $(this).nextAll().removeClass('ratings_vote');
+                    jQuery(this).prevAll().addBack().addClass('ratings_over');
+                    jQuery(this).nextAll().removeClass('ratings_vote');
                 },
                 // Handles the mouseout
                 function () {
-                    $(this).prevAll().andSelf().removeClass('ratings_over');
+                    jQuery(this).prevAll().addBack().removeClass('ratings_over');
                     // can't use 'this' because it wont contain the updated data
-                    set_votes($(this).parent());
+                    set_votes(jQuery(this).parent());
                 }
             );
 
             // This actually records the vote
-            $('.is_klikbaar').bind('click', function () {
+            jQuery('.is_klikbaar').bind('click', function () {
                 var star = this;
-                var widget = $(this).parent();
+                var widget = jQuery(this).parent();
 
-                $(".result").html('er is geklikt op ' + $(this).html());
+                jQuery(".result").html('er is geklikt op ' + jQuery(this).html());
 
                 var clicked_data = {
                 <?php echo TEGELIZR_RATING_VOTE ?> :
-                $(this).data('starvalue'),
+                jQuery(this).data('starvalue'),
                     widget_id
             :
-                $(star).parent().attr('id')
+                jQuery(star).parent().attr('id')
             }
                 ;
                 $.post(
@@ -635,7 +635,7 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
                     clicked_data,
                     function (INFO) {
                         console.log('er is gescoord');
-                        $(".result").data('fsr', INFO);
+                        jQuery(".result").data('fsr', INFO);
                         set_votes(widget);
                     },
                     'json'
@@ -647,27 +647,36 @@ elseif ( ( $zinnen[1] == TEGELIZR_SELECTOR ) && ( file_exists( $sourcefiles_tege
 
         function set_votes(widget) {
 
-            var ledinges = $(".result").data('fsr');
-            var Dankjewel = ledinges.<?php echo $userip . '_comment' ?>;
+            var ledinges = jQuery(".result").data('fsr');
+            var avg = 0;
+            var votes = 0;
+            var exact = 0;
+            var Dankjewel = '';
 
-            $(".result").html(Dankjewel);
-
-            $('.is_klikbaar').removeClass('is_klikbaar');
-
-            var avg = ledinges.<?php echo rounded_avg ?>;
-            var votes = ledinges.<?php echo TGLZR_NR_VOTES ?>;
-            var exact = ledinges.<?php echo dec_avg ?>;
-
-            if ($('span[itemprop="ratingValue"]').length) {
-                $('span[itemprop="ratingValue"]').html(exact);
-                $('span[itemprop="ratingCount"]').html(votes);
-                $('span.avaragerating').html(avg);
+            if (!ledinges) {
             } else {
-                $('ul[itemprop="aggregateRating"]').append('<li>Totaalscore: <span itemprop="ratingValue">' + exact + '</span></li> <li>Aantal stemmen: <span itemprop="ratingCount">' + exact + '</span></li> <li>Gemiddeld <span class="avaragerating">' + exact + '</span> uit <span itemprop="bestRating">' + exact + '</span></li></li><li>Je kunt niet meer stemmen.</li>');
+                Dankjewel = ledinges.<?php echo $userip . '_comment' ?>;
+                avg = ledinges.<?php echo rounded_avg ?>;
+                votes = ledinges.<?php echo TGLZR_NR_VOTES ?>;
+                exact = ledinges.<?php echo dec_avg ?>;
             }
 
-            $(widget).find('.star_' + avg).prevAll().andSelf().addClass('ratings_vote');
-            $(widget).find('.star_' + avg).nextAll().removeClass('ratings_vote');
+
+            jQuery(".result").html(Dankjewel);
+
+            jQuery('.is_klikbaar').removeClass('is_klikbaar');
+
+
+            if (jQuery('span[itemprop="ratingValue"]').length) {
+                jQuery('span[itemprop="ratingValue"]').html(exact);
+                jQuery('span[itemprop="ratingCount"]').html(votes);
+                jQuery('span.avaragerating').html(avg);
+            } else {
+                jQuery('ul[itemprop="aggregateRating"]').append('<li>Totaalscore: <span itemprop="ratingValue">' + exact + '</span></li> <li>Aantal stemmen: <span itemprop="ratingCount">' + exact + '</span></li> <li>Gemiddeld <span class="avaragerating">' + exact + '</span> uit <span itemprop="bestRating">' + exact + '</span></li></li><li>Je kunt niet meer stemmen.</li>');
+            }
+
+            jQuery(widget).find('.star_' + avg).prevAll().addBack().addClass('ratings_vote');
+            jQuery(widget).find('.star_' + avg).nextAll().removeClass('ratings_vote');
         }
 
     </script>
