@@ -568,7 +568,3 @@ function resize( $newWidth, $targetFile, $originalFile ) {
 
 }
 
-
-?>
-
-
