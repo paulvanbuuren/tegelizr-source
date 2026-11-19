@@ -22,6 +22,11 @@ include( "tegelizr-status.php" );
 
 include( "../mail.inc.php" );
 
+global $sourcefiles_tegelplaatjes;
+global $sourcefiles_tegeldb;
+global $desturl;
+
+
 if ( 'off' === TEGELIZR_ALLOW_NEW_FILES ) {
 	header( "Location: " . TEGELIZR_PROTOCOL . $_SERVER["HTTP_HOST"] . '/' . TEGELIZR_SELECTOR . '/' . TEGELIZR_PAUZE );
 }
@@ -36,6 +41,7 @@ if ( empty( $_GET['txt_tegeltekst'] ) ) {
 // opschonen
 
 function escapeescapers( $sentence = '' ) {
+
 
 	if ( $sentence ) {
 		$zinnen = explode( ' ', $sentence );
@@ -78,8 +84,6 @@ function escapeescapers( $sentence = '' ) {
 							if ( strlen( $volgendwoord ) !== 1 ) {
 								$ookvolgendeiskort = false;
 								break;
-							} else {
-
 							}
 
 							$word .= $volgendwoord;
@@ -91,6 +95,7 @@ function escapeescapers( $sentence = '' ) {
 
 					} else {
 						// het eerste woord in de zin betaat uit 1 letter (bijv. een Engelse zin)
+						echo 'els';
 					}
 				} else {
 
@@ -119,8 +124,6 @@ function escapeescapers( $sentence = '' ) {
 
 				}
 
-//				echo '" is nu: ' . $word . '<br>';
-
 				$counter ++;
 				if ( $word ) {
 					array_push( $nieuwezin, $word );
@@ -135,7 +138,6 @@ function escapeescapers( $sentence = '' ) {
 
 	}
 
-//die('aargh');
 	return $sentence;
 }
 
@@ -382,22 +384,19 @@ if ( ! file_exists( $destimagepath ) && ! file_exists( $desttextpath ) && ! file
 		);
 		$urldeleteme   = $desturl . '/?' . http_build_query( $data );
 		$tralala       = "\n" . '<br><a href="' . $urldeleteme . '" style="display: inline-block; text-decoration: none; padding: .25rem .75rem; background: red; color: white;"><span style="font-size: 2rem">&#9888;</span> verwijder \'' . $titel . '\'</a>';
-//		echo $tralala;
 
-		$mailcontent = "Tekst: \n" . $_GET['txt_tegeltekst'] . "\n";
-		$mailcontent .= "URL: \n";
-		$mailcontent .= $desturl . "\n";
-		$mailcontent .= "IP: \n";
-		$mailcontent .= $boom['remoteip'] . "\n\n";
-		$mailcontent .= "Verwijder tegeltje: \n";
-		$mailcontent .= $urldeleteme . "\n";
-//		$mailcontent .= $urlblockip . "\n\n";
+		$mailcontent  = "<p>Tekst: \n" . $_GET['txt_tegeltekst'] . "</p>\n";
+		$mailcontent .= "<p>URL:<br>\n";
+		$mailcontent .= $desturl . "</p>\n";
+		$mailcontent .= "<p>IP:<br>\n";
+		$mailcontent .= $boom['remoteip'] . "</p>\n";
+		$mailcontent .= "<p>Verwijder tegeltje:<br>\n";
+		$mailcontent .= $urldeleteme . "</p>\n";
 
 		$data['remoteip'] = $boom['remoteip'];
 		$data['action']   = 'block';
 		$urlblockip       = $desturl . '/?' . http_build_query( $data );
-		$tralala          = "\n" . '<br><a href="' . $urlblockip . '" style="display: inline-block; text-decoration: none; padding: .25rem .75rem; background: black; color: white;"><span style="font-size: 2rem">&#10013;</span> Block &amp; verwijder \'' . $titel . '\'</a>';
-//		echo $tralala;
+		$tralala          = "\n" . '<p><a href="' . $urlblockip . '" style="display: inline-block; text-decoration: none; padding: .25rem .75rem; background: black; color: white;"><span style="font-size: 2rem">&#10013;</span> Block &amp; verwijder \'' . $titel . '\'</a></p>';
 
 		$mailcontent .= "\n\nBlock IP en verwijder tegeltje: \n";
 		$mailcontent .= $urlblockip . "\n";
