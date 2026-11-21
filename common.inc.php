@@ -803,6 +803,11 @@ function filtertext( $text = '', $dogeintje = true ) {
 		// Boer'nbedrog brullers
 		$text = preg_replace( "/BBB/i", "bruiden, buiken, baby's", $text );
 
+		// vermoeiend dit
+		$text = preg_replace( "/Wierd Duk/i", "Fiert Wuk", trim( $text ) );
+		$text = preg_replace( '/\bWierd\b/i', 'Woerd', trim( $text ) );
+		$text = preg_replace( '/\bDuk\b/i', 'Duck', trim( $text ) );
+
 		// lavendelnazi's
 		$text = preg_replace( "/f.v.d/i", "FvD", $text );
 		$text = preg_replace( "/f v d/i", "FvD", $text );
