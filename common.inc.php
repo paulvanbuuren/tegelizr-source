@@ -701,6 +701,8 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 		$text = preg_replace( "/Akwasi/i", "Zeeuws Meisje", $text );
 
+		// dinges
+		$text = preg_replace( "/Mo na Keij zer/i", "Mona Keizer", $text );
 		$text = preg_replace( '/\bMona Keizer\b/i', 'Henk de Vries', $text );
 		$text = preg_replace( '/\bMona Keijzer\b/i', 'Henk de Vries', $text );
 		$text = preg_replace( '/\bMonatoetje\b/i', 'Henk de Vries', $text );
