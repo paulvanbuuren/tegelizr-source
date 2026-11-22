@@ -660,6 +660,7 @@ function filtertext( $text = '', $dogeintje = true ) {
 
 		$text = preg_replace( '/\bfriet\b/i', 'patat', trim( $text ) );
 
+		$text = preg_replace( '/\bimmigratie\b/i', 'nazi-geleuter', trim( $text ) );
 		$text = preg_replace( '/\bbevolkingsvervanging\b/i', 'nazi-geleuter', trim( $text ) );
 
 		// van dat volk dat URLs komt lopen plakken...
